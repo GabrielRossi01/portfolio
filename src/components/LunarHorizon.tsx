@@ -111,7 +111,7 @@ export default function LunarHorizon() {
       </div>
 
       {/* Gradient overlay para melhor contraste do texto */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/30 to-black/60 pointer-events-none" />
       
       {/* Hero Content */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center px-4">
@@ -124,7 +124,7 @@ export default function LunarHorizon() {
             <p className="text-lg md:text-xl text-gray-400 mb-4">
               {t.hero.greeting}
             </p>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent drop-shadow-2xl">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-linear-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent drop-shadow-2xl">
               {t.hero.name}
             </h1>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-8 drop-shadow-lg">
@@ -147,7 +147,7 @@ export default function LunarHorizon() {
             >
               <Mail className="w-5 h-5" />
               {t.hero.ctaContact}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 rounded-full bg-linear-to-r from-cyan-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
             </a>
             
             <a
@@ -157,7 +157,7 @@ export default function LunarHorizon() {
             >
               <Download className="w-5 h-5" />
               {t.hero.ctaCV}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 rounded-full bg-linear-to-r from-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
             </a>
           </motion.div>
         </div>

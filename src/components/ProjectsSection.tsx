@@ -157,7 +157,7 @@ export default function ProjectsSection() {
                       priority
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
-                    
+
                     {/* Action Buttons on Image */}
                     <div className="absolute bottom-6 right-6 flex gap-3">
                       <a
@@ -187,7 +187,7 @@ export default function ProjectsSection() {
                     <p className="text-gray-600 dark:text-gray-400 text-lg mb-6 leading-relaxed">
                       {currentProject.description}
                     </p>
-                    
+
                     {/* Tech Tags */}
                     <div className="flex flex-wrap gap-3">
                       {currentProject.tags.map((tag, tagIndex) => (
@@ -214,11 +214,10 @@ export default function ProjectsSection() {
                   setDirection(index > currentIndex ? 1 : -1);
                   setCurrentIndex(index);
                 }}
-                className={`transition-all duration-300 rounded-full ${
-                  index === currentIndex
+                className={`transition-all duration-300 rounded-full ${index === currentIndex
                     ? 'w-12 h-3 bg-linear-to-r from-purple-600 to-blue-600'
                     : 'w-3 h-3 bg-gray-400 dark:bg-gray-600 hover:bg-gray-500 dark:hover:bg-gray-500'
-                }`}
+                  }`}
                 aria-label={`Go to project ${index + 1}`}
               />
             ))}

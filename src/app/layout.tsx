@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
+// import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger.ts";
 import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -20,7 +20,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased">
         <ThemeProvider>
@@ -37,7 +37,7 @@ export default function RootLayout({
               data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
             />
             {children}
-            <VisualEditsMessenger />
+            {/* <VisualEditsMessenger /> */}
           </LanguageProvider>
         </ThemeProvider>
       </body>
