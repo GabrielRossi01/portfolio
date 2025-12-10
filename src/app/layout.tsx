@@ -1,43 +1,22 @@
-import type { Metadata } from "next";
-// import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger.ts";
-import ErrorReporter from "@/components/ErrorReporter";
-import Script from "next/script";
-import { ThemeProvider } from "@/contexts/ThemeContext";
-import { LanguageProvider } from "@/contexts/LanguageContext";
+import './globals.css';
+import { ReactNode } from 'react';
+import Script from 'next/script';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
-export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Modern portfolio showcasing back-end development expertise with liquid glass design",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-      </head>
-      <body className="antialiased">
+    <html lang="en">
+      <body>
         <ThemeProvider>
           <LanguageProvider>
-            <ErrorReporter />
             <Script
-              src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"
+              id="orchids-browser-logs"
+              src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts/orchids-browser-logs.js"
               strategy="afterInteractive"
-              data-target-origin="*"
-              data-message-type="ROUTE_CHANGE"
-              data-include-search-params="true"
-              data-only-in-iframe="true"
-              data-debug="true"
-              data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
+              data-orchids-project-id="02d6cf9d-ad82-43f3-af7b-7bdd238cfacd"
             />
             {children}
-            {/* <VisualEditsMessenger /> */}
           </LanguageProvider>
         </ThemeProvider>
       </body>

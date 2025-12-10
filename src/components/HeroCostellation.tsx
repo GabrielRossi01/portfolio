@@ -33,7 +33,7 @@ export default function HeroConstellation() {
     // Scene setup
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#000000');
-    
+
     const camera = new THREE.PerspectiveCamera(60, containerRef.current.clientWidth / containerRef.current.clientHeight, 0.1, 1000);
     camera.position.z = 8;
 
@@ -66,7 +66,7 @@ export default function HeroConstellation() {
     // Generate nodes
     const nodes: Node[] = [];
     const colors = ['#60a5fa', '#818cf8', '#c084fc', '#22d3ee', '#a78bfa'];
-    
+
     // Central node
     const centralGeometry = new THREE.SphereGeometry(0.4, 32, 32);
     const centralMaterial = new THREE.MeshStandardMaterial({
@@ -96,7 +96,7 @@ export default function HeroConstellation() {
       const height = (Math.random() - 0.5) * 2;
       const nodeSize = 0.15 + Math.random() * 0.1;
       const color = colors[Math.floor(Math.random() * colors.length)];
-      
+
       const nodeGeometry = new THREE.SphereGeometry(nodeSize, 32, 32);
       const nodeMaterial = new THREE.MeshStandardMaterial({
         color: color,
@@ -105,7 +105,7 @@ export default function HeroConstellation() {
         toneMapped: false,
       });
       const nodeMesh = new THREE.Mesh(nodeGeometry, nodeMaterial);
-      
+
       const basePos: [number, number, number] = [
         Math.cos(angle) * radius,
         height,
@@ -113,7 +113,7 @@ export default function HeroConstellation() {
       ];
       nodeMesh.position.set(basePos[0], basePos[1], basePos[2]);
       group.add(nodeMesh);
-      
+
       nodes.push({
         position: new THREE.Vector3(basePos[0], basePos[1], basePos[2]),
         mesh: nodeMesh,
@@ -135,7 +135,7 @@ export default function HeroConstellation() {
           Math.pow(nodes[i].basePosition[1] - nodes[j].basePosition[1], 2) +
           Math.pow(nodes[i].basePosition[2] - nodes[j].basePosition[2], 2)
         );
-        
+
         if (distance < 4) {
           const lineGeometry = new THREE.BufferGeometry().setFromPoints([
             new THREE.Vector3(nodes[i].basePosition[0], nodes[i].basePosition[1], nodes[i].basePosition[2]),
@@ -159,24 +159,24 @@ export default function HeroConstellation() {
     const clock = new THREE.Clock();
     const animate = () => {
       const time = clock.getElapsedTime();
-      
+
       // Rotate group slowly
       group.rotation.y += 0.001;
-      
+
       // Mouse parallax
       group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, mouse.y * 0.2, 0.05);
       group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, mouse.x * 0.2 + time * 0.001, 0.05);
-      
+
       // Animate nodes
       nodes.forEach((node, index) => {
         if (index > 0) { // Skip central node
           node.mesh.rotation.y += 0.005;
           node.mesh.rotation.x += 0.003;
-          
+
           const x = node.basePosition[0] + Math.cos(time * node.orbitSpeed + node.angle) * node.orbitRadius;
           const y = node.basePosition[1] + Math.sin(time * node.orbitSpeed * 0.5 + node.angle) * node.orbitRadius * 0.5;
           const z = node.basePosition[2] + Math.sin(time * node.orbitSpeed + node.angle) * node.orbitRadius;
-          
+
           node.mesh.position.set(x, y, z);
         }
       });

@@ -41,7 +41,7 @@ export default function Earth3D() {
         if (!pointerInteracting.current) {
           phiRef.current += 0.005; // Slow constant rotation
         }
-        
+
         state.phi = -0.8 + phiRef.current + pointerInteractionMovement.current;
         state.theta = 0.4;
         state.width = width * 2;
@@ -50,7 +50,7 @@ export default function Earth3D() {
     });
 
     setTimeout(() => canvasRef.current && (canvasRef.current.style.opacity = '1'));
-    
+
     return () => {
       globe.destroy();
       window.removeEventListener('resize', onResize);

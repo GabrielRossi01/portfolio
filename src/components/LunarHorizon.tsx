@@ -10,7 +10,7 @@ import * as THREE from 'three';
 
 function MoonHorizon() {
   const moonRef = useRef<THREE.Mesh>(null);
-  
+
   useFrame((state, delta) => {
     if (moonRef.current) {
       // Rotação muito lenta para dar sensação de escala massiva
@@ -46,25 +46,25 @@ function MoonHorizon() {
       </mesh>
 
       {/* Rim light intenso - backlight dramático */}
-      <pointLight 
-        position={[0, 2, -15]} 
-        intensity={8} 
+      <pointLight
+        position={[0, 2, -15]}
+        intensity={8}
         color="#00d9ff"
         distance={35}
       />
-      
+
       {/* Segundo rim light para o contorno */}
-      <pointLight 
-        position={[8, 0, -12]} 
-        intensity={5} 
+      <pointLight
+        position={[8, 0, -12]}
+        intensity={5}
         color="#8b5cf6"
         distance={30}
       />
 
       {/* Luz de preenchimento suave */}
-      <pointLight 
-        position={[-5, 5, 10]} 
-        intensity={0.8} 
+      <pointLight
+        position={[-5, 5, 10]}
+        intensity={0.8}
         color="#4a90e2"
         distance={25}
       />
@@ -81,30 +81,30 @@ export default function LunarHorizon() {
       <div className="absolute inset-0">
         <Canvas
           camera={{ position: [0, 0, 15], fov: 60 }}
-          gl={{ 
-            antialias: true, 
+          gl={{
+            antialias: true,
             alpha: true,
             powerPreference: "high-performance"
           }}
         >
           <color attach="background" args={['#000000']} />
-          
+
           {/* Luz ambiente muito suave */}
           <ambientLight intensity={0.05} />
-          
+
           {/* Lua com Horizon */}
           <Suspense fallback={null}>
             <MoonHorizon />
           </Suspense>
 
           {/* Estrelas sutis no espaço profundo */}
-          <Stars 
-            radius={100} 
-            depth={50} 
-            count={3000} 
-            factor={3} 
-            saturation={0} 
-            fade 
+          <Stars
+            radius={100}
+            depth={50}
+            count={3000}
+            factor={3}
+            saturation={0}
+            fade
             speed={0.3}
           />
         </Canvas>
@@ -112,7 +112,7 @@ export default function LunarHorizon() {
 
       {/* Gradient overlay para melhor contraste do texto */}
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/30 to-black/60 pointer-events-none" />
-      
+
       {/* Hero Content */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center px-4">
         <div className="text-center max-w-4xl pointer-events-auto">
@@ -149,7 +149,7 @@ export default function LunarHorizon() {
               {t.hero.ctaContact}
               <div className="absolute inset-0 rounded-full bg-linear-to-r from-cyan-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
             </a>
-            
+
             <a
               href="/cv.pdf"
               download

@@ -69,9 +69,9 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       greeting: 'Olá, eu sou',
-      name: 'Gabriel Rossi',
+      name: 'João Silva',
       title: 'Desenvolvedor Back-End',
-      subtitle: 'Construindo sistemas escaláveis e robustos com Java, Spring Boot e tecnologias cloud',
+      subtitle: 'Construindo sistemas escaláveis e robustos com Node.js, Python e tecnologias cloud',
       ctaContact: 'Entre em Contato',
       ctaCV: 'Baixar CV',
     },

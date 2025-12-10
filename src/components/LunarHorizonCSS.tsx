@@ -1,178 +1,221 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Download, Mail } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useRef, useEffect } from 'react';
 
 export default function LunarHorizonCSS() {
   const { t } = useLanguage();
   const { theme } = useTheme();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const smoothMouseY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const layer1Y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const layer2Y = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
+  const layer3Y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      const x = (clientX - innerWidth / 2) / innerWidth;
+      const y = (clientY - innerHeight / 2) / innerHeight;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
 
   return (
-    <section id="home" className="w-full h-screen relative overflow-hidden">
-      {/* Animated Mesh Gradient Background */}
-      <div className="absolute inset-0">
-        {/* Dark Mode: Deep technological glow */}
-        <div 
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            theme === 'dark' ? 'opacity-100' : 'opacity-0'
-          }`}
+    <section ref={sectionRef} id="home" className="w-full h-screen relative overflow-hidden">
+      <motion.div
+        className="absolute inset-0"
+        style={{ y: backgroundY }}
+      >
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 ${theme === 'dark' ? 'opacity-100' : 'opacity-0'
+            }`}
         >
-          {/* Base dark gradient */}
-          <div className="absolute inset-0 bg-linear-to-r from-[#0a0a1a] via-[#050510] to-[#000000]" />
-          
-          {/* Blurred color orbs - Dark mode */}
+          <div className="absolute inset-0 bg-black" />
+
           <motion.div
-            className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full"
+            className="absolute inset-0"
             style={{
-              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
-              filter: 'blur(80px)',
+              y: layer1Y,
+              x: useTransform(smoothMouseX, [-0.5, 0.5], [15, -15]),
             }}
-            animate={{
-              x: [0, 50, 0],
-              y: [0, 30, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          
+          >
+            <div
+              className="absolute top-[15%] left-[10%] w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full"
+              style={{
+                background: 'radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%)',
+                filter: 'blur(60px)',
+              }}
+            />
+          </motion.div>
+
           <motion.div
-            className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full"
+            className="absolute inset-0"
             style={{
-              background: 'radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%)',
-              filter: 'blur(80px)',
+              y: layer2Y,
+              x: useTransform(smoothMouseX, [-0.5, 0.5], [10, -10]),
             }}
-            animate={{
-              x: [0, -40, 0],
-              y: [0, -30, 0],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          
+          >
+            <div
+              className="absolute bottom-[25%] right-[15%] w-[150px] h-[150px] sm:w-[250px] sm:h-[250px] lg:w-[350px] lg:h-[350px] rounded-full"
+              style={{
+                background: 'radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%)',
+                filter: 'blur(50px)',
+              }}
+            />
+          </motion.div>
+
           <motion.div
-            className="absolute top-1/3 right-1/3 w-[400px] h-[400px] rounded-full"
+            className="absolute bottom-0 left-0 right-0 h-[35%]"
             style={{
-              background: 'radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%)',
-              filter: 'blur(70px)',
+              y: layer3Y,
             }}
-            animate={{
-              x: [0, 30, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
+          >
+            <svg
+              viewBox="0 0 1440 400"
+              className="absolute bottom-0 w-full h-full"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                <linearGradient id="mountainGrad1Dark" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="rgba(20, 20, 20, 0.8)" />
+                  <stop offset="100%" stopColor="rgba(0, 0, 0, 1)" />
+                </linearGradient>
+                <linearGradient id="mountainGrad2Dark" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="rgba(30, 30, 30, 0.6)" />
+                  <stop offset="100%" stopColor="rgba(10, 10, 10, 0.9)" />
+                </linearGradient>
+              </defs>
+              <motion.path
+                d="M0,400 L0,280 Q200,220 400,260 Q600,300 800,240 Q1000,180 1200,220 Q1350,250 1440,230 L1440,400 Z"
+                fill="url(#mountainGrad2Dark)"
+                style={{
+                  translateY: useTransform(smoothMouseY, [-0.5, 0.5], [-10, 10]),
+                }}
+              />
+              <motion.path
+                d="M0,400 L0,320 Q180,280 360,300 Q540,320 720,290 Q900,260 1080,280 Q1260,300 1440,270 L1440,400 Z"
+                fill="url(#mountainGrad1Dark)"
+                style={{
+                  translateY: useTransform(smoothMouseY, [-0.5, 0.5], [-5, 5]),
+                }}
+              />
+            </svg>
+          </motion.div>
         </div>
 
-        {/* Light Mode: Soft pastel glow */}
-        <div 
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            theme === 'light' ? 'opacity-100' : 'opacity-0'
-          }`}
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 ${theme === 'light' ? 'opacity-100' : 'opacity-0'
+            }`}
         >
-          {/* Base light gradient */}
-          <div className="absolute inset-0 bg-linear-to-r from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0]" />
-          
-          {/* Blurred color orbs - Light mode */}
+          <div className="absolute inset-0 bg-linear-to-b from-[#f8f9fa] via-[#ffffff] to-[#f0f0f0]" />
+
           <motion.div
-            className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full"
+            className="absolute inset-0"
             style={{
-              background: 'radial-gradient(circle, rgba(147, 197, 253, 0.2) 0%, transparent 70%)',
-              filter: 'blur(90px)',
+              y: layer1Y,
+              x: useTransform(smoothMouseX, [-0.5, 0.5], [15, -15]),
             }}
-            animate={{
-              x: [0, 50, 0],
-              y: [0, 30, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          
+          >
+            <div
+              className="absolute top-[15%] left-[10%] w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full"
+              style={{
+                background: 'radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%)',
+                filter: 'blur(60px)',
+              }}
+            />
+          </motion.div>
+
           <motion.div
-            className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full"
+            className="absolute inset-0"
             style={{
-              background: 'radial-gradient(circle, rgba(196, 181, 253, 0.15) 0%, transparent 70%)',
-              filter: 'blur(90px)',
+              y: layer2Y,
+              x: useTransform(smoothMouseX, [-0.5, 0.5], [10, -10]),
             }}
-            animate={{
-              x: [0, -40, 0],
-              y: [0, -30, 0],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          
+          >
+            <div
+              className="absolute bottom-[30%] right-[20%] w-[150px] h-[150px] sm:w-[250px] sm:h-[250px] lg:w-[350px] lg:h-[350px] rounded-full"
+              style={{
+                background: 'radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%)',
+                filter: 'blur(50px)',
+              }}
+            />
+          </motion.div>
+
           <motion.div
-            className="absolute top-1/3 right-1/3 w-[400px] h-[400px] rounded-full"
-            style={{
-              background: 'radial-gradient(circle, rgba(165, 243, 252, 0.18) 0%, transparent 70%)',
-              filter: 'blur(80px)',
-            }}
-            animate={{
-              x: [0, 30, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
+            className="absolute bottom-0 left-0 right-0 h-[30%]"
+            style={{ y: layer3Y }}
+          >
+            <svg
+              viewBox="0 0 1440 300"
+              className="absolute bottom-0 w-full h-full"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                <linearGradient id="hillGrad1Light" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="rgba(230, 230, 230, 0.8)" />
+                  <stop offset="100%" stopColor="rgba(245, 245, 245, 1)" />
+                </linearGradient>
+              </defs>
+              <motion.path
+                d="M0,300 L0,200 Q360,150 720,180 Q1080,210 1440,170 L1440,300 Z"
+                fill="url(#hillGrad1Light)"
+                style={{
+                  translateY: useTransform(smoothMouseY, [-0.5, 0.5], [-5, 5]),
+                }}
+              />
+            </svg>
+          </motion.div>
         </div>
 
-        {/* Subtle noise texture overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.015]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
           }}
         />
-      </div>
+      </motion.div>
 
-      {/* Gradient overlay for better text contrast */}
-      <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-transparent pointer-events-none" />
-      
-      {/* Hero Content */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center px-4 z-10">
+      <motion.div
+        className="absolute inset-0 pointer-events-none flex items-center justify-center px-4 sm:px-6 z-10"
+        style={{ opacity: opacityText }}
+      >
         <div className="text-center max-w-4xl pointer-events-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-base sm:text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-3 sm:mb-4">
               {t.hero.greeting}
             </p>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-linear-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-purple-200 dark:to-blue-200 bg-clip-text text-transparent drop-shadow-2xl">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white drop-shadow-2xl">
               {t.hero.name}
             </h1>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800 dark:text-white mb-8 drop-shadow-lg">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-200 mb-6 sm:mb-8 drop-shadow-lg">
               {t.hero.title}
             </h2>
-            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed drop-shadow-md px-4">
               {t.hero.subtitle}
             </p>
           </motion.div>
@@ -181,46 +224,102 @@ export default function LunarHorizonCSS() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4"
           >
             <a
               href="#contact"
-              className="group relative px-8 py-4 rounded-full glass-strong hover:scale-105 transition-all duration-300 flex items-center gap-2 text-gray-900 dark:text-white font-medium shadow-2xl"
+              className="group relative w-full sm:w-auto"
             >
-              <Mail className="w-5 h-5" />
-              {t.hero.ctaContact}
-              <div className="absolute inset-0 rounded-full bg-linear-to-r from-cyan-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: theme === 'dark'
+                      ? 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))'
+                      : 'linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(150, 150, 150, 0.5))',
+                    transform: 'translateY(6px)',
+                    borderRadius: '9999px',
+                  }}
+                />
+                <div
+                  className="relative px-8 sm:px-10 py-3.5 sm:py-4 rounded-full flex items-center justify-center gap-2.5 font-medium text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
+                  style={{
+                    background: theme === 'dark'
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06))'
+                      : 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(245, 245, 240, 0.9))',
+                    backdropFilter: 'blur(20px)',
+                    border: theme === 'dark'
+                      ? '1px solid rgba(255, 255, 255, 0.15)'
+                      : '1px solid rgba(0, 0, 0, 0.08)',
+                    boxShadow: theme === 'dark'
+                      ? 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)'
+                      : 'inset 0 1px 2px rgba(255, 255, 255, 1), inset 0 -1px 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1)',
+                    color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(40, 40, 40, 0.9)',
+                  }}
+                >
+                  <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
+                  {t.hero.ctaContact}
+                </div>
+              </div>
             </a>
-            
+
             <a
               href="/cv.pdf"
               download
-              className="group relative px-8 py-4 rounded-full glass hover:scale-105 transition-all duration-300 flex items-center gap-2 text-gray-900 dark:text-white font-medium border border-gray-300 dark:border-white/20 shadow-2xl"
+              className="group relative w-full sm:w-auto"
             >
-              <Download className="w-5 h-5" />
-              {t.hero.ctaCV}
-              <div className="absolute inset-0 rounded-full bg-linear-to-r from-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: theme === 'dark'
+                      ? 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))'
+                      : 'linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(150, 150, 150, 0.5))',
+                    transform: 'translateY(6px)',
+                    borderRadius: '9999px',
+                  }}
+                />
+                <div
+                  className="relative px-8 sm:px-10 py-3.5 sm:py-4 rounded-full flex items-center justify-center gap-2.5 font-medium text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
+                  style={{
+                    background: theme === 'dark'
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06))'
+                      : 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(245, 245, 240, 0.9))',
+                    backdropFilter: 'blur(20px)',
+                    border: theme === 'dark'
+                      ? '1px solid rgba(255, 255, 255, 0.15)'
+                      : '1px solid rgba(0, 0, 0, 0.08)',
+                    boxShadow: theme === 'dark'
+                      ? 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)'
+                      : 'inset 0 1px 2px rgba(255, 255, 255, 1), inset 0 -1px 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1)',
+                    color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(40, 40, 40, 0.9)',
+                  }}
+                >
+                  <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+                  {t.hero.ctaCV}
+                </div>
+              </div>
             </a>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none z-20"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 pointer-events-none z-20"
+        style={{ opacity: opacityText }}
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-6 h-10 rounded-full border-2 border-gray-400 dark:border-white/30 flex items-start justify-center p-2"
+          className="w-5 h-8 sm:w-6 sm:h-10 rounded-full border-2 border-gray-500 dark:border-white/30 flex items-start justify-center p-1.5 sm:p-2"
         >
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-1.5 h-1.5 rounded-full bg-gray-600 dark:bg-white/50"
+            className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-gray-500 dark:bg-white/50"
           />
         </motion.div>
       </motion.div>

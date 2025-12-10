@@ -8,7 +8,7 @@ export default function HeroSection({ scrollY }: { scrollY: number }) {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <Moon3D scrollY={scrollY} />
-      
+
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

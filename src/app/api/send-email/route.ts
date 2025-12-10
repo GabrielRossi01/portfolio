@@ -1,120 +1,64 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(request: Request) {
-    try {
-        const body = await request.json();
-        const { name, email, message, to } = body;
+export async function POST(request: NextRequest) {
+  try {
+    const { name, email, message } = await request.json();
 
-        if (!name || !email || !message) {
-            return NextResponse.json(
-                { error: "Missing required fields" },
-                { status: 400 }
-            );
-        }
-
-        //Verifica se a API key está configurada
-        if (!process.env.RESEND_API_KEY) {
-            console.error('RESEND_API_KEY is not configured');
-            return NextResponse.json(
-                { error: "Email service not configured" },
-                { status: 500 }
-            );
-        }
-
-        const data = await resend.emails.send({
-            from: 'Portfolio Contact <onboarding@resend.dev>',
-            to: to || 'rossi17006@gmail.com',
-            replyTo: email,
-            subject: `Nova mensagem de contato de ${name}`,
-            html: `
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <style>
-              body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-                line-height: 1.6;
-                color: #333;
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 20px;
-              }
-              .container {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                border-radius: 10px;
-                padding: 30px;
-                color: white;
-              }
-              .content {
-                background: white;
-                color: #333;
-                border-radius: 8px;
-                padding: 25px;
-                margin-top: 20px;
-              }
-              .header {
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 10px;
-              }
-              .label {
-                font-weight: bold;
-                color: #667eea;
-                margin-top: 15px;
-                margin-bottom: 5px;
-              }
-              .message {
-                background: #f7fafc;
-                padding: 15px;
-                border-radius: 5px;
-                border-left: 4px solid #667eea;
-                margin-top: 10px;
-              }
-              .footer {
-                text-align: center;
-                margin-top: 20px;
-                font-size: 12px;
-                opacity: 0.8;
-              }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">📧 Nova Mensagem de Contato</div>
-              <p>Você recebeu uma nova mensagem através do formulário de contato do seu portfólio.</p>
-              
-              <div class="content">
-                <div class="label">👤 Nome:</div>
-                <div>${name}</div>
-                
-                <div class="label">📧 Email:</div>
-                <div>${email}</div>
-                
-                <div class="label">💬 Mensagem:</div>
-                <div class="message">${message.replace(/\n/g, '<br>')}</div>
-              </div>
-              
-              <div class="footer">
-                Esta mensagem foi enviada através do formulário de contato do seu portfólio.
-              </div>
-            </div>
-          </body>
-        </html>
-      `,
-        });
-
-        return NextResponse.json(
-            { sucess: true, data},
-            { status: 200 }
-        );
-    } catch (error) {
-        console.error('Error sending email:', error);
-        return NextResponse.json(
-            { error: 'Failed to send email' },
-            { status: 500 }
-        );
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { error: 'Name, email and message are required' },
+        { status: 400 }
+      );
     }
+
+    const { data, error } = await resend.emails.send({
+      from: 'Portfolio Contact <onboarding@resend.dev>',
+      to: ['rossi17006@gmail.com'],
+      replyTo: email,
+      subject: `New contact from ${name}`,
+      html: `
+        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; overflow: hidden;">
+          <div style="background: linear-gradient(90deg, #8b5cf6, #3b82f6); padding: 24px; text-align: center;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">New Contact Message</h1>
+          </div>
+          <div style="padding: 32px; color: #e2e8f0;">
+            <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+              <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 12px; text-transform: uppercase;">Name</p>
+              <p style="margin: 0; font-size: 18px; font-weight: 600;">${name}</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+              <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 12px; text-transform: uppercase;">Email</p>
+              <p style="margin: 0; font-size: 18px;"><a href="mailto:${email}" style="color: #8b5cf6;">${email}</a></p>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 20px;">
+              <p style="margin: 0 0 8px 0; color: #94a3b8; font-size: 12px; text-transform: uppercase;">Message</p>
+              <p style="margin: 0; font-size: 16px; line-height: 1.6; white-space: pre-wrap;">${message}</p>
+            </div>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); padding: 16px; text-align: center;">
+            <p style="margin: 0; color: #64748b; font-size: 12px;">Sent from your portfolio contact form</p>
+          </div>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error('Resend error:', error);
+      return NextResponse.json(
+        { error: 'Failed to send email' },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ success: true, data });
+  } catch (error) {
+    console.error('API error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
 }
