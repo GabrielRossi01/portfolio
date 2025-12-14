@@ -6,6 +6,7 @@ import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Language } from '@/lib/i18n';
+import AnimatedLogo from './AnimatedLogo';
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
@@ -65,17 +66,18 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block"
+        className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block"
       >
-        <div className="glass-strong rounded-full px-6 py-3 flex items-center gap-2">
+        <div className="glass-strong rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-1.5 sm:gap-2">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-full ${activeSection === link.href.replace('#', '')
+              className={`relative px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors duration-300 rounded-full ${
+                activeSection === link.href.replace('#', '')
                   ? 'text-gray-900 dark:text-white'
                   : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-transparent'
-                }`}
+              }`}
             >
               {activeSection === link.href.replace('#', '') && (
                 <motion.div
@@ -95,22 +97,20 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 md:hidden w-[90%] max-w-sm"
+        className="fixed top-1.5 xs:top-2 sm:top-3 left-1.5 xs:left-2 sm:left-3 right-1.5 xs:right-2 sm:right-3 z-50 md:hidden"
       >
-        <div className="glass-strong rounded-full px-6 py-3 flex items-center justify-between">
-          <span className="text-lg font-bold bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Portfolio
-          </span>
+        <div className="glass-strong rounded-md xs:rounded-lg sm:rounded-xl px-2 xs:px-3 sm:px-4 py-1.5 xs:py-2 sm:py-2.5 flex items-center justify-between gap-2 xs:gap-2.5">
+          <AnimatedLogo className="w-12 xs:w-14 sm:w-16 h-3 xs:h-3.5 sm:h-4 shrink-0" />
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-full hover:bg-transparent transition-all duration-300 text-gray-700 dark:text-white"
+            className="p-0.5 xs:p-1 sm:p-1.5 rounded-sm xs:rounded-md sm:rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 text-gray-700 dark:text-white shrink-0"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <X className="w-6 h-6" />
+              <X className="w-4 xs:w-4.5 sm:w-5 h-4 xs:h-4.5 sm:h-5" />
             ) : (
-              <Menu className="w-6 h-6" />
+              <Menu className="w-4 xs:w-4.5 sm:w-5 h-4 xs:h-4.5 sm:h-5" />
             )}
           </button>
         </div>
@@ -128,29 +128,29 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(false)}
           >
             <div className="absolute inset-0 bg-black/60 backdrop-blur-xl" />
-
+            
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="absolute right-0 top-0 h-full w-[80%] max-w-sm glass-strong border-l border-gray-200 dark:border-white/10"
+              className="absolute right-0 top-0 h-screen w-full xs:w-72 sm:w-80 glass-strong border-l border-gray-200 dark:border-white/10 overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex flex-col h-full p-8">
-                <div className="flex items-center justify-between mb-12">
-                  <span className="text-2xl font-bold bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+              <div className="flex flex-col min-h-full p-3 xs:p-4 sm:p-6">
+                <div className="flex items-center justify-between mb-4 xs:mb-5 sm:mb-6">
+                  <span className="text-sm xs:text-base sm:text-lg font-bold bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent truncate">
                     Menu
                   </span>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 rounded-full hover:bg-transparent transition-all text-gray-700 dark:text-white"
+                    className="p-1 xs:p-1.5 sm:p-2 rounded-md xs:rounded-lg sm:rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all text-gray-700 dark:text-white shrink-0"
                   >
-                    <X className="w-6 h-6" />
+                    <X className="w-4 xs:w-4.5 sm:w-5 h-4 xs:h-4.5 sm:h-5" />
                   </button>
                 </div>
 
-                <nav className="flex flex-col gap-4 flex-1">
+                <nav className="flex flex-col gap-1 xs:gap-1.5 sm:gap-2 flex-1">
                   {navLinks.map((link, index) => (
                     <motion.a
                       key={link.href}
@@ -159,10 +159,11 @@ export default function Navbar() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className={`text-lg font-medium py-3 px-4 rounded-xl transition-all ${activeSection === link.href.replace('#', '')
+                      className={`text-xs xs:text-sm sm:text-base font-medium py-1.5 xs:py-2 sm:py-2.5 px-2.5 xs:px-3 sm:px-4 rounded-md xs:rounded-lg sm:rounded-xl transition-all whitespace-nowrap ${
+                        activeSection === link.href.replace('#', '')
                           ? 'bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white'
-                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-transparent'
-                        }`}
+                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                      }`}
                     >
                       {link.name}
                     </motion.a>
@@ -170,43 +171,43 @@ export default function Navbar() {
                 </nav>
 
                 {/* Theme and Language Controls in Mobile Menu */}
-                <div className="mt-8 space-y-4 border-t border-gray-200 dark:border-white/10 pt-6">
+                <div className="mt-auto space-y-1 xs:space-y-1.5 sm:space-y-2 border-t border-gray-200 dark:border-white/10 pt-3 xs:pt-4 sm:pt-5">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="space-y-4"
+                    className="space-y-1 xs:space-y-1.5 sm:space-y-2"
                   >
                     {/* Theme Switcher */}
                     <button
                       onClick={toggleTheme}
-                      className="w-full flex items-center justify-between py-3 px-4 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-all group"
+                      className="w-full flex items-center justify-between py-1.5 xs:py-2 sm:py-2.5 px-2.5 xs:px-3 sm:px-4 rounded-md xs:rounded-lg sm:rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all group"
                     >
-                      <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Theme</span>
-                      <div className="flex items-center gap-2">
+                      <span className="text-xs xs:text-sm sm:text-sm font-medium text-gray-600 dark:text-gray-300">Theme</span>
+                      <div className="flex items-center gap-1.5 shrink-0">
                         <motion.div
                           initial={false}
                           animate={{ rotate: theme === 'dark' ? 0 : 180 }}
                           transition={{ duration: 0.5, type: 'spring' }}
                         >
                           {theme === 'dark' ? (
-                            <Sun className="w-5 h-5 text-yellow-400" />
+                            <Sun className="w-3.5 xs:w-4 sm:w-5 h-3.5 xs:h-4 sm:h-5 text-yellow-400" />
                           ) : (
-                            <Moon className="w-5 h-5 text-blue-400" />
+                            <Moon className="w-3.5 xs:w-4 sm:w-5 h-3.5 xs:h-4 sm:h-5 text-blue-400" />
                           )}
                         </motion.div>
                       </div>
                     </button>
 
                     {/* Language Switcher */}
-                    <div className="space-y-2">
+                    <div className="space-y-1 xs:space-y-1.5">
                       <button
                         onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-                        className="w-full flex items-center justify-between py-3 px-4 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-all"
+                        className="w-full flex items-center justify-between py-1.5 xs:py-2 sm:py-2.5 px-2.5 xs:px-3 sm:px-4 rounded-md xs:rounded-lg sm:rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all"
                       >
-                        <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Language</span>
-                        <div className="flex items-center gap-2">
-                          <Globe className="w-5 h-5 text-cyan-400" />
+                        <span className="text-xs xs:text-sm sm:text-sm font-medium text-gray-600 dark:text-gray-300">Language</span>
+                        <div className="flex items-center gap-1 xs:gap-1.5 shrink-0">
+                          <Globe className="w-3.5 xs:w-4 sm:w-5 h-3.5 xs:h-4 sm:h-5 text-cyan-400" />
                           <span className="text-xs font-bold text-gray-900 dark:text-white">{language}</span>
                         </div>
                       </button>
@@ -220,7 +221,7 @@ export default function Navbar() {
                             exit={{ opacity: 0, height: 0 }}
                             className="overflow-hidden"
                           >
-                            <div className="ml-4 space-y-2">
+                            <div className="ml-1 xs:ml-2 space-y-0.5">
                               {languages.map((lang) => (
                                 <button
                                   key={lang.code}
@@ -228,10 +229,11 @@ export default function Navbar() {
                                     setLanguage(lang.code);
                                     setLanguageDropdownOpen(false);
                                   }}
-                                  className={`w-full text-left py-2 px-4 rounded-lg transition-all ${language === lang.code
+                                  className={`w-full text-left py-1 xs:py-1.5 px-2.5 xs:px-3 rounded-sm xs:rounded-md transition-all text-xs ${
+                                    language === lang.code
                                       ? 'bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white font-bold'
                                       : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
-                                    }`}
+                                  }`}
                                 >
                                   {lang.label}
                                 </button>

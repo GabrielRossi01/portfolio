@@ -6,8 +6,8 @@ import { LanguageProvider } from '@/contexts/LanguageContext';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="pt-BR">
+      <body className="font-sans antialiased">
         <ThemeProvider>
           <LanguageProvider>
             <Script

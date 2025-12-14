@@ -6,6 +6,7 @@ import LunarHorizonCSS from '@/components/LunarHorizonCSS';
 import TechStackMarquee from '@/components/TechStackMarquee';
 import AboutSection from '@/components/AboutSection';
 import ProjectsSection from '@/components/ProjectsSection';
+import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <TechStackMarquee />
       <AboutSection />
       <ProjectsSection />
+      <ContactSection />
       <Footer />
     </main>
   );

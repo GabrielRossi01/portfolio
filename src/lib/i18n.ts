@@ -69,7 +69,7 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       greeting: 'Olá, eu sou',
-      name: 'João Silva',
+      name: 'Gabriel Rossi',
       title: 'Desenvolvedor Back-End',
       subtitle: 'Construindo sistemas escaláveis e robustos com Node.js, Python e tecnologias cloud',
       ctaContact: 'Entre em Contato',
@@ -126,7 +126,7 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       greeting: 'Hello, I am',
-      name: 'John Silva',
+      name: 'Gabriel Rossi',
       title: 'Back-End Developer',
       subtitle: 'Building scalable and robust systems with Node.js, Python and cloud technologies',
       ctaContact: 'Get in Touch',
@@ -183,7 +183,7 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       greeting: 'Hola, soy',
-      name: 'João Silva',
+      name: 'Gabriel Rossi',
       title: 'Desarrollador Back-End',
       subtitle: 'Construyendo sistemas escalables y robustos con Node.js, Python y tecnologías cloud',
       ctaContact: 'Contactar',

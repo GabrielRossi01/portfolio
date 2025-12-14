@@ -25,23 +25,20 @@ export default function Earth3D() {
       phi: -0.8,
       theta: 0.4,
       dark: 1,
-      diffuse: 1.2,
+      diffuse: 1.5,
       mapSamples: 16000,
-      mapBrightness: 6,
-      baseColor: [0.1, 0.1, 0.15],
-      markerColor: [0.13, 0.77, 0.37],
-      glowColor: [0.29, 0.51, 0.96],
+      mapBrightness: 8,
+      baseColor: [0.08, 0.08, 0.12],
+      markerColor: [0.2, 0.8, 0.4],
+      glowColor: [0.1, 0.6, 1],
       markers: [
-        { location: [-23.5505, -46.6333], size: 0.1 },
-        { location: [-22.9068, -43.1729], size: 0.08 },
-        { location: [-15.8267, -47.9218], size: 0.08 },
+        { location: [-23.5505, -46.6333], size: 0.08 },
       ],
       onRender: (state) => {
-        // Automatic rotation when not interacting
         if (!pointerInteracting.current) {
-          phiRef.current += 0.005; // Slow constant rotation
+          phiRef.current += 0.005;
         }
-
+        
         state.phi = -0.8 + phiRef.current + pointerInteractionMovement.current;
         state.theta = 0.4;
         state.width = width * 2;
@@ -50,7 +47,7 @@ export default function Earth3D() {
     });
 
     setTimeout(() => canvasRef.current && (canvasRef.current.style.opacity = '1'));
-
+    
     return () => {
       globe.destroy();
       window.removeEventListener('resize', onResize);
@@ -59,7 +56,7 @@ export default function Earth3D() {
 
   return (
     <div className="w-full h-full relative">
-      <div className="w-full h-full glass rounded-2xl overflow-hidden flex items-center justify-center">
+      <div className="w-full h-full rounded-2xl border-2 overflow-hidden flex items-center justify-center bg-linear-to-b from-gray-900 via-slate-900 to-black">
         <canvas
           ref={canvasRef}
           onPointerDown={(e) => {
@@ -105,14 +102,14 @@ export default function Earth3D() {
       </div>
 
       {/* Location Badge */}
-      <div className="absolute bottom-4 left-4 flex items-center gap-2 glass-bubble px-3 py-2 rounded-full">
-        <MapPin className="w-4 h-4 text-cyan-400" />
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+      <div className="absolute bottom-4 left-4 xs:bottom-6 xs:left-6 flex items-center gap-2 backdrop-blur-md bg-black/40 px-4 py-3 xs:px-5 xs:py-3 rounded-full border border-white/10 hover:border-white/20 transition-colors">
+        <MapPin className="w-4 h-4 xs:w-5 xs:h-5 text-emerald-400" />
+        <div className="flex flex-col gap-0.5">
+          <span className="text-xs xs:text-xs text-gray-400 uppercase tracking-wider font-semibold">
             Remote
           </span>
-          <span className="text-xs font-bold text-gray-900 dark:text-white">
-            Brasil
+          <span className="text-xs xs:text-sm font-bold text-white">
+            Sao Paulo
           </span>
         </div>
       </div>

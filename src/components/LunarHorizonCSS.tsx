@@ -1,20 +1,15 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Download, Mail } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 
 export default function LunarHorizonCSS() {
   const { t } = useLanguage();
   const { theme } = useTheme();
   const sectionRef = useRef<HTMLElement>(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const smoothMouseY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -27,40 +22,24 @@ export default function LunarHorizonCSS() {
   const layer3Y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      const x = (clientX - innerWidth / 2) / innerWidth;
-      const y = (clientY - innerHeight / 2) / innerHeight;
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
-
   return (
-    <section ref={sectionRef} id="home" className="w-full h-screen relative overflow-hidden">
-      <motion.div
+    <section ref={sectionRef} id="home" className="w-full min-h-screen sm:h-screen relative overflow-hidden">
+      <motion.div 
         className="absolute inset-0"
         style={{ y: backgroundY }}
       >
-        <div
-          className={`absolute inset-0 transition-opacity duration-1000 ${theme === 'dark' ? 'opacity-100' : 'opacity-0'
-            }`}
+        <div 
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            theme === 'dark' ? 'opacity-100' : 'opacity-0'
+          }`}
         >
           <div className="absolute inset-0 bg-black" />
-
+          
           <motion.div
             className="absolute inset-0"
-            style={{
-              y: layer1Y,
-              x: useTransform(smoothMouseX, [-0.5, 0.5], [15, -15]),
-            }}
+            style={{ y: layer1Y }}
           >
-            <div
+            <div 
               className="absolute top-[15%] left-[10%] w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full"
               style={{
                 background: 'radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%)',
@@ -68,13 +47,10 @@ export default function LunarHorizonCSS() {
               }}
             />
           </motion.div>
-
+          
           <motion.div
             className="absolute inset-0"
-            style={{
-              y: layer2Y,
-              x: useTransform(smoothMouseX, [-0.5, 0.5], [10, -10]),
-            }}
+            style={{ y: layer2Y }}
           >
             <div
               className="absolute bottom-[25%] right-[15%] w-[150px] h-[150px] sm:w-[250px] sm:h-[250px] lg:w-[350px] lg:h-[350px] rounded-full"
@@ -87,9 +63,7 @@ export default function LunarHorizonCSS() {
 
           <motion.div
             className="absolute bottom-0 left-0 right-0 h-[35%]"
-            style={{
-              y: layer3Y,
-            }}
+            style={{ y: layer3Y }}
           >
             <svg
               viewBox="0 0 1440 400"
@@ -106,55 +80,44 @@ export default function LunarHorizonCSS() {
                   <stop offset="100%" stopColor="rgba(10, 10, 10, 0.9)" />
                 </linearGradient>
               </defs>
-              <motion.path
+              <path
                 d="M0,400 L0,280 Q200,220 400,260 Q600,300 800,240 Q1000,180 1200,220 Q1350,250 1440,230 L1440,400 Z"
                 fill="url(#mountainGrad2Dark)"
-                style={{
-                  translateY: useTransform(smoothMouseY, [-0.5, 0.5], [-10, 10]),
-                }}
               />
-              <motion.path
+              <path
                 d="M0,400 L0,320 Q180,280 360,300 Q540,320 720,290 Q900,260 1080,280 Q1260,300 1440,270 L1440,400 Z"
                 fill="url(#mountainGrad1Dark)"
-                style={{
-                  translateY: useTransform(smoothMouseY, [-0.5, 0.5], [-5, 5]),
-                }}
               />
             </svg>
           </motion.div>
         </div>
 
-        <div
-          className={`absolute inset-0 transition-opacity duration-1000 ${theme === 'light' ? 'opacity-100' : 'opacity-0'
-            }`}
+        <div 
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            theme === 'light' ? 'opacity-100' : 'opacity-0'
+          }`}
         >
           <div className="absolute inset-0 bg-linear-to-b from-[#f8f9fa] via-[#ffffff] to-[#f0f0f0]" />
-
+          
           <motion.div
             className="absolute inset-0"
-            style={{
-              y: layer1Y,
-              x: useTransform(smoothMouseX, [-0.5, 0.5], [15, -15]),
-            }}
+            style={{ y: layer1Y }}
           >
-            <div
-              className="absolute top-[15%] left-[10%] w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full"
+            <div 
+              className="absolute top-[15%] left-[5%] xs:left-[8%] sm:left-[10%] w-[100px] h-[100px] xs:w-[150px] xs:h-[150px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full"
               style={{
                 background: 'radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%)',
                 filter: 'blur(60px)',
               }}
             />
           </motion.div>
-
+          
           <motion.div
             className="absolute inset-0"
-            style={{
-              y: layer2Y,
-              x: useTransform(smoothMouseX, [-0.5, 0.5], [10, -10]),
-            }}
+            style={{ y: layer2Y }}
           >
             <div
-              className="absolute bottom-[30%] right-[20%] w-[150px] h-[150px] sm:w-[250px] sm:h-[250px] lg:w-[350px] lg:h-[350px] rounded-full"
+              className="absolute bottom-[25%] right-[10%] xs:right-[15%] sm:right-[20%] w-[100px] h-[100px] xs:w-[150px] xs:h-[150px] sm:w-[250px] sm:h-[250px] lg:w-[350px] lg:h-[350px] rounded-full"
               style={{
                 background: 'radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%)',
                 filter: 'blur(50px)',
@@ -177,26 +140,23 @@ export default function LunarHorizonCSS() {
                   <stop offset="100%" stopColor="rgba(245, 245, 245, 1)" />
                 </linearGradient>
               </defs>
-              <motion.path
+              <path
                 d="M0,300 L0,200 Q360,150 720,180 Q1080,210 1440,170 L1440,300 Z"
                 fill="url(#hillGrad1Light)"
-                style={{
-                  translateY: useTransform(smoothMouseY, [-0.5, 0.5], [-5, 5]),
-                }}
               />
             </svg>
           </motion.div>
         </div>
 
-        <div
+        <div 
           className="absolute inset-0 opacity-[0.015]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
           }}
         />
       </motion.div>
-
-      <motion.div
+      
+      <motion.div 
         className="absolute inset-0 pointer-events-none flex items-center justify-center px-4 sm:px-6 z-10"
         style={{ opacity: opacityText }}
       >
@@ -206,24 +166,52 @@ export default function LunarHorizonCSS() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <p className="text-base sm:text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-3 sm:mb-4">
+            <motion.p 
+              className="text-base sm:text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-3 sm:mb-4"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
               {t.hero.greeting}
-            </p>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white drop-shadow-2xl">
+            </motion.p>
+            
+            <motion.h1 
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white drop-shadow-2xl"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 0.7,
+                type: "spring",
+                stiffness: 100
+              }}
+            >
               {t.hero.name}
-            </h1>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-200 mb-6 sm:mb-8 drop-shadow-lg">
+            </motion.h1>
+            
+            <motion.h2 
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-200 mb-6 sm:mb-8 drop-shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+            >
               {t.hero.title}
-            </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed drop-shadow-md px-4">
+            </motion.h2>
+            
+            <motion.p 
+              className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed drop-shadow-md px-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+            >
               {t.hero.subtitle}
-            </p>
+            </motion.p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 1.3 }}
             className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4"
           >
             <a
@@ -231,17 +219,17 @@ export default function LunarHorizonCSS() {
               className="group relative w-full sm:w-auto"
             >
               <div className="relative">
-                <div
+                <div 
                   className="absolute inset-0 rounded-full"
                   style={{
-                    background: theme === 'dark'
+                    background: theme === 'dark' 
                       ? 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))'
                       : 'linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(150, 150, 150, 0.5))',
                     transform: 'translateY(6px)',
                     borderRadius: '9999px',
                   }}
                 />
-                <div
+                <div 
                   className="relative px-8 sm:px-10 py-3.5 sm:py-4 rounded-full flex items-center justify-center gap-2.5 font-medium text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
                   style={{
                     background: theme === 'dark'
@@ -262,24 +250,24 @@ export default function LunarHorizonCSS() {
                 </div>
               </div>
             </a>
-
+            
             <a
               href="/cv.pdf"
               download
               className="group relative w-full sm:w-auto"
             >
               <div className="relative">
-                <div
+                <div 
                   className="absolute inset-0 rounded-full"
                   style={{
-                    background: theme === 'dark'
+                    background: theme === 'dark' 
                       ? 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))'
                       : 'linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(150, 150, 150, 0.5))',
                     transform: 'translateY(6px)',
                     borderRadius: '9999px',
                   }}
                 />
-                <div
+                <div 
                   className="relative px-8 sm:px-10 py-3.5 sm:py-4 rounded-full flex items-center justify-center gap-2.5 font-medium text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
                   style={{
                     background: theme === 'dark'
@@ -302,26 +290,6 @@ export default function LunarHorizonCSS() {
             </a>
           </motion.div>
         </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.2 }}
-        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 pointer-events-none z-20"
-        style={{ opacity: opacityText }}
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-5 h-8 sm:w-6 sm:h-10 rounded-full border-2 border-gray-500 dark:border-white/30 flex items-start justify-center p-1.5 sm:p-2"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-gray-500 dark:bg-white/50"
-          />
-        </motion.div>
       </motion.div>
     </section>
   );

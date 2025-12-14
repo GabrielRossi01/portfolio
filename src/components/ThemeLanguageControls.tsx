@@ -20,32 +20,28 @@ export default function ThemeLanguageControls() {
 
   return (
     <>
-      {/* Desktop: Fixed top-right */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
         className="fixed top-6 right-6 z-50 hidden md:block"
       >
-        {/* Liquid Glass Container */}
         <div className="relative">
-          {/* Glossy effect with multiple layers */}
-          <div className="absolute inset-0 rounded-xl bg-linear-to-br from-white/10 via-white/5 to-transparent blur-xl" />
-          <div className="absolute inset-0 rounded-xl bg-linear-to-tl from-blue-500/10 via-purple-500/5 to-transparent" />
-
-          {/* Main container with liquid glass effect */}
-          <div className="relative glass-strong rounded-xl p-1.5 flex items-center gap-1 border border-white/20 shadow-2xl backdrop-blur-3xl">
-            {/* Inner glow */}
-            <div className="absolute inset-0 rounded-xl bg-linear-to-br from-purple-500/5 via-blue-500/5 to-cyan-500/5" />
-
+          <div 
+            className="relative rounded-xl p-1.5 flex items-center gap-1"
+            style={{
+              background: 'rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(30px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 2px 4px 0 rgba(255, 255, 255, 0.08)',
+            }}
+          >
             <div className="relative flex items-center gap-1">
-              {/* Theme Switcher */}
               <button
                 onClick={toggleTheme}
                 className="relative p-2 rounded-lg hover:bg-white/10 transition-all duration-300 group overflow-hidden z-50"
                 aria-label="Toggle theme"
               >
-                <div className="absolute inset-0 bg-linear-to-r from-yellow-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <motion.div
                   initial={false}
                   animate={{ rotate: theme === 'dark' ? 0 : 180 }}
@@ -62,18 +58,15 @@ export default function ThemeLanguageControls() {
 
               <div className="h-5 w-px bg-linear-to-b from-transparent via-white/20 to-transparent" />
 
-              {/* Language Switcher */}
               <div className="relative z-50">
                 <button
                   onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
                   className="relative p-2 rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center group overflow-hidden"
                   aria-label="Change language"
                 >
-                  <div className="absolute inset-0 bg-linear-to-r from-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Globe className="w-4 h-4 text-cyan-400 drop-shadow-lg relative z-10" />
+                  <Globe className="w-4 h-4 text-white-400 drop-shadow-lg relative z-10" />
                 </button>
 
-                {/* Language Dropdown */}
                 <AnimatePresence>
                   {languageDropdownOpen && (
                     <motion.div
@@ -83,11 +76,16 @@ export default function ThemeLanguageControls() {
                       transition={{ duration: 0.2 }}
                       className="absolute top-full mt-2 right-0 min-w-[100px] overflow-visible z-50"
                     >
-                      {/* Liquid glass dropdown */}
                       <div className="relative">
-                        <div className="absolute inset-0 rounded-lg bg-linear-to-br from-white/10 via-white/5 to-transparent blur-xl" />
-                        <div className="relative glass-strong rounded-lg border border-white/20 shadow-2xl backdrop-blur-3xl overflow-hidden">
-                          <div className="absolute inset-0 bg-linear-to-br from-purple-500/5 via-blue-500/5 to-cyan-500/5" />
+                        <div 
+                          className="relative rounded-lg overflow-hidden"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            backdropFilter: 'blur(30px)',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 2px 4px 0 rgba(255, 255, 255, 0.08)',
+                          }}
+                        >
                           {languages.map((lang) => (
                             <button
                               key={lang.code}
@@ -95,10 +93,10 @@ export default function ThemeLanguageControls() {
                                 setLanguage(lang.code);
                                 setLanguageDropdownOpen(false);
                               }}
-                              className={`relative w-full px-3 py-2 text-xs text-left hover:bg-white/10 transition-all group ${language === lang.code ? 'text-white font-bold' : 'text-gray-300'
-                                }`}
+                              className={`relative w-full px-3 py-2 text-xs text-left hover:bg-white/10 transition-all group ${
+                                language === lang.code ? 'text-white font-medium' : 'text-gray-300'
+                              }`}
                             >
-                              <div className="absolute inset-0 bg-linear-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                               <span className="relative z-10">{lang.label}</span>
                             </button>
                           ))}
