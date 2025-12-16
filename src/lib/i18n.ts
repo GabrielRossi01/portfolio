@@ -55,6 +55,8 @@ export interface Translations {
     messagePlaceholder: string;
     sendButton: string;
     rights: string;
+    quickLinks: string;
+    socialLinks: string;
   };
 }
 
@@ -89,7 +91,7 @@ export const translations: Record<Language, Translations> = {
       collaboration: 'Colaboração',
       collaborationTitle: 'Priorizo a colaboração com clientes, promovendo comunicação aberta',
       timezone: 'Comunicação de Fuso Horário',
-      timezoneTitle: 'Baseado no Brasil, disponível para colaboração global',
+      timezoneTitle: 'Localizado no Brasil, disponível para colaboração global',
       passionate: 'Apaixonado por tecnologias de ponta',
       github: 'Contribuindo com projetos no GitHub',
       githubDesc: 'Código aberto e colaboração',
@@ -101,7 +103,7 @@ export const translations: Record<Language, Translations> = {
       projectsCompleted: 'Projetos Concluídos',
     },
     projects: {
-      title: 'Projetos',
+      title: 'Projetos em Destaque',
       subtitle: 'Alguns dos meus trabalhos recentes',
       viewProject: 'Ver Projeto',
       viewDemo: 'Ver Demo',
@@ -114,6 +116,8 @@ export const translations: Record<Language, Translations> = {
       messagePlaceholder: 'Sua mensagem...',
       sendButton: 'Enviar Mensagem',
       rights: 'Todos os direitos reservados.',
+      quickLinks: 'Links Rápidos',
+      socialLinks: 'Redes Sociais',
     },
   },
   'en': {
@@ -146,7 +150,7 @@ export const translations: Record<Language, Translations> = {
       collaboration: 'Collaboration',
       collaborationTitle: 'I prioritize client collaboration, fostering open communication',
       timezone: 'Time Zone Communications',
-      timezoneTitle: 'Based in Brazil, available for global collaboration',
+      timezoneTitle: 'Located in Brazil, available for global collaboration',
       passionate: 'Passionate about cutting-edge technologies',
       github: 'Contributing to projects on GitHub',
       githubDesc: 'Open source and collaboration',
@@ -158,7 +162,7 @@ export const translations: Record<Language, Translations> = {
       projectsCompleted: 'Projects Completed',
     },
     projects: {
-      title: 'Projects',
+      title: 'Featured Projects',
       subtitle: 'Some of my recent work',
       viewProject: 'View Project',
       viewDemo: 'View Demo',
@@ -170,8 +174,8 @@ export const translations: Record<Language, Translations> = {
       emailPlaceholder: 'your@email.com',
       messagePlaceholder: 'Your message...',
       sendButton: 'Send Message',
-      rights: 'All rights reserved.',
-    },
+      rights: 'All rights reserved.',      quickLinks: 'Quick Links',
+      socialLinks: 'Social Links',    },
   },
   'es': {
     nav: {
@@ -203,7 +207,7 @@ export const translations: Record<Language, Translations> = {
       collaboration: 'Colaboración',
       collaborationTitle: 'Priorizo la colaboración con clientes, fomentando la comunicación abierta',
       timezone: 'Comunicaciones de Zona Horaria',
-      timezoneTitle: 'Ubicado en Brasil, disponible para colaboración global',
+      timezoneTitle: 'Situado en Brasil, disponible para colaboración global',
       passionate: 'Apasionado por tecnologías de vanguardia',
       github: 'Contribuyendo a proyectos en GitHub',
       githubDesc: 'Código abierto y colaboración',
@@ -215,7 +219,7 @@ export const translations: Record<Language, Translations> = {
       projectsCompleted: 'Proyectos Completados',
     },
     projects: {
-      title: 'Proyectos',
+      title: 'Proyectos Destacados',
       subtitle: 'Algunos de mis trabajos recientes',
       viewProject: 'Ver Proyecto',
       viewDemo: 'Ver Demo',
@@ -228,6 +232,8 @@ export const translations: Record<Language, Translations> = {
       messagePlaceholder: 'Tu mensaje...',
       sendButton: 'Enviar Mensaje',
       rights: 'Todos los derechos reservados.',
+      quickLinks: 'Enlaces Rápidos',
+      socialLinks: 'Redes Sociales',
     },
   },
 };

@@ -3,10 +3,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
+import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Language } from '@/lib/i18n';
-import AnimatedLogo from './AnimatedLogo';
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
@@ -61,6 +61,28 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Desktop Logo - Canto Superior Esquerdo */}
+      <motion.div
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-50 hidden md:block"
+      >
+        <a href="#home" className="block group">
+          <div className="p-2.5 sm:p-3">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+              <Image
+                src="/GR.svg"
+                alt="Gabriel Rossi Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </div>
+        </a>
+      </motion.div>
+
       {/* Desktop Navbar */}
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
@@ -68,7 +90,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block"
       >
-        <div className="glass-strong rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-1.5 sm:gap-2">
+        <div className="glass-liquid rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-1.5 sm:gap-2">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -92,6 +114,80 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
+      {/* Desktop Theme & Language Controls - Canto Superior Direito */}
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="fixed top-4 sm:top-6 right-4 sm:right-6 z-50 hidden md:flex items-center gap-2"
+      >
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="glass-liquid rounded-full p-2.5 sm:p-3 hover:bg-white/10 transition-all duration-300 hover:scale-110"
+          aria-label="Toggle theme"
+        >
+          <motion.div
+            initial={false}
+            animate={{ rotate: theme === 'dark' ? 0 : 180 }}
+            transition={{ duration: 0.5, type: 'spring' }}
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-5 h-5 text-yellow-400" />
+            ) : (
+              <Moon className="w-5 h-5 text-blue-400" />
+            )}
+          </motion.div>
+        </button>
+
+        {/* Language Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
+            className="glass-liquid rounded-full p-2.5 sm:p-3 hover:bg-white/10 transition-all duration-300 hover:scale-110"
+            aria-label="Change language"
+          >
+            <Globe className="w-5 h-5 text-gray-700 dark:text-white" />
+          </button>
+
+          <AnimatePresence>
+            {languageDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute top-full right-0 mt-2 glass-liquid rounded-xl overflow-hidden min-w-[100px]"
+              >
+                {languages.map((lang) => {
+                  const flagMap: { [key in Language]: string } = {
+                    'pt-BR': '🇧🇷',
+                    'en': '🇺🇸',
+                    'es': '🇪🇸',
+                  };
+                  return (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code);
+                        setLanguageDropdownOpen(false);
+                      }}
+                      className={`w-full text-left py-2.5 px-4 text-sm transition-all flex items-center gap-2 ${
+                        language === lang.code
+                          ? 'bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white font-bold'
+                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                      }`}
+                    >
+                      <span className="text-lg">{flagMap[lang.code]}</span>
+                      <span>{lang.label}</span>
+                    </button>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.div>
+
       {/* Mobile Navbar */}
       <motion.div
         initial={{ y: -100, opacity: 0 }}
@@ -99,8 +195,18 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="fixed top-1.5 xs:top-2 sm:top-3 left-1.5 xs:left-2 sm:left-3 right-1.5 xs:right-2 sm:right-3 z-50 md:hidden"
       >
-        <div className="glass-strong rounded-md xs:rounded-lg sm:rounded-xl px-2 xs:px-3 sm:px-4 py-1.5 xs:py-2 sm:py-2.5 flex items-center justify-between gap-2 xs:gap-2.5">
-          <AnimatedLogo className="w-12 xs:w-14 sm:w-16 h-3 xs:h-3.5 sm:h-4 shrink-0" />
+        <div className="glass-liquid rounded-md xs:rounded-lg sm:rounded-xl px-2 xs:px-3 sm:px-4 py-1.5 xs:py-2 sm:py-2.5 flex items-center justify-between gap-2 xs:gap-2.5">
+          <a href="#home" className="shrink-0">
+            <div className="relative w-8 xs:w-9 sm:w-10 h-8 xs:h-9 sm:h-10">
+              <Image
+                src="/GR.svg"
+                alt="Gabriel Rossi Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </a>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -134,7 +240,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="absolute right-0 top-0 h-screen w-full xs:w-72 sm:w-80 glass-strong border-l border-gray-200 dark:border-white/10 overflow-y-auto"
+              className="absolute right-0 top-0 h-screen w-full xs:w-72 sm:w-80 glass-liquid border-l border-gray-200 dark:border-white/10 overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex flex-col min-h-full p-3 xs:p-4 sm:p-6">
@@ -206,10 +312,7 @@ export default function Navbar() {
                         className="w-full flex items-center justify-between py-1.5 xs:py-2 sm:py-2.5 px-2.5 xs:px-3 sm:px-4 rounded-md xs:rounded-lg sm:rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all"
                       >
                         <span className="text-xs xs:text-sm sm:text-sm font-medium text-gray-600 dark:text-gray-300">Language</span>
-                        <div className="flex items-center gap-1 xs:gap-1.5 shrink-0">
-                          <Globe className="w-3.5 xs:w-4 sm:w-5 h-3.5 xs:h-4 sm:h-5 text-cyan-400" />
-                          <span className="text-xs font-bold text-gray-900 dark:text-white">{language}</span>
-                        </div>
+                        <Globe className="w-3.5 xs:w-4 sm:w-5 h-3.5 xs:h-4 sm:h-5 text-white" />
                       </button>
 
                       {/* Language Options */}
@@ -222,22 +325,30 @@ export default function Navbar() {
                             className="overflow-hidden"
                           >
                             <div className="ml-1 xs:ml-2 space-y-0.5">
-                              {languages.map((lang) => (
-                                <button
-                                  key={lang.code}
-                                  onClick={() => {
-                                    setLanguage(lang.code);
-                                    setLanguageDropdownOpen(false);
-                                  }}
-                                  className={`w-full text-left py-1 xs:py-1.5 px-2.5 xs:px-3 rounded-sm xs:rounded-md transition-all text-xs ${
-                                    language === lang.code
-                                      ? 'bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white font-bold'
-                                      : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
-                                  }`}
-                                >
-                                  {lang.label}
-                                </button>
-                              ))}
+                              {languages.map((lang) => {
+                                const flagMap: { [key in Language]: string } = {
+                                  'pt-BR': '🇧🇷',
+                                  'en': '🇺🇸',
+                                  'es': '🇪🇸',
+                                };
+                                return (
+                                  <button
+                                    key={lang.code}
+                                    onClick={() => {
+                                      setLanguage(lang.code);
+                                      setLanguageDropdownOpen(false);
+                                    }}
+                                    className={`w-full text-left py-1 xs:py-1.5 px-2.5 xs:px-3 rounded-sm xs:rounded-md transition-all text-xs flex items-center gap-1.5 ${
+                                      language === lang.code
+                                        ? 'bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white font-bold'
+                                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                                    }`}
+                                  >
+                                    <span className="text-sm">{flagMap[lang.code]}</span>
+                                    <span>{lang.label}</span>
+                                  </button>
+                                );
+                              })}
                             </div>
                           </motion.div>
                         )}

@@ -6,6 +6,29 @@ import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useState } from 'react';
 
+// Mapeamento de tecnologias para ícones
+const techIcons: Record<string, string> = {
+  'Node.js': '/nodejs-original-wordmark.svg',
+  'PostgreSQL': '/postgresql-original.svg',
+  'Redis': '/redis-original.svg',
+  'Docker': '/docker-original-wordmark.svg',
+  'Go': '/go-original.svg',
+  'Kafka': '/kafka-original.svg',
+  'TimescaleDB': '/timescaledb-original.svg',
+  'Kubernetes': '/kubernetes-original.svg',
+  'Python': '/python-original.svg',
+  'FastAPI': '/fastapi-original.svg',
+  'MongoDB': '/mongodb-original.svg',
+  'AWS': '/aws-original.svg',
+  'CloudFront': '/aws-original.svg',
+  'Lambda': '/aws-original.svg',
+  'S3': '/aws-original.svg',
+  'GraphQL': '/graphql-original.svg',
+  'Apollo': '/apollo-original.svg',
+  'Stripe': '/stripe-original.svg',
+  'RabbitMQ': '/rabbitmq-original.svg',
+};
+
 const projects = [
   {
     title: 'E-Commerce API Platform',
@@ -103,9 +126,9 @@ export default function ProjectsSection() {
           className="text-center mb-8 xs:mb-10 sm:mb-16"
         >
           <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl font-bold mb-2 xs:mb-3 sm:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
-            {t.projects.title}
+            {t.projects.title.split(' ').slice(0, -1).join(' ')} <span className="gradient-orange-accent">{t.projects.title.split(' ').pop()}</span>
           </h2>
-          <p className="text-xs xs:text-xs sm:text-base md:text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-sm xs:text-sm sm:text-base md:text-lg lg:text-xl text-white/70 dark:text-white/70 font-light">
             {t.projects.subtitle}
           </p>
         </motion.div>
@@ -117,18 +140,18 @@ export default function ProjectsSection() {
             aria-label="Previous project"
           >
             <div className="relative">
-              <div 
+              <div
                 className="absolute inset-0 rounded-full"
                 style={{
-                  background: 'linear-linear(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))',
+                  background: 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))',
                   transform: 'translateY(4px)',
                   borderRadius: '9999px',
                 }}
               />
-              <div 
+              <div
                 className="relative p-1.5 xs:p-2 sm:p-3 lg:p-4 rounded-full transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
                 style={{
-                  background: 'linear-linear(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06))',
+                  background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06))',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
                   boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)',
@@ -145,18 +168,18 @@ export default function ProjectsSection() {
             aria-label="Next project"
           >
             <div className="relative">
-              <div 
+              <div
                 className="absolute inset-0 rounded-full"
                 style={{
-                  background: 'linear-linear(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))',
+                  background: 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))',
                   transform: 'translateY(4px)',
                   borderRadius: '9999px',
                 }}
               />
-              <div 
+              <div
                 className="relative p-1.5 xs:p-2 sm:p-3 lg:p-4 rounded-full transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
                 style={{
-                  background: 'linear-linear(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06))',
+                  background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06))',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
                   boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)',
@@ -183,7 +206,7 @@ export default function ProjectsSection() {
                 }}
                 className="absolute w-full px-2 xs:px-3 sm:px-6 lg:px-8"
               >
-                <div className="glass rounded-lg xs:rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden max-w-3xl xs:max-w-4xl mx-auto shadow-lg xs:shadow-xl sm:shadow-2xl">
+                <div className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden max-w-3xl xs:max-w-4xl mx-auto shadow-lg xs:shadow-xl sm:shadow-2xl">
                   <div className="relative h-24 xs:h-32 sm:h-56 md:h-72 lg:h-80 overflow-hidden">
                     <Image
                       src={currentProject.image}
@@ -193,13 +216,13 @@ export default function ProjectsSection() {
                       priority
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
-                    
+
                     <div className="absolute bottom-1 xs:bottom-2 sm:bottom-4 lg:bottom-6 right-1 xs:right-2 sm:right-4 lg:right-6 flex gap-1 xs:gap-1.5 sm:gap-3">
                       <a
                         href={currentProject.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="glass-bubble p-1 xs:p-1.5 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/20 transition-all hover:scale-110"
+                        className="glass-liquid p-1 xs:p-1.5 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/20 transition-all hover:scale-110"
                       >
                         <Github className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white" />
                       </a>
@@ -207,7 +230,7 @@ export default function ProjectsSection() {
                         href={currentProject.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="glass-bubble p-1 xs:p-1.5 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/20 transition-all hover:scale-110"
+                        className="glass-liquid p-1 xs:p-1.5 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/20 transition-all hover:scale-110"
                       >
                         <ExternalLink className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white" />
                       </a>
@@ -218,23 +241,31 @@ export default function ProjectsSection() {
                     <h3 className="text-sm xs:text-base sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 xs:mb-1.5 sm:mb-3 lg:mb-4 text-gray-900 dark:text-white">
                       {currentProject.title}
                     </h3>
-                    <p className="text-xs xs:text-xs sm:text-base md:text-base lg:text-lg text-gray-600 dark:text-gray-400 mb-2.5 xs:mb-3.5 sm:mb-5 lg:mb-6 leading-relaxed">
+                    <p className="text-xs xs:text-sm sm:text-base md:text-base lg:text-lg text-white/70 dark:text-white/70 mb-2.5 xs:mb-3.5 sm:mb-5 lg:mb-6 leading-relaxed">
                       {currentProject.description}
                     </p>
-                    
-                    <div className="flex flex-wrap gap-1 xs:gap-1.5 sm:gap-2.5 lg:gap-3">
+
+                    <div className="flex flex-wrap gap-1.5 xs:gap-2 sm:gap-3 lg:gap-3.5">
                       {currentProject.tags.map((tag, tagIndex) => (
-                        <span
+                        <div
                           key={tagIndex}
-                          className="px-2 xs:px-2.5 sm:px-3.5 lg:px-4 py-0.5 xs:py-1 sm:py-1.5 lg:py-2 text-xs text-white font-medium rounded-full"
-                          style={{
-                            background: 'linear-linear(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                            backdropFilter: 'blur(20px)',
-                            border: '1px solid rgba(255, 255, 255, 0.12)',
-                          }}
+                          className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors"
                         >
-                          {tag}
-                        </span>
+                          {techIcons[tag] && (
+                            <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
+                              <Image
+                                src={techIcons[tag]}
+                                alt={`${tag} logo`}
+                                fill
+                                className="object-contain"
+                                sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
+                              />
+                            </div>
+                          )}
+                          <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                            {tag}
+                          </span>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -243,6 +274,7 @@ export default function ProjectsSection() {
             </AnimatePresence>
           </div>
 
+          {/* Indicadores do carrossel com gradiente laranja */}
           <div className="flex justify-center gap-1 xs:gap-1.5 sm:gap-2.5 mt-3 xs:mt-4 sm:mt-8">
             {projects.map((_, index) => (
               <button
@@ -251,11 +283,10 @@ export default function ProjectsSection() {
                   setDirection(index > currentIndex ? 1 : -1);
                   setCurrentIndex(index);
                 }}
-                className={`transition-all duration-300 rounded-full ${
-                  index === currentIndex
-                    ? 'w-6 xs:w-8 sm:w-10 lg:w-12 h-1.5 xs:h-2 sm:h-2.5 lg:h-3 bg-linear-to-r from-gray-50 to-gray-600'
-                    : 'w-1.5 xs:w-2 sm:w-2.5 lg:w-3 h-1.5 xs:h-2 sm:h-2.5 lg:h-3 bg-gray-400 dark:bg-gray-600 hover:bg-gray-500 dark:hover:bg-gray-500'
-                }`}
+                className={`transition-all duration-300 rounded-full ${index === currentIndex
+                    ? 'w-6 xs:w-8 sm:w-10 lg:w-12 h-1.5 xs:h-2 sm:h-2.5 lg:h-3 bg-linear-to-r from-orange-400 to-orange-600'
+                    : 'w-1.5 xs:w-2 sm:w-2.5 lg:w-3 h-1.5 xs:h-2 sm:h-2.5 lg:h-3 bg-gray-400 dark:bg-gray-600 hover:bg-orange-300 dark:hover:bg-orange-500'
+                  }`}
                 aria-label={`Go to project ${index + 1}`}
               />
             ))}

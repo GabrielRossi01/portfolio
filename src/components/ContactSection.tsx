@@ -38,9 +38,9 @@ export default function ContactSection() {
           className="text-center mb-6 xs:mb-8 sm:mb-12 lg:mb-16"
         >
           <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-1.5 xs:mb-2 sm:mb-3 lg:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
-            {t.nav.contact}
+            {t.nav.contact.split(' ').slice(0, -1).join(' ')} <span className="gradient-orange-accent">{t.nav.contact.split(' ').pop()}</span>
           </h2>
-          <p className="text-xs xs:text-xs sm:text-base lg:text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-sm xs:text-sm sm:text-base lg:text-lg xl:text-xl text-white/70 dark:text-white/70 font-light">
             {t.footer.subtitle}
           </p>
         </motion.div>
@@ -52,15 +52,7 @@ export default function ContactSection() {
           viewport={{ once: true }}
           className="relative"
         >
-          <div
-            className="relative rounded-lg xs:rounded-xl sm:rounded-2xl lg:rounded-3xl p-3 xs:p-4 sm:p-6 lg:p-8"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.15)',
-            }}
-          >
+          <div className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl lg:rounded-3xl p-3 xs:p-4 sm:p-6 lg:p-8">
             <form onSubmit={handleSubmit} className="space-y-2.5 xs:space-y-3.5 sm:space-y-5 lg:space-y-6">
               <div>
                 <label 

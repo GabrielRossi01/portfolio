@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
-import AnimatedLogo from './AnimatedLogo';
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -26,10 +25,10 @@ export default function Footer() {
       {/* Mountain Background Image */}
       <div className="absolute inset-0 z-0">
         <Image  
-          src="/footer.jpg"
+          src="/footer.jpeg"
           alt="Mountain background"
           fill
-          className="object-cover"
+          className="object-cover "
           priority
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/50 to-black/30" />
@@ -47,15 +46,23 @@ export default function Footer() {
           >
             <button
               onClick={scrollToTop}
-              className="group flex items-center gap-1.5 xs:gap-2 mb-2 xs:mb-3 sm:mb-4 transition-all hover:scale-105"
+              className="group flex items-center gap-2 xs:gap-3 mb-2 xs:mb-3 sm:mb-4 transition-all hover:scale-105"
               aria-label="Scroll to top"
             >
               <div className="p-1 xs:p-1.5 sm:p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 group-hover:bg-white/20 transition-all">
                 <ArrowUp className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
               </div>
-              <AnimatedLogo className="w-20 h-5 xs:w-24 xs:h-6 sm:w-28 sm:h-7 lg:w-36 lg:h-10" />
+              <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+                <Image
+                  src="/GR.svg"
+                  alt="Gabriel Rossi Logo"
+                  fill
+                  className="object-contain brightness-0 invert"
+                  priority
+                />
+              </div>
             </button>
-            <p className="text-white/70 text-xs xs:text-xs sm:text-sm text-center md:text-left">
+            <p className="text-white/85 text-xs xs:text-xs sm:text-sm text-center md:text-left">
               {t.about.subtitle}
             </p>
           </motion.div>
@@ -68,13 +75,13 @@ export default function Footer() {
             transition={{ delay: 0.1 }}
             className="flex flex-col items-center md:items-start"
           >
-            <h3 className="text-white font-semibold text-sm xs:text-base sm:text-lg mb-2 xs:mb-3 sm:mb-4">Links Rápidos</h3>
+            <h3 className="text-white font-semibold text-sm xs:text-base sm:text-lg mb-2 xs:mb-3 sm:mb-4">{t.footer.quickLinks}</h3>
             <nav className="flex flex-col gap-1 xs:gap-1.5 sm:gap-2">
               {quickLinks.map((link, index) => (
                 <a
                   key={index}
                   href={link.href}
-                  className="text-white/70 hover:text-white transition-colors text-xs xs:text-xs sm:text-sm"
+                  className="text-white/85 hover:text-white transition-colors text-xs xs:text-xs sm:text-sm"
                 >
                   {link.name}
                 </a>
@@ -90,7 +97,7 @@ export default function Footer() {
             transition={{ delay: 0.2 }}
             className="flex flex-col items-center md:items-start"
           >
-            <h3 className="text-white font-semibold text-sm xs:text-base sm:text-lg mb-2 xs:mb-3 sm:mb-4">Redes Sociais</h3>
+            <h3 className="text-white font-semibold text-sm xs:text-base sm:text-lg mb-2 xs:mb-3 sm:mb-4">{t.footer.socialLinks}</h3>
             <div className="flex gap-1.5 xs:gap-2 sm:gap-3">
               <a
                 href="https://github.com/GabrielRossi01"
@@ -129,7 +136,7 @@ export default function Footer() {
           transition={{ delay: 0.3 }}
           className="pt-4 xs:pt-5 sm:pt-8 border-t border-white/20 text-center"
         >
-          <p className="text-white/60 text-xs xs:text-xs sm:text-sm">
+          <p className="text-white/80 text-xs xs:text-xs sm:text-sm">
             &copy; {new Date().getFullYear()} Portfolio. {t.footer.rights}
           </p>
         </motion.div>

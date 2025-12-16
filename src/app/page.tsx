@@ -1,8 +1,7 @@
 "use client";
 
 import Navbar from '@/components/Navbar';
-import ThemeLanguageControls from '@/components/ThemeLanguageControls';
-import LunarHorizonCSS from '@/components/LunarHorizonCSS';
+import LunarHorizonCSS from '@/components/HeroSection';
 import TechStackMarquee from '@/components/TechStackMarquee';
 import AboutSection from '@/components/AboutSection';
 import ProjectsSection from '@/components/ProjectsSection';
@@ -13,7 +12,6 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
-      <ThemeLanguageControls />
       <LunarHorizonCSS />
       <TechStackMarquee />
       <AboutSection />
