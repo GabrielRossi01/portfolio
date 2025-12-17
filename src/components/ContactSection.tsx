@@ -67,16 +67,7 @@ export default function ContactSection() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
-                  className="w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 text-xs sm:text-sm"
-                  style={{
-                    background: theme === 'dark'
-                      ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%)'
-                      : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 245, 0.9) 100%)',
-                    backdropFilter: 'blur(10px)',
-                    border: theme === 'dark'
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '1px solid rgba(0, 0, 0, 0.15)',
-                  }}
+                  className="glass-liquid w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 text-xs sm:text-sm"
                   placeholder={t.footer.namePlaceholder}
                 />
               </div>
@@ -94,16 +85,7 @@ export default function ContactSection() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
-                  className="w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 text-xs sm:text-sm"
-                  style={{
-                    background: theme === 'dark'
-                      ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%)'
-                      : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 245, 0.9) 100%)',
-                    backdropFilter: 'blur(10px)',
-                    border: theme === 'dark'
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '1px solid rgba(0, 0, 0, 0.15)',
-                  }}
+                  className="glass-liquid w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 text-xs sm:text-sm"
                   placeholder={t.footer.emailPlaceholder}
                 />
               </div>
@@ -121,16 +103,7 @@ export default function ContactSection() {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
                   rows={5}
-                  className="w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 resize-none text-xs sm:text-sm"
-                  style={{
-                    background: theme === 'dark'
-                      ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%)'
-                      : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 245, 0.9) 100%)',
-                    backdropFilter: 'blur(10px)',
-                    border: theme === 'dark'
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '1px solid rgba(0, 0, 0, 0.15)',
-                  }}
+                  className="glass-liquid w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 resize-none text-xs sm:text-sm"
                   placeholder={t.footer.messagePlaceholder}
                 />
               </div>

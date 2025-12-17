@@ -116,27 +116,28 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="py-8 xs:py-12 sm:py-20 md:py-24 px-2 xs:px-3 sm:px-6 overflow-hidden">
+    <section id="projects" className="py-8 xs:py-12 sm:py-20 md:py-24 px-3 xs:px-4 sm:px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-8 xs:mb-10 sm:mb-16"
+          className="text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16"
         >
           <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl font-light mb-2 xs:mb-3 sm:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
             {t.projects.title.split(' ').slice(0, -1).join(' ')} <span className="gradient-orange-accent">{t.projects.title.split(' ').pop()}</span>
           </h2>
-          <p className="text-sm xs:text-sm sm:text-base md:text-lg lg:text-xl font-extralight">
+          <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl font-extralight">
             {t.projects.subtitle}
           </p>
         </motion.div>
 
         <div className="relative max-w-5xl mx-auto">
+          {/* Botão Anterior */}
           <button
             onClick={prevProject}
-            className="group absolute -left-0.5 xs:left-0 sm:-left-6 lg:-left-20 top-1/2 -translate-y-1/2 z-30"
+            className="group absolute left-1 xs:left-2 sm:-left-4 lg:-left-20 top-1/2 -translate-y-1/2 z-30"
             aria-label="Previous project"
           >
             <div className="relative">
@@ -144,7 +145,7 @@ export default function ProjectsSection() {
                 className="absolute inset-0 rounded-full"
                 style={{
                   background: 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))',
-                  transform: 'translateY(4px)',
+                  transform: 'translateY(3px)',
                   borderRadius: '9999px',
                 }}
               />
@@ -157,14 +158,15 @@ export default function ProjectsSection() {
                   boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)',
                 }}
               >
-                <ChevronLeft className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-gray-700 dark:text-white" />
+                <ChevronLeft className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-gray-700 dark:text-white" />
               </div>
             </div>
           </button>
 
+          {/* Botão Próximo */}
           <button
             onClick={nextProject}
-            className="group absolute -right-0.5 xs:right-0 sm:-right-6 lg:-right-20 top-1/2 -translate-y-1/2 z-30"
+            className="group absolute right-1 xs:right-2 sm:-right-4 lg:-right-20 top-1/2 -translate-y-1/2 z-30"
             aria-label="Next project"
           >
             <div className="relative">
@@ -172,7 +174,7 @@ export default function ProjectsSection() {
                 className="absolute inset-0 rounded-full"
                 style={{
                   background: 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))',
-                  transform: 'translateY(4px)',
+                  transform: 'translateY(3px)',
                   borderRadius: '9999px',
                 }}
               />
@@ -185,12 +187,13 @@ export default function ProjectsSection() {
                   boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)',
                 }}
               >
-                <ChevronRight className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-gray-700 dark:text-white" />
+                <ChevronRight className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-gray-700 dark:text-white" />
               </div>
             </div>
           </button>
 
-          <div className="relative h-60 xs:h-[280px] sm:h-[420px] md:h-[520px] lg:h-[600px] flex items-center justify-center px-1 xs:px-2 sm:px-4">
+          {/* Carrossel de Projetos */}
+          <div className="relative h-[400px] xs:h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px] flex items-center justify-center px-8 xs:px-10 sm:px-12 md:px-4">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
@@ -204,10 +207,11 @@ export default function ProjectsSection() {
                   opacity: { duration: 0.3 },
                   scale: { duration: 0.3 },
                 }}
-                className="absolute w-full px-2 xs:px-3 sm:px-6 lg:px-8"
+                className="absolute w-full"
               >
-                <div className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden max-w-3xl xs:max-w-4xl mx-auto shadow-lg xs:shadow-xl sm:shadow-2xl">
-                  <div className="relative h-24 xs:h-32 sm:h-56 md:h-72 lg:h-80 overflow-hidden">
+                <div className="glass-liquid rounded-xl xs:rounded-2xl sm:rounded-3xl overflow-hidden max-w-3xl xs:max-w-4xl mx-auto shadow-xl sm:shadow-2xl">
+                  {/* Imagem do Projeto */}
+                  <div className="relative h-40 xs:h-48 sm:h-56 md:h-64 lg:h-80 overflow-hidden">
                     <Image
                       src={currentProject.image}
                       alt={currentProject.title}
@@ -217,52 +221,55 @@ export default function ProjectsSection() {
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
 
-                    <div className="absolute bottom-1 xs:bottom-2 sm:bottom-4 lg:bottom-6 right-1 xs:right-2 sm:right-4 lg:right-6 flex gap-1 xs:gap-1.5 sm:gap-3">
+                    {/* Botões de Ação */}
+                    <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 lg:bottom-6 right-2 xs:right-3 sm:right-4 lg:right-6 flex gap-1.5 xs:gap-2 sm:gap-3">
                       <a
                         href={currentProject.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="glass-liquid p-1 xs:p-1.5 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/20 transition-all hover:scale-110"
+                        className="glass-liquid p-1.5 xs:p-2 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/20 transition-all hover:scale-110"
                       >
-                        <Github className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white" />
+                        <Github className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
                       </a>
                       <a
                         href={currentProject.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="glass-liquid p-1 xs:p-1.5 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/20 transition-all hover:scale-110"
+                        className="glass-liquid p-1.5 xs:p-2 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/20 transition-all hover:scale-110"
                       >
-                        <ExternalLink className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white" />
+                        <ExternalLink className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
                       </a>
                     </div>
                   </div>
 
-                  <div className="p-2.5 xs:p-3.5 sm:p-5 md:p-6 lg:p-8">
-                    <h3 className="text-sm xs:text-base sm:text-xl md:text-2xl lg:text-3xl font-light mb-1 xs:mb-1.5 sm:mb-3 lg:mb-4 text-gray-900 dark:text-white">
+                  {/* Conteúdo do Projeto */}
+                  <div className="p-4 xs:p-5 sm:p-6 md:p-7 lg:p-8">
+                    <h3 className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-light mb-2 xs:mb-2.5 sm:mb-3 lg:mb-4 text-gray-900 dark:text-white">
                       {currentProject.title}
                     </h3>
-                    <p className="text-xs xs:text-sm sm:text-base md:text-base lg:text-lg text-gray-600 dark:text-gray-50 mb-2.5 xs:mb-3.5 sm:mb-5 lg:mb-6 leading-relaxed">
+                    <p className="text-xs xs:text-sm sm:text-base md:text-base lg:text-lg text-gray-600 dark:text-gray-300 mb-3 xs:mb-4 sm:mb-5 lg:mb-6 leading-relaxed">
                       {currentProject.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-1.5 xs:gap-2 sm:gap-3 lg:gap-3.5">
+                    {/* Tags de Tecnologia */}
+                    <div className="flex flex-wrap gap-1.5 xs:gap-2 sm:gap-2.5 lg:gap-3">
                       {currentProject.tags.map((tag, tagIndex) => (
                         <div
                           key={tagIndex}
-                          className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors"
+                          className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 flex items-center gap-1 xs:gap-1.5 sm:gap-2 min-w-fit hover:bg-white/10 transition-colors"
                         >
                           {techIcons[tag] && (
-                            <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
+                            <div className="relative w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 flex items-center justify-center">
                               <Image
                                 src={techIcons[tag]}
                                 alt={`${tag} logo`}
                                 fill
                                 className="object-contain"
-                                sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
+                                sizes="(max-width: 640px) 14px, (max-width: 768px) 16px, 24px"
                               />
                             </div>
                           )}
-                          <span className="text-xs sm:text-sm font-extralight text-gray-700 dark:text-gray-50 whitespace-nowrap">
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-extralight text-gray-700 dark:text-gray-300 whitespace-nowrap">
                             {tag}
                           </span>
                         </div>
@@ -274,8 +281,8 @@ export default function ProjectsSection() {
             </AnimatePresence>
           </div>
 
-          {/* Indicadores do carrossel com gradiente laranja */}
-          <div className="flex justify-center gap-1 xs:gap-1.5 sm:gap-2.5 mt-3 xs:mt-4 sm:mt-8">
+          {/* Indicadores do Carrossel */}
+          <div className="flex justify-center gap-1.5 xs:gap-2 sm:gap-2.5 mt-4 xs:mt-5 sm:mt-6 md:mt-8">
             {projects.map((_, index) => (
               <button
                 key={index}

@@ -37,9 +37,9 @@ export interface Translations {
     linkedin: string;
     linkedinDesc: string;
     workTogether: string;
-    workTogetherSub: string;
-    yearsExp: string;
-    projectsCompleted: string;
+    cleanCode: string;
+    techEnthusiast: string;
+    sendEmail: string;
   };
   projects: {
     title: string;
@@ -98,9 +98,9 @@ export const translations: Record<Language, Translations> = {
       linkedin: 'Compartilhando insights no LinkedIn',
       linkedinDesc: 'Networking profissional',
       workTogether: 'Vamos trabalhar juntos no seu próximo projeto',
-      workTogetherSub: '',
-      yearsExp: 'Anos de Experiência',
-      projectsCompleted: 'Projetos Concluídos',
+      cleanCode: "Clean Code e Design Moderno",
+      sendEmail: "Me envie um email",
+      techEnthusiast: "Entusiasta de tecnologia com paixão pelo desenvolvimento.",
     },
     projects: {
       title: 'Projetos em Destaque',
@@ -157,9 +157,9 @@ export const translations: Record<Language, Translations> = {
       linkedin: 'Sharing insights on LinkedIn',
       linkedinDesc: 'Professional networking',
       workTogether: "Let's work together on your next project",
-      workTogetherSub: '',
-      yearsExp: 'Years Experience',
-      projectsCompleted: 'Projects Completed',
+      sendEmail: "Send me an email",
+      cleanCode: "Clean Code and Modern Design",
+      techEnthusiast: "Tech enthusiast with a passion for development.",
     },
     projects: {
       title: 'Featured Projects',
@@ -214,9 +214,9 @@ export const translations: Record<Language, Translations> = {
       linkedin: 'Compartiendo ideas en LinkedIn',
       linkedinDesc: 'Networking profesional',
       workTogether: 'Trabajemos juntos en tu próximo proyecto',
-      workTogetherSub: '',
-      yearsExp: 'Años de Experiencia',
-      projectsCompleted: 'Proyectos Completados',
+      sendEmail: "Envíame un correo electrónico",
+      cleanCode: "Código Limpio y Diseño Moderno",
+      techEnthusiast: "Entusiasta de la tecnología con pasión por el desarrollo.",
     },
     projects: {
       title: 'Proyectos Destacados',
