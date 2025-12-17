@@ -40,7 +40,7 @@ export default function ContactSection() {
           <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-1.5 xs:mb-2 sm:mb-3 lg:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
             {t.nav.contact.split(' ').slice(0, -1).join(' ')} <span className="gradient-orange-accent">{t.nav.contact.split(' ').pop()}</span>
           </h2>
-          <p className="text-sm xs:text-sm sm:text-base lg:text-lg xl:text-xl text-white/70 dark:text-white/70 font-light">
+          <p className="text-sm xs:text-sm sm:text-base lg:text-lg xl:text-xl font-light">
             {t.footer.subtitle}
           </p>
         </motion.div>

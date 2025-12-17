@@ -116,6 +116,14 @@ export default function AboutSection() {
       icon: "/visualstudio-plain.svg"
     },
     {
+      name: "IntelliJ IDEA",
+      icon: "/intellij-idea-svgrepo-com.svg"
+    },
+    {
+      name: "NPM",
+      icon: "/npm-svgrepo-com.svg"
+    },
+    {
       name: "Microsoft Azure",
       icon: "/azure-original-wordmark.svg"
     },
@@ -151,11 +159,11 @@ export default function AboutSection() {
             >
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
                 <Users className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-purple-400" />
-                <span className="text-xs text-gray-300 dark:text-gray-200 uppercase tracking-wider">
-                  {t.about.collaboration} 
+                <span className="text-xs uppercase tracking-wider">
+                  {t.about.collaboration}
                 </span>
               </div>
-              <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3 xs:mb-3 sm:mb-4">
+              <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl font-light text-gray-900 dark:text-white mb-3 xs:mb-3 sm:mb-4">
                 {t.about.collaborationTitle}
               </h3>
               <div className="flex items-center justify-center mt-4 xs:mt-5 sm:mt-6 md:mt-8">
@@ -181,18 +189,18 @@ export default function AboutSection() {
             >
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
                 <Clock className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-blue-400" />
-                <span className="text-xs text-gray-300 dark:text-gray-200 uppercase tracking-wider">
+                <span className="text-xs uppercase tracking-wider">
                   {t.about.timezone}
                 </span>
               </div>
-              <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3 xs:mb-3 sm:mb-4 md:mb-6">
+              <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl font-light text-gray-900 dark:text-white mb-3 xs:mb-3 sm:mb-4 md:mb-6">
                 {t.about.timezoneTitle}
               </h3>
 
               <div className="flex flex-wrap gap-2 xs:gap-2.5 sm:gap-3 mb-3 xs:mb-3 sm:mb-4 md:mb-6">
                 <div className="glass rounded-full px-3 xs:px-3.5 sm:px-4 py-1.5 xs:py-1.5 sm:py-2 flex items-center gap-1.5 xs:gap-2 bg-green-500/20 border-green-500/30">
                   <span className="text-base xs:text-lg sm:text-xl">🇧🇷</span>
-                  <span className="text-xs xs:text-sm sm:text-sm font-bold text-gray-900 dark:text-white">Brazil</span>
+                  <span className="text-xs xs:text-sm sm:text-sm font-light text-gray-900 dark:text-white">Brazil</span>
                 </div>
               </div>
 
@@ -212,14 +220,14 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 overflow-hidden flex-1"
             >
-              <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 xs:mb-5 sm:mb-6 md:mb-8 text-center">
+              <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl font-light text-gray-900 dark:text-white mb-4 xs:mb-5 sm:mb-6 md:mb-8 text-center">
                 {t.about.passionate}
               </h3>
 
               <div className="space-y-3 xs:space-y-4 sm:space-y-5 md:space-y-6">
                 {/* Frontend Carousel */}
                 <div>
-                  <h4 className="text-xs sm:text-sm font-semibold text-gray-300 dark:text-gray-200 mb-1.5 xs:mb-2 sm:mb-3 text-center">
+                  <h4 className="text-xs sm:text-sm font-medium mb-1.5 xs:mb-2 sm:mb-3 text-center">
                     {t.techArsenal.frontend}
                   </h4>
                   <div className="relative overflow-hidden">
@@ -249,7 +257,7 @@ export default function AboutSection() {
                               sizes="(max-width: 640px) 20px, (max-width: 768px) 24px, 32px"
                             />
                           </div>
-                          <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                          <span className="text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300 whitespace-nowrap">
                             {tech.name}
                           </span>
                         </div>
@@ -260,7 +268,7 @@ export default function AboutSection() {
 
                 {/* Backend Carousel */}
                 <div>
-                  <h4 className="text-xs sm:text-sm font-semibold text-gray-300 dark:text-gray-200 mb-1.5 xs:mb-2 sm:mb-3 text-center">
+                  <h4 className="text-xs sm:text-sm font-medium mb-1.5 xs:mb-2 sm:mb-3 text-center">
                     {t.techArsenal.backend}
                   </h4>
                   <div className="relative overflow-hidden">
@@ -290,7 +298,7 @@ export default function AboutSection() {
                               sizes="(max-width: 640px) 20px, (max-width: 768px) 24px, 32px"
                             />
                           </div>
-                          <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                          <span className="text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300 whitespace-nowrap">
                             {tech.name}
                           </span>
                         </div>
@@ -301,7 +309,7 @@ export default function AboutSection() {
 
                 {/* Tools Carousel */}
                 <div>
-                  <h4 className="text-xs sm:text-sm font-semibold text-gray-300 dark:text-gray-200 mb-1.5 xs:mb-2 sm:mb-3 text-center">
+                  <h4 className="text-xs sm:text-sm font-medium mb-1.5 xs:mb-2 sm:mb-3 text-center">
                     {t.techArsenal.tools}
                   </h4>
                   <div className="relative overflow-hidden">
@@ -360,10 +368,10 @@ export default function AboutSection() {
                     className="p-2 xs:p-2.5 sm:p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all hover:scale-110"
                     aria-label="GitHub"
                   >
-                    <Github className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 text-white" />
+                    <Github className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 text-gray-700 dark:text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white">{t.about.github}</h4>
+                    <h4 className="font-light text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white">{t.about.github}</h4>
                     <p className="text-xs text-gray-300 dark:text-gray-200 hidden xs:block">{t.about.githubDesc}</p>
                   </div>
                 </div>
@@ -380,10 +388,10 @@ export default function AboutSection() {
                     className="p-2 xs:p-2.5 sm:p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all hover:scale-110"
                     aria-label="LinkedIn"
                   >
-                    <Linkedin className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 text-white" />
+                    <Linkedin className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 text-gray-700 dark:text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white">{t.about.linkedin}</h4>
+                    <h4 className="font-light text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white">{t.about.linkedin}</h4>
                     <p className="text-xs text-gray-300 dark:text-gray-200 hidden xs:block">{t.about.linkedinDesc}</p>
                   </div>
                 </div>
@@ -437,18 +445,18 @@ export default function AboutSection() {
               className="grid grid-cols-2 gap-2.5 xs:gap-3 sm:gap-4"
             >
               <div className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-lg p-3 xs:p-4 sm:p-5 md:p-6 text-center">
-                <div className="text-2xl xs:text-2.5xl sm:text-3xl md:text-4xl font-bold bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1 xs:mb-1.5 sm:mb-2">
+                <div className="text-4xl xs:text-2.5xl sm:text-3xl md:text-4xl font-bold bg-linear-to-r from-white-400 to-orange-400 bg-clip-text text-transparent mb-1 xs:mb-1.5 sm:mb-2">
                   5+
                 </div>
-                <div className="text-xs xs:text-xs sm:text-sm text-gray-300 dark:text-gray-200">
+                <div className="text-xs xs:text-xs sm:text-sm">
                   {t.about.yearsExp}
                 </div>
               </div>
               <div className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-lg p-3 xs:p-4 sm:p-5 md:p-6 text-center">
-                <div className="text-2xl xs:text-2.5xl sm:text-3xl md:text-4xl font-bold bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-1 xs:mb-1.5 sm:mb-2">
+                <div className="text-2xl xs:text-2.5xl sm:text-3xl md:text-4xl font-bold bg-linear-to-r from-white-400 to-orange-400 bg-clip-text text-transparent mb-1 xs:mb-1.5 sm:mb-2">
                   50+
                 </div>
-                <div className="text-xs xs:text-xs sm:text-sm text-gray-300 dark:text-gray-200">
+                <div className="text-xs xs:text-xs sm:text-sm">
                   {t.about.projectsCompleted}
                 </div>
               </div>

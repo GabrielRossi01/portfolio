@@ -22,7 +22,7 @@ export default function OrangePlanetHero() {
 
   // Parallax para o conteúdo
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
+  const contentY = useTransform(scrollYProgress, [0, 0.5], ["0%", "90%"]);
 
   return (
     <section
@@ -133,12 +133,6 @@ export default function OrangePlanetHero() {
             {/* Greeting */}
             <motion.p
               className="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-light tracking-wide"
-              style={{
-                color: theme === 'dark' ? 'rgba(200, 200, 200, 0.85)' : 'rgba(100, 100, 100, 0.8)',
-                textShadow: theme === 'dark'
-                  ? '0 2px 12px rgba(0, 0, 0, 0.6)'
-                  : '0 2px 8px rgba(255, 255, 255, 0.8)',
-              }}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -148,7 +142,7 @@ export default function OrangePlanetHero() {
 
             {/* Main Name */}
             <motion.h1
-              className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold mb-6 sm:mb-8 leading-none"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-5 sm:mb-6 leading-tight"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{
@@ -175,13 +169,7 @@ export default function OrangePlanetHero() {
 
             {/* Job Title */}
             <motion.h2
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 sm:mb-8 tracking-tight"
-              style={{
-                color: theme === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(40, 40, 40, 0.9)',
-                textShadow: theme === 'dark'
-                  ? '0 3px 20px rgba(0, 0, 0, 0.6)'
-                  : '0 3px 12px rgba(0, 0, 0, 0.06)',
-              }}
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-5 sm:mb-6 tracking-tight"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.8 }}
@@ -191,13 +179,7 @@ export default function OrangePlanetHero() {
 
             {/* Subtitle */}
             <motion.p
-              className="text-sm sm:text-base md:text-lg lg:text-xl mb-10 sm:mb-14 max-w-3xl mx-auto leading-relaxed font-light px-4"
-              style={{
-                color: theme === 'dark' ? 'rgba(210, 210, 210, 0.8)' : 'rgba(80, 80, 80, 0.75)',
-                textShadow: theme === 'dark'
-                  ? '0 2px 12px rgba(0, 0, 0, 0.5)'
-                  : '0 2px 8px rgba(255, 255, 255, 0.6)',
-              }}
+              className="text-sm sm:text-base md:text-base lg:text-lg mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed font-light px-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.0 }}

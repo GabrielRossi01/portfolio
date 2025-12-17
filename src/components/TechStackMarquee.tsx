@@ -71,21 +71,21 @@ export default function TechStackMarquee() {
         viewport={{ once: true }}
         className="text-center mb-4 xs:mb-6 sm:mb-8 md:mb-12 lg:mb-16 px-2 xs:px-3 sm:px-4"
       >
-        <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-1 xs:mb-1.5 sm:mb-2 md:mb-3 lg:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
+        <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light mb-1 xs:mb-1.5 sm:mb-2 md:mb-3 lg:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
           {t.techArsenal.title.split(' ').slice(0, -1).join(' ')} <span className="gradient-orange-accent">{t.techArsenal.title.split(' ').pop()}</span>
         </h2>
-        <p className="text-sm xs:text-sm sm:text-base md:text-lg lg:text-xl text-white/70 dark:text-white/70 font-light">
+        <p className="text-sm xs:text-sm sm:text-base md:text-lg lg:text-xl font-extralight">
           {t.techArsenal.subtitle}
         </p>
       </motion.div>
 
-      <div className="relative glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8">
+      <div className="relative rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8">
         {/* Gradient Blur Edges */}
         <div className="absolute left-0 top-0 bottom-0 w-6 xs:w-8 sm:w-16 md:w-24 bg-linear-to-r from-white dark:from-[#0a0a0a] to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-6 xs:w-8 sm:w-16 md:w-24 bg-linear-to-l from-white dark:from-[#0a0a0a] to-transparent z-10" />
 
         <motion.div
-          className="flex gap-2 xs:gap-3 sm:gap-6 md:gap-8 w-max"
+          className="flex gap-3 xs:gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-max"
           animate={{
             x: ["0%", "-50%"],
           }}
@@ -101,15 +101,15 @@ export default function TechStackMarquee() {
           {duplicatedTech.map((tech, index) => (
             <div
               key={index}
-              className="flex items-center gap-1 xs:gap-1.5 sm:gap-2 lg:gap-3 px-2 xs:px-3 sm:px-4 lg:px-6 py-1.5 xs:py-2 sm:py-3 lg:py-4 rounded-lg xs:rounded-xl sm:rounded-xl lg:rounded-2xl border border-black/5 dark:border-white/5 backdrop-blur-xs min-w-fit hover:bg-white/10 dark:hover:bg-white/10 transition-colors group"
+              className="group"
             >
-              <div className="relative w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div className="relative w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <Image
                   src={tech.icon}
                   alt='logo'
                   fill
                   className="object-contain"
-                  sizes="(max-width: 640px) 24px, (max-width: 1024px) 32px, 40px"
+                  sizes="(max-width: 640px) 40px, (max-width: 768px) 48px, (max-width: 1024px) 56px, 64px"
                 />
               </div>
             </div>

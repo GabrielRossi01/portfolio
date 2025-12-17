@@ -110,7 +110,7 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       title: 'Vamos Trabalhar Juntos',
-      subtitle: 'Tenho uma ideia? Vamos conversar!',
+      subtitle: 'Tem uma ideia? Vamos conversar!',
       namePlaceholder: 'Seu nome',
       emailPlaceholder: 'seu@email.com',
       messagePlaceholder: 'Sua mensagem...',

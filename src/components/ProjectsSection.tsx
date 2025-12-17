@@ -125,10 +125,10 @@ export default function ProjectsSection() {
           viewport={{ once: true }}
           className="text-center mb-8 xs:mb-10 sm:mb-16"
         >
-          <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl font-bold mb-2 xs:mb-3 sm:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
+          <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl font-light mb-2 xs:mb-3 sm:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
             {t.projects.title.split(' ').slice(0, -1).join(' ')} <span className="gradient-orange-accent">{t.projects.title.split(' ').pop()}</span>
           </h2>
-          <p className="text-sm xs:text-sm sm:text-base md:text-lg lg:text-xl text-white/70 dark:text-white/70 font-light">
+          <p className="text-sm xs:text-sm sm:text-base md:text-lg lg:text-xl font-extralight">
             {t.projects.subtitle}
           </p>
         </motion.div>
@@ -238,10 +238,10 @@ export default function ProjectsSection() {
                   </div>
 
                   <div className="p-2.5 xs:p-3.5 sm:p-5 md:p-6 lg:p-8">
-                    <h3 className="text-sm xs:text-base sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 xs:mb-1.5 sm:mb-3 lg:mb-4 text-gray-900 dark:text-white">
+                    <h3 className="text-sm xs:text-base sm:text-xl md:text-2xl lg:text-3xl font-light mb-1 xs:mb-1.5 sm:mb-3 lg:mb-4 text-gray-900 dark:text-white">
                       {currentProject.title}
                     </h3>
-                    <p className="text-xs xs:text-sm sm:text-base md:text-base lg:text-lg text-white/70 dark:text-white/70 mb-2.5 xs:mb-3.5 sm:mb-5 lg:mb-6 leading-relaxed">
+                    <p className="text-xs xs:text-sm sm:text-base md:text-base lg:text-lg text-gray-600 dark:text-gray-50 mb-2.5 xs:mb-3.5 sm:mb-5 lg:mb-6 leading-relaxed">
                       {currentProject.description}
                     </p>
 
@@ -262,7 +262,7 @@ export default function ProjectsSection() {
                               />
                             </div>
                           )}
-                          <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                          <span className="text-xs sm:text-sm font-extralight text-gray-700 dark:text-gray-50 whitespace-nowrap">
                             {tag}
                           </span>
                         </div>
