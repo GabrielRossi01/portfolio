@@ -19,9 +19,9 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     console.log('Form submitted:', formData);
     setFormData({ name: '', email: '', message: '' });
     setIsSubmitting(false);
@@ -55,8 +55,8 @@ export default function ContactSection() {
           <div className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl lg:rounded-3xl p-3 xs:p-4 sm:p-6 lg:p-8">
             <form onSubmit={handleSubmit} className="space-y-2.5 xs:space-y-3.5 sm:space-y-5 lg:space-y-6">
               <div>
-                <label 
-                  htmlFor="name" 
+                <label
+                  htmlFor="name"
                   className="block text-xs xs:text-xs sm:text-sm font-semibold mb-1 xs:mb-1.5 sm:mb-2 text-gray-900 dark:text-white"
                 >
                   {t.footer.namePlaceholder}
@@ -73,8 +73,8 @@ export default function ContactSection() {
               </div>
 
               <div>
-                <label 
-                  htmlFor="email" 
+                <label
+                  htmlFor="email"
                   className="block text-xs xs:text-xs sm:text-sm font-semibold mb-1 xs:mb-1.5 sm:mb-2 text-gray-900 dark:text-white"
                 >
                   Email
@@ -91,8 +91,8 @@ export default function ContactSection() {
               </div>
 
               <div>
-                <label 
-                  htmlFor="message" 
+                <label
+                  htmlFor="message"
                   className="block text-xs xs:text-xs sm:text-sm font-semibold mb-1 xs:mb-1.5 sm:mb-2 text-gray-900 dark:text-white"
                 >
                   {t.footer.messagePlaceholder}
@@ -114,17 +114,17 @@ export default function ContactSection() {
                 className="group relative w-full mt-2 xs:mt-3 sm:mt-4"
               >
                 <div className="relative">
-                  <div 
+                  <div
                     className="absolute inset-0 rounded-lg xs:rounded-xl"
                     style={{
-                      background: theme === 'dark' 
+                      background: theme === 'dark'
                         ? 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))'
                         : 'linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(150, 150, 150, 0.5))',
                       transform: 'translateY(6px)',
                       borderRadius: '9999px',
                     }}
                   />
-                  <div 
+                  <div
                     className="relative px-5 xs:px-6 sm:px-10 py-2 xs:py-2.5 sm:py-4 rounded-lg xs:rounded-xl flex items-center justify-center gap-2 font-medium text-xs xs:text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
                       background: theme === 'dark'

@@ -17,7 +17,6 @@ export default function Navbar() {
 
   const navLinks = [
     { name: t.nav.home, href: '#home' },
-    { name: t.nav.skills, href: '#skills' },
     { name: t.nav.about, href: '#about' },
     { name: t.nav.projects, href: '#projects' },
     { name: t.nav.contact, href: '#contact' },
@@ -95,8 +94,8 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               className={`relative px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors duration-300 rounded-full ${activeSection === link.href.replace('#', '')
-                  ? 'text-gray-900 dark:text-white'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-transparent'
+                ? 'text-gray-900 dark:text-white'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-transparent'
                 }`}
             >
               {activeSection === link.href.replace('#', '') && (
@@ -167,8 +166,8 @@ export default function Navbar() {
                         setLanguageDropdownOpen(false);
                       }}
                       className={`w-full text-left py-2.5 px-4 text-sm transition-all flex items-center gap-2 ${language === lang.code
-                          ? 'bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white font-bold'
-                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                        ? 'bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white font-bold'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
                         }`}
                     >
                       <span className="text-lg">{flagMap[lang.code]}</span>
@@ -189,7 +188,6 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 md:hidden"
       >
         <div className="mx-3 xs:mx-4 sm:mx-5 mt-4 xs:mt-5 sm:mt-6 flex items-center justify-between">
-          {/* Logo com fundo glass - AUMENTADA */}
           <a href="#home" className="shrink-0">
             <div className="rounded-xl sm:rounded-2xl p-3 xs:p-3.5 sm:p-4 shadow-lg">
               <div className="relative w-10 xs:w-11 sm:w-12 h-10 xs:h-11 sm:h-12">
@@ -257,8 +255,8 @@ export default function Navbar() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
                       className={`text-sm xs:text-base sm:text-lg font-medium py-3 xs:py-3.5 sm:py-4 px-4 xs:px-5 sm:px-6 rounded-xl sm:rounded-2xl transition-all ${activeSection === link.href.replace('#', '')
-                          ? 'bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white'
-                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                        ? 'bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
                         }`}
                     >
                       {link.name}
@@ -309,8 +307,8 @@ export default function Navbar() {
                           setMobileMenuOpen(false);
                         }}
                         className={`glass-liquid rounded-xl sm:rounded-2xl py-3 xs:py-3.5 sm:py-4 px-3.5 xs:px-4 sm:px-4.5 transition-all hover:scale-105 ${language === lang.code
-                            ? 'bg-black/10 dark:bg-white/10 ring-2 ring-black/20 dark:ring-white/20'
-                            : 'hover:bg-black/5 dark:hover:bg-white/5'
+                          ? 'bg-black/10 dark:bg-white/10 ring-2 ring-black/20 dark:ring-white/20'
+                          : 'hover:bg-black/5 dark:hover:bg-white/5'
                           }`}
                       >
                         <span className="text-xl xs:text-2xl sm:text-[26px]">{flagMap[lang.code]}</span>

@@ -2,7 +2,6 @@
 
 import Navbar from '@/components/Navbar';
 import LunarHorizonCSS from '@/components/HeroSection';
-import TechStackMarquee from '@/components/TechStackMarquee';
 import AboutSection from '@/components/AboutSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import ContactSection from '@/components/ContactSection';
@@ -13,7 +12,6 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <LunarHorizonCSS />
-      <TechStackMarquee />
       <AboutSection />
       <ProjectsSection />
       <ContactSection />

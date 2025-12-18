@@ -12,132 +12,42 @@ export default function AboutSection() {
   const { theme } = useTheme();
 
   const frontendTech = [
-    {
-      name: "React",
-      icon: "/react-original.svg"
-    },
-    {
-      name: "Next.js",
-      icon: "/nextjs-original.svg"
-    },
-    {
-      name: "Tailwind CSS",
-      icon: "/tailwindcss-icon-svgrepo-com.svg"
-    },
-    {
-      name: "TypeScript",
-      icon: "/typescript-original.svg"
-    },
-    {
-      name: "HTML",
-      icon: "/html5-original.svg"
-    },
-    {
-      name: "CSS",
-      icon: "/css3-original.svg"
-    },
+    { name: "React", icon: "/react-original.svg" },
+    { name: "Next.js", icon: "/nextjs-original.svg" },
+    { name: "Tailwind CSS", icon: "/tailwindcss-icon-svgrepo-com.svg" },
+    { name: "TypeScript", icon: "/typescript-original.svg" },
+    { name: "HTML", icon: "/html5-original.svg" },
+    { name: "CSS", icon: "/css3-original.svg" },
   ];
 
   const backendTech = [
-    {
-      name: "Node.js",
-      icon: "/nodejs-icon-logo-svgrepo-com.svg"
-    },
-    {
-      name: "Python",
-      icon: "/python-original.svg"
-    },
-    {
-      name: "Jupyter Notebook",
-      icon: "/jupyter-original-wordmark.svg"
-    },
-    {
-      name: "Java",
-      icon: "/java-svgrepo-com.svg"
-    },
-    {
-      name: "Spring Boot",
-      icon: "/spring-original-wordmark.svg"
-    },
-    {
-      name: "C#",
-      icon: "/csharp-original.svg"
-    },
-    {
-      name: "C++",
-      icon: "/cplusplus-original.svg"
-    },
-    {
-      name: "MySQL",
-      icon: "/mysql-svgrepo-com.svg"
-    },
-    {
-      name: "Docker",
-      icon: "/docker-svgrepo-com.svg"
-    },
+    { name: "Node.js", icon: "/nodejs-icon-logo-svgrepo-com.svg" },
+    { name: "Python", icon: "/python-original.svg" },
+    { name: "Jupyter Notebook", icon: "/jupyter-original-wordmark.svg" },
+    { name: "Java", icon: "/java-svgrepo-com.svg" },
+    { name: "Spring Boot", icon: "/spring-original-wordmark.svg" },
+    { name: "C#", icon: "/csharp-original.svg" },
+    { name: "C++", icon: "/cplusplus-original.svg" },
+    { name: "MySQL", icon: "/mysql-svgrepo-com.svg" },
+    { name: "Docker", icon: "/docker-svgrepo-com.svg" },
   ];
 
   const toolsTech = [
-    {
-      name: "Git",
-      icon: "/git.svg"
-    },
-    {
-      name: "GitHub",
-      icon: "/github.svg"
-    },
-    {
-      name: "Figma",
-      icon: "/figma-original.svg"
-    },
-    {
-      name: "Vercel",
-      icon: "/vercel-fill-svgrepo-com.svg"
-    },
-    {
-      name: "Postman",
-      icon: "/postman-icon-svgrepo-com.svg"
-    },
-    {
-      name: "Insomnia",
-      icon: "/insomnia-svgrepo-com.svg"
-    },
-    {
-      name: "Trello",
-      icon: "/trello-svgrepo-com.svg"
-    },
-    {
-      name: "VS Code",
-      icon: "/vscode-original.svg"
-    },
-    {
-      name: "Visual Studio",
-      icon: "/visualstudio-plain.svg"
-    },
-    {
-      name: "IntelliJ IDEA",
-      icon: "/intellij-idea-svgrepo-com.svg"
-    },
-    {
-      name: "NPM",
-      icon: "/npm-svgrepo-com.svg"
-    },
-    {
-      name: "Microsoft Azure",
-      icon: "/azure-original-wordmark.svg"
-    },
-    {
-      name: "Oracle Cloud",
-      icon: "/oracle-svgrepo-com.svg"
-    },
-    {
-      name: "Linux",
-      icon: "/linux-original.svg"
-    },
-    {
-      name: "Swagger",
-      icon: "/swagger-svgrepo-com.svg"
-    },
+    { name: "Git", icon: "/git.svg" },
+    { name: "GitHub", icon: "/github.svg" },
+    { name: "Figma", icon: "/figma-original.svg" },
+    { name: "Vercel", icon: "/vercel-fill-svgrepo-com.svg" },
+    { name: "Postman", icon: "/postman-icon-svgrepo-com.svg" },
+    { name: "Insomnia", icon: "/insomnia-svgrepo-com.svg" },
+    { name: "Trello", icon: "/trello-svgrepo-com.svg" },
+    { name: "VS Code", icon: "/vscode-original.svg" },
+    { name: "Visual Studio", icon: "/visualstudio-plain.svg" },
+    { name: "IntelliJ IDEA", icon: "/intellij-idea-svgrepo-com.svg" },
+    { name: "NPM", icon: "/npm-svgrepo-com.svg" },
+    { name: "Microsoft Azure", icon: "/azure-original-wordmark.svg" },
+    { name: "Oracle Cloud", icon: "/oracle-svgrepo-com.svg" },
+    { name: "Linux", icon: "/linux-original.svg" },
+    { name: "Swagger", icon: "/swagger-svgrepo-com.svg" },
   ];
 
   const duplicatedFrontend = [...frontendTech, ...frontendTech, ...frontendTech];
@@ -159,7 +69,7 @@ export default function AboutSection() {
             >
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
                 <Users className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-purple-400" />
-                <span className="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                <span className="text-xs text-gray-600 dark:text-white uppercase tracking-wider">
                   {t.about.collaboration}
                 </span>
               </div>
@@ -167,15 +77,14 @@ export default function AboutSection() {
                 {t.about.collaborationTitle}
               </h3>
               <div className="flex items-center justify-center mt-4 xs:mt-5 sm:mt-6 md:mt-8">
-                <div
-                  className="w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center text-2xl xs:text-2.5xl sm:text-3xl md:text-4xl"
-                  style={{
-                    backdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255, 255, 255, 0.034)',
-                    boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.055)',
-                  }}
-                >
-                  👨‍💻
+                <div className="w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 relative">
+                  <Image
+                    src="/working.svg"
+                    alt="VR Collaboration"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 475px) 192px, (max-width: 640px) 224px, (max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"
+                  />
                 </div>
               </div>
             </motion.div>
@@ -189,7 +98,7 @@ export default function AboutSection() {
             >
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
                 <Clock className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-blue-400" />
-                <span className="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                <span className="text-xs text-gray-600 dark:text-white uppercase tracking-wider">
                   {t.about.timezone}
                 </span>
               </div>
@@ -224,96 +133,16 @@ export default function AboutSection() {
                 {t.about.passionate}
               </h3>
 
-              <div className="space-y-3 xs:space-y-4 sm:space-y-5 md:space-y-6">
-
+              <div className="space-y-4 xs:space-y-5 sm:space-y-6">
+                {/* Frontend */}
                 <div>
-                  <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-1.5 xs:mb-2 sm:mb-3 text-center">
-                    {t.techArsenal.frontend}
+                  <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
+                    Frontend
                   </h4>
-                  <div className="relative overflow-hidden">
+                  <div className="relative overflow-hidden flex justify-center">
                     <motion.div
-                      className="flex gap-1.5 xs:gap-2 sm:gap-2.5 md:gap-3 pr-1.5 xs:pr-2 sm:pr-2.5 md:pr-3"
-                      animate={{ x: [0, -1200] }}
-                      transition={{
-                        x: {
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          duration: 25,
-                          ease: "linear",
-                        },
-                      }}
-                    >
-                      {duplicatedFrontend.map((tech, index) => (
-                        <div
-                          key={`frontend-${index}`}
-                          className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 md:px-3 py-1 xs:py-1.5 sm:py-2 flex items-center gap-1 xs:gap-1.5 sm:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
-                        >
-                          <div className="relative w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center">
-                            <Image
-                              src={tech.icon}
-                              alt={`${tech.name} logo`}
-                              fill
-                              className="object-contain"
-                              sizes="(max-width: 640px) 20px, (max-width: 768px) 24px, 32px"
-                            />
-                          </div>
-                          <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-1.5 xs:mb-2 sm:mb-3 text-center">
-                    {t.techArsenal.backend}
-                  </h4>
-                  <div className="relative overflow-hidden">
-                    <motion.div
-                      className="flex gap-1.5 xs:gap-2 sm:gap-2.5 md:gap-3 pr-1.5 xs:pr-2 sm:pr-2.5 md:pr-3"
-                      animate={{ x: [-1200, 0] }}
-                      transition={{
-                        x: {
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          duration: 25,
-                          ease: "linear",
-                        },
-                      }}
-                    >
-                      {duplicatedBackend.map((tech, index) => (
-                        <div
-                          key={`backend-${index}`}
-                          className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 md:px-3 py-1 xs:py-1.5 sm:py-2 flex items-center gap-1 xs:gap-1.5 sm:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
-                        >
-                          <div className="relative w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center">
-                            <Image
-                              src={tech.icon}
-                              alt={`${tech.name} logo`}
-                              fill
-                              className="object-contain"
-                              sizes="(max-width: 640px) 20px, (max-width: 768px) 24px, 32px"
-                            />
-                          </div>
-                          <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-1.5 xs:mb-2 sm:mb-3 text-center">
-                    {t.techArsenal.tools}
-                  </h4>
-                  <div className="relative overflow-hidden">
-                    <motion.div
-                      className="flex gap-1.5 xs:gap-2 sm:gap-2.5 md:gap-3 pr-1.5 xs:pr-2 sm:pr-2.5 md:pr-3"
-                      animate={{ x: [0, -1000] }}
+                      className="flex gap-2 xs:gap-2.5 sm:gap-3"
+                      animate={{ x: [0, -800] }}
                       transition={{
                         x: {
                           repeat: Infinity,
@@ -323,21 +152,103 @@ export default function AboutSection() {
                         },
                       }}
                     >
-                      {duplicatedTools.map((tech, index) => (
+                      {duplicatedFrontend.map((tech, index) => (
                         <div
-                          key={`tools-${index}`}
-                          className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 md:px-3 py-1 xs:py-1.5 sm:py-2 flex items-center gap-1 xs:gap-1.5 sm:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
+                          key={`frontend-${index}`}
+                          className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
                         >
-                          <div className="relative w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center">
+                          <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
                             <Image
                               src={tech.icon}
                               alt={`${tech.name} logo`}
                               fill
                               className="object-contain"
-                              sizes="(max-width: 640px) 20px, (max-width: 768px) 24px, 32px"
+                              sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
                             />
                           </div>
-                          <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-900 dark:text-gray-300 whitespace-nowrap">
+                            {tech.name}
+                          </span>
+                        </div>
+                      ))}
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Backend */}
+                <div>
+                  <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
+                    Backend & Database
+                  </h4>
+                  <div className="relative overflow-hidden flex justify-center">
+                    <motion.div
+                      className="flex gap-2 xs:gap-2.5 sm:gap-3"
+                      animate={{ x: [-800, 0] }}
+                      transition={{
+                        x: {
+                          repeat: Infinity,
+                          repeatType: "loop",
+                          duration: 20,
+                          ease: "linear",
+                        },
+                      }}
+                    >
+                      {duplicatedBackend.map((tech, index) => (
+                        <div
+                          key={`backend-${index}`}
+                          className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
+                        >
+                          <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
+                            <Image
+                              src={tech.icon}
+                              alt={`${tech.name} logo`}
+                              fill
+                              className="object-contain"
+                              sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
+                            />
+                          </div>
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-900 dark:text-gray-300 whitespace-nowrap">
+                            {tech.name}
+                          </span>
+                        </div>
+                      ))}
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Tools */}
+                <div>
+                  <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
+                    Tools
+                  </h4>
+                  <div className="relative overflow-hidden flex justify-center">
+                    <motion.div
+                      className="flex gap-2 xs:gap-2.5 sm:gap-3"
+                      animate={{ x: [0, -1000] }}
+                      transition={{
+                        x: {
+                          repeat: Infinity,
+                          repeatType: "loop",
+                          duration: 25,
+                          ease: "linear",
+                        },
+                      }}
+                    >
+                      {duplicatedTools.map((tech, index) => (
+                        <div
+                          key={`tools-${index}`}
+                          className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
+                        >
+                          <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
+                            <Image
+                              src={tech.icon}
+                              alt={`${tech.name} logo`}
+                              fill
+                              className="object-contain"
+                              sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
+                            />
+                          </div>
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-900 dark:text-gray-300 whitespace-nowrap">
                             {tech.name}
                           </span>
                         </div>
@@ -414,7 +325,6 @@ export default function AboutSection() {
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="relative">
-
                   <div
                     className="absolute inset-0 rounded-full"
                     style={{
@@ -437,7 +347,7 @@ export default function AboutSection() {
                         ? '1px solid rgba(255, 255, 255, 0)'
                         : '1px solid rgba(0, 0, 0, 0.08)',
                       boxShadow: theme === 'dark'
-                        ? 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)'
+                        ? 'inset 0 1px 1px rgba(255, 255  , 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)'
                         : 'inset 0 1px 2px rgba(255, 255, 255, 1), inset 0 -1px 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1)',
                       color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(40, 40, 40, 0.9)',
                     }}
@@ -447,7 +357,6 @@ export default function AboutSection() {
                   </div>
                 </div>
               </motion.a>
-
             </motion.div>
 
             <motion.div
@@ -464,11 +373,11 @@ export default function AboutSection() {
 
               <div className="relative z-10 h-full flex flex-col justify-between">
                 <div className="space-y-2 xs:space-y-3 sm:space-y-4">
-                  <h3 className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-light leading-tight">
+                  <h3 className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-light leading-tight text-gray-900 dark:text-white">
                     {t.about.cleanCode}
                   </h3>
 
-                  <p className="text-sm xs:text-base sm:text-lg md:text-xl font-light max-w-xl">
+                  <p className="text-sm xs:text-base sm:text-lg md:text-xl font-light max-w-xl text-gray-900 dark:text-gray-300">
                     {t.about.techEnthusiast}
                   </p>
                 </div>

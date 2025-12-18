@@ -26,7 +26,7 @@ export default function Footer() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/footer.jpeg"
-          alt="Mountain background"
+          alt="Orange background image"
           fill
           className="object-cover"
           priority

@@ -16,11 +16,12 @@ export default function OrangePlanetHero() {
     offset: ["start start", "end start"]
   });
 
-  const planetY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const planetScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const planetY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const planetScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.5], ["0%", "90%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 0.5, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.4], ["0%", "20%"]);
+
 
   return (
     <section
