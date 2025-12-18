@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useState } from 'react';
 
-// Mapeamento de tecnologias para ícones
 const techIcons: Record<string, string> = {
   'Node.js': '/nodejs-original-wordmark.svg',
   'PostgreSQL': '/postgresql-original.svg',
@@ -134,7 +133,6 @@ export default function ProjectsSection() {
         </motion.div>
 
         <div className="relative max-w-5xl mx-auto">
-          {/* Botão Anterior */}
           <button
             onClick={prevProject}
             className="group absolute left-1 xs:left-2 sm:-left-4 lg:-left-20 top-1/2 -translate-y-1/2 z-30"
@@ -163,7 +161,6 @@ export default function ProjectsSection() {
             </div>
           </button>
 
-          {/* Botão Próximo */}
           <button
             onClick={nextProject}
             className="group absolute right-1 xs:right-2 sm:-right-4 lg:-right-20 top-1/2 -translate-y-1/2 z-30"
@@ -192,7 +189,6 @@ export default function ProjectsSection() {
             </div>
           </button>
 
-          {/* Carrossel de Projetos */}
           <div className="relative h-[400px] xs:h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px] flex items-center justify-center px-8 xs:px-10 sm:px-12 md:px-4">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
@@ -210,7 +206,6 @@ export default function ProjectsSection() {
                 className="absolute w-full"
               >
                 <div className="glass-liquid rounded-xl xs:rounded-2xl sm:rounded-3xl overflow-hidden max-w-3xl xs:max-w-4xl mx-auto shadow-xl sm:shadow-2xl">
-                  {/* Imagem do Projeto */}
                   <div className="relative h-40 xs:h-48 sm:h-56 md:h-64 lg:h-80 overflow-hidden">
                     <Image
                       src={currentProject.image}
@@ -221,7 +216,6 @@ export default function ProjectsSection() {
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
 
-                    {/* Botões de Ação */}
                     <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 lg:bottom-6 right-2 xs:right-3 sm:right-4 lg:right-6 flex gap-1.5 xs:gap-2 sm:gap-3">
                       <a
                         href={currentProject.github}
@@ -242,7 +236,6 @@ export default function ProjectsSection() {
                     </div>
                   </div>
 
-                  {/* Conteúdo do Projeto */}
                   <div className="p-4 xs:p-5 sm:p-6 md:p-7 lg:p-8">
                     <h3 className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-light mb-2 xs:mb-2.5 sm:mb-3 lg:mb-4 text-gray-900 dark:text-white">
                       {currentProject.title}
@@ -251,7 +244,6 @@ export default function ProjectsSection() {
                       {currentProject.description}
                     </p>
 
-                    {/* Tags de Tecnologia */}
                     <div className="flex flex-wrap gap-1.5 xs:gap-2 sm:gap-2.5 lg:gap-3">
                       {currentProject.tags.map((tag, tagIndex) => (
                         <div
@@ -281,7 +273,6 @@ export default function ProjectsSection() {
             </AnimatePresence>
           </div>
 
-          {/* Indicadores do Carrossel */}
           <div className="flex justify-center gap-1.5 xs:gap-2 sm:gap-2.5 mt-4 xs:mt-5 sm:mt-6 md:mt-8">
             {projects.map((_, index) => (
               <button
@@ -291,8 +282,8 @@ export default function ProjectsSection() {
                   setCurrentIndex(index);
                 }}
                 className={`transition-all duration-300 rounded-full ${index === currentIndex
-                    ? 'w-6 xs:w-8 sm:w-10 lg:w-12 h-1.5 xs:h-2 sm:h-2.5 lg:h-3 bg-linear-to-r from-orange-400 to-orange-600'
-                    : 'w-1.5 xs:w-2 sm:w-2.5 lg:w-3 h-1.5 xs:h-2 sm:h-2.5 lg:h-3 bg-gray-400 dark:bg-gray-600 hover:bg-orange-300 dark:hover:bg-orange-500'
+                  ? 'w-6 xs:w-8 sm:w-10 lg:w-12 h-1.5 xs:h-2 sm:h-2.5 lg:h-3 bg-linear-to-r from-orange-400 to-orange-600'
+                  : 'w-1.5 xs:w-2 sm:w-2.5 lg:w-3 h-1.5 xs:h-2 sm:h-2.5 lg:h-3 bg-gray-400 dark:bg-gray-600 hover:bg-orange-300 dark:hover:bg-orange-500'
                   }`}
                 aria-label={`Go to project ${index + 1}`}
               />

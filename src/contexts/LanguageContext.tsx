@@ -28,7 +28,6 @@
       localStorage.setItem('language', lang);
     };
 
-    // Always render children with current language translations
     return (
       <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>
         {children}

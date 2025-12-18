@@ -80,7 +80,7 @@ export default function TechStackMarquee() {
       </motion.div>
 
       <div className="relative rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8">
-        {/* Gradient Blur Edges */}
+
         <div className="absolute left-0 top-0 bottom-0 w-6 xs:w-8 sm:w-16 md:w-24 bg-linear-to-r from-white dark:from-[#0a0a0a] to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-6 xs:w-8 sm:w-16 md:w-24 bg-linear-to-l from-white dark:from-[#0a0a0a] to-transparent z-10" />
 

@@ -22,7 +22,7 @@ export default function Footer() {
 
   return (
     <footer className="relative w-full mt-auto overflow-hidden">
-      {/* Background */}
+
       <div className="absolute inset-0 z-0">
         <Image
           src="/footer.jpeg"
@@ -34,11 +34,10 @@ export default function Footer() {
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/60 to-black/40" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-20">
-        {/* Main Grid */}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-14 mb-10">
-          {/* Logo / About */}
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +67,6 @@ export default function Footer() {
             </p>
           </motion.div>
 
-          {/* Quick Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -92,7 +90,6 @@ export default function Footer() {
             </nav>
           </motion.div>
 
-          {/* Social Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +135,6 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        {/* Copyright */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

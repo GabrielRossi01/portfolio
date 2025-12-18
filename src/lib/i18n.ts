@@ -174,8 +174,8 @@ export const translations: Record<Language, Translations> = {
       emailPlaceholder: 'your@email.com',
       messagePlaceholder: 'Your message...',
       sendButton: 'Send Message',
-      rights: 'All rights reserved.',      quickLinks: 'Quick Links',
-      socialLinks: 'Social Links',    },
+      rights: 'All rights reserved.', quickLinks: 'Quick Links',
+      socialLinks: 'Social Links',},
   },
   'es': {
     nav: {

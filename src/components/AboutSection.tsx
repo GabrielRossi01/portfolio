@@ -11,7 +11,6 @@ export default function AboutSection() {
   const { t } = useLanguage();
   const { theme } = useTheme();
 
-  // Front-end Technologies
   const frontendTech = [
     {
       name: "React",
@@ -39,7 +38,6 @@ export default function AboutSection() {
     },
   ];
 
-  // Back-end & Database Technologies
   const backendTech = [
     {
       name: "Node.js",
@@ -79,7 +77,6 @@ export default function AboutSection() {
     },
   ];
 
-  // Tools
   const toolsTech = [
     {
       name: "Git",
@@ -151,7 +148,7 @@ export default function AboutSection() {
     <section id="about" className="py-8 sm:py-12 md:py-16 lg:py-24 px-2 xs:px-3 sm:px-4">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-          {/* Coluna Esquerda */}
+
           <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -215,7 +212,6 @@ export default function AboutSection() {
             </motion.div>
           </div>
 
-          {/* Coluna Direita */}
           <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -229,7 +225,7 @@ export default function AboutSection() {
               </h3>
 
               <div className="space-y-3 xs:space-y-4 sm:space-y-5 md:space-y-6">
-                {/* Frontend Carousel */}
+
                 <div>
                   <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-1.5 xs:mb-2 sm:mb-3 text-center">
                     {t.techArsenal.frontend}
@@ -270,7 +266,6 @@ export default function AboutSection() {
                   </div>
                 </div>
 
-                {/* Backend Carousel */}
                 <div>
                   <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-1.5 xs:mb-2 sm:mb-3 text-center">
                     {t.techArsenal.backend}
@@ -311,7 +306,6 @@ export default function AboutSection() {
                   </div>
                 </div>
 
-                {/* Tools Carousel */}
                 <div>
                   <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-1.5 xs:mb-2 sm:mb-3 text-center">
                     {t.techArsenal.tools}
@@ -420,7 +414,7 @@ export default function AboutSection() {
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="relative">
-                  {/* Sombra/Profundidade do botão */}
+
                   <div
                     className="absolute inset-0 rounded-full"
                     style={{
@@ -431,7 +425,6 @@ export default function AboutSection() {
                     }}
                   />
 
-                  {/* Botão principal */}
                   <div
                     className="relative mt-3 xs:mt-4 sm:mt-5 md:mt-6 px-6 xs:px-7 sm:px-8 md:px-10 py-3 xs:py-3.5 sm:py-4 md:py-4 rounded-full flex items-center justify-center gap-2 xs:gap-2.5 sm:gap-3 font-light text-sm xs:text-base sm:text-lg transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
                     style={{
@@ -457,7 +450,6 @@ export default function AboutSection() {
 
             </motion.div>
 
-            {/* Card Clean Code - ATUALIZADO COM TRADUÇÃO */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -465,7 +457,6 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 lg:p-10 relative overflow-hidden min-h-[180px] xs:min-h-[200px] sm:min-h-[220px] md:min-h-60"
             >
-              {/* Background Image */}
               <div
                 className="absolute inset-0 opacity-30 dark:opacity-20 pointer-events-none bg-right bg-no-repeat mt-22 sm:mt-35 "
                 style={{ backgroundImage: "url('/snippet.png')" }}

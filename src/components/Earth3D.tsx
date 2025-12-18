@@ -72,14 +72,12 @@ export default function Earth3D() {
           onMouseMove={(e) => {
             if (pointerInteracting.current !== null) {
               const delta = e.clientX - pointerInteracting.current;
-              // MUDANÇA: Aumentei de 0.005 para 0.008 para movimento mais responsivo
               pointerInteractionMovement.current = delta * 0.008;
             }
           }}
           onTouchMove={(e) => {
             if (pointerInteracting.current !== null && e.touches[0]) {
               const delta = e.touches[0].clientX - pointerInteracting.current;
-              // MUDANÇA: Aumentei de 0.005 para 0.008 para movimento mais responsivo no mobile
               pointerInteractionMovement.current = delta * 0.008;
             }
           }}
@@ -90,9 +88,7 @@ export default function Earth3D() {
             contain: 'layout paint size',
             opacity: 0,
             transition: 'opacity 1s ease',
-            // ADIÇÃO: Will-change para melhorar performance de animação
             willChange: 'transform',
-            // ADIÇÃO: Transform para habilitar aceleração de hardware
             transform: 'translateZ(0)',
           }}
         />
@@ -101,7 +97,7 @@ export default function Earth3D() {
       <div className="absolute bottom-8 left-4 xs:bottom-6 xs:left-6 w-auto min-w-60 backdrop-blur-xl bg-black/60 p-4 rounded-3xl border border-white/15 shadow-2xl overflow-hidden group hover:border-orange-500/30 transition-all duration-500">
 
         <div className="flex flex-col gap-3 relative z-10">
-          {/* Corpo Principal: Localização */}
+
           <div className="flex items-center gap-3 pl-1">
             <div className="p-2 rounded-full">
               <MapPin className="w-5 h-5" />

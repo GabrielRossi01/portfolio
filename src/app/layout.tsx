@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import Script from 'next/script';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
-import type { Metadata } from 'next'; // 1. Importar o tipo
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Gabriel Rossi - Developer & Problem Solver",

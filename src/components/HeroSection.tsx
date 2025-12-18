@@ -16,11 +16,9 @@ export default function OrangePlanetHero() {
     offset: ["start start", "end start"]
   });
 
-  // Parallax para o planeta
   const planetY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const planetScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
-  // Parallax para o conteúdo
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.5], ["0%", "90%"]);
 
@@ -35,7 +33,6 @@ export default function OrangePlanetHero() {
           : 'linear-gradient(to bottom, #ffffff 0%, #fafafa 100%)'
       }}
     >
-      {/* Giant Orange Planet/Moon - Half Sphere */}
       <motion.div
         className="absolute left-1/2 -translate-x-1/2"
         style={{
@@ -66,7 +63,6 @@ export default function OrangePlanetHero() {
             ease: "easeInOut"
           }}
         >
-          {/* Glow Effect Layer */}
           <div
             className="absolute inset-0 rounded-full"
             style={{
@@ -77,7 +73,6 @@ export default function OrangePlanetHero() {
             }}
           />
 
-          {/* Subtle Texture Overlay */}
           <div
             className="absolute inset-0 rounded-full opacity-20"
             style={{
@@ -85,7 +80,6 @@ export default function OrangePlanetHero() {
             }}
           />
 
-          {/* Atmospheric Edge Glow */}
           <div
             className="absolute inset-0 rounded-full"
             style={{
@@ -98,7 +92,6 @@ export default function OrangePlanetHero() {
         </motion.div>
       </motion.div>
 
-      {/* Ambient Light Cast from Planet */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[60%] pointer-events-none"
         style={{
@@ -108,7 +101,6 @@ export default function OrangePlanetHero() {
         }}
       />
 
-      {/* Subtle Grain Texture */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.015] z-1"
         style={{
@@ -116,7 +108,6 @@ export default function OrangePlanetHero() {
         }}
       />
 
-      {/* Hero Content */}
       <motion.div
         className="relative z-10 flex items-center justify-center px-4 sm:px-6 w-full"
         style={{
@@ -130,7 +121,6 @@ export default function OrangePlanetHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {/* Greeting */}
             <motion.p
               className="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-light tracking-wide"
               initial={{ opacity: 0, y: -10 }}
@@ -140,7 +130,6 @@ export default function OrangePlanetHero() {
               {t.hero.greeting}
             </motion.p>
 
-            {/* Main Name */}
             <motion.h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-5 sm:mb-6 leading-tight"
               initial={{ opacity: 0, scale: 0.95 }}
@@ -167,7 +156,6 @@ export default function OrangePlanetHero() {
               </span>
             </motion.h1>
 
-            {/* Job Title */}
             <motion.h2
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-5 sm:mb-6 tracking-tight"
               initial={{ opacity: 0, y: 15 }}
@@ -177,7 +165,6 @@ export default function OrangePlanetHero() {
               {t.hero.title}
             </motion.h2>
 
-            {/* Subtitle */}
             <motion.p
               className="text-sm sm:text-base md:text-base lg:text-lg mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed font-light px-4"
               initial={{ opacity: 0 }}
@@ -188,15 +175,12 @@ export default function OrangePlanetHero() {
             </motion.p>
           </motion.div>
 
-          {/* CTA Buttons */}
-          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
             className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
           >
-            {/* Entre em Contato */}
             <motion.a
               href="#contact"
               className="group relative w-full sm:w-auto overflow-hidden rounded-full"
@@ -237,7 +221,6 @@ export default function OrangePlanetHero() {
               </div>
             </motion.a>
 
-            {/* Baixar CV */}
             <motion.a
               href="/cv.pdf"
               download
@@ -283,7 +266,6 @@ export default function OrangePlanetHero() {
         </div>
       </motion.div>
 
-      {/* Floating Particles - Subtle Ambient Effect */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-2">
         {[...Array(5)].map((_, i) => (
           <motion.div
