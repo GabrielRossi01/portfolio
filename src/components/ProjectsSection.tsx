@@ -1,9 +1,11 @@
 "use client";
 
+
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
+
 
 const techIcons: Record<string, string> = {
   'Node.js': '/nodejs-original-wordmark.svg',
@@ -27,10 +29,13 @@ const techIcons: Record<string, string> = {
   'RabbitMQ': '/rabbitmq-original.svg',
 };
 
+
 export default function ProjectsSection() {
   const { t } = useLanguage();
 
+
   const projects = t.projects.items || [];
+
 
   return (
     <section id="projects" className="py-8 xs:py-12 sm:py-20 md:py-24 px-3 xs:px-4 sm:px-6">
@@ -45,10 +50,11 @@ export default function ProjectsSection() {
           <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-5xl font-light mb-2 xs:mb-3 sm:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
             {t.projects.title.split(' ').slice(0, -1).join(' ')} <span className="gradient-orange-accent">{t.projects.title.split(' ').pop()}</span>
           </h2>
-          <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl font-extralight text-gray-900 dark:text-gray-300">
+          <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl font-light text-gray-700 dark:text-gray-300">
             {t.projects.subtitle}
           </p>
         </motion.div>
+
 
         <div className="space-y-6 xs:space-y-8 sm:space-y-10 lg:space-y-12">
           {projects.map((project: any, index: number) => (
@@ -65,15 +71,16 @@ export default function ProjectsSection() {
                   {/* Conteúdo do card - Esquerda */}
                   <div className="p-6 xs:p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
                     <div>
-                      <p className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 xs:mb-3">
+                      <p className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 xs:mb-3">
                         {project.company} • {project.year}
                       </p>
-                      <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-light mb-3 xs:mb-4 sm:mb-5 text-gray-900 dark:text-white leading-tight">
+                      <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-light mb-3 xs:mb-4 sm:mb-5 text-gray-800 dark:text-white leading-tight">
                         {project.title}
                       </h3>
-                      <p className="text-xs xs:text-sm sm:text-base text-gray-900 dark:text-gray-300 leading-relaxed mb-4 xs:mb-5 sm:mb-6">
+                      <p className="text-xs xs:text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4 xs:mb-5 sm:mb-6">
                         {project.description}
                       </p>
+
 
                       {/* Métricas */}
                       <div className="space-y-2 xs:space-y-2.5 sm:space-y-3 mb-6 xs:mb-8">
@@ -84,13 +91,14 @@ export default function ProjectsSection() {
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                             </div>
-                            <span className="text-[11px] xs:text-xs sm:text-sm lg:text-base text-gray-900 dark:text-gray-300">
+                            <span className="text-[11px] xs:text-xs sm:text-sm lg:text-base text-gray-700 dark:text-gray-300">
                               {metric}
                             </span>
                           </div>
                         ))}
                       </div>
                     </div>
+
 
                     <div>
                       {/* Tags */}
@@ -110,12 +118,13 @@ export default function ProjectsSection() {
                                 />
                               </div>
                             )}
-                            <span className="text-[10px] xs:text-xs sm:text-sm font-extralight text-gray-900 dark:text-gray-300 whitespace-nowrap">
+                            <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-700 dark:text-gray-300 whitespace-nowrap">
                               {tag}
                             </span>
                           </div>
                         ))}
                       </div>
+
 
                       {/* Botão CTA */}
                       <div className="flex gap-3 xs:gap-4">
@@ -125,8 +134,8 @@ export default function ProjectsSection() {
                           rel="noopener noreferrer"
                           className="glass-liquid px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 rounded-xl flex items-center gap-2 hover:bg-white/20 transition-all group"
                         >
-                          <span className="text-xs xs:text-sm sm:text-base font-light text-gray-900 dark:text-white">{t.projects.viewCaseStudy}</span>
-                          <ExternalLink className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-900 dark:text-white group-hover:translate-x-1 transition-transform" />
+                          <span className="text-xs xs:text-sm sm:text-base font-light text-gray-800 dark:text-white">{t.projects.viewCaseStudy}</span>
+                          <ExternalLink className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-800 dark:text-white group-hover:translate-x-1 transition-transform" />
                         </a>
                         <a
                           href={project.github}
@@ -134,11 +143,12 @@ export default function ProjectsSection() {
                           rel="noopener noreferrer"
                           className="glass-liquid p-2 xs:p-2.5 sm:p-3 rounded-xl hover:bg-white/20 transition-all hover:scale-110"
                         >
-                          <Github className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 text-gray-900 dark:text-white" />
+                          <Github className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 text-gray-800 dark:text-white" />
                         </a>
                       </div>
                     </div>
                   </div>
+
 
                   {/* Mockup - Direita (cortado na parte inferior com hover) */}
                   <div className="relative hidden lg:flex items-end justify-center overflow-hidden pb-0 group/mockup cursor-pointer">
@@ -157,6 +167,7 @@ export default function ProjectsSection() {
                       />
                     </div>
                   </div>
+
 
                   {/* Mockup Mobile com hover */}
                   <div className="lg:hidden relative overflow-hidden h-[200px] xs:h-[240px] sm:h-[280px] flex items-end justify-center group/mockup-mobile cursor-pointer">

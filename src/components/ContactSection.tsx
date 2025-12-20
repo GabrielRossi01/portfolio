@@ -1,10 +1,12 @@
 "use client";
 
+
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useState } from 'react';
+
 
 export default function ContactSection() {
   const { t } = useLanguage();
@@ -16,16 +18,20 @@ export default function ContactSection() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+
     await new Promise(resolve => setTimeout(resolve, 1500));
+
 
     console.log('Form submitted:', formData);
     setFormData({ name: '', email: '', message: '' });
     setIsSubmitting(false);
   };
+
 
   return (
     <section id="contact" className="py-8 xs:py-12 md:py-16 lg:py-24 px-2 xs:px-3 sm:px-4">
@@ -37,13 +43,19 @@ export default function ContactSection() {
           viewport={{ once: true }}
           className="text-center mb-6 xs:mb-8 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-1.5 xs:mb-2 sm:mb-3 lg:mb-4 bg-linear-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
-            {t.nav.contact.split(' ').slice(0, -1).join(' ')} <span className="gradient-orange-accent">{t.nav.contact.split(' ').pop()}</span>
+          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-1.5 xs:mb-2 sm:mb-3 lg:mb-4">
+            <span className="text-gray-800 dark:text-white">
+              {t.footer.title.split(' ').slice(0, -1).join(' ')}
+            </span>{' '}
+            <span className="gradient-orange-accent">
+              {t.footer.title.split(' ').pop()}
+            </span>
           </h2>
-          <p className="text-sm xs:text-sm sm:text-base lg:text-lg xl:text-xl font-light">
+          <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl font-light text-gray-700 dark:text-gray-300">
             {t.footer.subtitle}
           </p>
         </motion.div>
+
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -57,7 +69,7 @@ export default function ContactSection() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-xs xs:text-xs sm:text-sm font-semibold mb-1 xs:mb-1.5 sm:mb-2 text-gray-900 dark:text-white"
+                  className="block text-xs xs:text-xs sm:text-sm font-semibold mb-1 xs:mb-1.5 sm:mb-2 text-gray-800 dark:text-white"
                 >
                   {t.footer.namePlaceholder}
                 </label>
@@ -67,15 +79,16 @@ export default function ContactSection() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
-                  className="glass-liquid w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 text-xs sm:text-sm"
+                  className="glass-liquid w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-800 dark:text-white placeholder-gray-600 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 text-xs sm:text-sm"
                   placeholder={t.footer.namePlaceholder}
                 />
               </div>
 
+
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-xs xs:text-xs sm:text-sm font-semibold mb-1 xs:mb-1.5 sm:mb-2 text-gray-900 dark:text-white"
+                  className="block text-xs xs:text-xs sm:text-sm font-semibold mb-1 xs:mb-1.5 sm:mb-2 text-gray-800 dark:text-white"
                 >
                   Email
                 </label>
@@ -85,15 +98,16 @@ export default function ContactSection() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
-                  className="glass-liquid w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 text-xs sm:text-sm"
+                  className="glass-liquid w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-800 dark:text-white placeholder-gray-600 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 text-xs sm:text-sm"
                   placeholder={t.footer.emailPlaceholder}
                 />
               </div>
 
+
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-xs xs:text-xs sm:text-sm font-semibold mb-1 xs:mb-1.5 sm:mb-2 text-gray-900 dark:text-white"
+                  className="block text-xs xs:text-xs sm:text-sm font-semibold mb-1 xs:mb-1.5 sm:mb-2 text-gray-800 dark:text-white"
                 >
                   {t.footer.messagePlaceholder}
                 </label>
@@ -103,10 +117,11 @@ export default function ContactSection() {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
                   rows={5}
-                  className="glass-liquid w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 resize-none text-xs sm:text-sm"
+                  className="glass-liquid w-full px-3 xs:px-3.5 sm:px-4 py-2 xs:py-2.5 sm:py-3 rounded-lg xs:rounded-xl text-gray-800 dark:text-white placeholder-gray-600 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 resize-none text-xs sm:text-sm"
                   placeholder={t.footer.messagePlaceholder}
                 />
               </div>
+
 
               <button
                 type="submit"

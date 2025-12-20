@@ -62,7 +62,7 @@ export default function Footer() {
               </div>
             </button>
 
-            <p className="text-white/85 text-sm max-w-xs">
+            <p className="text-white/85 text-sm max-w-xs font-light">
               {t.about.subtitle}
             </p>
           </motion.div>
@@ -82,7 +82,7 @@ export default function Footer() {
                 <a
                   key={index}
                   href={link.href}
-                  className="text-white/80 hover:text-white transition text-sm"
+                  className="text-white/80 hover:text-white transition text-sm font-light"
                 >
                   {link.name}
                 </a>

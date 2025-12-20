@@ -289,8 +289,9 @@ export default function Navbar() {
                       )}
                     </motion.div>
                     <span className="text-sm xs:text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300">
-                      {theme === 'dark' ? 'Light' : 'Dark'}
+                      {theme === 'dark' ? t.theme.light : t.theme.dark}
                     </span>
+
                   </button>
 
                   {languages.map((lang) => {

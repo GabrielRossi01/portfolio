@@ -18,6 +18,7 @@ export default function AboutSection() {
     { name: "TypeScript", icon: "/typescript-original.svg" },
     { name: "HTML", icon: "/html5-original.svg" },
     { name: "CSS", icon: "/css3-original.svg" },
+    { name: "Expo Router", icon: "/expo-router.svg" },
   ];
 
   const backendTech = [
@@ -107,9 +108,9 @@ export default function AboutSection() {
               </h3>
 
               <div className="flex flex-wrap gap-2 xs:gap-2.5 sm:gap-3 mb-3 xs:mb-3 sm:mb-4 md:mb-6">
-                <div className="glass rounded-full px-3 xs:px-3.5 sm:px-4 py-1.5 xs:py-1.5 sm:py-2 flex items-center gap-1.5 xs:gap-2 bg-green-500/20 border-green-500/30">
+                <div className="glass-liquid rounded-full px-3 xs:px-3.5 sm:px-4 py-1.5 xs:py-1.5 sm:py-2 flex items-center gap-1.5 xs:gap-2">
                   <span className="text-base xs:text-lg sm:text-xl">🇧🇷</span>
-                  <span className="text-xs xs:text-sm sm:text-sm font-light text-gray-900 dark:text-white">Brazil</span>
+                  <span className="text-xs xs:text-sm sm:text-sm font-light text-gray-800 dark:text-white">Brazil</span>
                 </div>
               </div>
 
@@ -127,7 +128,7 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 overflow-hidden h-full"
+              className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 overflow-hidden h-full relative"
             >
               <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl font-light text-gray-900 dark:text-white mb-4 xs:mb-5 sm:mb-6 md:mb-8 text-center">
                 {t.about.passionate}
@@ -257,6 +258,20 @@ export default function AboutSection() {
                   </div>
                 </div>
               </div>
+
+              {/* Imagem cortada na parte inferior */}
+              <div className="absolute -bottom-10 xs:-bottom-12 sm:-bottom-14 md:-bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[250px] xs:max-w-[280px] sm:max-w-[320px] md:max-w-[350px] pointer-events-none">
+                <div className="relative w-full aspect-6/4">
+                  <Image
+                    src="/frame-passionate.png"
+                    alt="Development workspace"
+                    fill
+                    className="object-contain opacity-40 dark:opacity-30"
+                    sizes="(max-width: 640px) 250px, (max-width: 768px) 280px, (max-width: 1024px) 320px, 350px"
+                  />
+                </div>
+              </div>
+
             </motion.div>
 
             <motion.div
@@ -314,9 +329,10 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 text-center"
             >
-              <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-medium text-gray-900 dark:text-white mb-2 xs:mb-3 sm:mb-4">
+              <h3 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-2 xs:mb-3 sm:mb-4" style={{ fontFamily: "'Instrument Serif', serif" }}>
                 {t.about.workTogether}
               </h3>
+
 
               <motion.a
                 href="mailto:rossi17006@gmail.com"
@@ -331,12 +347,12 @@ export default function AboutSection() {
                       background: theme === 'dark'
                         ? 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))'
                         : 'linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(150, 150, 150, 0.5))',
-                      transform: 'translateY(6px)',
+                      transform: 'translateY(4px)',
                     }}
                   />
 
                   <div
-                    className="relative mt-3 xs:mt-4 sm:mt-5 md:mt-6 px-6 xs:px-7 sm:px-8 md:px-10 py-3 xs:py-3.5 sm:py-4 md:py-4 rounded-full flex items-center justify-center gap-2 xs:gap-2.5 sm:gap-3 font-light text-sm xs:text-base sm:text-lg transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
+                    className="relative mt-2 xs:mt-2.5 sm:mt-3 px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 rounded-full flex items-center justify-center gap-1.5 xs:gap-2 font-light text-xs xs:text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
                     style={{
                       background: theme === 'dark'
                         ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0))'
@@ -347,16 +363,17 @@ export default function AboutSection() {
                         ? '1px solid rgba(255, 255, 255, 0)'
                         : '1px solid rgba(0, 0, 0, 0.08)',
                       boxShadow: theme === 'dark'
-                        ? 'inset 0 1px 1px rgba(255, 255  , 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)'
+                        ? 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)'
                         : 'inset 0 1px 2px rgba(255, 255, 255, 1), inset 0 -1px 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1)',
                       color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(40, 40, 40, 0.9)',
                     }}
                   >
-                    <Mail className="w-4 h-4 xs:w-5 xs:h-5 sm:w-5 sm:h-5" />
+                    <Mail className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-4 sm:h-4" />
                     <span>{t.about.sendEmail}</span>
                   </div>
                 </div>
               </motion.a>
+
             </motion.div>
 
             <motion.div

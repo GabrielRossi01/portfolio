@@ -6,6 +6,7 @@ import AboutSection from '@/components/AboutSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import ScrollingBanner from '@/components/ScrollingBanner';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <LunarHorizonCSS />
       <AboutSection />
       <ProjectsSection />
+      <ScrollingBanner />
       <ContactSection />
       <Footer />
     </main>
