@@ -38,6 +38,7 @@ export default function AboutSection() {
     { name: "GitHub", icon: "/github.svg" },
     { name: "Figma", icon: "/figma-original.svg" },
     { name: "Vercel", icon: "/vercel-fill-svgrepo-com.svg" },
+    { name: "Railway", icon: "/railway-logo.svg" },
     { name: "Postman", icon: "/postman-icon-svgrepo-com.svg" },
     { name: "Insomnia", icon: "/insomnia-svgrepo-com.svg" },
     { name: "Trello", icon: "/trello-svgrepo-com.svg" },
@@ -230,7 +231,7 @@ export default function AboutSection() {
                         x: {
                           repeat: Infinity,
                           repeatType: "loop",
-                          duration: 25,
+                          duration: 20,
                           ease: "linear",
                         },
                       }}
@@ -259,8 +260,8 @@ export default function AboutSection() {
                 </div>
               </div>
 
-              {/* Imagem cortada na parte inferior */}
-              <div className="absolute -bottom-10 xs:-bottom-12 sm:-bottom-14 md:-bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[250px] xs:max-w-[280px] sm:max-w-[320px] md:max-w-[350px] pointer-events-none">
+              {/* Imagem cortada na parte inferior - oculta no mobile */}
+              <div className="hidden md:block absolute -bottom-10 xs:-bottom-12 sm:-bottom-14 md:-bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[250px] xs:max-w-[280px] sm:max-w-[320px] md:max-w-[350px] pointer-events-none">
                 <div className="relative w-full aspect-6/4">
                   <Image
                     src="/frame-passionate.png"

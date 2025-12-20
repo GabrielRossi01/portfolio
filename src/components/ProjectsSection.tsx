@@ -8,25 +8,22 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 
 const techIcons: Record<string, string> = {
-  'Node.js': '/nodejs-original-wordmark.svg',
-  'PostgreSQL': '/postgresql-original.svg',
-  'Redis': '/redis-original.svg',
-  'Docker': '/docker-original-wordmark.svg',
-  'Go': '/go-original.svg',
-  'Kafka': '/kafka-original.svg',
-  'TimescaleDB': '/timescaledb-original.svg',
-  'Kubernetes': '/kubernetes-original.svg',
-  'Python': '/python-original.svg',
-  'FastAPI': '/fastapi-original.svg',
-  'MongoDB': '/mongodb-original.svg',
-  'AWS': '/aws-original.svg',
-  'CloudFront': '/aws-original.svg',
-  'Lambda': '/aws-original.svg',
-  'S3': '/aws-original.svg',
-  'GraphQL': '/graphql-original.svg',
-  'Apollo': '/apollo-original.svg',
-  'Stripe': '/stripe-original.svg',
-  'RabbitMQ': '/rabbitmq-original.svg',
+  'Java': '',
+  'Maven': '',
+  'Lombok': '',
+  'Spring Security': '',
+  'Spring Data JPA': '',
+  'Bean Validation': '',
+  'JDBC': '',
+  'Spring Boot': '',
+  'Swagger': '',
+  'API Rest': '',
+  'JWT': '',
+  'TypeScript': '',
+  'Next.js': '',
+  'Tailwind CSS': '',
+  'Vercel': '',
+  'Render': '',
 };
 
 
@@ -103,7 +100,7 @@ export default function ProjectsSection() {
                     <div>
                       {/* Tags */}
                       <div className="flex flex-wrap gap-1.5 xs:gap-2 mb-4 xs:mb-5 sm:mb-6">
-                        {project.tags.slice(0, 4).map((tag: string, tagIndex: number) => (
+                        {project.tags.slice(0, 10).map((tag: string, tagIndex: number) => (
                           <div
                             key={tagIndex}
                             className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 flex items-center gap-1 xs:gap-1.5 hover:bg-white/10 transition-colors"

@@ -24,10 +24,8 @@ export default function ScrollingBanner() {
     // Traduções para cada idioma
     const keywordsByLanguage = {
         'pt-BR': [
-            'RESPONSIVO',
             'DINÂMICO',
             'ESCALÁVEL',
-            'OTIMIZADO PARA BUSCA',
             'INTERATIVO',
             'SEGURO',
             'CONFIÁVEL',
@@ -35,10 +33,8 @@ export default function ScrollingBanner() {
             'ACESSÍVEL',
         ],
         'en': [
-            'RESPONSIVE',
             'DYNAMIC',
             'SCALABLE',
-            'SEARCH OPTIMIZED',
             'INTERACTIVE',
             'SECURE',
             'RELIABLE',
@@ -46,10 +42,8 @@ export default function ScrollingBanner() {
             'ACCESSIBLE',
         ],
         'es': [
-            'RESPONSIVO',
             'DINÁMICO',
             'ESCALABLE',
-            'OPTIMIZADO PARA BÚSQUEDA',
             'INTERACTIVO',
             'SEGURO',
             'CONFIABLE',

@@ -129,20 +129,20 @@ export const translations: Record<Language, Translations> = {
       techEnthusiast: "Apaixonado por desenvolvimento e tecnologia.",
     },
     projects: {
-      title: 'Projetos em Destaque',
+      title: 'Projetos em destaque',
       subtitle: 'Alguns dos meus trabalhos recentes',
       viewProject: 'Ver Projeto',
       viewDemo: 'Ver Demo',
       viewCaseStudy: 'Ver Estudo de Caso',
       items: [
         {
-          title: 'Criando experiências AR durante viagens',
+          title: 'acessly API',
           company: 'AIRBNB',
-          year: '2023',
+          year: '2025',
           description: 'Arquitetura de microsserviços de alta performance processando mais de 100 mil transações diárias com cache Redis e PostgreSQL.',
           mockup: '/phone-mockup.png',
           mockupType: 'phone',
-          tags: ['Node.js', 'PostgreSQL', 'Redis', 'Docker'],
+          tags: ['Java', 'Spring Boot', 'API Rest', 'Swagger', 'Render', 'Spring Security', 'Spring Data JPA', 'Bean Validation', 'JDBC', 'JWT'],
           metrics: [
             'Onboarding aumentado para 12%',
             'Cadastros de novos usuários aumentaram 32%',
@@ -152,13 +152,13 @@ export const translations: Record<Language, Translations> = {
           demo: '#',
         },
         {
-          title: 'Construindo dashboard lucrativo de dropshipping',
-          company: 'SHOPIFY',
-          year: '2023',
+          title: 'knowball',
+          company: 'ORACLE',
+          year: '2025',
           description: 'Mostra como você pode iniciar seu próprio negócio lucrativo em apenas algumas semanas, como a empresa aumentou seu MRR em 25%.',
           mockup: '/desktop-mockup.png',
           mockupType: 'desktop',
-          tags: ['Go', 'Kafka', 'TimescaleDB', 'Kubernetes'],
+          tags: ['Java', 'Spring Boot', 'API Rest', 'Swagger', 'Maven', 'Lombok', 'Spring Data JPA', 'JDBC', 'Bean Validation', 'Spring Security', 'Insomnia'],
           metrics: [
             'Receita aumentou 25%',
             'Taxa de conversão subiu 18%',
@@ -168,13 +168,13 @@ export const translations: Record<Language, Translations> = {
           demo: '#',
         },
         {
-          title: 'Serviço de Autenticação',
+          title: 'digitalbank',
           company: 'STRIPE',
-          year: '2024',
+          year: '2025',
           description: 'Microsserviço de autenticação baseado em OAuth 2.0 e JWT com limitação de taxa e autenticação multifator.',
           mockup: '/phone-mockup.png',
           mockupType: 'phone',
-          tags: ['Python', 'FastAPI', 'MongoDB', 'Redis'],
+          tags: ['Java', 'Spring Boot', 'API Rest', 'Spring Data JPA', 'JDBC', 'Lombok', 'Bean Validation', 'SLF4J'],
           metrics: [
             'Incidentes de segurança reduzidos em 95%',
             'Velocidade de login melhorou 40%',
@@ -184,13 +184,13 @@ export const translations: Record<Language, Translations> = {
           demo: '#',
         },
         {
-          title: 'Rede de Distribuição de Conteúdo',
+          title: 'pluvia+',
           company: 'AWS',
-          year: '2024',
+          year: '2025',
           description: 'Sistema CDN distribuído com cache de borda, otimização de imagens e escalonamento automático em infraestrutura AWS.',
           mockup: '/desktop-mockup.png',
           mockupType: 'desktop',
-          tags: ['AWS', 'CloudFront', 'Lambda', 'S3'],
+          tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Vercel'],
           metrics: [
             'Latência reduzida em 70%',
             'Custos de banda reduzidos em 45%',
@@ -200,13 +200,13 @@ export const translations: Record<Language, Translations> = {
           demo: '#',
         },
         {
-          title: 'Plataforma de E-commerce em Tempo Real',
-          company: 'AMAZON',
-          year: '2024',
+          title: 'smarttrack',
+          company: 'CCR',
+          year: '2025',
           description: 'Sistema de e-commerce com processamento de pagamentos em tempo real, notificações push e rastreamento de pedidos com WebSockets.',
           mockup: '/phone-mockup.png',
           mockupType: 'phone',
-          tags: ['Node.js', 'GraphQL', 'MongoDB', 'Stripe'],
+            tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Vercel'],
           metrics: [
             'Tempo de checkout reduzido em 40%',
             'Satisfação do cliente aumentou 85%',
@@ -218,7 +218,7 @@ export const translations: Record<Language, Translations> = {
       ]
     },
     footer: {
-      title: 'Entre em Contato',
+      title: 'Entre em contato',
       subtitle: 'Tem uma ideia? Vamos conversar!',
       namePlaceholder: 'Seu nome',
       emailPlaceholder: 'seu@email.com',
@@ -275,7 +275,7 @@ export const translations: Record<Language, Translations> = {
       techEnthusiast: "Passionate about development and technology.",
     },
     projects: {
-      title: 'Featured Projects',
+      title: 'Featured projects',
       subtitle: 'Some of my recent work',
       viewProject: 'View Project',
       viewDemo: 'View Demo',
@@ -364,7 +364,7 @@ export const translations: Record<Language, Translations> = {
       ]
     },
     footer: {
-      title: "Get in Touch",
+      title: "Get in touch",
       subtitle: 'Got an idea? Let\'s talk!',
       namePlaceholder: 'Your name',
       emailPlaceholder: 'your@email.com',
@@ -421,7 +421,7 @@ export const translations: Record<Language, Translations> = {
       techEnthusiast: "Apasionado por el desarrollo y la tecnología.",
     },
     projects: {
-      title: 'Proyectos Destacados',
+      title: 'Proyectos destacados',
       subtitle: 'Algunos de mis trabajos recientes',
       viewProject: 'Ver Proyecto',
       viewDemo: 'Ver Demo',
@@ -510,7 +510,7 @@ export const translations: Record<Language, Translations> = {
       ]
     },
     footer: {
-      title: 'Ponte en Contacto',
+      title: 'Ponte en contacto',
       subtitle: '¿Tienes una idea? ¡Hablemos!',
       namePlaceholder: 'Tu nombre',
       emailPlaceholder: 'tu@email.com',
