@@ -69,17 +69,7 @@ export default function ScrollingBanner() {
                     transform: 'rotate(-3deg) translateY(-10px)',
                 }}
             >
-                <div
-                    className="border-y backdrop-blur-xl py-2 sm:py-2.5 md:py-3"
-                    style={{
-                        background: theme === 'dark'
-                            ? 'rgba(255, 255, 255, 0.05)'
-                            : 'rgba(255, 255, 255, 0.7)',
-                        borderColor: theme === 'dark'
-                            ? 'rgba(255, 255, 255, 0.2)'
-                            : 'rgba(0, 0, 0, 0.1)',
-                    }}
-                >
+                <div className="glass-liquid py-2 sm:py-2.5 md:py-3">
                     <motion.div
                         className="flex gap-6 sm:gap-8 md:gap-10 whitespace-nowrap"
                         animate={{ x: ['0%', '-33.333%'] }}
@@ -95,17 +85,17 @@ export default function ScrollingBanner() {
                         {duplicatedKeywords.map((keyword, index) => (
                             <div key={index} className="flex items-center gap-3 sm:gap-4 md:gap-5">
                                 <span
-                                    className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-wider"
+                                    className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-wider text-gray-900 dark:text-white"
                                     style={{
-                                        color: theme === 'dark' ? '#ffffff' : '#1f2937',
+                                        fontFamily: "'Instrument Serif', serif",
                                     }}
                                 >
                                     {keyword}
                                 </span>
                                 <span
-                                    className="text-base sm:text-lg"
+                                    className="text-base sm:text-lg text-gray-900 dark:text-white"
                                     style={{
-                                        color: theme === 'dark' ? '#ffffff' : '#1f2937',
+                                        fontFamily: "'Instrument Serif', serif",
                                     }}
                                 >
                                     +
@@ -123,17 +113,7 @@ export default function ScrollingBanner() {
                     transform: 'rotate(-3deg) translateY(10px)',
                 }}
             >
-                <div
-                    className="border-y backdrop-blur-xl py-2 sm:py-2.5 md:py-3"
-                    style={{
-                        background: theme === 'dark'
-                            ? 'rgba(255, 255, 255, 0.05)'
-                            : 'rgba(255, 255, 255, 0.7)',
-                        borderColor: theme === 'dark'
-                            ? 'rgba(255, 255, 255, 0.2)'
-                            : 'rgba(0, 0, 0, 0.1)',
-                    }}
-                >
+                <div className="glass-liquid py-2 sm:py-2.5 md:py-3">
                     <motion.div
                         className="flex gap-6 sm:gap-8 md:gap-10 whitespace-nowrap"
                         animate={{ x: ['-33.333%', '0%'] }}
@@ -149,17 +129,17 @@ export default function ScrollingBanner() {
                         {duplicatedKeywords.map((keyword, index) => (
                             <div key={index} className="flex items-center gap-3 sm:gap-4 md:gap-5">
                                 <span
-                                    className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-wider"
+                                    className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-wider text-gray-900 dark:text-white"
                                     style={{
-                                        color: theme === 'dark' ? '#ffffff' : '#1f2937',
+                                        fontFamily: "'Instrument Serif', serif",
                                     }}
                                 >
                                     {keyword}
                                 </span>
                                 <span
-                                    className="text-base sm:text-lg"
+                                    className="text-base sm:text-lg text-gray-900 dark:text-white"
                                     style={{
-                                        color: theme === 'dark' ? '#ffffff' : '#1f2937',
+                                        fontFamily: "'Instrument Serif', serif",
                                     }}
                                 >
                                     +

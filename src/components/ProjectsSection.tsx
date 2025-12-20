@@ -74,7 +74,7 @@ export default function ProjectsSection() {
                       <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-light mb-3 xs:mb-4 sm:mb-5 text-gray-800 dark:text-white leading-tight">
                         {project.title}
                       </h3>
-                      <p className="text-xs xs:text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4 xs:mb-5 sm:mb-6">
+                      <p className="text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white leading-relaxed mb-4 xs:mb-5 sm:mb-6 font-light">
                         {project.description}
                       </p>
 
@@ -88,7 +88,7 @@ export default function ProjectsSection() {
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                             </div>
-                            <span className="text-[11px] xs:text-xs sm:text-sm lg:text-base text-gray-700 dark:text-gray-300">
+                            <span className="text-[11px] xs:text-xs sm:text-sm lg:text-base text-gray-700 dark:text-gray-300 font-light">
                               {metric}
                             </span>
                           </div>

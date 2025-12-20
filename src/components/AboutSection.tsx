@@ -71,7 +71,7 @@ export default function AboutSection() {
             >
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
                 <Users className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-purple-400" />
-                <span className="text-xs text-gray-600 dark:text-white uppercase tracking-wider">
+                <span className="text-xs text-gray-900 dark:text-white uppercase tracking-wider font-medium">
                   {t.about.collaboration}
                 </span>
               </div>
@@ -100,7 +100,7 @@ export default function AboutSection() {
             >
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
                 <Clock className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-blue-400" />
-                <span className="text-xs text-gray-600 dark:text-white uppercase tracking-wider">
+                <span className="text-xs text-gray-900 dark:text-white uppercase tracking-wider font-medium">
                   {t.about.timezone}
                 </span>
               </div>
@@ -138,7 +138,7 @@ export default function AboutSection() {
               <div className="space-y-4 xs:space-y-5 sm:space-y-6">
                 {/* Frontend */}
                 <div>
-                  <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
+                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Frontend
                   </h4>
                   <div className="relative overflow-hidden flex justify-center">
@@ -168,7 +168,7 @@ export default function AboutSection() {
                               sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
                             />
                           </div>
-                          <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-900 dark:text-gray-300 whitespace-nowrap">
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
                             {tech.name}
                           </span>
                         </div>
@@ -179,7 +179,7 @@ export default function AboutSection() {
 
                 {/* Backend */}
                 <div>
-                  <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
+                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Backend & Database
                   </h4>
                   <div className="relative overflow-hidden flex justify-center">
@@ -209,7 +209,7 @@ export default function AboutSection() {
                               sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
                             />
                           </div>
-                          <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-900 dark:text-gray-300 whitespace-nowrap">
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
                             {tech.name}
                           </span>
                         </div>
@@ -220,7 +220,7 @@ export default function AboutSection() {
 
                 {/* Tools */}
                 <div>
-                  <h4 className="text-xs sm:text-sm font-light text-gray-600 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
+                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Tools
                   </h4>
                   <div className="relative overflow-hidden flex justify-center">
@@ -250,7 +250,7 @@ export default function AboutSection() {
                               sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
                             />
                           </div>
-                          <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-900 dark:text-gray-300 whitespace-nowrap">
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
                             {tech.name}
                           </span>
                         </div>

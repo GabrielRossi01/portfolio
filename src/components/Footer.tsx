@@ -14,7 +14,6 @@ export default function Footer() {
 
   const quickLinks = [
     { name: t.nav.home, href: "#home" },
-    { name: t.nav.skills, href: "#skills" },
     { name: t.nav.about, href: "#about" },
     { name: t.nav.projects, href: "#projects" },
     { name: t.nav.contact, href: "#contact" },
@@ -142,7 +141,7 @@ export default function Footer() {
           transition={{ delay: 0.3 }}
           className="pt-6 border-t border-white/20 text-center"
         >
-          <p className="text-white/75 text-xs sm:text-sm">
+          <p className="text-white text-xs sm:text-sm">
             &copy; {new Date().getFullYear()} Portfolio. {t.footer.rights}
           </p>
         </motion.div>
