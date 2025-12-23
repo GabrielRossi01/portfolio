@@ -1,11 +1,9 @@
 "use client";
 
-
 import { useEffect, useRef } from 'react';
 import createGlobe from 'cobe';
 import { MapPin } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-
 
 export default function Earth3D() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -111,25 +109,30 @@ export default function Earth3D() {
       </div>
 
 
-      <div className="absolute bottom-8 left-8 backdrop-blur-md bg-black/70 rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
-        <div className="flex items-center gap-3 px-5 py-4">
-          <div className="relative">
-            <div className="absolute inset-0 bg-white/5 rounded-full blur-sm"></div>
-            <div className="relative p-2.5 bg-white/10 rounded-full">
-              <MapPin className="w-5 h-5 text-white" />
-            </div>
-          </div>
-
-          <div className="flex flex-col">
-            <span className="text-[10px] text-gray-400 font-semibold tracking-wider uppercase">
-              {remoteText[language]}
-            </span>
-            <span className="text-xl font-semibold text-white leading-tight tracking-tight">
-              SÃO PAULO
-            </span>
+      <div className="absolute bottom-8 left-8 flex flex-col items-start gap-2">
+        {/* Ícone do Pin */}
+        <div className="relative shrink-0">
+          <div className="absolute inset-0 rounded-full blur-lg"></div>
+          <div className="relative p-2 bg-gray-900/80 dark:bg-white/15 backdrop-blur-sm rounded-full ">
+            <MapPin className="w-6 h-6 text-white dark:text-white" strokeWidth={2.5} />
           </div>
         </div>
+
+        {/* Textos empilhados */}
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-gray-700 dark:text-gray-300/90 font-semibold tracking-widest uppercase">
+            {remoteText[language]}
+          </span>
+          <span
+            className="text-2xl font-bold text-gray-900 dark:text-white leading-none tracking-tight"
+            style={{ fontFamily: 'Instrument Serif, serif' }}
+          >
+            SÃO PAULO
+          </span>
+        </div>
       </div>
+
+
     </div>
   );
 }

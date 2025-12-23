@@ -8,6 +8,16 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: "Gabriel Rossi - Developer & Problem Solver",
   description: "Portfólio de Gabriel Rossi, desenvolvedor focado em resolver problemas complexos.",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

@@ -6,12 +6,6 @@ export interface ProjectItem {
   company: string;
   year: string;
   description: string;
-  mockup: string;
-  mockupType: 'phone' | 'desktop';
-  tags: string[];
-  metrics: string[];
-  github: string;
-  demo: string;
 }
 
 
@@ -136,84 +130,34 @@ export const translations: Record<Language, Translations> = {
       viewCaseStudy: 'Ver Estudo de Caso',
       items: [
         {
-          title: 'acessly API',
+          title: 'acessly-api',
           company: 'AIRBNB',
           year: '2025',
           description: 'Arquitetura de microsserviços de alta performance processando mais de 100 mil transações diárias com cache Redis e PostgreSQL.',
-          mockup: '/phone-mockup.png',
-          mockupType: 'phone',
-          tags: ['Java', 'Spring Boot', 'API Rest', 'Swagger', 'Render', 'Spring Security', 'Spring Data JPA', 'Bean Validation', 'JDBC', 'JWT'],
-          metrics: [
-            'Onboarding aumentado para 12%',
-            'Cadastros de novos usuários aumentaram 32%',
-            'Engajamento aumentou 20%'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'knowball',
           company: 'ORACLE',
           year: '2025',
           description: 'Mostra como você pode iniciar seu próprio negócio lucrativo em apenas algumas semanas, como a empresa aumentou seu MRR em 25%.',
-          mockup: '/desktop-mockup.png',
-          mockupType: 'desktop',
-          tags: ['Java', 'Spring Boot', 'API Rest', 'Swagger', 'Maven', 'Lombok', 'Spring Data JPA', 'JDBC', 'Bean Validation', 'Spring Security', 'Insomnia'],
-          metrics: [
-            'Receita aumentou 25%',
-            'Taxa de conversão subiu 18%',
-            'Retenção de usuários melhorou 30%'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'digitalbank',
           company: 'STRIPE',
           year: '2025',
           description: 'Microsserviço de autenticação baseado em OAuth 2.0 e JWT com limitação de taxa e autenticação multifator.',
-          mockup: '/phone-mockup.png',
-          mockupType: 'phone',
-          tags: ['Java', 'Spring Boot', 'API Rest', 'Spring Data JPA', 'JDBC', 'Lombok', 'Bean Validation', 'SLF4J'],
-          metrics: [
-            'Incidentes de segurança reduzidos em 95%',
-            'Velocidade de login melhorou 40%',
-            'Tickets de suporte reduzidos em 60%'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'pluvia+',
           company: 'AWS',
           year: '2025',
           description: 'Sistema CDN distribuído com cache de borda, otimização de imagens e escalonamento automático em infraestrutura AWS.',
-          mockup: '/desktop-mockup.png',
-          mockupType: 'desktop',
-          tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Vercel'],
-          metrics: [
-            'Latência reduzida em 70%',
-            'Custos de banda reduzidos em 45%',
-            'Alcance global em mais de 150 países'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'smarttrack',
           company: 'CCR',
           year: '2025',
           description: 'Sistema de e-commerce com processamento de pagamentos em tempo real, notificações push e rastreamento de pedidos com WebSockets.',
-          mockup: '/phone-mockup.png',
-          mockupType: 'phone',
-            tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Vercel'],
-          metrics: [
-            'Tempo de checkout reduzido em 40%',
-            'Satisfação do cliente aumentou 85%',
-            'Vendas cresceram 50%'
-          ],
-          github: '#',
-          demo: '#',
         },
       ]
     },
@@ -286,80 +230,30 @@ export const translations: Record<Language, Translations> = {
           company: 'AIRBNB',
           year: '2023',
           description: 'High-performance microservices architecture handling 100k+ daily transactions with Redis caching and PostgreSQL.',
-          mockup: '/phone-mockup.png',
-          mockupType: 'phone',
-          tags: ['Node.js', 'PostgreSQL', 'Redis', 'Docker'],
-          metrics: [
-            'Onboarding increased to 12%',
-            'New users signups increased by 32%',
-            'Engagement increased by 20%'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'Building profitable dropshipping dashboard',
           company: 'SHOPIFY',
           year: '2023',
           description: 'Aims to show you how you can start your own profitable business in just a few weeks, how company increased their MRR by 25%.',
-          mockup: '/desktop-mockup.png',
-          mockupType: 'desktop',
-          tags: ['Go', 'Kafka', 'TimescaleDB', 'Kubernetes'],
-          metrics: [
-            'Revenue increased by 25%',
-            'Conversion rate up 18%',
-            'User retention improved 30%'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'Authentication Service',
           company: 'STRIPE',
           year: '2024',
           description: 'OAuth 2.0 and JWT-based authentication microservice with rate limiting and multi-factor authentication.',
-          mockup: '/phone-mockup.png',
-          mockupType: 'phone',
-          tags: ['Python', 'FastAPI', 'MongoDB', 'Redis'],
-          metrics: [
-            'Security incidents down 95%',
-            'Login speed improved 40%',
-            'Support tickets reduced 60%'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'Content Delivery Network',
           company: 'AWS',
           year: '2024',
           description: 'Distributed CDN system with edge caching, image optimization, and automatic scaling on AWS infrastructure.',
-          mockup: '/desktop-mockup.png',
-          mockupType: 'desktop',
-          tags: ['AWS', 'CloudFront', 'Lambda', 'S3'],
-          metrics: [
-            'Latency reduced by 70%',
-            'Bandwidth costs down 45%',
-            'Global reach 150+ countries'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'Real-Time E-commerce Platform',
           company: 'AMAZON',
           year: '2024',
           description: 'E-commerce system with real-time payment processing, push notifications and order tracking with WebSockets.',
-          mockup: '/phone-mockup.png',
-          mockupType: 'phone',
-          tags: ['Node.js', 'GraphQL', 'MongoDB', 'Stripe'],
-          metrics: [
-            'Checkout time reduced by 40%',
-            'Customer satisfaction increased 85%',
-            'Sales grew 50%'
-          ],
-          github: '#',
-          demo: '#',
         },
       ]
     },
@@ -432,80 +326,30 @@ export const translations: Record<Language, Translations> = {
           company: 'AIRBNB',
           year: '2023',
           description: 'Arquitectura de microservicios de alto rendimiento manejando más de 100k transacciones diarias con caché Redis y PostgreSQL.',
-          mockup: '/phone-mockup.png',
-          mockupType: 'phone',
-          tags: ['Node.js', 'PostgreSQL', 'Redis', 'Docker'],
-          metrics: [
-            'Onboarding aumentó al 12%',
-            'Registros de nuevos usuarios aumentaron 32%',
-            'Engagement aumentó 20%'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'Construyendo dashboard rentable de dropshipping',
           company: 'SHOPIFY',
           year: '2023',
           description: 'Muestra cómo puedes iniciar tu propio negocio rentable en solo unas semanas, cómo la empresa aumentó su MRR en 25%.',
-          mockup: '/desktop-mockup.png',
-          mockupType: 'desktop',
-          tags: ['Go', 'Kafka', 'TimescaleDB', 'Kubernetes'],
-          metrics: [
-            'Ingresos aumentaron 25%',
-            'Tasa de conversión subió 18%',
-            'Retención de usuarios mejoró 30%'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'Servicio de Autenticación',
           company: 'STRIPE',
           year: '2024',
           description: 'Microservicio de autenticación basado en OAuth 2.0 y JWT con limitación de tasa y autenticación multifactor.',
-          mockup: '/phone-mockup.png',
-          mockupType: 'phone',
-          tags: ['Python', 'FastAPI', 'MongoDB', 'Redis'],
-          metrics: [
-            'Incidentes de seguridad reducidos en 95%',
-            'Velocidad de inicio de sesión mejoró 40%',
-            'Tickets de soporte reducidos en 60%'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'Red de Distribución de Contenido',
           company: 'AWS',
           year: '2024',
           description: 'Sistema CDN distribuido con caché de borde, optimización de imágenes y escalado automático en infraestructura AWS.',
-          mockup: '/desktop-mockup.png',
-          mockupType: 'desktop',
-          tags: ['AWS', 'CloudFront', 'Lambda', 'S3'],
-          metrics: [
-            'Latencia reducida en 70%',
-            'Costos de ancho de banda reducidos en 45%',
-            'Alcance global en más de 150 países'
-          ],
-          github: '#',
-          demo: '#',
         },
         {
           title: 'Plataforma de E-commerce en Tiempo Real',
           company: 'AMAZON',
           year: '2024',
           description: 'Sistema de e-commerce con procesamiento de pagos en tiempo real, notificaciones push y seguimiento de pedidos con WebSockets.',
-          mockup: '/phone-mockup.png',
-          mockupType: 'phone',
-          tags: ['Node.js', 'GraphQL', 'MongoDB', 'Stripe'],
-          metrics: [
-            'Tiempo de checkout reducido en 40%',
-            'Satisfacción del cliente aumentó 85%',
-            'Ventas crecieron 50%'
-          ],
-          github: '#',
-          demo: '#',
         },
       ]
     },

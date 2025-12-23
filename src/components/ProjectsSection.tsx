@@ -1,11 +1,10 @@
 "use client";
 
-
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
-
+import { STATIC_PROJECTS_DATA } from '@/lib/projectsData';
 
 const techIcons: Record<string, string> = {
   'Java': '',
@@ -26,13 +25,17 @@ const techIcons: Record<string, string> = {
   'Render': '',
 };
 
-
 export default function ProjectsSection() {
   const { t } = useLanguage();
 
-
-  const projects = t.projects.items || [];
-
+  const projects = STATIC_PROJECTS_DATA.map((staticData, index) => {
+    const translated = t.projects.items?.[index];
+    return {
+      ...staticData,
+      title: translated?.title || staticData.title || 'Projeto',
+      description: translated?.description || 'Descrição padrão',
+    };
+  });
 
   return (
     <section id="projects" className="py-8 xs:py-12 sm:py-20 md:py-24 px-3 xs:px-4 sm:px-6">
@@ -52,141 +55,139 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
 
-
         <div className="space-y-6 xs:space-y-8 sm:space-y-10 lg:space-y-12">
-          {projects.map((project: any, index: number) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="glass-liquid rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[400px] xs:min-h-[450px] sm:min-h-[500px]">
-                  {/* Conteúdo do card - Esquerda */}
-                  <div className="p-6 xs:p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
-                    <div>
-                      <p className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 xs:mb-3">
-                        {project.company} • {project.year}
-                      </p>
-                      <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-light mb-3 xs:mb-4 sm:mb-5 text-gray-800 dark:text-white leading-tight">
-                        {project.title}
-                      </h3>
-                      <p className="text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white leading-relaxed mb-4 xs:mb-5 sm:mb-6 font-light">
-                        {project.description}
-                      </p>
+          {projects.map((project: any, index: number) => {
 
+            const effectiveMockupType = index === 0 ? 'desktop' : project.mockupType;
 
-                      {/* Métricas */}
-                      <div className="space-y-2 xs:space-y-2.5 sm:space-y-3 mb-6 xs:mb-8">
-                        {project.metrics.map((metric: string, metricIndex: number) => (
-                          <div key={metricIndex} className="flex items-start gap-2 xs:gap-2.5">
-                            <div className="mt-1">
-                              <svg className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                              </svg>
-                            </div>
-                            <span className="text-[11px] xs:text-xs sm:text-sm lg:text-base text-gray-700 dark:text-gray-300 font-light">
-                              {metric}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <div className="glass-liquid rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[400px] xs:min-h-[450px] sm:min-h-[500px]">
 
+                    <div className="p-6 xs:p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
+                      <div>
+                        <p className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 xs:mb-3">
+                          {project.company} • {project.year}
+                        </p>
+                        <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-light mb-3 xs:mb-4 sm:mb-5 text-gray-800 dark:text-white leading-tight">
+                          {project.title}
+                        </h3>
+                        <p className="text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white leading-relaxed mb-4 xs:mb-5 sm:mb-6 font-light">
+                          {project.description}
+                        </p>
 
-                    <div>
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-1.5 xs:gap-2 mb-4 xs:mb-5 sm:mb-6">
-                        {project.tags.slice(0, 10).map((tag: string, tagIndex: number) => (
-                          <div
-                            key={tagIndex}
-                            className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 flex items-center gap-1 xs:gap-1.5 hover:bg-white/10 transition-colors"
-                          >
-                            {techIcons[tag] && (
-                              <div className="relative w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4">
-                                <Image
-                                  src={techIcons[tag]}
-                                  alt={`${tag} logo`}
-                                  fill
-                                  className="object-contain"
-                                />
+                        <div className="space-y-2 xs:space-y-2.5 sm:space-y-3 mb-6 xs:mb-8">
+                          {project.metrics.map((metric: string, metricIndex: number) => (
+                            <div key={metricIndex} className="flex items-start gap-2 xs:gap-2.5">
+                              <div className="mt-1">
+                                <svg className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
                               </div>
-                            )}
-                            <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                              {tag}
-                            </span>
-                          </div>
-                        ))}
+                              <span className="text-[11px] xs:text-xs sm:text-sm lg:text-base text-gray-700 dark:text-gray-300 font-light">
+                                {metric}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
+                      <div>
 
-                      {/* Botão CTA */}
-                      <div className="flex gap-3 xs:gap-4">
-                        <a
-                          href={project.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="glass-liquid px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 rounded-xl flex items-center gap-2 hover:bg-white/20 transition-all group"
-                        >
-                          <span className="text-xs xs:text-sm sm:text-base font-light text-gray-800 dark:text-white">{t.projects.viewCaseStudy}</span>
-                          <ExternalLink className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-800 dark:text-white group-hover:translate-x-1 transition-transform" />
-                        </a>
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="glass-liquid p-2 xs:p-2.5 sm:p-3 rounded-xl hover:bg-white/20 transition-all hover:scale-110"
-                        >
-                          <Github className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 text-gray-800 dark:text-white" />
-                        </a>
+                        <div className="flex flex-wrap gap-1.5 xs:gap-2 mb-4 xs:mb-5 sm:mb-6">
+                          {project.tags.slice(0, 10).map((tag: string, tagIndex: number) => (
+                            <div
+                              key={tagIndex}
+                              className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 flex items-center gap-1 xs:gap-1.5 hover:bg-white/10 transition-colors"
+                            >
+                              {techIcons[tag] && (
+                                <div className="relative w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4">
+                                  <Image
+                                    src={techIcons[tag]}
+                                    alt={`${tag} logo`}
+                                    fill
+                                    className="object-contain"
+                                    priority={false}
+                                  />
+                                </div>
+                              )}
+                              <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                                {tag}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex gap-3 xs:gap-4">
+                          <a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="glass-liquid px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 rounded-xl flex items-center gap-2 hover:bg-white/20 transition-all group"
+                          >
+                            <span className="text-xs xs:text-sm sm:text-base font-light text-gray-800 dark:text-white">{t.projects.viewCaseStudy}</span>
+                            <ExternalLink className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-800 dark:text-white group-hover:translate-x-1 transition-transform" />
+                          </a>
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="glass-liquid p-2 xs:p-2.5 sm:p-3 rounded-xl hover:bg-white/20 transition-all hover:scale-110"
+                          >
+                            <Github className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 text-gray-800 dark:text-white" />
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-
-                  {/* Mockup - Direita (cortado na parte inferior com hover) */}
-                  <div className="relative hidden lg:flex items-end justify-center overflow-hidden pb-0 group/mockup cursor-pointer">
-                    <div className={`relative ${project.mockupType === 'phone'
-                      ? 'w-[280px] h-[560px] xl:w-[320px] xl:h-[640px]'
-                      : 'w-[400px] h-[300px] xl:w-[480px] xl:h-[360px]'
-                      } ${project.mockupType === 'phone'
-                        ? 'translate-y-[50%] group-hover/mockup:translate-y-0'
-                        : 'translate-y-[30%] group-hover/mockup:translate-y-0'
-                      } transition-transform duration-500 ease-out`}>
-                      <Image
-                        src={project.mockup}
-                        alt={`${project.title} mockup`}
-                        fill
-                        className="object-contain drop-shadow-2xl"
-                      />
+                    <div className="relative hidden lg:flex items-end justify-center overflow-hidden pb-0 group/mockup cursor-pointer">
+                      <div className={`relative ${effectiveMockupType === 'phone'
+                        ? 'w-[280px] h-[560px] xl:w-[320px] xl:h-[640px]'
+                        : 'w-[520px] h-[390px] xl:w-[600px] xl:h-[450px]'
+                        } ${effectiveMockupType === 'phone'
+                          ? 'translate-y-[50%] group-hover/mockup:translate-y-0'
+                          : 'translate-y-[30%] group-hover/mockup:translate-y-0'
+                        } transition-transform duration-500 ease-out`}>
+                        <Image
+                          src={project.mockup}
+                          alt={`${project.title} mockup`}
+                          fill
+                          className="object-contain drop-shadow-2xl"
+                          priority={index < 2}
+                        />
+                      </div>
                     </div>
-                  </div>
 
-
-                  {/* Mockup Mobile com hover */}
-                  <div className="lg:hidden relative overflow-hidden h-[200px] xs:h-[240px] sm:h-[280px] flex items-end justify-center group/mockup-mobile cursor-pointer">
-                    <div className={`relative ${project.mockupType === 'phone'
-                      ? 'w-40 h-80 xs:w-[200px] xs:h-[400px]'
-                      : 'w-full max-w-[280px] h-[200px] xs:h-[240px]'
-                      } ${project.mockupType === 'phone'
-                        ? 'translate-y-[50%] group-hover/mockup-mobile:translate-y-0'
-                        : 'translate-y-[30%] group-hover/mockup-mobile:translate-y-0'
-                      } transition-transform duration-500 ease-out`}>
-                      <Image
-                        src={project.mockup}
-                        alt={`${project.title} mockup`}
-                        fill
-                        className="object-contain drop-shadow-2xl"
-                      />
+                    <div className="lg:hidden relative overflow-hidden h-[200px] xs:h-[240px] sm:h-[280px] flex items-end justify-center group/mockup-mobile cursor-pointer">
+                      <div className={`relative ${effectiveMockupType === 'phone'
+                        ? 'w-40 h-80 xs:w-[200px] xs:h-[400px]'
+                        : 'w-[300px] h-[225px] xs:w-[340px] xs:h-[255px] sm:w-[380px] sm:h-[285px]'
+                        } ${effectiveMockupType === 'phone'
+                          ? 'translate-y-[50%] group-hover/mockup-mobile:translate-y-0'
+                          : 'translate-y-[30%] group-hover/mockup-mobile:translate-y-0'
+                        } transition-transform duration-500 ease-out`}>
+                        <Image
+                          src={project.mockup}
+                          alt={`${project.title} mockup`}
+                          fill
+                          className="object-contain drop-shadow-2xl"
+                          priority={index < 2}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
