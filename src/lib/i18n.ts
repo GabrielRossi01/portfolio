@@ -1,13 +1,11 @@
 export type Language = 'pt-BR' | 'en' | 'es';
 
-
 export interface ProjectItem {
   title: string;
   company: string;
   year: string;
   description: string;
 }
-
 
 export interface Translations {
   nav: {
@@ -74,7 +72,6 @@ export interface Translations {
     socialLinks: string;
   };
 }
-
 
 export const translations: Record<Language, Translations> = {
   'pt-BR': {

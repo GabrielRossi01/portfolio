@@ -136,7 +136,7 @@ export default function AboutSection() {
               </h3>
 
               <div className="space-y-4 xs:space-y-5 sm:space-y-6">
-                {/* Frontend */}
+
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Frontend
@@ -177,7 +177,6 @@ export default function AboutSection() {
                   </div>
                 </div>
 
-                {/* Backend */}
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Backend & Database
@@ -217,8 +216,7 @@ export default function AboutSection() {
                     </motion.div>
                   </div>
                 </div>
-
-                {/* Tools */}
+                
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Tools
@@ -260,7 +258,6 @@ export default function AboutSection() {
                 </div>
               </div>
 
-              {/* Imagem cortada na parte inferior - oculta no mobile */}
               <div className="hidden md:block absolute -bottom-10 xs:-bottom-12 sm:-bottom-14 md:-bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[250px] xs:max-w-[280px] sm:max-w-[320px] md:max-w-[350px] pointer-events-none">
                 <div className="relative w-full aspect-6/4">
                   <Image
@@ -333,7 +330,6 @@ export default function AboutSection() {
               <h3 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-2 xs:mb-3 sm:mb-4" style={{ fontFamily: "'Instrument Serif', serif" }}>
                 {t.about.workTogether}
               </h3>
-
 
               <motion.a
                 href="mailto:rossi17006@gmail.com"

@@ -75,7 +75,7 @@ export default function ProjectsSection() {
                     <div className="p-6 xs:p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
                       <div>
                         <p className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 xs:mb-3">
-                          {project.company} • {project.year}
+                          {project.company}  {project.year}
                         </p>
                         <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-light mb-3 xs:mb-4 sm:mb-5 text-gray-800 dark:text-white leading-tight">
                           {project.title}

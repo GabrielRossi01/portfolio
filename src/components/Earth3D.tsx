@@ -12,13 +12,11 @@ export default function Earth3D() {
   const phiRef = useRef(0);
   const { language } = useLanguage();
 
-
   const remoteText = {
     'pt-BR': 'REMOTO',
     'en': 'REMOTE',
     'es': 'REMOTO',
   };
-
 
   useEffect(() => {
     let width = 0;
@@ -26,9 +24,7 @@ export default function Earth3D() {
     window.addEventListener('resize', onResize);
     onResize();
 
-
     if (!canvasRef.current) return;
-
 
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
@@ -57,14 +53,12 @@ export default function Earth3D() {
       }
     });
 
-
     setTimeout(() => canvasRef.current && (canvasRef.current.style.opacity = '1'));
     return () => {
       globe.destroy();
       window.removeEventListener('resize', onResize);
     };
   }, []);
-
 
   return (
     <div className="w-full h-full relative">
@@ -108,9 +102,8 @@ export default function Earth3D() {
         />
       </div>
 
-
       <div className="absolute bottom-8 left-8 flex flex-col items-start gap-2">
-        {/* Ícone do Pin */}
+
         <div className="relative shrink-0">
           <div className="absolute inset-0 rounded-full blur-lg"></div>
           <div className="relative p-2 bg-gray-900/80 dark:bg-white/15 backdrop-blur-sm rounded-full ">
@@ -118,7 +111,6 @@ export default function Earth3D() {
           </div>
         </div>
 
-        {/* Textos empilhados */}
         <div className="flex flex-col gap-1">
           <span className="text-xs text-gray-700 dark:text-gray-300/90 font-semibold tracking-widest uppercase">
             {remoteText[language]}
@@ -131,8 +123,7 @@ export default function Earth3D() {
           </span>
         </div>
       </div>
-
-
+      
     </div>
   );
 }

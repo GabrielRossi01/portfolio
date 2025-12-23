@@ -22,7 +22,6 @@ export default function OrangePlanetHero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 0.5, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.4], ["0%", "20%"]);
 
-
   return (
     <section
       ref={sectionRef}

@@ -21,7 +21,6 @@ export default function ScrollingBanner() {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    // Traduções para cada idioma
     const keywordsByLanguage = {
         'pt-BR': [
             'DINÂMICO',
@@ -53,16 +52,11 @@ export default function ScrollingBanner() {
     };
 
     const keywords = keywordsByLanguage[language];
-
-    // Duplicar para loop infinito suave
     const duplicatedKeywords = [...keywords, ...keywords, ...keywords];
-
-    // Velocidade ajustada: mais rápido no mobile
     const duration = isMobile ? 10 : 15;
 
     return (
         <div className="relative w-full overflow-hidden py-8 sm:py-10 md:py-12">
-            {/* Faixa Superior */}
             <div
                 className="relative overflow-hidden"
                 style={{
@@ -106,7 +100,6 @@ export default function ScrollingBanner() {
                 </div>
             </div>
 
-            {/* Faixa Inferior */}
             <div
                 className="relative overflow-hidden mt-4 sm:mt-5 md:mt-6"
                 style={{
