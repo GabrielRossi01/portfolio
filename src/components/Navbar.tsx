@@ -64,23 +64,23 @@ export default function Navbar() {
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-50 hidden md:block"
+        className="fixed top-2 sm:top-3 left-4 sm:left-6 z-50 hidden md:block"
       >
         <a href="#home" className="block group">
-          <div className="p-2.5 sm:p-3">
-            <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+          <div className="p-2 sm:p-2.5">
+            <div className="relative w-8 h-8 sm:w-10 sm:h-10">
               <Image
                 src="/GR.svg"
                 alt="Gabriel Rossi Logo"
                 fill
-                className={`object-contain transition-all duration-300 ${theme === 'light' ? 'invert' : ''
-                  }`}
+                className={`object-contain transition-all duration-300 ${theme === 'light' ? 'invert' : ''}`}
                 priority
               />
             </div>
           </div>
         </a>
       </motion.div>
+
 
       <motion.nav
         initial={{ y: -100, opacity: 0 }}

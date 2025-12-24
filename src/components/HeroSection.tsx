@@ -33,14 +33,15 @@ export default function OrangePlanetHero() {
           : 'linear-gradient(to bottom, #ffffff 0%, #fafafa 100%)'
       }}
     >
+      {/* Planeta - Responsivo */}
       <motion.div
         className="absolute left-1/2 -translate-x-1/2"
         style={{
           y: planetY,
           scale: planetScale,
-          bottom: '-137%',
-          width: '1400px',
-          height: '1400px',
+          bottom: '-230%',
+          width: '2300px',
+          height: '2300px',
           maxWidth: 'none',
         }}
       >
@@ -108,6 +109,7 @@ export default function OrangePlanetHero() {
         }}
       />
 
+      {/* Conteúdo - Otimizado para mobile */}
       <motion.div
         className="relative z-10 flex items-center justify-center px-4 sm:px-6 w-full"
         style={{
@@ -121,8 +123,9 @@ export default function OrangePlanetHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
+            {/* Greeting - Ajustado para mobile */}
             <motion.p
-              className="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-light tracking-wide"
+              className="text-sm xs:text-base sm:text-lg md:text-xl mb-3 xs:mb-4 sm:mb-6 font-light tracking-wide"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -130,8 +133,9 @@ export default function OrangePlanetHero() {
               {t.hero.greeting}
             </motion.p>
 
+            {/* Nome - Ajustado para mobile */}
             <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-5 sm:mb-6 leading-tight"
+              className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 xs:mb-5 sm:mb-6 leading-tight px-2"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{
@@ -156,8 +160,9 @@ export default function OrangePlanetHero() {
               </span>
             </motion.h1>
 
+            {/* Título - Ajustado para mobile */}
             <motion.h2
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-5 sm:mb-6 tracking-tight"
+              className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-4 xs:mb-5 sm:mb-6 tracking-tight px-2"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.8 }}
@@ -165,8 +170,9 @@ export default function OrangePlanetHero() {
               {t.hero.title}
             </motion.h2>
 
+            {/* Subtítulo - Ajustado para mobile */}
             <motion.p
-              className="text-sm sm:text-base md:text-base lg:text-lg mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed font-light px-4"
+              className="text-xs xs:text-sm sm:text-base md:text-base lg:text-lg mb-6 xs:mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed font-light px-4 sm:px-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.0 }}
@@ -175,12 +181,14 @@ export default function OrangePlanetHero() {
             </motion.p>
           </motion.div>
 
+          {/* CTAs - Otimizado para mobile */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
+            className="flex flex-col xs:flex-col sm:flex-row gap-3 xs:gap-3 sm:gap-6 justify-center items-stretch sm:items-center px-4 xs:px-6 sm:px-0"
           >
+            {/* Botão Contact - Mobile first */}
             <motion.a
               href="#contact"
               className="group relative w-full sm:w-auto overflow-hidden rounded-full"
@@ -188,10 +196,10 @@ export default function OrangePlanetHero() {
               whileTap={{ scale: 0.97 }}
             >
               <div
-                className="relative px-4 xs:px-4.5 sm:px-5 md:px-6 
-                 py-2 xs:py-2 sm:py-2.5 md:py-3 
+                className="relative px-5 xs:px-6 sm:px-5 md:px-6 
+                 py-3 xs:py-3.5 sm:py-2.5 md:py-3 
                  rounded-full flex items-center justify-center gap-2 
-                 font-medium text-xs xs:text-sm sm:text-base 
+                 font-medium text-sm xs:text-sm sm:text-base 
                  transition-all duration-200 
                  group-hover:translate-y-0.5 
                  group-active:translate-y-1"
@@ -216,11 +224,12 @@ export default function OrangePlanetHero() {
                       : 'rgba(30, 30, 30, 0.9)',
                 }}
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4 xs:w-4 xs:h-4 sm:w-4 sm:h-4" />
                 <span>{t.hero.ctaContact}</span>
               </div>
             </motion.a>
 
+            {/* Botão Download CV - Mobile first */}
             <motion.a
               href="/cv.pdf"
               download
@@ -229,10 +238,10 @@ export default function OrangePlanetHero() {
               whileTap={{ scale: 0.97 }}
             >
               <div
-                className="relative px-4 xs:px-4.5 sm:px-5 md:px-6 
-                 py-2 xs:py-2 sm:py-2.5 md:py-3 
+                className="relative px-5 xs:px-6 sm:px-5 md:px-6 
+                 py-3 xs:py-3.5 sm:py-2.5 md:py-3 
                  rounded-full flex items-center justify-center gap-2 
-                 font-medium text-xs xs:text-sm sm:text-base 
+                 font-medium text-sm xs:text-sm sm:text-base 
                  transition-all duration-200 
                  group-hover:translate-y-0.5 
                  group-active:translate-y-1"
@@ -257,15 +266,15 @@ export default function OrangePlanetHero() {
                       : 'rgba(30, 30, 30, 0.9)',
                 }}
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-4 h-4 xs:w-4 xs:h-4 sm:w-4 sm:h-4" />
                 <span>{t.hero.ctaCV}</span>
               </div>
             </motion.a>
           </motion.div>
-
         </div>
       </motion.div>
 
+      {/* Partículas - Menos em mobile para performance */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-2">
         {[...Array(5)].map((_, i) => (
           <motion.div
@@ -295,7 +304,7 @@ export default function OrangePlanetHero() {
               delay: i * 1.2,
               ease: "easeInOut",
             }}
-          />
+          />  
         ))}
       </div>
     </section>
