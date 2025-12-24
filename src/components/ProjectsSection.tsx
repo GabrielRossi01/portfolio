@@ -23,17 +23,28 @@ const techIcons: Record<string, string> = {
   'Tailwind CSS': '',
   'Vercel': '',
   'Render': '',
+  'Insomnia': '',
+  'SLF4J': '',
 };
 
 export default function ProjectsSection() {
   const { t } = useLanguage();
 
-  const projects = STATIC_PROJECTS_DATA.map((staticData, index) => {
-    const translated = t.projects.items?.[index];
+  // Mesclar dados estáticos com traduções
+  const projects = STATIC_PROJECTS_DATA.map((staticData) => {
+    // Encontrar dados traduzidos correspondentes pelo título
+    const translatedData = t.projects.items.find(
+      (item) => item.title === staticData.title
+    );
+
     return {
       ...staticData,
-      title: translated?.title || staticData.title || 'Projeto',
-      description: translated?.description || 'Descrição padrão',
+      // Dados traduzidos
+      title: translatedData?.title || staticData.title,
+      description: translatedData?.description || '',
+      company: translatedData?.company || '',
+      year: translatedData?.year || '',
+      metrics: translatedData?.metrics || [],
     };
   });
 
@@ -56,8 +67,7 @@ export default function ProjectsSection() {
         </motion.div>
 
         <div className="space-y-6 xs:space-y-8 sm:space-y-10 lg:space-y-12">
-          {projects.map((project: any, index: number) => {
-
+          {projects.map((project, index) => {
             const effectiveMockupType = index === 0 ? 'desktop' : project.mockupType;
 
             return (
@@ -75,7 +85,7 @@ export default function ProjectsSection() {
                     <div className="p-6 xs:p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
                       <div>
                         <p className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 xs:mb-3">
-                          {project.company}  {project.year}
+                          {project.company} {project.year}
                         </p>
                         <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-light mb-3 xs:mb-4 sm:mb-5 text-gray-800 dark:text-white leading-tight">
                           {project.title}
@@ -84,8 +94,9 @@ export default function ProjectsSection() {
                           {project.description}
                         </p>
 
+                        {/* Métricas traduzidas */}
                         <div className="space-y-2 xs:space-y-2.5 sm:space-y-3 mb-6 xs:mb-8">
-                          {project.metrics.map((metric: string, metricIndex: number) => (
+                          {project.metrics.map((metric, metricIndex) => (
                             <div key={metricIndex} className="flex items-start gap-2 xs:gap-2.5">
                               <div className="mt-1">
                                 <svg className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
@@ -101,9 +112,9 @@ export default function ProjectsSection() {
                       </div>
 
                       <div>
-
+                        {/* Tags (dados estáticos) */}
                         <div className="flex flex-wrap gap-1.5 xs:gap-2 mb-4 xs:mb-5 sm:mb-6">
-                          {project.tags.slice(0, 10).map((tag: string, tagIndex: number) => (
+                          {project.tags.slice(0, 10).map((tag, tagIndex) => (
                             <div
                               key={tagIndex}
                               className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 flex items-center gap-1 xs:gap-1.5 hover:bg-white/10 transition-colors"
@@ -126,6 +137,7 @@ export default function ProjectsSection() {
                           ))}
                         </div>
 
+                        {/* Botões de ação */}
                         <div className="flex gap-3 xs:gap-4">
                           <a
                             href={project.demo}
@@ -148,6 +160,7 @@ export default function ProjectsSection() {
                       </div>
                     </div>
 
+                    {/* Mockup Desktop */}
                     <div className="relative hidden lg:flex items-end justify-center overflow-hidden pb-0 group/mockup cursor-pointer">
                       <div className={`relative ${effectiveMockupType === 'phone'
                         ? 'w-[280px] h-[560px] xl:w-[320px] xl:h-[640px]'
@@ -166,6 +179,7 @@ export default function ProjectsSection() {
                       </div>
                     </div>
 
+                    {/* Mockup Mobile */}
                     <div className="lg:hidden relative overflow-hidden h-[200px] xs:h-[240px] sm:h-[280px] flex items-end justify-center group/mockup-mobile cursor-pointer">
                       <div className={`relative ${effectiveMockupType === 'phone'
                         ? 'w-40 h-80 xs:w-[200px] xs:h-[400px]'

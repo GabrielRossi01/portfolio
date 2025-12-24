@@ -33,7 +33,6 @@ export default function OrangePlanetHero() {
           : 'linear-gradient(to bottom, #ffffff 0%, #fafafa 100%)'
       }}
     >
-      {/* Planeta - Responsivo */}
       <motion.div
         className="absolute left-1/2 -translate-x-1/2"
         style={{
@@ -109,7 +108,6 @@ export default function OrangePlanetHero() {
         }}
       />
 
-      {/* Conteúdo - Otimizado para mobile */}
       <motion.div
         className="relative z-10 flex items-center justify-center px-4 sm:px-6 w-full"
         style={{
@@ -117,35 +115,60 @@ export default function OrangePlanetHero() {
           y: contentY,
         }}
       >
-        <div className="text-center max-w-5xl w-full">
+        <div className="text-center max-w-3xl w-full mx-auto">
+
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="flex flex-col items-center gap-2 mb-6 sm:mb-8"
+          >
+            <div className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full glass-liquid text-xs sm:text-sm font-light overflow-hidden">
+
+              <motion.div
+                className="absolute inset-0 w-full h-full"
+                style={{
+                  background: theme === 'dark'
+                    ? 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)'
+                    : 'linear-gradient(90deg, transparent 0%, rgba(255, 107, 53, 0.15) 50%, transparent 100%)',
+                }}
+                animate={{
+                  x: ['-200%', '200%'],
+                }}
+                transition={{
+                  duration: 1,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  repeatDelay: 0.5,
+                }}
+              />
+
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse relative z-10"></span>
+              <span className="relative z-10">{t.hero.badge}</span>
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-col items-center justify-center"
           >
-            {/* Greeting - Ajustado para mobile */}
-            <motion.p
-              className="text-sm xs:text-base sm:text-lg md:text-xl mb-3 xs:mb-4 sm:mb-6 font-light tracking-wide"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              {t.hero.greeting}
-            </motion.p>
 
-            {/* Nome - Ajustado para mobile */}
             <motion.h1
-              className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 xs:mb-5 sm:mb-6 leading-tight px-2"
+              className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-4xl mb-6 xs:mb-7 sm:mb-8 leading-tight px-2 text-center"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{
                 duration: 0.9,
-                delay: 0.6,
+                delay: 0.4,
                 type: "spring",
                 stiffness: 80
               }}
             >
+
               <span
+                className="font-light inline"
                 style={{
                   color: theme === 'dark' ? '#ffffff' : '#1a1a1a',
                   textShadow: theme === 'dark'
@@ -153,53 +176,50 @@ export default function OrangePlanetHero() {
                     : '0 4px 20px rgba(0, 0, 0, 0.08)',
                 }}
               >
-                {t.hero.name.split(' ').slice(0, -1).join(' ')}{' '}
+                {t.hero.headlineStart}{' '}
               </span>
-              <span className="gradient-orange-accent">
-                {t.hero.name.split(' ').pop()}
+
+              <span
+                className="gradient-orange-accent inline"
+                style={{
+                  fontFamily: "'Instrument Serif', serif",
+                  fontStyle: 'italic',
+                }}
+              >
+                {t.hero.headlineEnd}
               </span>
             </motion.h1>
 
-            {/* Título - Ajustado para mobile */}
-            <motion.h2
-              className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-4 xs:mb-5 sm:mb-6 tracking-tight px-2"
+            <motion.p
+              className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-light mb-6 xs:mb-7 sm:mb-8 text-center"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.8 }}
+              style={{
+                color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(30, 30, 30, 0.9)',
+              }}
             >
-              {t.hero.title}
-            </motion.h2>
-
-            {/* Subtítulo - Ajustado para mobile */}
-            <motion.p
-              className="text-xs xs:text-sm sm:text-base md:text-base lg:text-lg mb-6 xs:mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed font-light px-4 sm:px-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.0 }}
-            >
-              {t.hero.subtitle}
+              {t.hero.greeting} {t.hero.name}{t.hero.connector} {t.hero.title}
             </motion.p>
           </motion.div>
 
-          {/* CTAs - Otimizado para mobile */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="flex flex-col xs:flex-col sm:flex-row gap-3 xs:gap-3 sm:gap-6 justify-center items-stretch sm:items-center px-4 xs:px-6 sm:px-0"
+            transition={{ duration: 0.8, delay: 1.0 }}
+            className="flex flex-col xs:flex-col sm:flex-row gap-3 xs:gap-3 sm:gap-4 justify-center items-center px-4 xs:px-6 sm:px-0"
           >
-            {/* Botão Contact - Mobile first */}
             <motion.a
               href="#contact"
-              className="group relative w-full sm:w-auto overflow-hidden rounded-full"
+              className="group relative w-full xs:w-auto sm:w-auto overflow-hidden rounded-full"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
               <div
                 className="relative px-5 xs:px-6 sm:px-5 md:px-6 
-                 py-3 xs:py-3.5 sm:py-2.5 md:py-3 
+                 py-2.5 xs:py-3 sm:py-2.5 md:py-3 
                  rounded-full flex items-center justify-center gap-2 
-                 font-medium text-sm xs:text-sm sm:text-base 
+                 font-medium text-xs xs:text-sm sm:text-sm 
                  transition-all duration-200 
                  group-hover:translate-y-0.5 
                  group-active:translate-y-1"
@@ -224,24 +244,23 @@ export default function OrangePlanetHero() {
                       : 'rgba(30, 30, 30, 0.9)',
                 }}
               >
-                <Mail className="w-4 h-4 xs:w-4 xs:h-4 sm:w-4 sm:h-4" />
+                <Mail className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-4 sm:h-4" />
                 <span>{t.hero.ctaContact}</span>
               </div>
             </motion.a>
 
-            {/* Botão Download CV - Mobile first */}
             <motion.a
               href="/cv.pdf"
               download
-              className="group relative w-full sm:w-auto overflow-hidden rounded-full"
+              className="group relative w-full xs:w-auto sm:w-auto overflow-hidden rounded-full"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
               <div
                 className="relative px-5 xs:px-6 sm:px-5 md:px-6 
-                 py-3 xs:py-3.5 sm:py-2.5 md:py-3 
+                 py-2.5 xs:py-3 sm:py-2.5 md:py-3 
                  rounded-full flex items-center justify-center gap-2 
-                 font-medium text-sm xs:text-sm sm:text-base 
+                 font-medium text-xs xs:text-sm sm:text-sm 
                  transition-all duration-200 
                  group-hover:translate-y-0.5 
                  group-active:translate-y-1"
@@ -266,7 +285,7 @@ export default function OrangePlanetHero() {
                       : 'rgba(30, 30, 30, 0.9)',
                 }}
               >
-                <Download className="w-4 h-4 xs:w-4 xs:h-4 sm:w-4 sm:h-4" />
+                <Download className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-4 sm:h-4" />
                 <span>{t.hero.ctaCV}</span>
               </div>
             </motion.a>
@@ -274,7 +293,6 @@ export default function OrangePlanetHero() {
         </div>
       </motion.div>
 
-      {/* Partículas - Menos em mobile para performance */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-2">
         {[...Array(5)].map((_, i) => (
           <motion.div
@@ -304,7 +322,7 @@ export default function OrangePlanetHero() {
               delay: i * 1.2,
               ease: "easeInOut",
             }}
-          />  
+          />
         ))}
       </div>
     </section>

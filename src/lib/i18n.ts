@@ -5,6 +5,7 @@ export interface ProjectItem {
   company: string;
   year: string;
   description: string;
+  metrics: string[];
 }
 
 export interface Translations {
@@ -16,10 +17,13 @@ export interface Translations {
     contact: string;
   };
   hero: {
+    badge: string;
+    headlineStart: string;
+    headlineEnd: string;
     greeting: string;
     name: string;
+    connector: string;
     title: string;
-    subtitle: string;
     ctaContact: string;
     ctaCV: string;
   };
@@ -83,10 +87,13 @@ export const translations: Record<Language, Translations> = {
       contact: 'Contato',
     },
     hero: {
-      greeting: 'Olá, eu sou',
+      badge: 'Disponível para projetos',
+      headlineStart: 'Eu projeto sistemas back-end escaláveis que transformam ideias ambiciosas em',
+      headlineEnd: 'produtos digitais de alta performance',
+      greeting: 'Olá, eu sou o',
       name: 'Gabriel Rossi',
+      connector: ', um',
       title: 'Desenvolvedor Back-End',
-      subtitle: 'Construindo sistemas escaláveis e robustos com Java, Spring Boot e tecnologias Cloud',
       ctaContact: 'Entre em Contato',
       ctaCV: 'Baixar CV',
     },
@@ -128,33 +135,58 @@ export const translations: Record<Language, Translations> = {
       items: [
         {
           title: 'acessly-api',
-          company: 'AIRBNB',
+          company: '',
           year: '2025',
-          description: 'Arquitetura de microsserviços de alta performance processando mais de 100 mil transações diárias com cache Redis e PostgreSQL.',
+          description: 'Desenvolvi o acessly-api, uma solução voltada para reduzir a lacuna de emprego para profissionais com deficiência através da correspondência precisa de vagas.',
+          metrics: [
+            '90% de mitigação de vulnerabilidades de acesso não autorizado.',
+            'Garantia de integridade total do processo de recrutamento e dos dados sensíveis.',
+            'Correspondência precisa (match assertivo) de vagas para o público-alvo.'
+          ]
         },
         {
           title: 'knowball',
           company: 'ORACLE',
           year: '2025',
-          description: 'Mostra como você pode iniciar seu próprio negócio lucrativo em apenas algumas semanas, como a empresa aumentou seu MRR em 25%.',
+          description: 'Projetei e construí o knowball, uma API de controle centralizada destinada a resolver a gestão fragmentada e a manipulação de resultados em campeonatos de base do futebol masculino brasileiro.',
+          metrics: [
+            '30% de redução no esforço de manutenção do lado do cliente (frontend).',
+            'Atingimento do Nível 3 de Maturidade de Richardson (Glory of REST).',
+            'Implementação de navegação dinâmica, eliminando a dependência de URLs fixas.'
+          ]
         },
         {
           title: 'digitalbank',
-          company: 'STRIPE',
+          company: '',
           year: '2025',
-          description: 'Microsserviço de autenticação baseado em OAuth 2.0 e JWT com limitação de taxa e autenticação multifator.',
+          description: 'Desenvolvi uma API RESTful voltada ao setor financeiro digital, orquestrando operações bancárias essenciais como depósito, saque e transferência via PIX entre contas.',
+          metrics: [
+            'Suporte a pagamentos instantâneos através da implementação de transferências via PIX.',
+            'Gerenciamento integral de operações de caixa (Depósitos e Saques).',
+            'Padronização de arquitetura REST, facilitando a escalabilidade e integração de serviços.'
+          ]
         },
         {
           title: 'pluvia+',
-          company: 'AWS',
+          company: '',
           year: '2025',
-          description: 'Sistema CDN distribuído com cache de borda, otimização de imagens e escalonamento automático em infraestrutura AWS.',
+          description: 'Implementei o pluvia+, uma plataforma web de impacto social focada em fornecer acesso a água potável para comunidades em crise hídrica.',
+          metrics: [
+            'Coleta automatizada de dados através de integração robusta com APIs em Java.',
+            'Mitigação de riscos em cenários de eventos extremos de calor e colapso hídrico.',
+            'Arquitetura sustentável, projetada para viabilizar soluções de purificação portátil.'
+          ]
         },
         {
           title: 'smarttrack',
           company: 'CCR',
           year: '2025',
-          description: 'Sistema de e-commerce com processamento de pagamentos em tempo real, notificações push e rastreamento de pedidos com WebSockets.',
+          description: 'Engenhei o smarttrack, um website responsivo projetado para otimizar a gestão e a automação de processos operacionais em estações de trens e metrôs no estado de São Paulo.',
+          metrics: [
+            'Acessibilidade multi-dispositivo, garantida por um design totalmente responsivo.',
+            'Otimização operacional através da automação de rotinas das estações.',
+            'Gestão centralizada da infraestrutura de transporte público (trens e metrôs).'
+          ]
         },
       ]
     },
@@ -179,10 +211,13 @@ export const translations: Record<Language, Translations> = {
       contact: 'Contact',
     },
     hero: {
-      greeting: 'Hello, I am',
+      badge: 'Available for projects',
+      headlineStart: 'I design scalable back-end systems that turn ambitious ideas into',
+      headlineEnd: 'high-performing digital products',
+      greeting: 'Hello, I\'m',
       name: 'Gabriel Rossi',
+      connector: ', a',
       title: 'Back-End Developer',
-      subtitle: 'Building scalable and robust systems with Node.js, Python and cloud technologies',
       ctaContact: 'Get in Touch',
       ctaCV: 'Download CV',
     },
@@ -223,34 +258,59 @@ export const translations: Record<Language, Translations> = {
       viewCaseStudy: 'View Case Study',
       items: [
         {
-          title: 'Curating AR experiences while travelling',
-          company: 'AIRBNB',
-          year: '2023',
-          description: 'High-performance microservices architecture handling 100k+ daily transactions with Redis caching and PostgreSQL.',
+          title: 'acessly-api',
+          company: '',
+          year: '2025',
+          description: 'I developed acessly-api, a solution aimed at reducing the employment gap for professionals with disabilities through accurate job matching.',
+          metrics: [
+            '90% mitigation of unauthorized access vulnerabilities.',
+            'Full integrity guarantee of the recruitment process and sensitive data.',
+            'Precise job matching for the target audience.'
+          ]
         },
         {
-          title: 'Building profitable dropshipping dashboard',
-          company: 'SHOPIFY',
-          year: '2023',
-          description: 'Aims to show you how you can start your own profitable business in just a few weeks, how company increased their MRR by 25%.',
+          title: 'knowball',
+          company: 'ORACLE',
+          year: '2025',
+          description: 'I designed and built knowball, a centralized control API intended to solve the fragmented management and manipulation of results in youth championships of Brazilian men\'s soccer.',
+          metrics: [
+            '30% reduction in client-side (frontend) maintenance effort.',
+            'Achievement of Richardson Maturity Level 3 (Glory of REST).',
+            'Implementation of dynamic navigation, eliminating dependency on fixed URLs.'
+          ]
         },
         {
-          title: 'Authentication Service',
-          company: 'STRIPE',
-          year: '2024',
-          description: 'OAuth 2.0 and JWT-based authentication microservice with rate limiting and multi-factor authentication.',
+          title: 'digitalbank',
+          company: '',
+          year: '2025',
+          description: 'I developed a RESTful API aimed at the digital finance sector, orchestrating essential banking operations such as deposits, withdrawals, and PIX transfers between accounts.',
+          metrics: [
+            'Support for instant payments through PIX transfer implementation.',
+            'Comprehensive management of cash operations (Deposits and Withdrawals).',
+            'REST architecture standardization, facilitating scalability and service integration.'
+          ]
         },
         {
-          title: 'Content Delivery Network',
-          company: 'AWS',
-          year: '2024',
-          description: 'Distributed CDN system with edge caching, image optimization, and automatic scaling on AWS infrastructure.',
+          title: 'pluvia+',
+          company: '',
+          year: '2025',
+          description: 'I implemented pluvia+, a social impact web platform focused on providing access to drinking water for communities facing water crises.',
+          metrics: [
+            'Automated data collection through robust integration with Java APIs.',
+            'Risk mitigation in scenarios of extreme heat events and water collapse.',
+            'Sustainable architecture, designed to enable portable purification solutions.'
+          ]
         },
         {
-          title: 'Real-Time E-commerce Platform',
-          company: 'AMAZON',
-          year: '2024',
-          description: 'E-commerce system with real-time payment processing, push notifications and order tracking with WebSockets.',
+          title: 'smarttrack',
+          company: 'CCR',
+          year: '2025',
+          description: 'I engineered smarttrack, a responsive website designed to optimize the management and automation of operational processes in train and subway stations in the state of São Paulo.',
+          metrics: [
+            'Multi-device accessibility, guaranteed by a fully responsive design.',
+            'Operational optimization through automation of station routines.',
+            'Centralized management of public transportation infrastructure (trains and subways).'
+          ]
         },
       ]
     },
@@ -275,10 +335,13 @@ export const translations: Record<Language, Translations> = {
       contact: 'Contacto',
     },
     hero: {
+      badge: 'Disponible para proyectos',
+      headlineStart: 'Diseño sistemas back-end escalables que transforman ideas ambiciosas en',
+      headlineEnd: 'productos digitales de alto rendimiento',
       greeting: 'Hola, soy',
       name: 'Gabriel Rossi',
+      connector: ', un',
       title: 'Desarrollador Back-End',
-      subtitle: 'Construyendo sistemas escalables y robustos con Node.js, Python y tecnologías cloud',
       ctaContact: 'Contactar',
       ctaCV: 'Descargar CV',
     },
@@ -319,34 +382,59 @@ export const translations: Record<Language, Translations> = {
       viewCaseStudy: 'Ver Caso de Estudio',
       items: [
         {
-          title: 'Curando experiencias AR mientras viajas',
-          company: 'AIRBNB',
-          year: '2023',
-          description: 'Arquitectura de microservicios de alto rendimiento manejando más de 100k transacciones diarias con caché Redis y PostgreSQL.',
+          title: 'acessly-api',
+          company: '',
+          year: '2025',
+          description: 'Desarrollé acessly-api, una solución destinada a reducir la brecha de empleo para profesionales con discapacidad a través de la correspondencia precisa de vacantes.',
+          metrics: [
+            '90% de mitigación de vulnerabilidades de acceso no autorizado.',
+            'Garantía de integridad total del proceso de reclutamiento y datos sensibles.',
+            'Correspondencia precisa de vacantes para el público objetivo.'
+          ]
         },
         {
-          title: 'Construyendo dashboard rentable de dropshipping',
-          company: 'SHOPIFY',
-          year: '2023',
-          description: 'Muestra cómo puedes iniciar tu propio negocio rentable en solo unas semanas, cómo la empresa aumentó su MRR en 25%.',
+          title: 'knowball',
+          company: 'ORACLE',
+          year: '2025',
+          description: 'Diseñé y construí knowball, una API de control centralizada destinada a resolver la gestión fragmentada y la manipulación de resultados en campeonatos juveniles del fútbol masculino brasileño.',
+          metrics: [
+            '30% de reducción en el esfuerzo de mantenimiento del lado del cliente (frontend).',
+            'Logro del Nivel 3 de Madurez de Richardson (Glory of REST).',
+            'Implementación de navegación dinámica, eliminando la dependencia de URLs fijas.'
+          ]
         },
         {
-          title: 'Servicio de Autenticación',
-          company: 'STRIPE',
-          year: '2024',
-          description: 'Microservicio de autenticación basado en OAuth 2.0 y JWT con limitación de tasa y autenticación multifactor.',
+          title: 'digitalbank',
+          company: '',
+          year: '2025',
+          description: 'Desarrollé una API RESTful dirigida al sector financiero digital, orquestando operaciones bancarias esenciales como depósitos, retiros y transferencias PIX entre cuentas.',
+          metrics: [
+            'Soporte para pagos instantáneos a través de la implementación de transferencias PIX.',
+            'Gestión integral de operaciones de caja (Depósitos y Retiros).',
+            'Estandarización de arquitectura REST, facilitando la escalabilidad e integración de servicios.'
+          ]
         },
         {
-          title: 'Red de Distribución de Contenido',
-          company: 'AWS',
-          year: '2024',
-          description: 'Sistema CDN distribuido con caché de borde, optimización de imágenes y escalado automático en infraestructura AWS.',
+          title: 'pluvia+',
+          company: '',
+          year: '2025',
+          description: 'Implementé pluvia+, una plataforma web de impacto social enfocada en proporcionar acceso a agua potable para comunidades en crisis hídrica.',
+          metrics: [
+            'Recopilación automatizada de datos a través de integración robusta con APIs en Java.',
+            'Mitigación de riesgos en escenarios de eventos extremos de calor y colapso hídrico.',
+            'Arquitectura sostenible, diseñada para viabilizar soluciones de purificación portátil.'
+          ]
         },
         {
-          title: 'Plataforma de E-commerce en Tiempo Real',
-          company: 'AMAZON',
-          year: '2024',
-          description: 'Sistema de e-commerce con procesamiento de pagos en tiempo real, notificaciones push y seguimiento de pedidos con WebSockets.',
+          title: 'smarttrack',
+          company: 'CCR',
+          year: '2025',
+          description: 'Diseñé smarttrack, un sitio web responsivo diseñado para optimizar la gestión y automatización de procesos operacionales en estaciones de trenes y metro en el estado de São Paulo.',
+          metrics: [
+            'Accesibilidad multidispositivo, garantizada por un diseño completamente responsivo.',
+            'Optimización operacional a través de la automatización de rutinas de estaciones.',
+            'Gestión centralizada de infraestructura de transporte público (trenes y metro).'
+          ]
         },
       ]
     },

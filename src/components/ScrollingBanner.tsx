@@ -53,7 +53,7 @@ export default function ScrollingBanner() {
 
     const keywords = keywordsByLanguage[language];
     const duplicatedKeywords = [...keywords, ...keywords, ...keywords];
-    const duration = isMobile ? 10 : 15;
+    const duration = isMobile ? 5 : 15; // Velocidade aumentada para mobile
 
     return (
         <div className="relative w-full overflow-hidden py-8 sm:py-10 md:py-12">
@@ -65,6 +65,7 @@ export default function ScrollingBanner() {
             >
                 <div className="glass-liquid py-2 sm:py-2.5 md:py-3">
                     <motion.div
+                        key={`banner-1-${isMobile}`} // Adicione esta linha
                         className="flex gap-6 sm:gap-8 md:gap-10 whitespace-nowrap"
                         animate={{ x: ['0%', '-33.333%'] }}
                         transition={{
@@ -108,6 +109,7 @@ export default function ScrollingBanner() {
             >
                 <div className="glass-liquid py-2 sm:py-2.5 md:py-3">
                     <motion.div
+                        key={`banner-2-${isMobile}`} // Adicione esta linha
                         className="flex gap-6 sm:gap-8 md:gap-10 whitespace-nowrap"
                         animate={{ x: ['-33.333%', '0%'] }}
                         transition={{

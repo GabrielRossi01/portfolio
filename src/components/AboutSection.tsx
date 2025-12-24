@@ -259,7 +259,7 @@ export default function AboutSection() {
               </div>
 
               <div className="hidden md:block absolute -bottom-10 xs:-bottom-12 sm:-bottom-14 md:-bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[250px] xs:max-w-[280px] sm:max-w-[320px] md:max-w-[350px] pointer-events-none">
-                <div className="relative w-full aspect-6/4">
+                <div className="relative w-full aspect-6/3">
                   <Image
                     src="/frame-passionate.png"
                     alt="Development workspace"
