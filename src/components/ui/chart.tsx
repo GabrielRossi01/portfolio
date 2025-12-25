@@ -5,7 +5,6 @@ import * as RechartsPrimitive from "recharts"
 
 import { cn } from "@/lib/utils"
 
-// Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
 
 export type ChartConfig = {
@@ -125,7 +124,6 @@ function ChartTooltipContent({
     indicator?: "line" | "dot" | "dashed"
     nameKey?: string
     labelKey?: string
-    // CORREÇÃO: Adicionada tipagem explícita para payload e label
     payload?: any[]
     label?: any
   }) {
@@ -308,10 +306,8 @@ function ChartLegendContent({
   )
 }
 
-// Helper to extract item config from a payload.
 function getPayloadConfigFromPayload(
   config: ChartConfig,
-  // CORREÇÃO: Mudança de 'unknown' para 'any' para evitar erro de acesso a propriedades
   payload: any,
   key: string
 ) {

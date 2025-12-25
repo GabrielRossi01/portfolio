@@ -141,15 +141,15 @@ export default function AboutSection() {
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Frontend
                   </h4>
-                  <div className="relative overflow-hidden flex justify-center">
+                  <div className="relative overflow-hidden flex justify-start">
                     <motion.div
                       className="flex gap-2 xs:gap-2.5 sm:gap-3"
-                      animate={{ x: [0, -800] }}
+                      animate={{ x: ["0%", "-33.333%"] }}
                       transition={{
                         x: {
                           repeat: Infinity,
                           repeatType: "loop",
-                          duration: 20,
+                          duration: 30,
                           ease: "linear",
                         },
                       }}
@@ -181,15 +181,15 @@ export default function AboutSection() {
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Backend & Database
                   </h4>
-                  <div className="relative overflow-hidden flex justify-center">
+                  <div className="relative overflow-hidden flex justify-start">
                     <motion.div
                       className="flex gap-2 xs:gap-2.5 sm:gap-3"
-                      animate={{ x: [-800, 0] }}
+                      animate={{ x: ["-33.333%", "0%"] }}
                       transition={{
                         x: {
                           repeat: Infinity,
                           repeatType: "loop",
-                          duration: 20,
+                          duration: 30,
                           ease: "linear",
                         },
                       }}
@@ -216,20 +216,20 @@ export default function AboutSection() {
                     </motion.div>
                   </div>
                 </div>
-                
+
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Tools
                   </h4>
-                  <div className="relative overflow-hidden flex justify-center">
+                  <div className="relative overflow-hidden flex justify-start">
                     <motion.div
                       className="flex gap-2 xs:gap-2.5 sm:gap-3"
-                      animate={{ x: [0, -1000] }}
+                      animate={{ x: ["0%", "-33.333%"] }}
                       transition={{
                         x: {
                           repeat: Infinity,
                           repeatType: "loop",
-                          duration: 20,
+                          duration: 35,
                           ease: "linear",
                         },
                       }}
@@ -269,7 +269,6 @@ export default function AboutSection() {
                   />
                 </div>
               </div>
-
             </motion.div>
 
             <motion.div
@@ -370,7 +369,6 @@ export default function AboutSection() {
                   </div>
                 </div>
               </motion.a>
-
             </motion.div>
 
             <motion.div
@@ -384,13 +382,11 @@ export default function AboutSection() {
                 className="absolute inset-0 opacity-30 dark:opacity-20 pointer-events-none bg-right bg-no-repeat mt-22 sm:mt-35 "
                 style={{ backgroundImage: "url('/snippet.png')" }}
               />
-
               <div className="relative z-10 h-full flex flex-col justify-between">
                 <div className="space-y-2 xs:space-y-3 sm:space-y-4">
                   <h3 className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-light leading-tight text-gray-900 dark:text-white">
                     {t.about.cleanCode}
                   </h3>
-
                   <p className="text-sm xs:text-base sm:text-lg md:text-xl font-light max-w-xl text-gray-900 dark:text-gray-300">
                     {t.about.techEnthusiast}
                   </p>

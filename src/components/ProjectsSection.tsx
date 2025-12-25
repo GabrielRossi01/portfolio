@@ -30,16 +30,14 @@ const techIcons: Record<string, string> = {
 export default function ProjectsSection() {
   const { t } = useLanguage();
 
-  // Mesclar dados estáticos com traduções
   const projects = STATIC_PROJECTS_DATA.map((staticData) => {
-    // Encontrar dados traduzidos correspondentes pelo título
+
     const translatedData = t.projects.items.find(
       (item) => item.title === staticData.title
     );
 
     return {
       ...staticData,
-      // Dados traduzidos
       title: translatedData?.title || staticData.title,
       description: translatedData?.description || '',
       company: translatedData?.company || '',
@@ -94,7 +92,6 @@ export default function ProjectsSection() {
                           {project.description}
                         </p>
 
-                        {/* Métricas traduzidas */}
                         <div className="space-y-2 xs:space-y-2.5 sm:space-y-3 mb-6 xs:mb-8">
                           {project.metrics.map((metric, metricIndex) => (
                             <div key={metricIndex} className="flex items-start gap-2 xs:gap-2.5">
@@ -112,7 +109,7 @@ export default function ProjectsSection() {
                       </div>
 
                       <div>
-                        {/* Tags (dados estáticos) */}
+
                         <div className="flex flex-wrap gap-1.5 xs:gap-2 mb-4 xs:mb-5 sm:mb-6">
                           {project.tags.slice(0, 10).map((tag, tagIndex) => (
                             <div
@@ -137,7 +134,6 @@ export default function ProjectsSection() {
                           ))}
                         </div>
 
-                        {/* Botões de ação */}
                         <div className="flex gap-3 xs:gap-4">
                           <a
                             href={project.demo}
@@ -160,7 +156,6 @@ export default function ProjectsSection() {
                       </div>
                     </div>
 
-                    {/* Mockup Desktop */}
                     <div className="relative hidden lg:flex items-end justify-center overflow-hidden pb-0 group/mockup cursor-pointer">
                       <div className={`relative ${effectiveMockupType === 'phone'
                         ? 'w-[280px] h-[560px] xl:w-[320px] xl:h-[640px]'
@@ -179,7 +174,6 @@ export default function ProjectsSection() {
                       </div>
                     </div>
 
-                    {/* Mockup Mobile */}
                     <div className="lg:hidden relative overflow-hidden h-[200px] xs:h-[240px] sm:h-[280px] flex items-end justify-center group/mockup-mobile cursor-pointer">
                       <div className={`relative ${effectiveMockupType === 'phone'
                         ? 'w-40 h-80 xs:w-[200px] xs:h-[400px]'

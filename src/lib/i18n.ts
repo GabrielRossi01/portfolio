@@ -88,7 +88,7 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       badge: 'Disponível para projetos',
-      headlineStart: 'Eu projeto sistemas back-end escaláveis que transformam ideias ambiciosas em',
+      headlineStart: 'Transformo ideias ambiciosas em',
       headlineEnd: 'produtos digitais de alta performance',
       greeting: 'Olá, eu sou o',
       name: 'Gabriel Rossi',
@@ -212,7 +212,7 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       badge: 'Available for projects',
-      headlineStart: 'I design scalable back-end systems that turn ambitious ideas into',
+      headlineStart: 'I transform ambitious ideas into',
       headlineEnd: 'high-performing digital products',
       greeting: 'Hello, I\'m',
       name: 'Gabriel Rossi',
@@ -336,7 +336,7 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       badge: 'Disponible para proyectos',
-      headlineStart: 'Diseño sistemas back-end escalables que transforman ideas ambiciosas en',
+      headlineStart: 'Transformo ideas ambiciosas en',
       headlineEnd: 'productos digitales de alto rendimiento',
       greeting: 'Hola, soy',
       name: 'Gabriel Rossi',
