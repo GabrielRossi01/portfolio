@@ -78,17 +78,51 @@ export default function AboutSection() {
               <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl font-light text-gray-900 dark:text-white mb-3 xs:mb-3 sm:mb-4">
                 {t.about.collaborationTitle}
               </h3>
-              <div className="flex items-center justify-center mt-4 xs:mt-5 sm:mt-6 md:mt-8">
-                <div className="w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 relative">
-                  <Image
-                    src="/working.svg"
-                    alt="VR Collaboration"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 475px) 192px, (max-width: 640px) 224px, (max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"
+              <div className="flex items-center justify-center mt-4 xs:mt-5 sm:mt-6 md:mt-16">
+                <div className="flex items-center justify-center -space-x-3">
+                  <motion.img
+                    src="https://i.pravatar.cc/150?img=12"
+                    alt="Team member 1"
+                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    whileHover={{ scale: 1.1, y: -5 }}
+                    viewport={{ once: true }}
+                  />
+                  <motion.img
+                    src="https://i.pravatar.cc/150?img=8"
+                    alt="Team member 1"
+                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    whileHover={{ scale: 1.1, y: -5 }}
+                    viewport={{ once: true }}
+                  />
+                  <motion.img
+                    src="https://i.pravatar.cc/150?img=47"
+                    alt="Team member 2"
+                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    whileHover={{ scale: 1.1, y: -5 }}
+                    viewport={{ once: true }}
+                  />
+                  <motion.img
+                    src="https://i.pravatar.cc/150?img=32"
+                    alt="Team member 3"
+                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    whileHover={{ scale: 1.1, y: -5 }}
+                    viewport={{ once: true }}
                   />
                 </div>
               </div>
+
             </motion.div>
 
             <motion.div
@@ -255,18 +289,6 @@ export default function AboutSection() {
                       ))}
                     </motion.div>
                   </div>
-                </div>
-              </div>
-
-              <div className="hidden md:block absolute -bottom-10 xs:-bottom-12 sm:-bottom-14 md:-bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[250px] xs:max-w-[280px] sm:max-w-[320px] md:max-w-[350px] pointer-events-none">
-                <div className="relative w-full aspect-6/3">
-                  <Image
-                    src="/frame-passionate.png"
-                    alt="Development workspace"
-                    fill
-                    className="object-contain opacity-40 dark:opacity-30"
-                    sizes="(max-width: 640px) 250px, (max-width: 768px) 280px, (max-width: 1024px) 320px, 350px"
-                  />
                 </div>
               </div>
             </motion.div>

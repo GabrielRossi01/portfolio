@@ -4,12 +4,35 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Download, Mail } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+
+// Hook customizado para detectar se é mobile ou desktop
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < breakpoint);
+    };
+
+    // Checa no mount
+    checkIsMobile();
+
+    // Adiciona listener para resize
+    window.addEventListener('resize', checkIsMobile);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, [breakpoint]);
+
+  return isMobile;
+}
 
 export default function OrangePlanetHero() {
   const { t } = useLanguage();
   const { theme } = useTheme();
   const sectionRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile(768); // Define breakpoint em 768px
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -21,6 +44,15 @@ export default function OrangePlanetHero() {
 
   const contentOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 0.5, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.4], ["0%", "20%"]);
+
+  // Define valores diferentes para mobile e desktop
+  const planetBottom = isMobile
+    ? 'clamp(-180%, -150%, -100%)' // Valores originais para mobile
+    : '-300%'; // Valor fixo para desktop
+
+  const planetSize = isMobile
+    ? 'clamp(1400px, 180vw, 2300px)' // Tamanho original mobile
+    : 'clamp(2000px, 200vw, 3000px)'; // Tamanho maior para desktop
 
   return (
     <section
@@ -38,9 +70,9 @@ export default function OrangePlanetHero() {
         style={{
           y: planetY,
           scale: planetScale,
-          bottom: 'clamp(-180%, -150%, -100%)',
-          width: 'clamp(1400px, 180vw, 2300px)',
-          height: 'clamp(1400px, 180vw, 2300px)',
+          bottom: planetBottom,
+          width: planetSize,
+          height: planetSize,
           maxWidth: 'none',
         }}
       >
@@ -76,7 +108,7 @@ export default function OrangePlanetHero() {
           <div
             className="absolute inset-0 rounded-full opacity-20"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulance type='fractalNoise' baseFrequency='2.5' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
             }}
           />
 
