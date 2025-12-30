@@ -90,18 +90,9 @@ export default function AboutSection() {
                     whileHover={{ scale: 1.1, y: -5 }}
                     viewport={{ once: true }}
                   />
+
                   <motion.img
                     src="https://i.pravatar.cc/150?img=8"
-                    alt="Team member 1"
-                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    viewport={{ once: true }}
-                  />
-                  <motion.img
-                    src="https://i.pravatar.cc/150?img=47"
                     alt="Team member 2"
                     className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -110,8 +101,9 @@ export default function AboutSection() {
                     whileHover={{ scale: 1.1, y: -5 }}
                     viewport={{ once: true }}
                   />
+
                   <motion.img
-                    src="https://i.pravatar.cc/150?img=32"
+                    src="https://i.pravatar.cc/150?img=47"
                     alt="Team member 3"
                     className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -120,9 +112,19 @@ export default function AboutSection() {
                     whileHover={{ scale: 1.1, y: -5 }}
                     viewport={{ once: true }}
                   />
+
+                  <motion.img
+                    src="https://i.pravatar.cc/150?img=32"
+                    alt="Team member 4"
+                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    whileHover={{ scale: 1.1, y: -5 }}
+                    viewport={{ once: true }}
+                  />
                 </div>
               </div>
-
             </motion.div>
 
             <motion.div

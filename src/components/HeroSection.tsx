@@ -47,7 +47,7 @@ export default function OrangePlanetHero() {
 
   // Define valores diferentes para mobile e desktop
   const planetBottom = isMobile
-    ? 'clamp(-180%, -150%, -100%)' // Valores originais para mobile
+    ? 'clamp(-220%, -180%, -140%)' // Movido mais para baixo no mobile
     : '-300%'; // Valor fixo para desktop
 
   const planetSize = isMobile
@@ -58,8 +58,9 @@ export default function OrangePlanetHero() {
     <section
       ref={sectionRef}
       id="home"
-      className="w-full min-h-screen relative overflow-hidden flex items-center justify-center"
+      className="w-full relative overflow-hidden flex items-center justify-center"
       style={{
+        minHeight: isMobile ? '85vh' : '100vh', // Reduzido para 85vh no mobile
         background: theme === 'dark'
           ? '#000000'
           : 'linear-gradient(to bottom, #ffffff 0%, #fafafa 100%)'
@@ -146,6 +147,7 @@ export default function OrangePlanetHero() {
         style={{
           opacity: contentOpacity,
           y: contentY,
+          paddingTop: isMobile ? '3rem' : '0', // Adiciona padding superior no mobile
         }}
       >
         <div className="text-center max-w-3xl w-full mx-auto">
