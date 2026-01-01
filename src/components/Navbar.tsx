@@ -81,7 +81,6 @@ export default function Navbar() {
         </a>
       </motion.div>
 
-
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

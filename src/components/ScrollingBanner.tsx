@@ -1,25 +1,14 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useMobile } from '@/hooks/use-mobile';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { motion } from 'framer-motion';
 
 export default function ScrollingBanner() {
-    const [isMobile, setIsMobile] = useState(false);
+    const isMobile = useMobile();
     const { theme } = useTheme();
     const { language } = useLanguage();
-
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
 
     const keywordsByLanguage = {
         'pt-BR': [
@@ -67,14 +56,8 @@ export default function ScrollingBanner() {
                     <motion.div
                         key={`banner-1-${isMobile}`}
                         className="flex gap-6 sm:gap-8 md:gap-10 whitespace-nowrap"
-                        animate={{ x: ['0%', '-33.333%'] }}
-                        transition={{
-                            x: {
-                                repeat: Infinity,
-                                repeatType: "loop",
-                                duration: duration,
-                                ease: "linear",
-                            },
+                        style={{
+                            animation: `scroll-x ${duration}s linear infinite`,
                         }}
                     >
                         {duplicatedKeywords.map((keyword, index) => (
@@ -111,14 +94,9 @@ export default function ScrollingBanner() {
                     <motion.div
                         key={`banner-2-${isMobile}`}
                         className="flex gap-6 sm:gap-8 md:gap-10 whitespace-nowrap"
-                        animate={{ x: ['-33.333%', '0%'] }}
-                        transition={{
-                            x: {
-                                repeat: Infinity,
-                                repeatType: "loop",
-                                duration: duration,
-                                ease: "linear",
-                            },
+                        style={{
+                            animation: `scroll-x ${duration}s linear infinite`,
+                            animationDirection: 'reverse',
                         }}
                     >
                         {duplicatedKeywords.map((keyword, index) => (

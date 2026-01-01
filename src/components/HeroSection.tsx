@@ -1,72 +1,36 @@
 "use client";
 
-
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Download, Mail } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
-import { useRef, useState, useEffect } from 'react';
-
-
-// Hook customizado para detectar se é mobile ou desktop
-function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
-
-
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < breakpoint);
-    };
-
-
-    // Checa no mount
-    checkIsMobile();
-
-
-    // Adiciona listener para resize
-    window.addEventListener('resize', checkIsMobile);
-
-
-    // Cleanup
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, [breakpoint]);
-
-
-  return isMobile;
-}
-
+import { useMobile } from '@/hooks/use-mobile';
+import { useRef } from 'react';
 
 export default function OrangePlanetHero() {
   const { t } = useLanguage();
   const { theme } = useTheme();
   const sectionRef = useRef<HTMLElement>(null);
-  const isMobile = useIsMobile(768); // Define breakpoint em 768px
-
+  const isMobile = useMobile(768);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"]
   });
 
-
   const planetY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const planetScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-
 
   const contentOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 0.5, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.4], ["0%", "20%"]);
 
-
-  // Define valores diferentes para mobile e desktop
   const planetBottom = isMobile
-    ? 'clamp(-180%, -150%, -100%)' // Valores originais para mobile
-    : '-300%'; // Valor fixo para desktop
-
+    ? 'clamp(-180%, -150%, -100%)'
+    : '-300%';
 
   const planetSize = isMobile
-    ? 'clamp(1400px, 180vw, 2300px)' // Tamanho original mobile
-    : 'clamp(2000px, 200vw, 3000px)'; // Tamanho maior para desktop
-
+    ? 'clamp(1400px, 180vw, 2300px)'
+    : 'clamp(2000px, 200vw, 3000px)';
 
   return (
     <section
@@ -118,28 +82,8 @@ export default function OrangePlanetHero() {
               filter: 'blur(30px)',
             }}
           />
-
-
-          <div
-            className="absolute inset-0 rounded-full opacity-20"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulance type='fractalNoise' baseFrequency='2.5' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
-            }}
-          />
-
-
-          <div
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: theme === 'dark'
-                ? 'radial-gradient(circle at 50% 50%, transparent 75%, rgba(255, 100, 30, 0.15) 85%, transparent 100%)'
-                : 'radial-gradient(circle at 50% 50%, transparent 75%, rgba(255, 100, 30, 0.1) 85%, transparent 100%)',
-              filter: 'blur(8px)',
-            }}
-          />
         </motion.div>
       </motion.div>
-
 
       <div
         className="absolute bottom-0 left-0 right-0 h-[60%] pointer-events-none"
@@ -150,16 +94,6 @@ export default function OrangePlanetHero() {
         }}
       />
 
-
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.015] z-1"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.2' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
-        }}
-      />
-
-
-      {/* Conteúdo principal */}
       <motion.div
         className="relative z-10 flex items-center justify-center px-4 sm:px-6 lg:px-8 w-full"
         style={{
@@ -169,8 +103,6 @@ export default function OrangePlanetHero() {
       >
         <div className="text-center max-w-3xl w-full mx-auto">
 
-
-          {/* Badge "Disponível para trabalho" */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -178,7 +110,6 @@ export default function OrangePlanetHero() {
             className="flex flex-col items-center gap-2 mb-4 sm:mb-6 md:mb-8"
           >
             <div className="relative inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full glass-liquid text-xs sm:text-sm font-light overflow-hidden">
-
 
               <motion.div
                 className="absolute inset-0 w-full h-full"
@@ -198,21 +129,17 @@ export default function OrangePlanetHero() {
                 }}
               />
 
-
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse relative z-10"></span>
               <span className="relative z-10">{t.hero.badge}</span>
             </div>
           </motion.div>
 
-
-          {/* Título principal */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex flex-col items-center justify-center"
           >
-
 
             <motion.h1
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 md:mb-8 leading-tight sm:leading-tight md:leading-tight px-2 text-center"
@@ -226,7 +153,6 @@ export default function OrangePlanetHero() {
               }}
             >
 
-
               <span
                 className="font-light inline"
                 style={{
@@ -239,7 +165,6 @@ export default function OrangePlanetHero() {
                 {t.hero.headlineStart}{' '}
               </span>
 
-
               <span
                 className="gradient-orange-accent inline"
                 style={{
@@ -251,8 +176,6 @@ export default function OrangePlanetHero() {
               </span>
             </motion.h1>
 
-
-            {/* Subtítulo - texto em uma linha no desktop */}
             <motion.p
               className="text-base sm:text-lg md:text-xl lg:text-2xl font-light mb-6 sm:mb-7 md:mb-8 text-center px-2 max-w-2xl md:whitespace-nowrap"
               initial={{ opacity: 0, y: 15 }}
@@ -266,8 +189,6 @@ export default function OrangePlanetHero() {
             </motion.p>
           </motion.div>
 
-
-          {/* Botões CTA */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -309,7 +230,6 @@ export default function OrangePlanetHero() {
               </div>
             </motion.a>
 
-
             <motion.a
               href="/cv.pdf"
               download
@@ -349,8 +269,6 @@ export default function OrangePlanetHero() {
         </div>
       </motion.div>
 
-
-      {/* Partículas animadas */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-2">
         {[...Array(5)].map((_, i) => (
           <motion.div

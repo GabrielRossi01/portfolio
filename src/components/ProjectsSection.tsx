@@ -78,9 +78,9 @@ export default function ProjectsSection() {
                 className="relative"
               >
                 <div className="glass-liquid rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-                  {/* Layout Desktop - Grid de 2 colunas */}
+
                   <div className="hidden lg:grid lg:grid-cols-2 min-h-[500px]">
-                    {/* Coluna de conteúdo */}
+
                     <div className="p-6 xs:p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
                       <div>
                         <p className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 xs:mb-3">
@@ -156,7 +156,6 @@ export default function ProjectsSection() {
                       </div>
                     </div>
 
-                    {/* Coluna do mockup Desktop */}
                     <div className="relative flex items-end justify-center overflow-hidden pb-0 group/mockup cursor-pointer">
                       <div className={`relative ${effectiveMockupType === 'phone'
                         ? 'w-[280px] h-[560px] xl:w-[320px] xl:h-[640px]'
@@ -176,9 +175,8 @@ export default function ProjectsSection() {
                     </div>
                   </div>
 
-                  {/* Layout Mobile - Seções separadas */}
                   <div className="lg:hidden">
-                    {/* Seção de conteúdo */}
+
                     <div className="p-6 xs:p-8">
                       <p className="text-[10px] xs:text-xs font-medium text-gray-600 dark:text-gray-400 mb-2 xs:mb-3">
                         {project.company} {project.year}
@@ -250,7 +248,6 @@ export default function ProjectsSection() {
                       </div>
                     </div>
 
-                    {/* Seção de mockup - Espaço completo */}
                     <div className="relative overflow-hidden bg-linear-to-b from-transparent to-black/5 dark:to-white/5 py-8 xs:py-10 sm:py-12 flex items-center justify-center min-h-[350px] xs:min-h-[400px] sm:min-h-[450px]">
                       <div className={`relative ${effectiveMockupType === 'phone'
                         ? 'w-[200px] h-[400px] xs:w-[240px] xs:h-[480px] sm:w-[280px] sm:h-[560px]'

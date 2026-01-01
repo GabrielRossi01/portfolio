@@ -27,14 +27,14 @@ export default function Earth3D() {
     if (!canvasRef.current) return;
 
     const globe = createGlobe(canvasRef.current, {
-      devicePixelRatio: 2,
+      devicePixelRatio: 1,
       width: width * 2,
       height: width * 2,
       phi: -0.8,
       theta: 0.4,
       dark: 1,
       diffuse: 1.2,
-      mapSamples: 16000,
+      mapSamples: 8000,
       mapBrightness: 10,
       baseColor: [0.08, 0.08, 0.08],
       glowColor: [1.3, 1.3, 1.3],
