@@ -10,7 +10,7 @@ import { useRef } from 'react';
 export default function OrangePlanetHero() {
   const { t } = useLanguage();
   const { theme } = useTheme();
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobile(768);
 
   const { scrollYProgress } = useScroll({

@@ -19,26 +19,26 @@ export default function Earth3D() {
   };
 
   useEffect(() => {
+    if (!canvasRef.current) return;
+
     let width = 0;
     const onResize = () => canvasRef.current && (width = canvasRef.current.offsetWidth);
     window.addEventListener('resize', onResize);
     onResize();
 
-    if (!canvasRef.current) return;
-
     const globe = createGlobe(canvasRef.current, {
-      devicePixelRatio: 1,
+      devicePixelRatio: 1.5,
       width: width * 2,
       height: width * 2,
-      phi: -0.8,
-      theta: 0.4,
+      phi: 0,
+      theta: 0.3,
       dark: 1,
       diffuse: 1.2,
-      mapSamples: 8000,
-      mapBrightness: 10,
+      mapSamples: 16000,
+      mapBrightness: 6,
       baseColor: [0.08, 0.08, 0.08],
-      glowColor: [1.3, 1.3, 1.3],
       markerColor: [1, 0.5, 0],
+      glowColor: [1, 1, 1],
       markers: [
         { location: [-23.5505, -46.6333], size: 0.1 },
       ],
@@ -46,14 +46,18 @@ export default function Earth3D() {
         if (!pointerInteracting.current) {
           phiRef.current += 0.005;
         }
-        state.phi = -0.8 + phiRef.current + pointerInteractionMovement.current;
-        state.theta = 0.4;
+        state.phi = phiRef.current + pointerInteractionMovement.current;
         state.width = width * 2;
         state.height = width * 2;
       }
     });
 
-    setTimeout(() => canvasRef.current && (canvasRef.current.style.opacity = '1'));
+    setTimeout(() => {
+      if (canvasRef.current) {
+        canvasRef.current.style.opacity = '1';
+      }
+    }, 100);
+
     return () => {
       globe.destroy();
       window.removeEventListener('resize', onResize);
@@ -62,7 +66,7 @@ export default function Earth3D() {
 
   return (
     <div className="w-full h-full relative">
-      <div className="w-full h-full rounded-2xl border-2 border-white/5 overflow-hidden flex items-center justify-center">
+      <div className="w-full aspect-square rounded-2xl border-2 border-white/5 overflow-hidden">
         <canvas
           ref={canvasRef}
           onPointerDown={(e) => {
@@ -103,10 +107,9 @@ export default function Earth3D() {
       </div>
 
       <div className="absolute bottom-8 left-8 flex flex-col items-start gap-2">
-
         <div className="relative shrink-0">
           <div className="absolute inset-0 rounded-full blur-lg"></div>
-          <div className="relative p-2 bg-gray-900/80 dark:bg-white/15 backdrop-blur-sm rounded-full ">
+          <div className="relative p-2 bg-gray-900/80 dark:bg-white/15 backdrop-blur-sm rounded-full">
             <MapPin className="w-6 h-6 text-white dark:text-white" strokeWidth={2.5} />
           </div>
         </div>
@@ -123,7 +126,6 @@ export default function Earth3D() {
           </span>
         </div>
       </div>
-      
     </div>
   );
 }
