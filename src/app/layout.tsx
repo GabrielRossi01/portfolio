@@ -7,10 +7,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Gabriel Rossi - Developer & Problem Solver",
-  description: "Portfólio de Gabriel Rossi, desenvolvedor focado em resolver problemas complexos.",
+  description: "Gabriel Rossi Portfolio, developer focused on solving complex problems.",
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', sizes: 'image/svg+xml' },
       { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
       { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
