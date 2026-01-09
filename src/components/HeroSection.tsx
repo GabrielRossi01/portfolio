@@ -5,13 +5,21 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Download, Mail } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useMobile } from '@/hooks/use-mobile';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 export default function OrangePlanetHero() {
   const { t } = useLanguage();
   const { theme } = useTheme();
   const sectionRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobile(768);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -26,11 +34,15 @@ export default function OrangePlanetHero() {
 
   const planetBottom = isMobile
     ? 'clamp(-180%, -150%, -100%)'
-    : '-300%';
+    : isDesktop
+      ? 'clamp(-320%, -280%, -240%)'
+      : '-300%';
 
   const planetSize = isMobile
     ? 'clamp(1400px, 180vw, 2300px)'
-    : 'clamp(2000px, 200vw, 3000px)';
+    : isDesktop
+      ? 'clamp(2200px, 180vw, 2800px)'
+      : 'clamp(2000px, 200vw, 3000px)';
 
   return (
     <section
@@ -52,6 +64,9 @@ export default function OrangePlanetHero() {
           width: planetSize,
           height: planetSize,
           maxWidth: 'none',
+          transform: 'translateZ(0)',
+          WebkitTransform: 'translateZ(0)',
+          willChange: 'transform',
         }}
       >
         <motion.div
@@ -63,6 +78,8 @@ export default function OrangePlanetHero() {
             boxShadow: theme === 'dark'
               ? '0 0 120px rgba(255, 107, 53, 0.4), 0 0 200px rgba(255, 69, 0, 0.25), inset 0 -50px 100px rgba(0, 0, 0, 0.3)'
               : '0 0 100px rgba(255, 107, 53, 0.25), 0 0 160px rgba(255, 69, 0, 0.15), inset 0 -50px 100px rgba(0, 0, 0, 0.15)',
+            transform: 'translateZ(0)',
+            WebkitTransform: 'translateZ(0)',
           }}
           animate={{
             scale: [1, 1.02, 1],
@@ -95,7 +112,7 @@ export default function OrangePlanetHero() {
       />
 
       <motion.div
-        className="relative z-10 flex items-center justify-center px-4 sm:px-6 lg:px-8 w-full"
+        className="relative z-10 flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 w-full"
         style={{
           opacity: contentOpacity,
           y: contentY,
@@ -109,7 +126,14 @@ export default function OrangePlanetHero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="flex flex-col items-center gap-2 mb-4 sm:mb-6 md:mb-8"
           >
-            <div className="relative inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full glass-liquid text-xs sm:text-sm font-light overflow-hidden">
+            <div
+              className="relative inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full glass-liquid text-xs sm:text-sm font-light overflow-hidden"
+              style={{
+                transform: 'translateZ(0)',
+                WebkitTransform: 'translateZ(0)',
+                isolation: 'isolate',
+              }}
+            >
 
               <motion.div
                 className="absolute inset-0 w-full h-full"
@@ -142,7 +166,12 @@ export default function OrangePlanetHero() {
           >
 
             <motion.h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 md:mb-8 leading-tight sm:leading-tight md:leading-tight px-2 text-center"
+              className="mb-4 sm:mb-6 md:mb-8 leading-tight sm:leading-tight md:leading-tight px-2 text-center"
+              style={{
+                fontSize: isMobile
+                  ? 'clamp(1.5rem, 6vw, 2rem)'
+                  : 'clamp(2rem, 3.5vw, 3.5rem)',
+              }}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{
@@ -177,13 +206,16 @@ export default function OrangePlanetHero() {
             </motion.h1>
 
             <motion.p
-              className="text-base sm:text-lg md:text-xl lg:text-2xl font-light mb-6 sm:mb-7 md:mb-8 text-center px-2 max-w-2xl md:whitespace-nowrap"
+              className="font-light mb-6 sm:mb-7 md:mb-8 text-center px-2 max-w-2xl"
+              style={{
+                fontSize: isMobile
+                  ? 'clamp(1rem, 4vw, 1.25rem)'
+                  : 'clamp(1.125rem, 2vw, 1.5rem)',
+                color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(30, 30, 30, 0.9)',
+              }}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.8 }}
-              style={{
-                color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(30, 30, 30, 0.9)',
-              }}
             >
               {t.hero.greeting} {t.hero.name}{t.hero.connector} {t.hero.title}
             </motion.p>
@@ -223,6 +255,9 @@ export default function OrangePlanetHero() {
                       ? 'rgba(255, 255, 255, 0.9)'
                       : 'rgba(30, 30, 30, 0.9)',
                   minHeight: '44px',
+                  transform: 'translateZ(0)',
+                  WebkitTransform: 'translateZ(0)',
+                  isolation: 'isolate',
                 }}
               >
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -259,6 +294,9 @@ export default function OrangePlanetHero() {
                       ? 'rgba(255, 255, 255, 0.9)'
                       : 'rgba(30, 30, 30, 0.9)',
                   minHeight: '44px',
+                  transform: 'translateZ(0)',
+                  WebkitTransform: 'translateZ(0)',
+                  isolation: 'isolate',
                 }}
               >
                 <Download className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -286,6 +324,7 @@ export default function OrangePlanetHero() {
               boxShadow: theme === 'dark'
                 ? '0 0 10px rgba(255, 140, 0, 0.5)'
                 : '0 0 8px rgba(255, 140, 0, 0.35)',
+              willChange: 'transform, opacity',
             }}
             animate={{
               y: [0, -130, 0],
