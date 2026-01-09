@@ -73,11 +73,11 @@ export default function OrangePlanetHero() {
           className="w-full h-full rounded-full relative"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle at 50% 35%, #ffd89b 0%, #ff9a56 15%, #ff7043 30%, #ff6536 45%, #ff4520 60%, #e63900 75%, #cc3300 88%, #8a1f00 100%)'
-              : 'radial-gradient(circle at 50% 35%, #ffe4cc 0%, #ffb380 15%, #ff9566 30%, #ff7f4d 45%, #ff6b35 60%, #ff5722 75%, #e64a19 88%, #cc3d15 100%)',
+              ? 'radial-gradient(circle at 50% 35%, #ffcc66 0%, #ff8c1a 15%, #ff6600 25%, #ff5500 40%, #ff3300 55%, #e62e00 70%, #cc2200 85%, #991100 100%)'
+              : 'radial-gradient(circle at 50% 35%, #ffd699 0%, #ff9933 15%, #ff7700 25%, #ff6600 40%, #ff5500 55%, #ff3300 70%, #e62e00 85%, #b82200 100%)',
             boxShadow: theme === 'dark'
-              ? '0 0 120px rgba(255, 107, 53, 0.4), 0 0 200px rgba(255, 69, 0, 0.25), inset 0 -50px 100px rgba(0, 0, 0, 0.3)'
-              : '0 0 100px rgba(255, 107, 53, 0.25), 0 0 160px rgba(255, 69, 0, 0.15), inset 0 -50px 100px rgba(0, 0, 0, 0.15)',
+              ? '0 0 150px rgba(255, 102, 0, 0.6), 0 0 250px rgba(255, 69, 0, 0.4), inset 0 -50px 120px rgba(0, 0, 0, 0.4)'
+              : '0 0 120px rgba(255, 102, 0, 0.4), 0 0 200px rgba(255, 69, 0, 0.25), inset 0 -50px 100px rgba(0, 0, 0, 0.2)',
             transform: 'translateZ(0)',
             WebkitTransform: 'translateZ(0)',
           }}
@@ -94,8 +94,8 @@ export default function OrangePlanetHero() {
             className="absolute inset-0 rounded-full"
             style={{
               background: theme === 'dark'
-                ? 'radial-gradient(circle at 50% 30%, rgba(255, 220, 150, 0.3) 0%, transparent 60%)'
-                : 'radial-gradient(circle at 50% 30%, rgba(255, 240, 200, 0.4) 0%, transparent 60%)',
+                ? 'radial-gradient(circle at 50% 30%, rgba(255, 180, 80, 0.4) 0%, transparent 60%)'
+                : 'radial-gradient(circle at 50% 30%, rgba(255, 200, 120, 0.5) 0%, transparent 60%)',
               filter: 'blur(30px)',
             }}
           />
@@ -106,8 +106,8 @@ export default function OrangePlanetHero() {
         className="absolute bottom-0 left-0 right-0 h-[60%] pointer-events-none"
         style={{
           background: theme === 'dark'
-            ? 'radial-gradient(ellipse at 50% 100%, rgba(255, 107, 53, 0.12) 0%, rgba(255, 69, 0, 0.06) 40%, transparent 70%)'
-            : 'radial-gradient(ellipse at 50% 100%, rgba(255, 107, 53, 0.06) 0%, rgba(255, 69, 0, 0.03) 40%, transparent 70%)',
+            ? 'radial-gradient(ellipse at 50% 100%, rgba(255, 102, 0, 0.18) 0%, rgba(255, 69, 0, 0.1) 40%, transparent 70%)'
+            : 'radial-gradient(ellipse at 50% 100%, rgba(255, 102, 0, 0.1) 0%, rgba(255, 69, 0, 0.05) 40%, transparent 70%)',
         }}
       />
 
@@ -169,8 +169,8 @@ export default function OrangePlanetHero() {
               className="mb-4 sm:mb-6 md:mb-8 leading-tight sm:leading-tight md:leading-tight px-2 text-center"
               style={{
                 fontSize: isMobile
-                  ? 'clamp(1.5rem, 6vw, 2rem)'
-                  : 'clamp(2rem, 3.5vw, 3.5rem)',
+                  ? 'clamp(1.35rem, 5.5vw, 1.75rem)'
+                  : 'clamp(1.75rem, 3vw, 3rem)',
               }}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -187,7 +187,7 @@ export default function OrangePlanetHero() {
                 style={{
                   color: theme === 'dark' ? '#ffffff' : '#1a1a1a',
                   textShadow: theme === 'dark'
-                    ? '0 4px 28px rgba(0, 0, 0, 0.7), 0 0 60px rgba(255, 107, 53, 0.2)'
+                    ? '0 4px 28px rgba(0, 0, 0, 0.7), 0 0 60px rgba(255, 102, 0, 0.25)'
                     : '0 4px 20px rgba(0, 0, 0, 0.08)',
                 }}
               >
@@ -209,8 +209,8 @@ export default function OrangePlanetHero() {
               className="font-light mb-6 sm:mb-7 md:mb-8 text-center px-2 max-w-2xl"
               style={{
                 fontSize: isMobile
-                  ? 'clamp(1rem, 4vw, 1.25rem)'
-                  : 'clamp(1.125rem, 2vw, 1.5rem)',
+                  ? 'clamp(0.9rem, 3.5vw, 1.1rem)'
+                  : 'clamp(1rem, 1.75vw, 1.35rem)',
                 color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(30, 30, 30, 0.9)',
               }}
               initial={{ opacity: 0, y: 15 }}
@@ -316,14 +316,14 @@ export default function OrangePlanetHero() {
               width: `${2 + Math.random() * 2}px`,
               height: `${2 + Math.random() * 2}px`,
               background: theme === 'dark'
-                ? `rgba(255, ${120 + Math.random() * 60}, 30, ${0.25 + Math.random() * 0.35})`
-                : `rgba(255, ${120 + Math.random() * 60}, 30, ${0.15 + Math.random() * 0.2})`,
+                ? `rgba(255, ${100 + Math.random() * 50}, 0, ${0.3 + Math.random() * 0.4})`
+                : `rgba(255, ${100 + Math.random() * 50}, 0, ${0.2 + Math.random() * 0.25})`,
               left: `${15 + i * 18}%`,
               top: `${20 + i * 12}%`,
               filter: 'blur(1px)',
               boxShadow: theme === 'dark'
-                ? '0 0 10px rgba(255, 140, 0, 0.5)'
-                : '0 0 8px rgba(255, 140, 0, 0.35)',
+                ? '0 0 12px rgba(255, 102, 0, 0.6)'
+                : '0 0 10px rgba(255, 102, 0, 0.4)',
               willChange: 'transform, opacity',
             }}
             animate={{
