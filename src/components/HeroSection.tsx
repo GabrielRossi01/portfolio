@@ -13,11 +13,25 @@ export default function OrangePlanetHero() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobile(768);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [isMacOS, setIsMacOS] = useState(false);
 
   useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
     checkDesktop();
     window.addEventListener('resize', checkDesktop);
+
+    // Detect macOS specifically
+    const checkMacOS = () => {
+      const platform = navigator.platform.toLowerCase();
+      const userAgent = navigator.userAgent.toLowerCase();
+      setIsMacOS(
+        platform.includes('mac') ||
+        userAgent.includes('macintosh') ||
+        userAgent.includes('mac os x')
+      );
+    };
+    checkMacOS();
+
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
@@ -34,9 +48,11 @@ export default function OrangePlanetHero() {
 
   const planetBottom = isMobile
     ? 'clamp(-180%, -150%, -100%)'
-    : isDesktop
-      ? 'clamp(-320%, -280%, -240%)'
-      : '-300%';
+    : isDesktop && isMacOS
+      ? 'clamp(-350%, -310%, -270%)'
+      : isDesktop
+        ? 'clamp(-320%, -280%, -240%)'
+        : '-300%';
 
   const planetSize = isMobile
     ? 'clamp(1400px, 180vw, 2300px)'
