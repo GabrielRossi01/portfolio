@@ -33,14 +33,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      </head>
       <body className="font-sans antialiased">
         <ThemeProvider>
           <LanguageProvider>
             <Script
               id="orchids-browser-logs"
               src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts/orchids-browser-logs.js"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
               data-orchids-project-id="02d6cf9d-ad82-43f3-af7b-7bdd238cfacd"
             />
             {children}

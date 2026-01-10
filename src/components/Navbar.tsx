@@ -12,6 +12,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
 
@@ -29,6 +30,11 @@ export default function Navbar() {
   ];
 
   useEffect(() => {
+    // Detect if user prefers reduced motion
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceMotion(mediaQuery.matches);
+    mediaQuery.addEventListener('change', (e) => setReduceMotion(e.matches));
+
     const handleScroll = () => {
       const sections = navLinks.map(link => link.href.replace('#', ''));
       const current = sections.find(section => {
@@ -43,8 +49,11 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      mediaQuery.removeEventListener('change', (e) => setReduceMotion(e.matches));
+    };
+  }, [navLinks]);
 
   useEffect(() => {
     if (mobileMenuOpen) {

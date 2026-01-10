@@ -14,11 +14,19 @@ export default function OrangePlanetHero() {
   const isMobile = useMobile(768);
   const [isDesktop, setIsDesktop] = useState(false);
   const [isMacOS, setIsMacOS] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
     checkDesktop();
-    window.addEventListener('resize', checkDesktop);
+    
+    // Detect if user prefers reduced motion
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceMotion(mediaQuery.matches);
+    mediaQuery.addEventListener('change', (e) => setReduceMotion(e.matches));
+    
+    const handleResize = () => checkDesktop();
+    window.addEventListener('resize', handleResize);
 
     // Detect macOS specifically
     const checkMacOS = () => {
@@ -32,7 +40,10 @@ export default function OrangePlanetHero() {
     };
     checkMacOS();
 
-    return () => window.removeEventListener('resize', checkDesktop);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      mediaQuery.removeEventListener('change', (e) => setReduceMotion(e.matches));
+    };
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -97,10 +108,10 @@ export default function OrangePlanetHero() {
             transform: 'translateZ(0)',
             WebkitTransform: 'translateZ(0)',
           }}
-          animate={{
+          animate={isMobile ? {} : {
             scale: [1, 1.02, 1],
           }}
-          transition={{
+          transition={isMobile ? {} : {
             duration: 8,
             repeat: Infinity,
             ease: "easeInOut"
@@ -158,10 +169,10 @@ export default function OrangePlanetHero() {
                     ? 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)'
                     : 'linear-gradient(90deg, transparent 0%, rgba(255, 107, 53, 0.15) 50%, transparent 100%)',
                 }}
-                animate={{
+                animate={isMobile || reduceMotion ? {} : {
                   x: ['-200%', '200%'],
                 }}
-                transition={{
+                transition={isMobile || reduceMotion ? {} : {
                   duration: 1,
                   repeat: Infinity,
                   ease: "easeInOut",
@@ -323,39 +334,40 @@ export default function OrangePlanetHero() {
         </div>
       </motion.div>
 
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-2">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: `${2 + Math.random() * 2}px`,
-              height: `${2 + Math.random() * 2}px`,
-              background: theme === 'dark'
-                ? `rgba(255, ${100 + Math.random() * 50}, 0, ${0.3 + Math.random() * 0.4})`
-                : `rgba(255, ${100 + Math.random() * 50}, 0, ${0.2 + Math.random() * 0.25})`,
-              left: `${15 + i * 18}%`,
-              top: `${20 + i * 12}%`,
-              filter: 'blur(1px)',
-              boxShadow: theme === 'dark'
-                ? '0 0 12px rgba(255, 102, 0, 0.6)'
-                : '0 0 10px rgba(255, 102, 0, 0.4)',
-              willChange: 'transform, opacity',
-            }}
-            animate={{
-              y: [0, -130, 0],
-              opacity: [0, 0.9, 0],
-              scale: [0, 2, 0],
-            }}
-            transition={{
-              duration: 6 + i * 1,
-              repeat: Infinity,
-              delay: i * 1.2,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
+      {!isMobile && !reduceMotion && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-2">
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: `${2 + Math.random() * 2}px`,
+                height: `${2 + Math.random() * 2}px`,
+                background: theme === 'dark'
+                  ? `rgba(255, ${100 + Math.random() * 50}, 0, ${0.3 + Math.random() * 0.4})`
+                  : `rgba(255, ${100 + Math.random() * 50}, 0, ${0.2 + Math.random() * 0.25})`,
+                left: `${15 + i * 18}%`,
+                top: `${20 + i * 12}%`,
+                filter: 'blur(1px)',
+                boxShadow: theme === 'dark'
+                  ? '0 0 12px rgba(255, 102, 0, 0.6)'
+                  : '0 0 10px rgba(255, 102, 0, 0.4)',
+              }}
+              animate={{
+                y: [0, -130, 0],
+                opacity: [0, 0.9, 0],
+                scale: [0, 2, 0],
+              }}
+              transition={{
+                duration: 6 + i * 1,
+                repeat: Infinity,
+                delay: i * 1.2,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

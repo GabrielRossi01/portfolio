@@ -114,6 +114,14 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (max-width: 768px) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   .glass {
@@ -191,6 +199,7 @@
   @keyframes scroll-x {
     from {
       transform: translateX(0);
+      will-change: transform;
     }
     to {
       transform: translateX(-33.333%);
@@ -200,6 +209,15 @@
   @keyframes stars-move {
     0% { background-position: 0% 0%; }
     100% { background-position: 100% 100%; }
+  }
+  
+  /* Reduce motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
