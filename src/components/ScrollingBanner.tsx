@@ -44,7 +44,6 @@ export default memo(function ScrollingBanner() {
     const duplicatedKeywords = useMemo(() => (isMobile ? [...keywords, ...keywords] : [...keywords, ...keywords, ...keywords]), [keywords, isMobile]);
     const duration = useMemo(() => (isMobile ? 5 : 15), [isMobile]);
 
-    // Skip rendering on mobile to reduce DOM complexity
     if (isMobile && typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches) {
         return (
             <div className="relative w-full overflow-hidden py-4 sm:py-6 md:py-8 px-4">

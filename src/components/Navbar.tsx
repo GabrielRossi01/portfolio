@@ -30,7 +30,6 @@ export default function Navbar() {
   ];
 
   useEffect(() => {
-    // Detect if user prefers reduced motion
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReduceMotion(mediaQuery.matches);
     mediaQuery.addEventListener('change', (e) => setReduceMotion(e.matches));

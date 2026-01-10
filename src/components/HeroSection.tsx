@@ -19,16 +19,14 @@ export default function OrangePlanetHero() {
   useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
     checkDesktop();
-    
-    // Detect if user prefers reduced motion
+
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReduceMotion(mediaQuery.matches);
     mediaQuery.addEventListener('change', (e) => setReduceMotion(e.matches));
-    
+
     const handleResize = () => checkDesktop();
     window.addEventListener('resize', handleResize);
 
-    // Detect macOS specifically
     const checkMacOS = () => {
       const platform = navigator.platform.toLowerCase();
       const userAgent = navigator.userAgent.toLowerCase();
