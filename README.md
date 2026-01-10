@@ -2,7 +2,7 @@
 
 ## Check out my new personal portofolio!!
 
-![Imagem](https://drive.google.com/uc?export=view&id=126K35L5MiVqpQqJp5NEf_dplOifImnNf)
+![Imagem](https://drive.google.com/uc?export=view&id=11Vmg2qTozYZGcQDNX1PhNDsm8XGdmqjb)
 
 </div>
 
