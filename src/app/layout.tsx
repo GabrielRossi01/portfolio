@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "Gabriel Rossi - Developer & Problem Solver",
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               data-orchids-project-id="02d6cf9d-ad82-43f3-af7b-7bdd238cfacd"
             />
             {children}
+            <Analytics />
           </LanguageProvider>
         </ThemeProvider>
       </body>
