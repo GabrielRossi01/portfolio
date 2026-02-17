@@ -69,7 +69,7 @@ export default function OrangePlanetHero() {
       ? 'clamp(2200px, 180vw, 2800px)'
       : 'clamp(2000px, 200vw, 3000px)';
 
-  return (
+ return (
     <section
       ref={sectionRef}
       id="home"
