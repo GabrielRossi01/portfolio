@@ -7,6 +7,18 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useMobile } from '@/hooks/use-mobile';
 import { useRef, useEffect, useState } from 'react';
 
+// Helper function to generate random values (called outside component render)
+const generateParticleProperties = () => {
+  return [...Array(5)].map((_, i) => ({
+    id: i,
+    width: 2 + Math.random() * 2,
+    height: 2 + Math.random() * 2,
+    colorG: 100 + Math.random() * 50,
+    colorOpacityDark: 0.3 + Math.random() * 0.4,
+    colorOpacityLight: 0.2 + Math.random() * 0.25,
+  }));
+};
+
 export default function OrangePlanetHero() {
   const { t } = useLanguage();
   const { theme } = useTheme();
@@ -14,14 +26,19 @@ export default function OrangePlanetHero() {
   const isMobile = useMobile(768);
   const [isDesktop, setIsDesktop] = useState(false);
   const [isMacOS, setIsMacOS] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return false;
+  });
+  const [particleProperties] = useState(() => generateParticleProperties());
 
   useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
     checkDesktop();
 
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduceMotion(mediaQuery.matches);
     mediaQuery.addEventListener('change', (e) => setReduceMotion(e.matches));
 
     const handleResize = () => checkDesktop();
@@ -61,13 +78,11 @@ export default function OrangePlanetHero() {
       ? 'clamp(-350%, -310%, -270%)'
       : isDesktop
         ? 'clamp(-320%, -280%, -240%)'
-        : '-300%';
-
-  const planetSize = isMobile
-    ? 'clamp(1400px, 180vw, 2300px)'
+        : '-300%';  const planetSize = isMobile
+    ? 'clamp(1200px, 160vw, 1800px)'
     : isDesktop
-      ? 'clamp(2200px, 180vw, 2800px)'
-      : 'clamp(2000px, 200vw, 3000px)';
+      ? 'clamp(2000px, 150vw, 2400px)'
+      : 'clamp(1600px, 180vw, 2400px)';
 
  return (
     <section
@@ -334,16 +349,16 @@ export default function OrangePlanetHero() {
 
       {!isMobile && !reduceMotion && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-2">
-          {[...Array(5)].map((_, i) => (
+          {particleProperties.map((particle, i) => (
             <motion.div
-              key={i}
+              key={particle.id}
               className="absolute rounded-full"
               style={{
-                width: `${2 + Math.random() * 2}px`,
-                height: `${2 + Math.random() * 2}px`,
+                width: `${particle.width}px`,
+                height: `${particle.height}px`,
                 background: theme === 'dark'
-                  ? `rgba(255, ${100 + Math.random() * 50}, 0, ${0.3 + Math.random() * 0.4})`
-                  : `rgba(255, ${100 + Math.random() * 50}, 0, ${0.2 + Math.random() * 0.25})`,
+                  ? `rgba(255, ${particle.colorG}, 0, ${particle.colorOpacityDark})`
+                  : `rgba(255, ${particle.colorG}, 0, ${particle.colorOpacityLight})`,
                 left: `${15 + i * 18}%`,
                 top: `${20 + i * 12}%`,
                 filter: 'blur(1px)',
