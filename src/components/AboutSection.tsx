@@ -14,6 +14,7 @@ export default function AboutSection() {
   const frontendTech = [
     { name: "React", icon: "/react-original.svg" },
     { name: "Next.js", icon: "/nextjs-original.svg" },
+    { name: "Angular", icon: "/angular-svgrepo-com.svg" },
     { name: "Tailwind CSS", icon: "/tailwindcss-icon-svgrepo-com.svg" },
     { name: "TypeScript", icon: "/typescript-original.svg" },
     { name: "HTML", icon: "/html5-original.svg" },

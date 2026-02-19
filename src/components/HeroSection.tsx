@@ -7,7 +7,6 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useMobile } from '@/hooks/use-mobile';
 import { useRef, useEffect, useState } from 'react';
 
-// Helper function to generate random values (called outside component render)
 const generateParticleProperties = () => {
   return [...Array(5)].map((_, i) => ({
     id: i,
