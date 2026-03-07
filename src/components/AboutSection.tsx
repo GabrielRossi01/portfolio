@@ -324,7 +324,7 @@ export default function AboutSection() {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/gabriel-rossi-155baa324/"
+                href="https://www.linkedin.com/in/gabriel-oliveira-rossi-155baa324/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-lg p-3 xs:p-4 sm:p-5 md:p-6 hover:bg-white/10 transition-all group"
