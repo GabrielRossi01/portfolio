@@ -107,7 +107,7 @@ export default function Footer() {
                   label: "GitHub",
                 },
                 {
-                  href: "https://www.linkedin.com/in/gabriel-rossi-155baa324/",
+                  href: "https://www.linkedin.com/in/gabriel-oliveira-rossi-155baa324/",
                   icon: <Linkedin />,
                   label: "LinkedIn",
                 },
