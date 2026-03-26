@@ -305,7 +305,7 @@ export default function OrangePlanetHero() {
             </motion.a>
 
             <motion.a
-              href="/gabriel-rossi-resume.pdf"
+              href="/resume-gabriel-rossi.pdf"
               download
               className="group relative w-full sm:w-auto overflow-hidden rounded-full"
               whileHover={{ scale: 1.03 }}
