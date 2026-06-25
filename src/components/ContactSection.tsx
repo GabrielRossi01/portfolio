@@ -193,7 +193,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative w-full mt-2 xs:mt-3 sm:mt-4"
+                className="group relative w-full mt-2 xs:mt-3 sm:mt-4 cursor-pointer disabled:cursor-not-allowed"
               >
                 <div className="relative">
                   <div
@@ -208,7 +208,7 @@ export default function ContactSection() {
                     }}
                   />
                   <div
-                    className="relative px-5 xs:px-6 sm:px-10 py-2 xs:py-2.5 sm:py-4 rounded-lg xs:rounded-xl flex items-center justify-center gap-2 font-medium text-xs xs:text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="relative px-5 xs:px-6 sm:px-10 py-2 xs:py-2.5 sm:py-4 rounded-lg xs:rounded-xl flex items-center justify-center gap-2 font-medium text-xs xs:text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1 disabled:opacity-50"
                     style={{
                       background:
                         theme === 'dark'
