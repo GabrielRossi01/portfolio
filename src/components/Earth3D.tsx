@@ -1,23 +1,23 @@
 "use client";
 
-import { useEffect, useRef, memo } from 'react';
-import createGlobe from 'cobe';
-import { MapPin } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useEffect, useRef, memo } from "react";
+import createGlobe from "cobe";
+import { MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Earth3D = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pointerInteracting = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
   const phiRef = useRef(0);
-  const globeRef = useRef<any>(null);
+  const globeRef = useRef<{ destroy: () => void } | null>(null);
   const rafRef = useRef<number | null>(null);
   const { language } = useLanguage();
 
   const remoteText = {
-    'pt-BR': 'REMOTO',
-    'en': 'REMOTE',
-    'es': 'REMOTO',
+    "pt-BR": "REMOTO",
+    en: "REMOTE",
+    es: "REMOTO",
   };
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Earth3D = () => {
       }
     };
 
-    window.addEventListener('resize', onResize, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
     onResize();
 
     globeRef.current = createGlobe(canvasRef.current, {
@@ -46,9 +46,7 @@ const Earth3D = () => {
       baseColor: [0.08, 0.08, 0.08],
       markerColor: [1, 0.5, 0],
       glowColor: [1, 1, 1],
-      markers: [
-        { location: [-23.5505, -46.6333], size: 0.1 },
-      ],
+      markers: [{ location: [-23.5505, -46.6333], size: 0.1 }],
       onRender: (state) => {
         if (!pointerInteracting.current) {
           phiRef.current += 0.005;
@@ -56,12 +54,12 @@ const Earth3D = () => {
         state.phi = phiRef.current + pointerInteractionMovement.current;
         state.width = width * 2;
         state.height = width * 2;
-      }
+      },
     });
 
     rafRef.current = requestAnimationFrame(() => {
       if (canvasRef.current) {
-        canvasRef.current.style.opacity = '1';
+        canvasRef.current.style.opacity = "1";
       }
     });
 
@@ -72,18 +70,18 @@ const Earth3D = () => {
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
       }
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
     pointerInteracting.current = e.clientX - pointerInteractionMovement.current;
-    if (canvasRef.current) canvasRef.current.style.cursor = 'grabbing';
+    if (canvasRef.current) canvasRef.current.style.cursor = "grabbing";
   };
 
   const handlePointerUp = () => {
     pointerInteracting.current = null;
-    if (canvasRef.current) canvasRef.current.style.cursor = 'grab';
+    if (canvasRef.current) canvasRef.current.style.cursor = "grab";
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -101,8 +99,8 @@ const Earth3D = () => {
   };
 
   return (
-    <div className="w-full h-full relative">
-      <div className="w-full aspect-square rounded-2xl border-2 border-white/5 overflow-hidden">
+    <div className="w-full h-full relative flex items-center justify-center">
+      <div className="w-full aspect-square rounded-2xl border-2 border-white/5 relative overflow-visible">
         <canvas
           ref={canvasRef}
           onPointerDown={handlePointerDown}
@@ -111,25 +109,29 @@ const Earth3D = () => {
           onMouseMove={handleMouseMove}
           onTouchMove={handleTouchMove}
           style={{
-            width: '100%',
-            height: '100%',
-            cursor: 'grab',
-            contain: 'layout paint size style',
+            width: "100%",
+            height: "100%",
+            cursor: "grab",
+            contain: "layout paint size style",
             opacity: 0,
-            transition: 'opacity 1s ease',
-            transform: 'translateZ(0)',
+            transition: "opacity 1s ease",
+            transform: "translateZ(0)",
+            borderRadius: "1rem",
           }}
         />
       </div>
 
-      <div className="absolute bottom-8 left-8 flex flex-col items-start gap-2">
+      <div className="absolute bottom-6 left-6 flex flex-col items-start gap-2 z-10">
         <div className="relative shrink-0">
           <div
             className="absolute inset-0 rounded-full blur-lg"
-            style={{ transform: 'translateZ(0)' }}
+            style={{ transform: "translateZ(0)" }}
           />
           <div className="relative p-2 bg-gray-900/80 dark:bg-white/15 backdrop-blur-sm rounded-full">
-            <MapPin className="w-6 h-6 text-white dark:text-white" strokeWidth={2.5} />
+            <MapPin
+              className="w-6 h-6 text-white dark:text-white"
+              strokeWidth={2.5}
+            />
           </div>
         </div>
 
@@ -139,7 +141,7 @@ const Earth3D = () => {
           </span>
           <span
             className="text-2xl font-bold text-gray-900 dark:text-white leading-none tracking-tight"
-            style={{ fontFamily: 'Instrument Serif, serif' }}
+            style={{ fontFamily: "Instrument Serif, serif" }}
           >
             SÃO PAULO
           </span>

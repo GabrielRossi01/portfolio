@@ -72,16 +72,18 @@ export default function OrangePlanetHero() {
   const contentY = useTransform(scrollYProgress, [0, 0.4], ["0%", "20%"]);
 
   const planetBottom = isMobile
-    ? 'clamp(-180%, -150%, -100%)'
-    : isDesktop && isMacOS
-      ? 'clamp(-350%, -310%, -270%)'
-      : isDesktop
-        ? 'clamp(-320%, -280%, -240%)'
-        : '-300%';  const planetSize = isMobile
-    ? 'clamp(1200px, 160vw, 1800px)'
+  ? 'clamp(-140%, -120%, -90%)'
+  : isDesktop && isMacOS
+    ? 'clamp(-340%, -300%, -260%)' 
     : isDesktop
-      ? 'clamp(2000px, 150vw, 2400px)'
-      : 'clamp(1600px, 180vw, 2400px)';
+      ? 'clamp(-310%, -270%, -230%)' 
+      : 'clamp(-220%, -200%, -160%)'; 
+
+const planetSize = isMobile
+  ? 'clamp(900px, 140vw, 1400px)'   
+  : isDesktop
+    ? 'clamp(1800px, 140vw, 2200px)'
+    : 'clamp(1200px, 160vw, 1800px)'; 
 
  return (
     <section
