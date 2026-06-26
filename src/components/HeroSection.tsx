@@ -307,7 +307,7 @@ const planetSize = isMobile
             </motion.a>
 
             <motion.a
-              href="/resume-gabriel-rossi.pdf"
+              href="/resume.pdf"
               download
               className="group relative w-full sm:w-auto overflow-hidden rounded-full"
               whileHover={{ scale: 1.03 }}
