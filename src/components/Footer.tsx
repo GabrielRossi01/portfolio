@@ -50,7 +50,7 @@ export default function Footer() {
                   src="/GR.svg"
                   alt="Gabriel Rossi Logo"
                   fill
-                  className="object-contain brightness-0 invert"
+                  className="object-contain brightness-0 invert cursor-pointer"
                 />
               </div>
             </button>

@@ -1,11 +1,11 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { Users, Clock, Github, Linkedin, Mail } from 'lucide-react';
-import Image from 'next/image';
-import Earth3D from './Earth3D';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useTheme } from '@/contexts/ThemeContext';
+import { motion } from "framer-motion";
+import { Users, Clock, Github, Linkedin, Mail } from "lucide-react";
+import Image from "next/image";
+import Earth3D from "./Earth3D";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function AboutSection() {
   const { t } = useLanguage();
@@ -54,15 +54,21 @@ export default function AboutSection() {
     { name: "Linux", icon: "/linux-original.svg" },
   ];
 
-  const duplicatedFrontend = [...frontendTech, ...frontendTech, ...frontendTech];
+  const duplicatedFrontend = [
+    ...frontendTech,
+    ...frontendTech,
+    ...frontendTech,
+  ];
   const duplicatedBackend = [...backendTech, ...backendTech, ...backendTech];
   const duplicatedTools = [...toolsTech, ...toolsTech, ...toolsTech];
 
   return (
-    <section id="about" className="py-8 sm:py-12 md:py-16 lg:py-24 px-2 xs:px-3 sm:px-4">
+    <section
+      id="about"
+      className="py-8 sm:py-12 md:py-16 lg:py-24 px-2 xs:px-3 sm:px-4"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-
           <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -149,12 +155,14 @@ export default function AboutSection() {
               <div className="flex flex-wrap gap-2 xs:gap-2.5 sm:gap-3 mb-3 xs:mb-3 sm:mb-4 md:mb-6">
                 <div className="glass-liquid rounded-full px-3 xs:px-3.5 sm:px-4 py-1.5 xs:py-1.5 sm:py-2 flex items-center gap-1.5 xs:gap-2">
                   <span className="text-base xs:text-lg sm:text-xl">🇧🇷</span>
-                  <span className="text-xs xs:text-sm sm:text-sm font-light text-gray-800 dark:text-white">Brazil</span>
+                  <span className="text-xs xs:text-sm sm:text-sm font-light text-gray-800 dark:text-white">
+                    Brazil
+                  </span>
                 </div>
               </div>
 
               <div className="flex-1 flex items-center justify-center min-h-[200px] xs:min-h-[250px] sm:min-h-[350px] md:min-h-[450px]">
-                <div className="w-full max-w-[500px] aspect-square">
+                <div className="w-full max-w-[440px] aspect-square mx-auto">
                   <Earth3D />
                 </div>
               </div>
@@ -174,7 +182,6 @@ export default function AboutSection() {
               </h3>
 
               <div className="space-y-4 xs:space-y-5 sm:space-y-6">
-
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Frontend
@@ -257,7 +264,7 @@ export default function AboutSection() {
 
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    Tools % Cloud Services
+                    Tools & Cloud Services
                   </h4>
                   <div className="relative overflow-hidden flex justify-start">
                     <motion.div
@@ -318,8 +325,12 @@ export default function AboutSection() {
                     <Github className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 text-gray-700 dark:text-white" />
                   </div>
                   <div>
-                    <h4 className="font-light text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white">{t.about.github}</h4>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 hidden xs:block">{t.about.githubDesc}</p>
+                    <h4 className="font-light text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white">
+                      {t.about.github}
+                    </h4>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 hidden xs:block">
+                      {t.about.githubDesc}
+                    </p>
                   </div>
                 </div>
               </a>
@@ -338,8 +349,12 @@ export default function AboutSection() {
                     <Linkedin className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 text-gray-700 dark:text-white" />
                   </div>
                   <div>
-                    <h4 className="font-light text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white">{t.about.linkedin}</h4>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 hidden xs:block">{t.about.linkedinDesc}</p>
+                    <h4 className="font-light text-xs xs:text-sm sm:text-base text-gray-900 dark:text-white">
+                      {t.about.linkedin}
+                    </h4>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 hidden xs:block">
+                      {t.about.linkedinDesc}
+                    </p>
                   </div>
                 </div>
               </a>
@@ -352,7 +367,10 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 text-center"
             >
-              <h3 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-2 xs:mb-3 sm:mb-4" style={{ fontFamily: "'Instrument Serif', serif" }}>
+              <h3
+                className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-2 xs:mb-3 sm:mb-4"
+                style={{ fontFamily: "'Instrument Serif', serif" }}
+              >
                 {t.about.workTogether}
               </h3>
 
@@ -366,28 +384,35 @@ export default function AboutSection() {
                   <div
                     className="absolute inset-0 rounded-full"
                     style={{
-                      background: theme === 'dark'
-                        ? 'linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))'
-                        : 'linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(150, 150, 150, 0.5))',
-                      transform: 'translateY(4px)',
+                      background:
+                        theme === "dark"
+                          ? "linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))"
+                          : "linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(150, 150, 150, 0.5))",
+                      transform: "translateY(4px)",
                     }}
                   />
 
                   <div
                     className="relative mt-2 xs:mt-2.5 sm:mt-3 px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 rounded-full flex items-center justify-center gap-1.5 xs:gap-2 font-light text-xs xs:text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
                     style={{
-                      background: theme === 'dark'
-                        ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0))'
-                        : 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(245, 245, 240, 0.9))',
-                      backdropFilter: 'blur(20px)',
-                      WebkitBackdropFilter: 'blur(20px)',
-                      border: theme === 'dark'
-                        ? '1px solid rgba(255, 255, 255, 0)'
-                        : '1px solid rgba(0, 0, 0, 0.08)',
-                      boxShadow: theme === 'dark'
-                        ? 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)'
-                        : 'inset 0 1px 2px rgba(255, 255, 255, 1), inset 0 -1px 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1)',
-                      color: theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(40, 40, 40, 0.9)',
+                      background:
+                        theme === "dark"
+                          ? "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0))"
+                          : "linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(245, 245, 240, 0.9))",
+                      backdropFilter: "blur(20px)",
+                      WebkitBackdropFilter: "blur(20px)",
+                      border:
+                        theme === "dark"
+                          ? "1px solid rgba(255, 255, 255, 0)"
+                          : "1px solid rgba(0, 0, 0, 0.08)",
+                      boxShadow:
+                        theme === "dark"
+                          ? "inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)"
+                          : "inset 0 1px 2px rgba(255, 255, 255, 1), inset 0 -1px 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1)",
+                      color:
+                        theme === "dark"
+                          ? "rgba(255, 255, 255, 0.9)"
+                          : "rgba(40, 40, 40, 0.9)",
                     }}
                   >
                     <Mail className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-4 sm:h-4" />

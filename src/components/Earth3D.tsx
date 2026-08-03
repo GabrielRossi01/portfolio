@@ -24,19 +24,26 @@ const Earth3D = () => {
     if (!canvasRef.current) return;
 
     let width = 0;
-    const onResize = () => {
-      if (canvasRef.current) {
-        width = canvasRef.current.offsetWidth;
-      }
+    let height = 0;
+
+    const updateSize = () => {
+      if (!canvasRef.current) return;
+      const rect = canvasRef.current.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
     };
 
-    window.addEventListener("resize", onResize, { passive: true });
-    onResize();
+    updateSize();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateSize();
+    });
+    resizeObserver.observe(canvasRef.current);
 
     globeRef.current = createGlobe(canvasRef.current, {
-      devicePixelRatio: Math.min(window.devicePixelRatio, 1.5),
+      devicePixelRatio: Math.min(window.devicePixelRatio, 2),
       width: width * 2,
-      height: width * 2,
+      height: height * 2,
       phi: 0,
       theta: 0.3,
       dark: 1,
@@ -53,7 +60,7 @@ const Earth3D = () => {
         }
         state.phi = phiRef.current + pointerInteractionMovement.current;
         state.width = width * 2;
-        state.height = width * 2;
+        state.height = height * 2;
       },
     });
 
@@ -64,13 +71,13 @@ const Earth3D = () => {
     });
 
     return () => {
+      resizeObserver.disconnect();
       if (globeRef.current) {
         globeRef.current.destroy();
       }
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
       }
-      window.removeEventListener("resize", onResize);
     };
   }, []);
 
