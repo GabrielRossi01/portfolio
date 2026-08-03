@@ -17,8 +17,6 @@ export default function AboutSection() {
     { name: "Angular", icon: "/angular-svgrepo-com.svg" },
     { name: "Tailwind CSS", icon: "/tailwindcss-icon-svgrepo-com.svg" },
     { name: "TypeScript", icon: "/typescript-original.svg" },
-    { name: "HTML", icon: "/html5-original.svg" },
-    { name: "CSS", icon: "/css3-original.svg" },
     { name: "Expo Router", icon: "/expo-router.svg" },
   ];
 
@@ -31,6 +29,9 @@ export default function AboutSection() {
     { name: "C#", icon: "/csharp-original.svg" },
     { name: "C++", icon: "/cplusplus-original.svg" },
     { name: "MySQL", icon: "/mysql-svgrepo-com.svg" },
+    { name: "PostgreSQL", icon: "/postgresql-logo-svgrepo-com.svg" },
+    { name: "MongoDB", icon: "/mongodb-svgrepo-com.svg" },
+    { name: "Redis", icon: "/redis-logo-svgrepo-com.svg" },
     { name: "Docker", icon: "/docker-svgrepo-com.svg" },
   ];
 
@@ -47,10 +48,10 @@ export default function AboutSection() {
     { name: "Visual Studio", icon: "/visualstudio-plain.svg" },
     { name: "IntelliJ IDEA", icon: "/intellij-idea-svgrepo-com.svg" },
     { name: "NPM", icon: "/npm-svgrepo-com.svg" },
-    { name: "Microsoft Azure", icon: "/azure-original-wordmark.svg" },
-    { name: "Oracle Cloud", icon: "/oracle-svgrepo-com.svg" },
+    { name: "AWS", icon: "/aws-svgrepo-com.svg" },
+    { name: "Azure", icon: "/azure-original-wordmark.svg" },
+    { name: "OCI", icon: "/oracle-svgrepo-com.svg" },
     { name: "Linux", icon: "/linux-original.svg" },
-    { name: "Swagger", icon: "/swagger-svgrepo-com.svg" },
   ];
 
   const duplicatedFrontend = [...frontendTech, ...frontendTech, ...frontendTech];
@@ -256,7 +257,7 @@ export default function AboutSection() {
 
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    Tools
+                    Tools % Cloud Services
                   </h4>
                   <div className="relative overflow-hidden flex justify-start">
                     <motion.div
@@ -324,7 +325,7 @@ export default function AboutSection() {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/gabriel-oliveira-rossi-155baa324/"
+                href="https://www.linkedin.com/in/gabriel-oliveira-rossi/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-lg p-3 xs:p-4 sm:p-5 md:p-6 hover:bg-white/10 transition-all group"

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Image from "next/image";
 
@@ -21,7 +21,6 @@ export default function Footer() {
 
   return (
     <footer className="relative w-full mt-auto overflow-hidden">
-
       <div className="absolute inset-0 z-0">
         <Image
           src="/footer.jpeg"
@@ -34,9 +33,7 @@ export default function Footer() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-20">
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-14 mb-10">
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -48,9 +45,6 @@ export default function Footer() {
               className="group flex items-center gap-3 mb-4 hover:scale-105 transition"
               aria-label="Scroll to top"
             >
-              <div className="p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 group-hover:bg-white/20 transition">
-                <ArrowUp className="w-5 h-5 text-white" />
-              </div>
               <div className="relative w-11 h-11">
                 <Image
                   src="/GR.svg"
@@ -125,9 +119,7 @@ export default function Footer() {
                   aria-label={item.label}
                   className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:scale-110 transition"
                 >
-                  <span className="w-5 h-5 text-white block">
-                    {item.icon}
-                  </span>
+                  <span className="w-5 h-5 text-white block">{item.icon}</span>
                 </a>
               ))}
             </div>
