@@ -6,6 +6,7 @@ export interface StaticProjectData {
   mockupType: "phone" | "desktop";
   tags: string[];
   github: string;
+  demo?: string;
 }
 
 export const STATIC_PROJECTS_DATA: StaticProjectData[] = [

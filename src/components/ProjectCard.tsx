@@ -18,7 +18,7 @@ interface ProjectData {
   images: string[];
   mockupType: "phone" | "desktop";
   github: string;
-  demo: string;
+  demo?: string;
 }
 
 interface ProjectCardProps {
