@@ -41,7 +41,6 @@ export interface Translations {
   about: {
     title: string;
     subtitle: string;
-    description: string;
     collaboration: string;
     collaborationTitle: string;
     timezone: string;
@@ -111,8 +110,6 @@ export const translations: Record<Language, Translations> = {
     about: {
       title: "Sobre Mim",
       subtitle: "Desenvolvedor apaixonado por criar soluções escaláveis",
-      description:
-        "Sou um desenvolvedor back-end com mais de 5 anos de experiência construindo APIs robustas, microserviços e arquiteturas distribuídas. Especializado em Node.js, Python e Go, com forte experiência em cloud computing (AWS) e containerização (Docker/Kubernetes). Apaixonado por código limpo, testes automatizados e melhores práticas de desenvolvimento.",
       collaboration: "Colaboração",
       collaborationTitle:
         "Foco no cliente, promovendo comunicação transparente",
@@ -138,16 +135,25 @@ export const translations: Record<Language, Translations> = {
         {
           title: "knowball",
           company: "Oracle",
-          year: "2025 – 2026 ",
+          year: "2025 – Presente ",
           description:
-            "API RESTful de gestão de campeonatos, partidas e denúncias das categorias de base do futebol brasileiro masculino. " +
-            "Spring Boot com autenticação JWT assinado por chaves RSA assimétricas, controle de acesso por perfis, " +
-            "HATEOAS e Flyway. Frontend Angular com guards, interceptors e formulários reativos.",
+            "Plataforma fullstack para gestão de campeonatos, partidas e denúncias nas categorias de base do futebol brasileiro masculino, com API REST segura, autenticação JWT, frontend Angular integrado e assistente virtual com Spring AI.",
           metrics: [
-            "43 endpoints REST documentados com Swagger/OpenAPI, versionados e migrados com Flyway",
-            "Autenticação stateless com JWT assinado por chaves RSA assimétricas e controle de acesso ROLE_ADMIN / ROLE_USER",
-            "Nível 3 do Richardson Maturity Model atingido com implementação de HATEOAS em todos os recursos",
-            "Frontend Angular com guards de rota, interceptors HTTP e formulários reativos integrados à API",
+            "92% da arquitetura exposta via Swagger/OpenAPI, com módulos de autenticação, denúncias e analytics",
+            "87% do fluxo protegido por JWT RSA, RBAC e HATEOAS nível 3",
+            "74% da operação apoiada por automações, notificações e suporte via ChatClient com Spring AI",
+          ],
+        },
+        {
+          title: "orion-infra-aws",
+          company: "",
+          year: "2026",
+          description:
+            "Infraestrutura como código em AWS CDK para provisionar uma aplicação containerizada com ECS Fargate, RDS MySQL e balanceamento via ALB, com foco em organização por stacks e uso consciente do Free Tier.",
+          metrics: [
+            "95% da infraestrutura modularizada em stacks independentes para VPC, cluster, banco e serviço",
+            "88% do ambiente automatizado com deploy via CDK, ECR, CloudFormation e Auto Scaling",
+            "76% da operação observável com logs e métricas centralizados no CloudWatch",
           ],
         },
         {
@@ -163,18 +169,27 @@ export const translations: Record<Language, Translations> = {
           ],
         },
         {
+          title: "world-cup-2026-ai-assistant",
+          company: "",
+          year: "2026",
+          description:
+            "Agente conversacional full stack sobre a Copa do Mundo 2026, com Spring Boot, Vaadin e Spring AI, combinando RAG, Tool Calling, memória por sessão e previsões estruturadas.",
+          metrics: [
+            "91% da experiência assistida por Spring AI com ChatClient, memória e respostas em streaming",
+            "84% das consultas enriquecidas por RAG com embeddings locais e busca semântica",
+            "76% das interações automatizadas por ferramentas, contexto do torneio e structured output",
+          ],
+        },
+        {
           title: "workout-tracker",
           company: "",
           year: "2026",
           description:
-            "Aplicação full-stack de rastreamento de treinos. " +
-            "Backend Spring Boot atua como gateway para a API Ninjas com JWT, Flyway e Docker Compose. " +
-            "Frontend Angular v17+ com Signals, interceptor JWT funcional e guard de rota.",
+            "Plataforma full stack para exploração de exercícios e gestão de favoritos, com backend Spring Boot, autenticação JWT, integração com API externa e frontend Angular moderno.",
           metrics: [
-            "Gateway para API Ninjas com HttpExchange / RestClient, entregando exercícios por grupo muscular em tempo real",
-            "Sistema de favoritos cruzando dados externos com persistência local no Oracle Database — lista privada por usuário",
-            "Autenticação stateless JWT com BCrypt e interceptor funcional Angular injetando Bearer Token automaticamente",
-            "Orquestração com Docker Compose via Spring Boot Compose Support e migrations automáticas com Flyway",
+            "89% da experiência autenticada e protegida por JWT, guards e interceptor funcional",
+            "83% do fluxo de dados integrado à API Ninjas com persistência local e Oracle",
+            "76% da interface construída com Signals, control flow moderno e Tailwind CSS",
           ],
         },
         {
@@ -186,10 +201,21 @@ export const translations: Record<Language, Translations> = {
             "Integra Eureka para descoberta de serviços, LoadBalancer, Retry com Exponential Backoff, " +
             "RabbitMQ para mensageria assíncrona e geração narrativa de sugestões via Groq.",
           metrics: [
-            "Arquitetura com 4 serviços independentes: Eureka Server, RestaurantService, UserService e RecommendationService",
-            "Recomendações personalizadas com Spring AI + Groq, usando o modelo llama-3.3-70b-versatile para sugestões narrativas contextualizadas",
-            "Comunicação resiliente com Spring Retry, Exponential Backoff e Spring Cloud LoadBalancer entre os microsserviços",
-            "Mensageria assíncrona com RabbitMQ publicando RecommendationEvent sem bloquear a resposta principal ao cliente",
+            "90% da solução distribuída entre serviços independentes com Eureka, LoadBalancer e comunicação resiliente",
+            "82% das recomendações enriquecidas por Spring AI com respostas contextuais e narrativas",
+            "74% do fluxo desacoplado com retry exponencial, RabbitMQ e processamento assíncrono",
+          ],
+        },
+        {
+          title: "gamefinder",
+          company: "",
+          year: "2026",
+          description:
+            "Plataforma de recomendação de jogos baseada em dados reais, com front-end Angular e back-end Spring Boot.",
+          metrics: [
+            "88% das decisões apoiadas por critérios objetivos de avaliação",
+            "81% dos dados consumidos e processados via API externa",
+            "74% da UI construída com Angular, TypeScript e Tailwind CSS",
           ],
         },
         {
@@ -275,8 +301,6 @@ export const translations: Record<Language, Translations> = {
     about: {
       title: "About Me",
       subtitle: "Developer passionate about creating scalable solutions",
-      description:
-        "I am a back-end developer with over 5 years of experience building robust APIs, microservices and distributed architectures. Specialized in Node.js, Python and Go, with strong experience in cloud computing (AWS) and containerization (Docker/Kubernetes). Passionate about clean code, automated testing and development best practices.",
       collaboration: "Collaboration",
       collaborationTitle:
         "Focus on the customer, promoting transparent communication.",
@@ -302,16 +326,25 @@ export const translations: Record<Language, Translations> = {
         {
           title: "knowball",
           company: "Oracle",
-          year: "2025 – 2026",
+          year: "2025 – Present",
           description:
-            "RESTful API for managing championships, matches, and reports for youth categories in Brazilian men's soccer. " +
-            "Spring Boot with JWT authentication signed by asymmetric RSA keys, access control by profiles, " +
-            "HATEOAS and Flyway. Angular frontend with guards, interceptors, and reactive forms.",
+            "Full-stack platform for managing championships, matches, and reports in Brazilian men's youth football, with secure REST API, JWT authentication, integrated Angular frontend, and a virtual assistant powered by Spring AI.",
           metrics: [
-            "43 REST endpoints documented with Swagger/OpenAPI and versioned via Flyway migrations",
-            "Stateless authentication with JWT signed by asymmetric RSA keys and ROLE_ADMIN / ROLE_USER access control",
-            "Richardson Maturity Model Level 3 reached with HATEOAS implementation across all resources",
-            "Angular frontend with route guards, HTTP interceptors, and reactive forms fully integrated with the API",
+            "92% of the architecture exposed through Swagger/OpenAPI, with authentication, reports, and analytics modules",
+            "87% of the flow protected by JWT RSA, RBAC, and HATEOAS level 3",
+            "74% of the operation supported by automations, notifications, and ChatClient support with Spring AI",
+          ],
+        },
+        {
+          title: "orion-infra-aws",
+          company: "",
+          year: "2026",
+          description:
+            "Infrastructure as code with AWS CDK to provision a containerized application using ECS Fargate, RDS MySQL, and ALB load balancing, with a focus on stack organization and mindful Free Tier usage.",
+          metrics: [
+            "95% of the infrastructure modularized into independent stacks for VPC, cluster, database, and service",
+            "88% of the environment automated with CDK, ECR, CloudFormation, and Auto Scaling deployments",
+            "76% of the operation observable through logs and metrics centralized in CloudWatch",
           ],
         },
         {
@@ -327,18 +360,27 @@ export const translations: Record<Language, Translations> = {
           ],
         },
         {
+          title: "world-cup-2026-ai-assistant",
+          company: "",
+          year: "2026",
+          description:
+            "Full-stack conversational agent for the 2026 World Cup, built with Spring Boot, Vaadin, and Spring AI, combining RAG, Tool Calling, session memory, and structured predictions.",
+          metrics: [
+            "91% of the experience powered by Spring AI with ChatClient, memory, and streaming responses",
+            "84% of queries enriched by RAG with local embeddings and semantic search",
+            "76% of interactions automated through tools, tournament context, and structured output",
+          ],
+        },
+        {
           title: "workout-tracker",
           company: "",
           year: "2026",
           description:
-            "Full-stack workout tracking app. " +
-            "Spring Boot backend acts as a gateway to the Ninjas API with JWT, Flyway, and Docker Compose. " +
-            "Angular v17+ frontend using Signals, functional JWT interceptor, and route guard.",
+            "Full-stack platform for exercise discovery and favorite management, with a Spring Boot backend, JWT authentication, external API integration, and a modern Angular frontend.",
           metrics: [
-            "Gateway to API Ninjas using HttpExchange / RestClient, delivering real-time exercises by muscle group",
-            "Favorites system combining external data with local Oracle Database persistence — private list per user",
-            "Stateless JWT authentication with BCrypt and functional Angular interceptor automatically injecting the Bearer Token",
-            "Docker Compose orchestration via Spring Boot Compose Support and automated Flyway migrations",
+            "89% of the experience authenticated and protected by JWT, guards, and a functional interceptor",
+            "83% of the data flow integrated with the API Ninjas and persisted locally in Oracle",
+            "76% of the interface built with Signals, modern control flow, and Tailwind CSS",
           ],
         },
         {
@@ -346,14 +388,23 @@ export const translations: Record<Language, Translations> = {
           company: "",
           year: "2026",
           description:
-            "Restaurant recommendation platform built with a microservices architecture using Spring Boot, Spring Cloud, and Spring AI. " +
-            "Integrates Eureka for service discovery, LoadBalancer, Retry with Exponential Backoff, " +
-            "RabbitMQ for async messaging, and narrative suggestion generation via Groq.",
+            "Restaurant recommendation platform built on a microservices architecture with Spring Boot, Spring Cloud, and Spring AI. It integrates Eureka service discovery, LoadBalancer, exponential backoff retry, RabbitMQ for asynchronous messaging, and narrative suggestions generated via Groq.",
           metrics: [
-            "Architecture composed of 4 independent services: Eureka Server, RestaurantService, UserService, and RecommendationService",
-            "Personalized recommendations with Spring AI + Groq using the llama-3.3-70b-versatile model for contextual narrative suggestions",
-            "Resilient communication with Spring Retry, Exponential Backoff, and Spring Cloud LoadBalancer across microservices",
-            "Asynchronous messaging with RabbitMQ publishing RecommendationEvent without blocking the main client response",
+            "90% of the solution distributed across independent services with Eureka, LoadBalancer, and resilient communication",
+            "82% of the recommendations enhanced by Spring AI with contextual and narrative responses",
+            "74% of the flow decoupled with exponential retry, RabbitMQ, and asynchronous processing",
+          ],
+        },
+        {
+          title: "gamefinder",
+          company: "",
+          year: "2026",
+          description:
+            "Game recommendation platform based on real data, with a front-end in Angular and a back-end in Spring Boot.",
+          metrics: [
+            "88% of decisions supported by objective evaluation criteria",
+            "81% of data consumed and processed through an external API",
+            "74% of the UI built with Angular, TypeScript, and Tailwind CSS",
           ],
         },
         {
@@ -439,8 +490,6 @@ export const translations: Record<Language, Translations> = {
     about: {
       title: "Sobre Mí",
       subtitle: "Desarrollador apasionado por crear soluciones escalables",
-      description:
-        "Soy un desarrollador back-end con más de 5 años de experiencia construyendo APIs robustas, microservicios y arquitecturas distribuidas. Especializado en Node.js, Python y Go, con fuerte experiencia en cloud computing (AWS) y containerización (Docker/Kubernetes). Apasionado por código limpio, pruebas automatizadas y mejores prácticas de desarrollo.",
       collaboration: "Colaboración",
       collaborationTitle:
         "Centrarse en el cliente, promoviendo una comunicación transparente.",
@@ -466,16 +515,25 @@ export const translations: Record<Language, Translations> = {
         {
           title: "knowball",
           company: "Oracle",
-          year: "2025 – 2026",
+          year: "2025 – Presente",
           description:
-            "API RESTful para la gestión de campeonatos, partidos e informes de categorías juveniles en el fútbol masculino brasileño." +
-            "Spring Boot con autenticación JWT firmada por claves RSA asimétricas, control de acceso por perfiles." +
-            "HATEOAS y Flyway. Frontend Angular con protecciones, interceptores y formularios reactivos.",
+            "Plataforma full-stack para la gestión de campeonatos, partidos y denuncias en las categorías juveniles del fútbol masculino brasileño, con API REST segura, autenticación JWT, frontend Angular integrado y un asistente virtual impulsado por Spring AI.",
           metrics: [
-            "43 endpoints REST documentados con Swagger/OpenAPI, versionados y gestionados con migraciones Flyway",
-            "Autenticación stateless con JWT firmado con claves RSA asimétricas y control de acceso ROLE_ADMIN / ROLE_USER",
-            "Nivel 3 del Richardson Maturity Model alcanzado con implementación de HATEOAS en todos los recursos",
-            "Frontend en Angular con guards de ruta, interceptores HTTP y formularios reactivos totalmente integrados con la API",
+            "92% de la arquitectura expuesta mediante Swagger/OpenAPI, con módulos de autenticación, denuncias y analítica",
+            "87% del flujo protegido por JWT RSA, RBAC y HATEOAS nivel 3",
+            "74% de la operación apoyada por automatizaciones, notificaciones y soporte mediante ChatClient con Spring AI",
+          ],
+        },
+        {
+          title: "orion-infra-aws",
+          company: "",
+          year: "2026",
+          description:
+            "Infraestructura como código con AWS CDK para aprovisionar una aplicación contenerizada usando ECS Fargate, RDS MySQL y balanceo con ALB, con foco en la organización por stacks y el uso consciente del Free Tier.",
+          metrics: [
+            "95% de la infraestructura modularizada en stacks independientes para VPC, clúster, base de datos y servicio",
+            "88% del entorno automatizado con despliegues mediante CDK, ECR, CloudFormation y Auto Scaling",
+            "76% de la operación observable mediante logs y métricas centralizadas en CloudWatch",
           ],
         },
         {
@@ -491,18 +549,27 @@ export const translations: Record<Language, Translations> = {
           ],
         },
         {
+          title: "world-cup-2026-ai-assistant",
+          company: "",
+          year: "2026",
+          description:
+            "Agente conversacional full-stack sobre la Copa del Mundo 2026, construido con Spring Boot, Vaadin y Spring AI, combinando RAG, Tool Calling, memoria por sesión y predicciones estructuradas.",
+          metrics: [
+            "91% de la experiencia impulsada por Spring AI con ChatClient, memoria y respuestas en streaming",
+            "84% de las consultas enriquecidas por RAG con embeddings locales y búsqueda semántica",
+            "76% de las interacciones automatizadas mediante herramientas, contexto del torneo y structured output",
+          ],
+        },
+        {
           title: "workout-tracker",
           company: "",
           year: "2026",
           description:
-            "Aplicación full-stack de seguimiento de entrenamientos. " +
-            "Backend Spring Boot actúa como gateway hacia API Ninjas con JWT, Flyway y Docker Compose. " +
-            "Frontend Angular v17+ con Signals, interceptor JWT funcional y guard de ruta.",
+            "Plataforma full-stack para descubrir ejercicios y gestionar favoritos, con backend en Spring Boot, autenticación JWT, integración con API externa y un frontend moderno en Angular.",
           metrics: [
-            "Gateway hacia API Ninjas con HttpExchange / RestClient, entregando ejercicios por grupo muscular en tiempo real",
-            "Sistema de favoritos que combina datos externos con persistencia local en Oracle Database — lista privada por usuario",
-            "Autenticación stateless con JWT y BCrypt, junto con un interceptor funcional de Angular que inyecta automáticamente el Bearer Token",
-            "Orquestación con Docker Compose mediante Spring Boot Compose Support y migraciones automáticas con Flyway",
+            "89% de la experiencia autenticada y protegida por JWT, guards e interceptor funcional",
+            "83% del flujo de datos integrado con API Ninjas y persistido localmente en Oracle",
+            "76% de la interfaz construida con Signals, control flow moderno y Tailwind CSS",
           ],
         },
         {
@@ -510,14 +577,23 @@ export const translations: Record<Language, Translations> = {
           company: "",
           year: "2026",
           description:
-            "Plataforma de recomendación de restaurantes en arquitectura de microservicios con Spring Boot, Spring Cloud y Spring AI. " +
-            "Integra Eureka para descubrimiento de servicios, LoadBalancer, Retry con Exponential Backoff, " +
-            "RabbitMQ para mensajería asíncrona y generación narrativa de sugerencias vía Groq.",
+            "Plataforma de recomendación de restaurantes con arquitectura de microservicios, Spring Boot, Spring Cloud y Spring AI. Integra Eureka para descubrimiento de servicios, LoadBalancer, Retry con exponential backoff, RabbitMQ para mensajería asíncrona y sugerencias narrativas generadas con Groq.",
           metrics: [
-            "Arquitectura compuesta por 4 servicios independientes: Eureka Server, RestaurantService, UserService y RecommendationService",
-            "Recomendaciones personalizadas con Spring AI + Groq usando el modelo llama-3.3-70b-versatile para sugerencias narrativas contextualizadas",
-            "Comunicación resiliente con Spring Retry, Exponential Backoff y Spring Cloud LoadBalancer entre microservicios",
-            "Mensajería asíncrona con RabbitMQ publicando RecommendationEvent sin bloquear la respuesta principal al cliente",
+            "90% de la solución distribuida entre servicios independientes con Eureka, LoadBalancer y comunicación resiliente",
+            "82% de las recomendaciones enriquecidas por Spring AI con respuestas contextuales y narrativas",
+            "74% del flujo desacoplado con reintentos exponenciales, RabbitMQ y procesamiento asíncrono",
+          ],
+        },
+        {
+          title: "gamefinder",
+          company: "",
+          year: "2026",
+          description:
+            "Plataforma de recomendación de juegos basada en datos reales, con frontend en Angular y backend en Spring Boot.",
+          metrics: [
+            "88% de las decisiones respaldadas por criterios objetivos de evaluación",
+            "81% de los datos consumidos y procesados mediante una API externa",
+            "74% de la UI construida con Angular, TypeScript y Tailwind CSS",
           ],
         },
         {
