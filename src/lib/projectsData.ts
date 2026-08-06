@@ -30,7 +30,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "Flyway",
       "API Rest",
       "Render",
-      "Vercel"
+      "Vercel",
     ],
     github: "https://github.com/knowball-oracle/knowball-api",
   },
@@ -49,7 +49,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "Application Load Balancer",
       "RDS MySQL",
       "CloudWatch",
-      "Application Auto Scaling"
+      "Application Auto Scaling",
     ],
     github: "https://github.com/GabrielRossi01/orion-infra-aws.git",
   },
@@ -57,10 +57,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     id: 2,
     title: "acessly-api",
     mockup: "/apple-imac-acessly-api.png",
-    images: [
-      "/apple-imac-acessly-api.png",
-
-    ],
+    images: ["/apple-imac-acessly-api.png"],
     mockupType: "desktop",
     tags: [
       "Java",
@@ -71,13 +68,13 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "Oracle Database",
       "JWT",
       "HATEOAS",
-      "Render"
+      "Render",
     ],
     github: "https://github.com/acessly/acessly-api",
   },
   {
     id: 3,
-    title: "world-cup-2026-assistant",
+    title: "world-cup-2026-ai-assistant",
     mockup: "/apple-imac-world-cup.png",
     images: ["/apple-imac-world-cup.png"],
     mockupType: "desktop",
@@ -94,8 +91,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "Structured Output",
       "SimpleVectorStore",
       "Rag",
-      "Agent"
-    
+      "Agent",
     ],
     github: "https://github.com/GabrielRossi01/world-cup.git",
   },
@@ -113,7 +109,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "JWT",
       "Oracle Database",
       "Flyway",
-      "Docker"
+      "Docker",
     ],
     github: "https://github.com/GabrielRossi01/workout-tracker-web.git",
   },
@@ -138,7 +134,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "Grafana K6",
       "Resilience4J",
       "JUnit",
-      "Mockito"
+      "Mockito",
     ],
     github: "https://github.com/GabrielRossi01/whobetter.git",
   },
@@ -156,7 +152,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "Spring Cloud",
       "RabbitMQ",
       "Microsservice",
-      "H2 Database"
+      "H2 Database",
     ],
     github: "https://github.com/GabrielRossi01/custom-restaurant.git",
   },
@@ -173,7 +169,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "TypeScript",
       "HTML",
       "Tailwind CSS",
-      "RAWG API"
+      "RAWG API",
     ],
     github: "https://github.com/GabrielRossi01/angular-gamefinder.git",
   },
