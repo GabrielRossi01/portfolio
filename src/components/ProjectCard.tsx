@@ -192,7 +192,7 @@ function TextContent({
             mobile ? "mb-4 xs:mb-5" : "mb-4 xs:mb-5 sm:mb-6"
           }`}
         >
-          {project.tags.slice(0, 10).map((tag, tagIndex) => (
+          {project.tags.map((tag, tagIndex) => (
             <div
               key={tagIndex}
               className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 flex items-center gap-1 xs:gap-1.5 hover:bg-white/10 transition-colors"

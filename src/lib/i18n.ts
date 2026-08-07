@@ -157,6 +157,18 @@ export const translations: Record<Language, Translations> = {
           ],
         },
         {
+          title: "whobetter",
+          company: "",
+          year: "2026 - Presente",
+          description:
+            "Plataforma de microsserviços para grupos de apostas esportivas entre amigos, com arquitetura distribuída em Spring Boot, service discovery via Eureka, API Gateway centralizado e segurança stateless com OAuth 2.0 Resource Server e JWT.",
+          metrics: [
+            "92% dos endpoints protegidos por OAuth 2.0 Resource Server com autorização granular via scopes e validação de ownership",
+            "85% dos microsserviços documentados via OpenAPI/Swagger, com Gateway centralizando o acesso à documentação",
+            "78% da arquitetura validada com testes de carga (Grafana k6) e observabilidade ponta a ponta entre serviços",
+          ],
+        },
+        {
           title: "acessly-api",
           company: "",
           year: "2025",
@@ -348,6 +360,18 @@ export const translations: Record<Language, Translations> = {
           ],
         },
         {
+          title: "whobetter",
+          company: "",
+          year: "2026 – Present",
+          description:
+            "Microservices platform for sports betting groups among friends, built with a distributed Spring Boot architecture, Eureka service discovery, a centralized API Gateway, and stateless security using OAuth 2.0 Resource Server and JWT.",
+          metrics: [
+            "92% of the endpoints protected by OAuth 2.0 Resource Server with granular scope-based authorization and ownership validation",
+            "85% of the microservices documented with OpenAPI/Swagger, with the Gateway centralizing access to the documentation",
+            "78% of the architecture validated through load testing with Grafana k6 and end-to-end observability across services",
+          ],
+        },
+        {
           title: "acessly-api",
           company: "",
           year: "2025",
@@ -534,6 +558,18 @@ export const translations: Record<Language, Translations> = {
             "95% de la infraestructura modularizada en stacks independientes para VPC, clúster, base de datos y servicio",
             "88% del entorno automatizado con despliegues mediante CDK, ECR, CloudFormation y Auto Scaling",
             "76% de la operación observable mediante logs y métricas centralizadas en CloudWatch",
+          ],
+        },
+        {
+          title: "whobetter",
+          company: "",
+          year: "2026 – Presente",
+          description:
+            "Plataforma de microservicios para grupos de apuestas deportivas entre amigos, con una arquitectura distribuida en Spring Boot, descubrimiento de servicios mediante Eureka, API Gateway centralizada y seguridad sin estado con OAuth 2.0 Resource Server y JWT.",
+          metrics: [
+            "92% de los endpoints protegidos por OAuth 2.0 Resource Server, con autorización granular mediante scopes y validación de ownership",
+            "85% de los microservicios documentados con OpenAPI/Swagger, con el Gateway centralizando el acceso a la documentación",
+            "78% de la arquitectura validada mediante pruebas de carga con Grafana k6 y observabilidad de extremo a extremo entre servicios",
           ],
         },
         {
