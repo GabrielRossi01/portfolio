@@ -1,17 +1,26 @@
 "use client";
 
-import { useEffect, useRef, memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import createGlobe from "cobe";
 import { MapPin } from "lucide-react";
+import type {
+  MouseEvent as ReactMouseEvent,
+  PointerEvent as ReactPointerEvent,
+  TouchEvent as ReactTouchEvent,
+} from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Earth3D = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
   const pointerInteracting = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
   const phiRef = useRef(0);
   const globeRef = useRef<{ destroy: () => void } | null>(null);
   const rafRef = useRef<number | null>(null);
+  const renderSizeRef = useRef(0);
+
   const { language } = useLanguage();
 
   const remoteText = {
@@ -21,16 +30,40 @@ const Earth3D = () => {
   };
 
   useEffect(() => {
-    if (!canvasRef.current) return;
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
 
-    let width = 0;
-    let height = 0;
+    if (!container || !canvas) {
+      return;
+    }
+
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
 
     const updateSize = () => {
-      if (!canvasRef.current) return;
-      const rect = canvasRef.current.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
+      const rect = container.getBoundingClientRect();
+
+      if (!rect.width || !rect.height) {
+        return;
+      }
+
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+      /*
+       * Usa o menor eixo para preservar o formato circular.
+       * No mobile, a margem é maior para que o globo não
+       * dispute espaço com o label inferior.
+       */
+      const availableSize = Math.min(rect.width, rect.height);
+      const sizeFactor = isMobile ? 0.72 : 0.86;
+      const renderSize = Math.max(160, availableSize * sizeFactor);
+      const pixelSize = Math.round(renderSize * pixelRatio);
+
+      renderSizeRef.current = pixelSize;
+
+      canvas.style.width = `${renderSize}px`;
+      canvas.style.height = `${renderSize}px`;
+      canvas.style.left = `${(rect.width - renderSize) / 2}px`;
+      canvas.style.top = `${(rect.height - renderSize) / 2}px`;
     };
 
     updateSize();
@@ -38,12 +71,15 @@ const Earth3D = () => {
     const resizeObserver = new ResizeObserver(() => {
       updateSize();
     });
-    resizeObserver.observe(canvasRef.current);
 
-    globeRef.current = createGlobe(canvasRef.current, {
-      devicePixelRatio: Math.min(window.devicePixelRatio, 2),
-      width: width * 2,
-      height: height * 2,
+    resizeObserver.observe(container);
+
+    const initialSize = renderSizeRef.current || 320;
+
+    globeRef.current = createGlobe(canvas, {
+      devicePixelRatio: pixelRatio,
+      width: initialSize,
+      height: initialSize,
       phi: 0,
       theta: 0.3,
       dark: 1,
@@ -53,102 +89,129 @@ const Earth3D = () => {
       baseColor: [0.08, 0.08, 0.08],
       markerColor: [1, 0.5, 0],
       glowColor: [1, 1, 1],
-      markers: [{ location: [-23.5505, -46.6333], size: 0.1 }],
+      markers: [
+        {
+          location: [-23.5505, -46.6333],
+          size: 0.1,
+        },
+      ],
       onRender: (state) => {
         if (!pointerInteracting.current) {
           phiRef.current += 0.005;
         }
+
+        const currentSize = renderSizeRef.current || initialSize;
+
         state.phi = phiRef.current + pointerInteractionMovement.current;
-        state.width = width * 2;
-        state.height = height * 2;
+
+        state.width = currentSize;
+        state.height = currentSize;
       },
     });
 
     rafRef.current = requestAnimationFrame(() => {
-      if (canvasRef.current) {
-        canvasRef.current.style.opacity = "1";
-      }
+      canvas.style.opacity = "1";
     });
 
     return () => {
       resizeObserver.disconnect();
+
       if (globeRef.current) {
         globeRef.current.destroy();
+        globeRef.current = null;
       }
+
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
       }
     };
   }, []);
 
-  const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
-    pointerInteracting.current = e.clientX - pointerInteractionMovement.current;
-    if (canvasRef.current) canvasRef.current.style.cursor = "grabbing";
+  const handlePointerDown = (event: ReactPointerEvent<HTMLCanvasElement>) => {
+    pointerInteracting.current =
+      event.clientX - pointerInteractionMovement.current;
+
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = "grabbing";
+    }
   };
 
   const handlePointerUp = () => {
     pointerInteracting.current = null;
-    if (canvasRef.current) canvasRef.current.style.cursor = "grab";
+
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = "grab";
+    }
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleMouseMove = (event: ReactMouseEvent<HTMLCanvasElement>) => {
     if (pointerInteracting.current !== null) {
-      const delta = e.clientX - pointerInteracting.current;
+      const delta = event.clientX - pointerInteracting.current;
+
       pointerInteractionMovement.current = delta * 0.008;
     }
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    if (pointerInteracting.current !== null && e.touches[0]) {
-      const delta = e.touches[0].clientX - pointerInteracting.current;
+  const handleTouchMove = (event: ReactTouchEvent<HTMLCanvasElement>) => {
+    if (pointerInteracting.current !== null && event.touches[0]) {
+      const delta = event.touches[0].clientX - pointerInteracting.current;
+
       pointerInteractionMovement.current = delta * 0.008;
     }
   };
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center">
-      <div className="w-full aspect-square rounded-2xl border-2 border-white/5 relative overflow-visible">
+    <div
+      ref={containerRef}
+      className="relative flex h-full w-full items-center justify-center overflow-visible"
+    >
+      <div className="absolute inset-0 overflow-visible rounded-2xl border-2 border-white/5">
         <canvas
           ref={canvasRef}
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
-          onPointerOut={handlePointerUp}
+          onPointerLeave={handlePointerUp}
+          onPointerCancel={handlePointerUp}
           onMouseMove={handleMouseMove}
           onTouchMove={handleTouchMove}
+          className="absolute block max-w-none"
           style={{
-            width: "100%",
-            height: "100%",
             cursor: "grab",
+            touchAction: "none",
             contain: "layout paint size style",
             opacity: 0,
             transition: "opacity 1s ease",
             transform: "translateZ(0)",
-            borderRadius: "1rem",
+            borderRadius: "9999px",
           }}
         />
       </div>
 
-      <div className="absolute bottom-6 left-6 flex flex-col items-start gap-2 z-10">
+      <div className="absolute bottom-6 left-6 z-10 flex flex-col items-start gap-2">
         <div className="relative shrink-0">
           <div
             className="absolute inset-0 rounded-full blur-lg"
-            style={{ transform: "translateZ(0)" }}
+            style={{
+              transform: "translateZ(0)",
+            }}
           />
-          <div className="relative p-2 bg-gray-900/80 dark:bg-white/15 backdrop-blur-sm rounded-full">
-            <MapPin
-              className="w-6 h-6 text-white dark:text-white"
-              strokeWidth={2.5}
-            />
+
+          <div className="relative rounded-full bg-gray-900/80 p-2 backdrop-blur-sm dark:bg-white/15">
+            <MapPin className="h-6 w-6 text-white" strokeWidth={2.5} />
           </div>
         </div>
 
         <div className="flex flex-col gap-1">
-          <span className="text-xs text-gray-700 dark:text-gray-300/90 font-semibold tracking-widest uppercase">
+          <span className="text-xs font-semibold uppercase tracking-widest text-gray-700 dark:text-gray-300/90">
             {remoteText[language]}
           </span>
+
           <span
-            className="text-2xl font-bold text-gray-900 dark:text-white leading-none tracking-tight"
-            style={{ fontFamily: "Instrument Serif, serif" }}
+            className="text-2xl font-bold leading-none tracking-tight text-gray-900 dark:text-white"
+            style={{
+              fontFamily: "Instrument Serif, serif",
+            }}
           >
             SÃO PAULO
           </span>

@@ -140,7 +140,7 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              className="glass-liquid rounded-lg xs:rounded-xl sm:rouFnded-2xl p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col h-full"
+              className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 flex h-full flex-col"
             >
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
                 <Clock className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-blue-400" />
@@ -161,8 +161,8 @@ export default function AboutSection() {
                 </div>
               </div>
 
-              <div className="flex-1 flex items-center justify-center min-h-[200px] xs:min-h-[250px] sm:min-h-[350px] md:min-h-[450px]">
-                <div className="w-full max-w-[500px] aspect-square mx-auto">
+              <div className="flex min-h-[200px] flex-1 items-center justify-center overflow-visible xs:min-h-[250px] sm:min-h-[350px] md:min-h-[450px]">
+                <div className="relative mx-auto aspect-square w-full max-w-[500px] overflow-visible">
                   <Earth3D />
                 </div>
               </div>

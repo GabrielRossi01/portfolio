@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Menu, X, Sun, Moon, Globe } from "lucide-react";
+import { Menu, X, Sun, Moon, Globe, ChevronDown, Check } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -22,10 +22,15 @@ export default function Navbar() {
     { name: t.nav.contact, href: "#contact" },
   ];
 
-  const languages: { code: Language; label: string }[] = [
-    { code: "pt-BR", label: "PT-BR" },
-    { code: "en", label: "EN" },
-    { code: "es", label: "ES" },
+  const languages: {
+    code: Language;
+    label: string;
+    flag: string;
+    fullName: string;
+  }[] = [
+    { code: "en", label: "EN", flag: "US", fullName: "English" },
+    { code: "pt-BR", label: "PT", flag: "BR", fullName: "Português" },
+    { code: "es", label: "ES", flag: "ES", fullName: "Español" },
   ];
 
   useEffect(() => {
@@ -140,44 +145,93 @@ export default function Navbar() {
         <div className="relative">
           <button
             onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-            className="glass-liquid rounded-full p-2.5 sm:p-3 hover:bg-white/10 transition-all duration-300 hover:scale-110 cursor-pointer"
+            className="glass-liquid rounded-full pl-2.5 pr-3 sm:pl-3 sm:pr-3.5 py-2 sm:py-2.5 hover:bg-white/10 transition-all duration-300 flex items-center gap-1.5 cursor-pointer"
             aria-label="Change language"
+            aria-expanded={languageDropdownOpen}
           >
-            <Globe className="w-5 h-5 text-gray-700 dark:text-white" />
+            <Globe
+              className={`w-4 h-4 sm:w-[18px] sm:h-[18px] ${
+                theme === "dark" ? "text-white" : "text-gray-900"
+              }`}
+            />
+
+            <span
+              className={`text-xs sm:text-sm font-semibold uppercase ${
+                theme === "dark" ? "text-white" : "text-gray-900"
+              }`}
+            >
+              {languages.find((l) => l.code === language)?.label}
+            </span>
+            <motion.div
+              animate={{ rotate: languageDropdownOpen ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ChevronDown
+                className={`w-3.5 h-3.5 ${
+                  theme === "dark" ? "text-white/70" : "text-gray-700"
+                }`}
+              />
+            </motion.div>
           </button>
 
           <AnimatePresence>
             {languageDropdownOpen && (
               <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="absolute top-full right-0 mt-2 glass-liquid rounded-xl overflow-hidden min-w-[100px]"
+                initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
+                className="
+                  absolute
+                  top-full
+                  right-0          
+                  z-50
+                  mt-2
+                  min-w-[180px]
+                  overflow-hidden
+                  rounded-2xl
+                  border
+                border-black/10
+                bg-white/95
+                  shadow-xl
+                  backdrop-blur-xl
+                  dark:border-white/10
+                  dark:bg-[#151515]/95
+                "
               >
-                {languages.map((lang) => {
-                  const flagMap: { [key in Language]: string } = {
-                    "pt-BR": "🇧🇷",
-                    en: "🇺🇸",
-                    es: "🇪🇸",
-                  };
-                  return (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setLanguage(lang.code);
-                        setLanguageDropdownOpen(false);
-                      }}
-                      className={`w-full text-left py-2.5 px-4 text-sm transition-all flex items-center gap-2 ${
-                        language === lang.code
-                          ? "bg-black/10 dark:bg-white/10 text-gray-900 dark:text-white font-bold"
-                          : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLanguage(lang.code);
+                      setLanguageDropdownOpen(false);
+                    }}
+                    className={`w-full text-left py-3 px-4 text-sm transition-all flex items-center gap-3 cursor-pointer ${
+                      language === lang.code
+                        ? "bg-black/5 dark:bg-white/10"
+                        : "hover:bg-black/5 dark:hover:bg-white/5"
+                    }`}
+                  >
+                    <span
+                      className={`w-6 text-[10px] font-bold tracking-wide ${
+                        theme === "dark" ? "text-white/70" : "text-gray-600"
                       }`}
                     >
-                      <span className="text-lg">{flagMap[lang.code]}</span>
-                      <span>{lang.label}</span>
-                    </button>
-                  );
-                })}
+                      {lang.flag}
+                    </span>
+
+                    <span
+                      className={`flex-1 ${
+                        theme === "dark" ? "text-white" : "text-gray-900"
+                      } ${language === lang.code ? "font-semibold" : "font-normal"}`}
+                    >
+                      {lang.fullName}
+                    </span>
+                    {language === lang.code && (
+                      <Check className="w-4 h-4 text-blue-500 dark:text-blue-400" />
+                    )}
+                  </button>
+                ))}
               </motion.div>
             )}
           </AnimatePresence>
@@ -296,31 +350,36 @@ export default function Navbar() {
                     </span>
                   </button>
 
-                  {languages.map((lang) => {
-                    const flagMap: { [key in Language]: string } = {
-                      "pt-BR": "🇧🇷",
-                      en: "🇺🇸",
-                      es: "🇪🇸",
-                    };
-                    return (
-                      <button
-                        key={lang.code}
-                        onClick={() => {
-                          setLanguage(lang.code);
-                          setMobileMenuOpen(false);
-                        }}
-                        className={`glass-liquid rounded-xl sm:rounded-2xl py-3 xs:py-3.5 sm:py-4 px-3.5 xs:px-4 sm:px-4.5 transition-all hover:scale-105 cursor-pointer ${
-                          language === lang.code
-                            ? "bg-black/10 dark:bg-white/10 ring-2 ring-black/20 dark:ring-white/20"
-                            : "hover:bg-black/5 dark:hover:bg-white/5"
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code);
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`glass-liquid rounded-xl sm:rounded-2xl py-3 xs:py-3.5 sm:py-4 px-3.5 xs:px-4 sm:px-4.5 transition-all hover:scale-105 cursor-pointer flex flex-col items-center gap-1 ${
+                        language === lang.code
+                          ? "bg-black/10 dark:bg-white/10 ring-2 ring-black/20 dark:ring-white/20"
+                          : "hover:bg-black/5 dark:hover:bg-white/5"
+                      }`}
+                    >
+                      <span
+                        className={`text-[10px] font-bold ${
+                          theme === "dark" ? "text-white/70" : "text-gray-600"
                         }`}
                       >
-                        <span className="text-xl xs:text-2xl sm:text-[26px]">
-                          {flagMap[lang.code]}
-                        </span>
-                      </button>
-                    );
-                  })}
+                        {lang.flag}
+                      </span>
+
+                      <span
+                        className={`text-xs xs:text-sm font-semibold ${
+                          theme === "dark" ? "text-white" : "text-gray-900"
+                        }`}
+                      >
+                        {lang.label}
+                      </span>
+                    </button>
+                  ))}
                 </motion.div>
               </div>
             </motion.div>
