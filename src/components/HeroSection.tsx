@@ -81,14 +81,18 @@ export default function OrangePlanetHero() {
 
       <motion.div
         className="
-          pointer-events-none
+          pointer-events-auto
           absolute
-          bottom-[-3%]
+          bottom-[-0%]
           left-1/2
           z-0
-          h-[min(78vw,390px)]
-          w-[min(78vw,390px)]
+          h-[min(58vw,260px)]
+          w-[min(58vw,260px)]
           -translate-x-1/2
+          cursor-grab
+          sm:bottom-[-6%]
+          sm:h-[min(64vw,300px)]
+          sm:w-[min(64vw,300px)]
           md:bottom-auto
           md:left-auto
           md:right-[1%]
@@ -133,7 +137,7 @@ export default function OrangePlanetHero() {
           w-full
           items-center
           px-5
-          py-32
+          py-24 sm:py-32
           sm:px-8
           lg:px-12
           xl:px-20
@@ -205,7 +209,7 @@ export default function OrangePlanetHero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="mb-5 max-w-2xl px-0 text-center leading-[1.08] sm:mb-6 md:text-left"
               style={{
-                fontSize: "clamp(2rem, 4vw, 4rem)",
+                fontSize: "clamp(1.85rem, 4vw, 4rem)",
                 letterSpacing: "-0.035em",
               }}
             >
@@ -238,7 +242,7 @@ export default function OrangePlanetHero() {
               transition={{ duration: 0.7, delay: 0.55 }}
               className="mb-7 max-w-lg px-0 text-center font-light sm:mb-8 md:text-left"
               style={{
-                fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)",
+                fontSize: "clamp(0.88rem, 1.05vw, 1.05rem)",
                 color: isDark
                   ? "rgba(255, 255, 255, 0.84)"
                   : "rgba(30, 30, 30, 0.82)",
