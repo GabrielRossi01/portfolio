@@ -117,7 +117,7 @@ export default function ContactSection() {
                 type="button"
                 onClick={() => setToast(null)}
                 aria-label={t.contactFeedback.closeButton}
-                className="cursor-pointer absolute right-4 top-4 rounded-full p-2 text-gray-500 transition hover:bg-black/5 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"
+                className="absolute right-4 top-4 cursor-pointer rounded-full p-2 text-gray-500 transition hover:bg-black/5 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -157,7 +157,7 @@ export default function ContactSection() {
               <button
                 type="button"
                 onClick={() => setToast(null)}
-                className="cursor-pointer mt-6 inline-flex min-h-10 items-center justify-center rounded-full border border-black/10 bg-white/70 px-6 py-2.5 text-sm font-medium text-gray-800 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_8px_22px_rgba(0,0,0,0.08)] backdrop-blur-xl transition hover:bg-white active:scale-[0.98] dark:border-white/15 dark:bg-white/10 dark:text-white dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_8px_22px_rgba(0,0,0,0.25)] dark:hover:bg-white/16"
+                className="mt-6 inline-flex min-h-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/70 px-6 py-2.5 text-sm font-medium text-gray-800 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_8px_22px_rgba(0,0,0,0.08)] backdrop-blur-xl transition hover:bg-white active:scale-[0.98] dark:border-white/15 dark:bg-white/10 dark:text-white dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_8px_22px_rgba(0,0,0,0.25)] dark:hover:bg-white/16"
               >
                 {t.contactFeedback.closeButton}
               </button>
@@ -210,18 +210,18 @@ export default function ContactSection() {
                 {t.contactPanel.heading}
               </h3>
 
-              <div className="mt-5 flex items-start gap-3">
-                <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border border-orange-400/30 shadow-lg">
+              <div className="mt-6 flex items-start gap-3 sm:mt-7">
+                <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-orange-400/30 shadow-lg">
                   <Image
                     src="/foto-perfil.jpeg"
                     alt="Gabriel Rossi"
                     fill
-                    sizes="44px"
+                    sizes="40px"
                     className="object-cover"
                   />
                 </div>
 
-                <div className="font-medium rounded-2xl rounded-tl-md border border-black/10 bg-black/2.5 px-4 py-3 text-sm leading-relaxed text-gray-700 dark:border-white/10 dark:bg-white/6 dark:text-gray-300">
+                <div className="rounded-2xl rounded-tl-md border border-black/10 bg-black/2.5 px-4 py-3 text-sm font-medium leading-relaxed text-gray-700 dark:border-white/10 dark:bg-white/6 dark:text-gray-300">
                   {t.contactPanel.message}
                 </div>
               </div>
@@ -331,7 +331,7 @@ export default function ContactSection() {
 
           <aside
             className="relative isolate min-h-[380px] overflow-hidden border-t border-black/10 bg-[#0d0d0d] p-6 sm:min-h-[450px] sm:p-10 lg:min-h-full lg:border-l lg:border-t-0 lg:border-white/10 xl:p-12"
-            aria-label={t.contactPanel.heading}
+            aria-label={t.contactPanel.panelHeading}
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_55%_46%,rgba(255,108,37,0.2),transparent_34%),radial-gradient(circle_at_80%_90%,rgba(175,49,12,0.16),transparent_40%)]" />
 
@@ -375,13 +375,13 @@ export default function ContactSection() {
                   {t.contactPanel.availability}
                 </div>
 
-                <div className="mt-7 max-w-sm">
+                <div className="mt-8 max-w-sm sm:mt-10">
                   <h3 className="text-3xl font-light leading-tight text-white sm:text-4xl">
-                    {t.contactPanel.heading}
+                    {t.contactPanel.panelHeading}
                   </h3>
 
-                  <p className="mt-4 text-sm font-light leading-relaxed text-gray-300 sm:text-base">
-                    {t.contactPanel.message}
+                  <p className="mt-5 max-w-sm text-sm font-light leading-relaxed text-gray-300 sm:mt-6 sm:text-base">
+                    {t.contactPanel.panelMessage}
                   </p>
                 </div>
               </div>
@@ -398,7 +398,7 @@ export default function ContactSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub"
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/6 text-white transition"
+                    className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-white/6 text-white transition hover:border-orange-300/70 hover:bg-orange-500/15 hover:text-orange-200"
                   >
                     <Github className="h-5 w-5" />
                   </a>
@@ -408,7 +408,7 @@ export default function ContactSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="LinkedIn"
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/6 text-white transition"
+                    className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-white/6 text-white transition hover:border-orange-300/70 hover:bg-orange-500/15 hover:text-orange-200"
                   >
                     <Linkedin className="h-5 w-5" />
                   </a>
@@ -416,7 +416,7 @@ export default function ContactSection() {
                   <a
                     href="mailto:rossi17006@gmail.com"
                     aria-label="Email"
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/6 text-white transition"
+                    className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-white/6 text-white transition hover:border-orange-300/70 hover:bg-orange-500/15 hover:text-orange-200"
                   >
                     <Mail className="h-5 w-5" />
                   </a>

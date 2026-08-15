@@ -72,6 +72,8 @@ export interface Translations {
     message: string;
     location: string;
     availability: string;
+    panelHeading: string;
+    panelMessage: string;
   };
 
   contactFeedback: {
@@ -313,6 +315,9 @@ export const translations: Record<Language, Translations> = {
         "Estou disponível para ouvir seu projeto, entender seus objetivos e pensar em uma solução que faça sentido para você.",
       location: "São Paulo, Brasil",
       availability: "Disponível para novos projetos",
+      panelHeading: "Vamos criar algo juntos.",
+      panelMessage:
+        "Combinando código, design e estratégia para transformar sua ideia em um produto digital real.",
     },
 
     contactFeedback: {
@@ -542,6 +547,9 @@ export const translations: Record<Language, Translations> = {
         "I’m available to hear about your project, understand your goals, and help shape a solution that makes sense for you.",
       location: "São Paulo, Brazil",
       availability: "Available for new projects",
+      panelHeading: "Let’s build something together.",
+      panelMessage:
+        "Combining code, design and strategy to turn your idea into a real digital product.",
     },
 
     contactFeedback: {
@@ -771,6 +779,9 @@ export const translations: Record<Language, Translations> = {
         "Estoy disponible para conocer tu proyecto, entender tus objetivos y pensar en una solución que tenga sentido para ti.",
       location: "São Paulo, Brasil",
       availability: "Disponible para nuevos proyectos",
+      panelHeading: "Creemos algo juntos.",
+      panelMessage:
+        "Combinando código, diseño y estrategia para convertir tu idea en un producto digital real.",
     },
 
     contactFeedback: {
