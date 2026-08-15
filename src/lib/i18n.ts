@@ -16,6 +16,7 @@ export interface Translations {
     projects: string;
     contact: string;
   };
+
   hero: {
     badge: string;
     headlineStart: string;
@@ -27,10 +28,12 @@ export interface Translations {
     ctaContact: string;
     ctaCV: string;
   };
+
   theme: {
     light: string;
     dark: string;
   };
+
   techArsenal: {
     title: string;
     subtitle: string;
@@ -38,6 +41,13 @@ export interface Translations {
     backend: string;
     tools: string;
   };
+
+  aboutIntro: {
+    eyebrow: string;
+    text: string;
+    highlightedWords: string[];
+  };
+
   about: {
     title: string;
     subtitle: string;
@@ -55,6 +65,22 @@ export interface Translations {
     techEnthusiast: string;
     sendEmail: string;
   };
+
+  contactPanel: {
+    eyebrow: string;
+    heading: string;
+    message: string;
+    location: string;
+    availability: string;
+  };
+
+  contactFeedback: {
+    successTitle: string;
+    successMessage: string;
+    errorTitle: string;
+    closeButton: string;
+  };
+
   projects: {
     title: string;
     subtitle: string;
@@ -63,6 +89,7 @@ export interface Translations {
     viewCaseStudy: string;
     items: ProjectItem[];
   };
+
   footer: {
     title: string;
     subtitle: string;
@@ -106,6 +133,16 @@ export const translations: Record<Language, Translations> = {
       frontend: "Front-end",
       backend: "Back-end & Database",
       tools: "Ferramentas",
+    },
+    aboutIntro: {
+      eyebrow: "Sobre mim",
+      text: "Sou desenvolvedor de software formado em Análise e Desenvolvimento de Sistemas pela FIAP e tenho certificado Cambridge B1 First (FCE). Fora do código, participo de eventos e comunidades tech.",
+      highlightedWords: [
+        "Análise e Desenvolvimento de Sistemas",
+        "FIAP",
+        "Cambridge B1 First (FCE)",
+        "eventos e comunidades tech",
+      ],
     },
     about: {
       title: "Sobre Mim",
@@ -268,6 +305,24 @@ export const translations: Record<Language, Translations> = {
         },
       ],
     },
+
+    contactPanel: {
+      eyebrow: "Vamos conversar",
+      heading: "Conte-me sobre sua ideia.",
+      message:
+        "Estou disponível para ouvir seu projeto, entender seus objetivos e pensar em uma solução que faça sentido para você.",
+      location: "São Paulo, Brasil",
+      availability: "Disponível para novos projetos",
+    },
+
+    contactFeedback: {
+      successTitle: "Mensagem enviada!",
+      successMessage:
+        "Obrigado pelo contato. Recebi sua mensagem e retornarei assim que possível.",
+      errorTitle: "Não foi possível enviar",
+      closeButton: "Fechar",
+    },
+
     footer: {
       title: "Entre em contato",
       subtitle: "Tem uma ideia? Vamos conversar!",
@@ -309,6 +364,16 @@ export const translations: Record<Language, Translations> = {
       frontend: "Front-end",
       backend: "Back-end & Database",
       tools: "Tools",
+    },
+    aboutIntro: {
+      eyebrow: "About me",
+      text: "I’m a software developer with a degree in Systems Analysis and Development from FIAP and a Cambridge B1 First (FCE) certification. Outside of code, I take part in tech events and communities.",
+      highlightedWords: [
+        "Systems Analysis and Development",
+        "FIAP",
+        "Cambridge B1 First (FCE)",
+        "tech events and communities",
+      ],
     },
     about: {
       title: "About Me",
@@ -469,6 +534,24 @@ export const translations: Record<Language, Translations> = {
         },
       ],
     },
+
+    contactPanel: {
+      eyebrow: "Let’s talk",
+      heading: "Tell me about your idea.",
+      message:
+        "I’m available to hear about your project, understand your goals, and help shape a solution that makes sense for you.",
+      location: "São Paulo, Brazil",
+      availability: "Available for new projects",
+    },
+
+    contactFeedback: {
+      successTitle: "Message sent!",
+      successMessage:
+        "Thanks for reaching out. I received your message and will get back to you soon.",
+      errorTitle: "Unable to send",
+      closeButton: "Close",
+    },
+
     footer: {
       title: "Get in touch",
       subtitle: "Got an idea? Let's talk!",
@@ -510,6 +593,16 @@ export const translations: Record<Language, Translations> = {
       frontend: "Front-end",
       backend: "Back-end y Base de Datos",
       tools: "Herramientas",
+    },
+    aboutIntro: {
+      eyebrow: "Sobre mí",
+      text: "Soy desarrollador de software graduado en Análisis y Desarrollo de Sistemas por FIAP y certificado Cambridge B1 First (FCE). Fuera del código, participo en eventos y comunidades tecnológicas.",
+      highlightedWords: [
+        "Análisis y Desarrollo de Sistemas",
+        "FIAP",
+        "Cambridge B1 First (FCE)",
+        "eventos y comunidades tecnológicas",
+      ],
     },
     about: {
       title: "Sobre Mí",
@@ -670,6 +763,24 @@ export const translations: Record<Language, Translations> = {
         },
       ],
     },
+
+    contactPanel: {
+      eyebrow: "Hablemos",
+      heading: "Cuéntame sobre tu idea.",
+      message:
+        "Estoy disponible para conocer tu proyecto, entender tus objetivos y pensar en una solución que tenga sentido para ti.",
+      location: "São Paulo, Brasil",
+      availability: "Disponible para nuevos proyectos",
+    },
+
+    contactFeedback: {
+      successTitle: "¡Mensaje enviado!",
+      successMessage:
+        "Gracias por contactarme. Recibí tu mensaje y responderé lo antes posible.",
+      errorTitle: "No se pudo enviar",
+      closeButton: "Cerrar",
+    },
+
     footer: {
       title: "Ponte en contacto",
       subtitle: "¿Tienes una idea? ¡Hablemos!",

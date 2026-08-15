@@ -22,6 +22,14 @@ export default function OrangePlanetHero() {
     return false;
   });
 
+  const [showSphere, setShowSphere] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(min-width: 768px)").matches;
+    }
+
+    return false;
+  });
+
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -33,6 +41,20 @@ export default function OrangePlanetHero() {
 
     return () => {
       mediaQuery.removeEventListener("change", handleMotionChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const sphereQuery = window.matchMedia("(min-width: 768px)");
+
+    const handleSphereQueryChange = (event: MediaQueryListEvent) => {
+      setShowSphere(event.matches);
+    };
+
+    sphereQuery.addEventListener("change", handleSphereQueryChange);
+
+    return () => {
+      sphereQuery.removeEventListener("change", handleSphereQueryChange);
     };
   }, []);
 
@@ -79,54 +101,50 @@ export default function OrangePlanetHero() {
         }}
       />
 
-      <motion.div
-        className="
-          pointer-events-auto
-          absolute
-          bottom-[-0%]
-          left-1/2
-          z-0
-          h-[min(58vw,260px)]
-          w-[min(58vw,260px)]
-          -translate-x-1/2
-          cursor-grab
-          sm:bottom-[-6%]
-          sm:h-[min(64vw,300px)]
-          sm:w-[min(64vw,300px)]
-          md:bottom-auto
-          md:left-auto
-          md:right-[1%]
-          md:top-1/2
-          md:h-[min(48vw,620px)]
-          md:w-[min(48vw,620px)]
-          md:-translate-y-1/2
-          lg:right-[-1%]
-          xl:right-[-3%]
-        "
-        style={{
-          y: reduceMotion ? 0 : sphereY,
-          scale: reduceMotion ? 1 : sphereScale,
-        }}
-        aria-hidden="true"
-      >
-        <Canvas
-          camera={{
-            position: [0, 0, 4.8],
-            fov: 42,
+      {showSphere && (
+        <motion.div
+          className="
+            pointer-events-auto
+            absolute
+            top-1/2
+            z-0
+            hidden
+            h-[clamp(300px,34vw,540px)]
+            w-[clamp(300px,34vw,540px)]
+            -translate-y-1/2
+            cursor-grab
+            md:block
+            md:left-[58%]
+            lg:left-[60%]
+            xl:left-[61%]
+            2xl:left-[62%]
+          "
+          style={{
+            y: reduceMotion ? 0 : sphereY,
+            scale: reduceMotion ? 1 : sphereScale,
           }}
-          dpr={[1, 1.5]}
-          gl={{
-            antialias: true,
-            alpha: true,
-            powerPreference: "high-performance",
-          }}
-          frameloop={reduceMotion ? "demand" : "always"}
+          aria-hidden="true"
         >
-          <Suspense fallback={null}>
-            <OrbitalSphere3D />
-          </Suspense>
-        </Canvas>
-      </motion.div>
+          <Canvas
+            className="cursor-grab active:cursor-grabbing"
+            camera={{
+              position: [0, 0, 4.8],
+              fov: 42,
+            }}
+            dpr={[1, 1.5]}
+            gl={{
+              antialias: true,
+              alpha: true,
+              powerPreference: "high-performance",
+            }}
+            frameloop={reduceMotion ? "demand" : "always"}
+          >
+            <Suspense fallback={null}>
+              <OrbitalSphere3D />
+            </Suspense>
+          </Canvas>
+        </motion.div>
+      )}
 
       <motion.div
         className="
@@ -137,8 +155,9 @@ export default function OrangePlanetHero() {
           w-full
           items-center
           px-5
-          py-24 sm:py-32
+          py-20
           sm:px-8
+          sm:py-32
           lg:px-12
           xl:px-20
         "
@@ -148,7 +167,8 @@ export default function OrangePlanetHero() {
         }}
       >
         <div className="mx-auto w-full max-w-7xl">
-          <div className="max-w-2xl text-center md:text-left">
+          <div className="max-w-2xl text-center md:max-w-[48%] md:text-left">
+            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -203,6 +223,7 @@ export default function OrangePlanetHero() {
               </div>
             </motion.div>
 
+            {/* Título principal */}
             <motion.h1
               initial={{ opacity: 0, y: 35 }}
               animate={{ opacity: 1, y: 0 }}
@@ -236,6 +257,7 @@ export default function OrangePlanetHero() {
               </span>
             </motion.h1>
 
+            {/* Apresentação */}
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -252,6 +274,7 @@ export default function OrangePlanetHero() {
               {t.hero.connector} {t.hero.title}
             </motion.p>
 
+            {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

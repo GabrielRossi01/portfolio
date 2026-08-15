@@ -7,6 +7,41 @@ import Earth3D from "./Earth3D";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 
+function HighlightedText({
+  text,
+  highlightedWords,
+}: {
+  text: string;
+  highlightedWords: string[];
+}) {
+  const escapedWords = highlightedWords
+    .sort((a, b) => b.length - a.length)
+    .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+
+  const pattern = new RegExp(`(${escapedWords.join("|")})`, "gi");
+
+  return (
+    <>
+      {text.split(pattern).map((part, index) => {
+        const isHighlighted = highlightedWords.some(
+          (word) => word.toLowerCase() === part.toLowerCase(),
+        );
+
+        return isHighlighted ? (
+          <span
+            key={`${part}-${index}`}
+            className="mx-1 inline rounded-md bg-orange-500/15 px-2 py-0.5 text-orange-500 ring-1 ring-inset ring-orange-500/20 dark:bg-orange-300/15 dark:text-orange-300 dark:ring-orange-300/20"
+          >
+            {part}
+          </span>
+        ) : (
+          <span key={`${part}-${index}`}>{part}</span>
+        );
+      })}
+    </>
+  );
+}
+
 export default function AboutSection() {
   const { t } = useLanguage();
   const { theme } = useTheme();
@@ -21,13 +56,10 @@ export default function AboutSection() {
   ];
 
   const backendTech = [
-    { name: "Node.js", icon: "/nodejs-icon-logo-svgrepo-com.svg" },
     { name: "Python", icon: "/python-original.svg" },
-    { name: "Jupyter Notebook", icon: "/jupyter-original-wordmark.svg" },
     { name: "Java", icon: "/java-svgrepo-com.svg" },
     { name: "Spring Boot", icon: "/spring-original-wordmark.svg" },
     { name: "C#", icon: "/csharp-original.svg" },
-    { name: "C++", icon: "/cplusplus-original.svg" },
     { name: "MySQL", icon: "/mysql-svgrepo-com.svg" },
     { name: "PostgreSQL", icon: "/postgresql-logo-svgrepo-com.svg" },
     { name: "MongoDB", icon: "/mongodb-svgrepo-com.svg" },
@@ -68,6 +100,34 @@ export default function AboutSection() {
       className="py-8 sm:py-12 md:py-16 lg:py-24 px-2 xs:px-3 sm:px-4"
     >
       <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="glass-liquid relative mb-3 overflow-hidden rounded-lg p-4 xs:mb-4 xs:rounded-xl xs:p-5 sm:mb-5 sm:rounded-2xl sm:p-6 md:mb-6 md:p-8 lg:mb-8"
+        >
+          <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-orange-500/10 blur-3xl dark:bg-orange-400/10" />
+
+          <div className="relative z-10 mx-auto max-w-4xl text-center">
+            <div className="mb-3 flex items-center justify-center gap-2 xs:mb-4">
+              <span className="h-px w-6 bg-gray-800 sm:w-8 dark:bg-white" />
+
+              <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-gray-800 xs:text-[10px] dark:text-white">
+                {t.aboutIntro.eyebrow}
+              </span>
+
+              <span className="h-px w-6 bg-gray-800 sm:w-8 dark:bg-white" />
+            </div>
+
+            <p className="text-lg font-light leading-[1.45] tracking-[-0.02em] text-gray-800 xs:text-xl sm:text-2xl md:text-3xl dark:text-white">
+              <HighlightedText
+                text={t.aboutIntro.text}
+                highlightedWords={t.aboutIntro.highlightedWords}
+              />
+            </p>
+          </div>
+        </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-8">
           <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-8">
             <motion.div
@@ -94,7 +154,7 @@ export default function AboutSection() {
                     className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
                     whileHover={{ scale: 1.1, y: -5 }}
                     viewport={{ once: true }}
                   />
@@ -105,7 +165,7 @@ export default function AboutSection() {
                     className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
                     whileHover={{ scale: 1.1, y: -5 }}
                     viewport={{ once: true }}
                   />
@@ -127,7 +187,7 @@ export default function AboutSection() {
                     className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
                     whileHover={{ scale: 1.1, y: -5 }}
                     viewport={{ once: true }}
                   />
