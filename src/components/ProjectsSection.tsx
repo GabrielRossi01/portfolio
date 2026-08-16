@@ -78,7 +78,6 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
 
-        {/* Carrossel: mobile e tablet */}
         <div className="lg:hidden">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -147,7 +146,6 @@ export default function ProjectsSection() {
           </p>
         </div>
 
-        {/* Lista completa: desktop */}
         <div className="hidden space-y-6 xs:space-y-8 sm:space-y-10 lg:block lg:space-y-12">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
