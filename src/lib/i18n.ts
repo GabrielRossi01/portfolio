@@ -138,7 +138,7 @@ export const translations: Record<Language, Translations> = {
     },
     aboutIntro: {
       eyebrow: "Sobre mim",
-      text: "Sou desenvolvedor de software formado em Análise e Desenvolvimento de Sistemas pela FIAP e tenho certificado Cambridge B1 First (FCE). Fora do código, participo de eventos e comunidades tech.",
+      text: "Sou desenvolvedor de software formado em Análise e Desenvolvimento de Sistemas pela FIAP e tenho certificado Cambridge B2 First (FCE). Fora do código, participo de eventos e comunidades tech.",
       highlightedWords: [
         "Análise e Desenvolvimento de Sistemas",
         "FIAP",
@@ -372,7 +372,7 @@ export const translations: Record<Language, Translations> = {
     },
     aboutIntro: {
       eyebrow: "About me",
-      text: "I’m a software developer with a degree in Systems Analysis and Development from FIAP and a Cambridge B1 First (FCE) certification. Outside of code, I take part in tech events and communities.",
+      text: "I’m a software developer with a degree in Systems Analysis and Development from FIAP and a Cambridge B2 First (FCE) certification. Outside of code, I take part in tech events and communities.",
       highlightedWords: [
         "Systems Analysis and Development",
         "FIAP",
@@ -604,7 +604,7 @@ export const translations: Record<Language, Translations> = {
     },
     aboutIntro: {
       eyebrow: "Sobre mí",
-      text: "Soy desarrollador de software graduado en Análisis y Desarrollo de Sistemas por FIAP y certificado Cambridge B1 First (FCE). Fuera del código, participo en eventos y comunidades tecnológicas.",
+      text: "Soy desarrollador de software graduado en Análisis y Desarrollo de Sistemas por FIAP y certificado Cambridge B2 First (FCE). Fuera del código, participo en eventos y comunidades tecnológicas.",
       highlightedWords: [
         "Análisis y Desarrollo de Sistemas",
         "FIAP",
