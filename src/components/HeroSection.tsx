@@ -168,62 +168,7 @@ export default function OrangePlanetHero() {
       >
         <div className="mx-auto w-full max-w-7xl">
           <div className="max-w-2xl text-center md:max-w-[48%] md:text-left">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-5 flex flex-col items-center gap-2 sm:mb-6 md:items-start"
-            >
-              <div
-                className="relative inline-flex items-center gap-2 overflow-hidden rounded-full px-3 py-1.5 text-xs font-light sm:px-4 sm:py-2 sm:text-sm"
-                style={{
-                  background: isDark
-                    ? "rgba(255, 255, 255, 0.06)"
-                    : "rgba(0, 0, 0, 0.04)",
-                  border: isDark
-                    ? "1px solid rgba(255, 255, 255, 0.12)"
-                    : "1px solid rgba(0, 0, 0, 0.08)",
-                  backdropFilter: "blur(16px)",
-                  WebkitBackdropFilter: "blur(16px)",
-                }}
-              >
-                {!reduceMotion && (
-                  <motion.div
-                    className="absolute inset-0"
-                    style={{
-                      background: isDark
-                        ? "linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)"
-                        : "linear-gradient(90deg, transparent 0%, rgba(255, 107, 53, 0.12) 50%, transparent 100%)",
-                    }}
-                    animate={{
-                      x: ["-200%", "200%"],
-                    }}
-                    transition={{
-                      duration: 1.2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      repeatDelay: 1.2,
-                    }}
-                  />
-                )}
 
-                <span className="relative z-10 h-2 w-2 rounded-full bg-green-500" />
-
-                <span
-                  className="relative z-10"
-                  style={{
-                    color: isDark
-                      ? "rgba(255, 255, 255, 0.9)"
-                      : "rgba(30, 30, 30, 0.85)",
-                  }}
-                >
-                  {t.hero.badge}
-                </span>
-              </div>
-            </motion.div>
-
-            {/* Título principal */}
             <motion.h1
               initial={{ opacity: 0, y: 35 }}
               animate={{ opacity: 1, y: 0 }}
@@ -257,7 +202,6 @@ export default function OrangePlanetHero() {
               </span>
             </motion.h1>
 
-            {/* Apresentação */}
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -274,7 +218,6 @@ export default function OrangePlanetHero() {
               {t.hero.connector} {t.hero.title}
             </motion.p>
 
-            {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

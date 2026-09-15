@@ -18,7 +18,6 @@ export interface Translations {
   };
 
   hero: {
-    badge: string;
     headlineStart: string;
     headlineEnd: string;
     greeting: string;
@@ -115,7 +114,6 @@ export const translations: Record<Language, Translations> = {
       contact: "Contato",
     },
     hero: {
-      badge: "Disponível para projetos",
       headlineStart: "Transformo ideias ambiciosas em",
       headlineEnd: "produtos digitais de alta performance",
       greeting: "Olá, eu sou o",
@@ -349,7 +347,6 @@ export const translations: Record<Language, Translations> = {
       contact: "Contact",
     },
     hero: {
-      badge: "Available for projects",
       headlineStart: "I transform ambitious ideas into",
       headlineEnd: "high-performing digital products",
       greeting: "Hello, I'm",
@@ -581,7 +578,6 @@ export const translations: Record<Language, Translations> = {
       contact: "Contacto",
     },
     hero: {
-      badge: "Disponible para proyectos",
       headlineStart: "Transformo ideas ambiciosas en",
       headlineEnd: "productos digitales de alto rendimiento",
       greeting: "Hola, soy",
