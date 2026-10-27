@@ -171,11 +171,6 @@ export default function ContactSection() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div className="mb-6 inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-gray-800 sm:text-xs dark:text-gray-200">
-              <span className="h-2 w-2 rounded-full bg-green-500" />
-              {t.contactPanel.availability}
-            </div>
-
             <h2
               style={SERIF}
               className="text-6xl leading-[0.92] tracking-tight text-gray-800 xs:text-7xl sm:text-8xl lg:text-9xl dark:text-white"
