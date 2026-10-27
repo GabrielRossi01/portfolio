@@ -89,11 +89,19 @@ export interface Translations {
     panelMessage: string;
   };
 
+  contactInfo: {
+    emailLabel: string;
+    socialLabel: string;
+    locationLabel: string;
+    sending: string;
+  };
+
   contactFeedback: {
     successTitle: string;
     successMessage: string;
     errorTitle: string;
     closeButton: string;
+    errorMessage: string;
   };
 
   projects: {
@@ -332,11 +340,19 @@ export const translations: Record<Language, Translations> = {
         "Combinando código, design e estratégia para transformar sua ideia em um produto digital real.",
     },
 
+    contactInfo: {
+      emailLabel: "Email",
+      socialLabel: "Social",
+      locationLabel: "Onde?",
+      sending: "Enviando...",
+    },
+
     contactFeedback: {
       successTitle: "Mensagem enviada!",
       successMessage:
-        "Obrigado pelo contato. Recebi sua mensagem e retornarei assim que possível.",
+        "Obrigado pelo contato. Sua mensagem foi enviada e retornarei assim que possível.",
       errorTitle: "Não foi possível enviar",
+      errorMessage: "Ocorreu um erro ao enviar sua mensagem. Tente novamente.",
       closeButton: "Fechar",
     },
 
@@ -564,11 +580,20 @@ export const translations: Record<Language, Translations> = {
         "Combining code, design and strategy to turn your idea into a real digital product.",
     },
 
+    contactInfo: {
+      emailLabel: "Email",
+      socialLabel: "Social",
+      locationLabel: "Where?",
+      sending: "Sending...",
+    },
+
     contactFeedback: {
       successTitle: "Message sent!",
       successMessage:
-        "Thanks for reaching out. I received your message and will get back to you soon.",
+        "Thanks for reaching out. Your message has been sent, and I’ll get back to you as soon as possible.",
       errorTitle: "Unable to send",
+      errorMessage:
+        "Something went wrong while sending your message. Please try again.",
       closeButton: "Close",
     },
 
@@ -796,11 +821,20 @@ export const translations: Record<Language, Translations> = {
         "Combinando código, diseño y estrategia para convertir tu idea en un producto digital real.",
     },
 
+    contactInfo: {
+      emailLabel: "Correo",
+      socialLabel: "Social",
+      locationLabel: "¿Dónde?",
+      sending: "Enviando...",
+    },
+
     contactFeedback: {
       successTitle: "¡Mensaje enviado!",
       successMessage:
-        "Gracias por contactarme. Recibí tu mensaje y responderé lo antes posible.",
+        "Gracias por contactarme. Tu mensaje se ha enviado y responderé lo antes posible.",
       errorTitle: "No se pudo enviar",
+      errorMessage:
+        "Ocurrió un error al enviar tu mensaje. Inténtalo de nuevo.",
       closeButton: "Cerrar",
     },
 
