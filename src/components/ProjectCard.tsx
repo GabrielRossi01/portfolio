@@ -125,31 +125,33 @@ function TextContent({
       }`}
     >
       <div>
-        <div className="mb-10 flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.18em] sm:mb-14">
+        <div className="mb-10 flex items-center justify-between gap-4 font-mono text-[11px] font-medium uppercase tracking-[0.18em] sm:mb-14 sm:text-xs">
           <span className="flex items-center gap-3">
-            <span className="text-gray-500 dark:text-gray-500">{number}</span>
+            <span className="rounded-md border border-black/20 bg-black/4 px-2 py-0.5 text-gray-900 dark:border-white/20 dark:bg-white/6 dark:text-white">
+              {number}
+            </span>
 
             {project.company && (
-              <span className="font-medium text-gray-800 dark:text-gray-200">
+              <span className="text-gray-900 dark:text-white">
                 {project.company}
               </span>
             )}
           </span>
 
           {project.year && (
-            <span className="text-gray-700 dark:text-gray-400">
+            <span className="text-gray-800 dark:text-gray-200">
               {project.year}
             </span>
           )}
         </div>
 
         {project.category && (
-          <p className="mb-2 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-orange-600 sm:text-xs dark:text-orange-400">
+          <p className="mb-2 font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-orange-600 sm:text-xs dark:text-orange-400">
             {project.category}
           </p>
         )}
 
-        <h3 className="mb-4 wrap-break-words text-3xl font-medium uppercase leading-none tracking-tight text-gray-800 xs:text-4xl sm:mb-5 sm:text-5xl lg:text-6xl dark:text-white">
+        <h3 className="mb-4 wrap-break-word text-3xl font-medium uppercase leading-none tracking-tight text-gray-800 xs:text-4xl sm:mb-5 sm:text-5xl lg:text-6xl dark:text-white">
           {project.title}
         </h3>
 
@@ -170,9 +172,18 @@ function TextContent({
       </div>
 
       <div className="mt-8 flex items-end justify-between gap-4 border-t border-black/15 pt-5 sm:mt-10 dark:border-white/10">
-        <div className="space-y-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-gray-700 dark:text-gray-400">
-          {footerMeta.map((item) => (
-            <p key={item}>{item}</p>
+        <div className="space-y-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-gray-800 sm:text-xs dark:text-gray-200">
+          {footerMeta.map((item, itemIndex) => (
+            <p
+              key={item}
+              className={
+                itemIndex === 0 && footerMeta.length > 1
+                  ? "text-gray-900 dark:text-white"
+                  : ""
+              }
+            >
+              {item}
+            </p>
           ))}
         </div>
 
@@ -193,7 +204,7 @@ function TextContent({
             href={primaryHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex cursor-pointer items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-gray-800 transition hover:text-orange-600 sm:text-xs dark:text-white dark:hover:text-orange-400"
+            className="group inline-flex cursor-pointer items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-gray-800 transition hover:text-orange-600 sm:text-xs dark:text-white dark:hover:text-orange-400"
           >
             {primaryLabel}
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
