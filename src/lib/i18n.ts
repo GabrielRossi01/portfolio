@@ -49,7 +49,6 @@ export interface Translations {
 
   aboutAchievement: {
     eyebrow: string;
-    badge: string;
     title: string;
     description: string;
     details: string;
@@ -160,7 +159,6 @@ export const translations: Record<Language, Translations> = {
 
     aboutAchievement: {
       eyebrow: "Conquista",
-      badge: "Top 3",
       title: "Finalistas no FIAP NEXT 2026",
       description:
         "Projeto premiado entre os três melhores do FIAP NEXT 2026, o festival de inovação da instituição, desenvolvido em equipe para solucionar um desafio oficial da Oracle.",
@@ -417,7 +415,6 @@ export const translations: Record<Language, Translations> = {
     },
     aboutAchievement: {
       eyebrow: "Achievement",
-      badge: "Top 3",
       title: "FIAP NEXT 2026 finalists",
       description:
         "Award-winning project ranked among the top three at FIAP NEXT 2026, the institution's innovation festival, built as a team to solve an official Oracle challenge.",
@@ -672,7 +669,6 @@ export const translations: Record<Language, Translations> = {
     },
     aboutAchievement: {
       eyebrow: "Logro",
-      badge: "Top 3",
       title: "Finalistas en FIAP NEXT 2026",
       description:
         "Proyecto premiado entre los tres mejores de FIAP NEXT 2026, el festival de innovación de la institución, desarrollado en equipo para resolver un desafío oficial de Oracle.",

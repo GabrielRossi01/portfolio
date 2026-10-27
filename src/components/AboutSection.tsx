@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 import {
-  ChevronLeft,
-  ChevronRight,
   Clock,
   Github,
   Linkedin,
@@ -62,13 +60,9 @@ const FAN_POSITIONS = [
 
 function FiapNextFan({
   alts,
-  previousLabel,
-  nextLabel,
   goToLabel,
 }: {
   alts: string[];
-  previousLabel: string;
-  nextLabel: string;
   goToLabel: string;
 }) {
   const [active, setActive] = useState(0);
@@ -81,8 +75,6 @@ function FiapNextFan({
   return (
     <div className="w-full">
       <div className="relative mx-auto aspect-5/4 w-full max-w-md sm:max-w-lg">
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-3/4 w-3/4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-500/20 blur-3xl" />
-
         {FIAP_NEXT_PHOTOS.map((src, index) => {
           const offset = (index - active + total) % total;
           const position = FAN_POSITIONS[offset];
@@ -127,43 +119,6 @@ function FiapNextFan({
             </div>
           );
         })}
-      </div>
-
-      <div className="mt-5 flex items-center justify-center gap-4">
-        <button
-          type="button"
-          onClick={goPrevious}
-          aria-label={previousLabel}
-          className="glass-liquid inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-gray-800 transition hover:scale-105 hover:bg-white/10 dark:text-white"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-
-        <div className="flex items-center gap-2">
-          {FIAP_NEXT_PHOTOS.map((src, index) => (
-            <button
-              key={src}
-              type="button"
-              onClick={() => setActive(index)}
-              aria-label={`${goToLabel} ${index + 1}`}
-              aria-current={index === active ? "true" : undefined}
-              className={`h-2 cursor-pointer rounded-full transition-all duration-300 ${
-                index === active
-                  ? "w-6 bg-orange-500"
-                  : "w-2 bg-gray-400/60 dark:bg-white/30"
-              }`}
-            />
-          ))}
-        </div>
-
-        <button
-          type="button"
-          onClick={goNext}
-          aria-label={nextLabel}
-          className="glass-liquid inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-gray-800 transition hover:scale-105 hover:bg-white/10 dark:text-white"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
       </div>
     </div>
   );
@@ -235,8 +190,6 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="glass-liquid relative mb-3 overflow-hidden rounded-lg p-4 xs:mb-4 xs:rounded-xl xs:p-5 sm:mb-5 sm:rounded-2xl sm:p-6 md:mb-6 md:p-8 lg:mb-8"
         >
-          <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-orange-500/10 blur-3xl dark:bg-orange-400/10" />
-
           <div className="relative z-10 mx-auto max-w-4xl text-center">
             <div className="mb-3 flex items-center justify-center gap-2 xs:mb-4">
               <span className="h-px w-6 bg-gray-800 sm:w-8 dark:bg-white" />
@@ -265,8 +218,6 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="glass-liquid relative mb-3 overflow-hidden rounded-lg p-4 xs:mb-4 xs:rounded-xl xs:p-5 sm:mb-5 sm:rounded-2xl sm:p-6 md:mb-6 md:p-8 lg:mb-8"
         >
-          <div className="pointer-events-none absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-orange-500/10 blur-3xl dark:bg-orange-400/10" />
-
           <div className="relative z-10 grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
             <div>
               <div className="mb-3 flex flex-wrap items-center gap-2 xs:mb-4">
@@ -274,10 +225,6 @@ export default function AboutSection() {
 
                 <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-gray-800 xs:text-xs dark:text-white">
                   {t.aboutAchievement.eyebrow}
-                </span>
-
-                <span className="rounded-full bg-orange-500/15 px-2.5 py-0.5 text-[10px] font-medium text-orange-500 ring-1 ring-inset ring-orange-500/25 dark:text-orange-300">
-                  {t.aboutAchievement.badge}
                 </span>
               </div>
 
@@ -302,8 +249,6 @@ export default function AboutSection() {
 
             <FiapNextFan
               alts={t.aboutAchievement.photoAlts}
-              previousLabel={t.aboutAchievement.previous}
-              nextLabel={t.aboutAchievement.next}
               goToLabel={t.aboutAchievement.goToPhoto}
             />
           </div>
