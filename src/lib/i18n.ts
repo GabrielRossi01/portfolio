@@ -230,7 +230,7 @@ export const translations: Record<Language, Translations> = {
         {
           title: "whobetter",
           company: "",
-          year: "2026 – Presente",
+          year: "2026",
           description:
             "Construí uma plataforma de microsserviços para grupos de apostas esportivas entre amigos, com acesso centralizado e seguro, usando Spring Boot, Eureka, API Gateway e OAuth 2.0 com JWT, e validei a arquitetura com testes de carga no Grafana k6.",
           category: "Microsserviços / Backend",
@@ -442,7 +442,7 @@ export const translations: Record<Language, Translations> = {
         {
           title: "knowball",
           company: "Oracle",
-          year: "2025 – Present",
+          year: "2025 – 2026",
           description:
             "I built a full-stack platform to manage championships, matches and reports in Brazilian youth football and fight result manipulation, with a secure JWT REST API documented in Swagger, an Angular frontend and a Spring AI virtual assistant.",
           category: "Fullstack / AI / Backend",
@@ -462,7 +462,7 @@ export const translations: Record<Language, Translations> = {
         {
           title: "whobetter",
           company: "",
-          year: "2026 – Present",
+          year: "2026",
           description:
             "I built a microservices platform for sports betting groups among friends, with centralized and secure access, using Spring Boot, Eureka, an API Gateway and OAuth 2.0 with JWT, and validated the architecture with Grafana k6 load tests.",
           category: "Microservices / Backend",
@@ -674,7 +674,7 @@ export const translations: Record<Language, Translations> = {
         {
           title: "knowball",
           company: "Oracle",
-          year: "2025 – Presente",
+          year: "2025 – 2026",
           description:
             "Desarrollé una plataforma full stack para gestionar campeonatos, partidos y denuncias en las categorías juveniles del fútbol brasileño y combatir la manipulación de resultados, con API REST segura con JWT documentada en Swagger, frontend Angular y asistente virtual con Spring AI.",
           category: "Fullstack / IA / Backend",
@@ -694,7 +694,7 @@ export const translations: Record<Language, Translations> = {
         {
           title: "whobetter",
           company: "",
-          year: "2026 – Presente",
+          year: "2026",
           description:
             "Construí una plataforma de microservicios para grupos de apuestas deportivas entre amigos, con acceso centralizado y seguro, usando Spring Boot, Eureka, API Gateway y OAuth 2.0 con JWT, y validé la arquitectura con pruebas de carga en Grafana k6.",
           category: "Microservicios / Backend",
