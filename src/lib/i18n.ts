@@ -47,6 +47,19 @@ export interface Translations {
     highlightedWords: string[];
   };
 
+  aboutAchievement: {
+    eyebrow: string;
+    badge: string;
+    title: string;
+    description: string;
+    details: string;
+    highlightedWords: string[];
+    photoAlts: string[];
+    previous: string;
+    next: string;
+    goToPhoto: string;
+  };
+
   about: {
     title: string;
     subtitle: string;
@@ -143,6 +156,31 @@ export const translations: Record<Language, Translations> = {
         "Cambridge B1 First (FCE)",
         "eventos e comunidades tech",
       ],
+    },
+
+    aboutAchievement: {
+      eyebrow: "Conquista",
+      badge: "Top 3",
+      title: "Finalistas no FIAP NEXT 2026",
+      description:
+        "Projeto premiado entre os três melhores do FIAP NEXT 2026, o festival de inovação da instituição, desenvolvido em equipe para solucionar um desafio oficial da Oracle.",
+      details:
+        "Eu e minha equipe desenvolvemos o Knowball como solução para um case da Oracle, combatendo a manipulação de resultados nas categorias de base do futebol brasileiro masculino.",
+      highlightedWords: [
+        "três melhores",
+        "FIAP NEXT 2026",
+        "Oracle",
+        "Knowball",
+        "manipulação de resultados",
+      ],
+      photoAlts: [
+        "Equipe do Knowball recebendo a premiação do FIAP NEXT 2026",
+        "Equipe do Knowball no palco do FIAP NEXT 2026 com o cheque de premiação",
+        "Pódio do FIAP NEXT 2026 com as equipes finalistas",
+      ],
+      previous: "Foto anterior",
+      next: "Próxima foto",
+      goToPhoto: "Ver foto",
     },
     about: {
       title: "Sobre Mim",
@@ -377,6 +415,30 @@ export const translations: Record<Language, Translations> = {
         "tech events and communities",
       ],
     },
+    aboutAchievement: {
+      eyebrow: "Achievement",
+      badge: "Top 3",
+      title: "FIAP NEXT 2026 finalists",
+      description:
+        "Award-winning project ranked among the top three at FIAP NEXT 2026, the institution's innovation festival, built as a team to solve an official Oracle challenge.",
+      details:
+        "My team and I built Knowball as a solution to an Oracle case, fighting match-fixing in the youth categories of Brazilian men's football.",
+      highlightedWords: [
+        "top three",
+        "FIAP NEXT 2026",
+        "Oracle",
+        "Knowball",
+        "match-fixing",
+      ],
+      photoAlts: [
+        "Knowball team receiving the FIAP NEXT 2026 award",
+        "Knowball team on stage at FIAP NEXT 2026 with the prize check",
+        "FIAP NEXT 2026 podium with the finalist teams",
+      ],
+      previous: "Previous photo",
+      next: "Next photo",
+      goToPhoto: "View photo",
+    },
     about: {
       title: "About Me",
       subtitle: "Developer passionate about creating scalable solutions",
@@ -607,6 +669,30 @@ export const translations: Record<Language, Translations> = {
         "Cambridge B1 First (FCE)",
         "eventos y comunidades tecnológicas",
       ],
+    },
+    aboutAchievement: {
+      eyebrow: "Logro",
+      badge: "Top 3",
+      title: "Finalistas en FIAP NEXT 2026",
+      description:
+        "Proyecto premiado entre los tres mejores de FIAP NEXT 2026, el festival de innovación de la institución, desarrollado en equipo para resolver un desafío oficial de Oracle.",
+      details:
+        "Mi equipo y yo desarrollamos Knowball como solución a un caso de Oracle, combatiendo la manipulación de resultados en las categorías inferiores del fútbol masculino brasileño.",
+      highlightedWords: [
+        "tres mejores",
+        "FIAP NEXT 2026",
+        "Oracle",
+        "Knowball",
+        "manipulación de resultados",
+      ],
+      photoAlts: [
+        "Equipo de Knowball recibiendo el premio de FIAP NEXT 2026",
+        "Equipo de Knowball en el escenario de FIAP NEXT 2026 con el cheque del premio",
+        "Podio de FIAP NEXT 2026 con los equipos finalistas",
+      ],
+      previous: "Foto anterior",
+      next: "Siguiente foto",
+      goToPhoto: "Ver foto",
     },
     about: {
       title: "Sobre Mí",
