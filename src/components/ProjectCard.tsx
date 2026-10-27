@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -12,7 +12,10 @@ interface ProjectData {
   description: string;
   company: string;
   year: string;
-  metrics: string[];
+  category: string;
+  status: string;
+  team: string;
+  scope: string;
   tags: string[];
   mockup: string;
   images: string[];
@@ -82,7 +85,7 @@ function ImageCarousel({
               key={imgIdx}
               onClick={() => setActiveImageIndex(imgIdx)}
               aria-label={`Ver imagem ${imgIdx + 1}`}
-              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+              className={`w-2 h-2 cursor-pointer rounded-full transition-all duration-200 ${
                 activeImageIndex === imgIdx
                   ? "bg-orange-400 scale-125"
                   : "bg-white/40 hover:bg-white/70"
@@ -97,159 +100,101 @@ function ImageCarousel({
 
 interface TextContentProps {
   project: ProjectData;
+  index: number;
+  viewProjectLabel: string;
   viewCaseStudyLabel: string;
   mobile?: boolean;
 }
 
 function TextContent({
   project,
+  index,
+  viewProjectLabel,
   viewCaseStudyLabel,
   mobile = false,
 }: TextContentProps) {
   const hasExternalDemo = project.demo && project.demo !== project.github;
+  const primaryHref = hasExternalDemo ? project.demo! : project.github;
+  const primaryLabel = hasExternalDemo ? viewCaseStudyLabel : viewProjectLabel;
+  const number = String(index + 1).padStart(3, "0");
+  const meta = [project.company, project.year].filter(Boolean).join(" · ");
+  const footerMeta = [project.team, project.scope].filter(Boolean);
 
   return (
     <div
-      className={
-        mobile
-          ? "p-6 xs:p-8"
-          : "p-6 xs:p-8 sm:p-10 lg:p-12 flex flex-col justify-between"
-      }
+      className={`flex flex-col justify-between ${
+        mobile ? "p-5 xs:p-6" : "p-6 sm:p-8 lg:p-10 xl:p-12"
+      }`}
     >
       <div>
-        <p
-          className={`font-medium text-gray-600 dark:text-gray-400 mb-2 xs:mb-3 ${
-            mobile
-              ? "text-[10px] xs:text-xs"
-              : "text-[10px] xs:text-xs sm:text-sm"
-          }`}
-        >
-          {project.company} {project.year}
-        </p>
-        <h3
-          className={`font-light mb-3 xs:mb-4 text-gray-800 dark:text-white leading-tight ${
-            mobile
-              ? "text-xl xs:text-2xl sm:text-3xl"
-              : "text-xl xs:text-2xl sm:text-3xl lg:text-4xl sm:mb-5"
-          }`}
-        >
+        <div className="mb-10 flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.18em] text-gray-600 sm:mb-14 dark:text-gray-400">
+          <span>
+            {number}
+            {meta && <span className="ml-3">{meta}</span>}
+          </span>
+
+          {project.status && (
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+              {project.status}
+            </span>
+          )}
+        </div>
+
+        {project.category && (
+          <p className="mb-2 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-orange-500 sm:text-xs dark:text-orange-400">
+            {project.category}
+          </p>
+        )}
+
+        <h3 className="mb-4 wrap-break-word text-3xl font-medium uppercase leading-none tracking-tight text-gray-800 xs:text-4xl sm:mb-5 sm:text-5xl lg:text-6xl dark:text-white">
           {project.title}
         </h3>
-        <p
-          className={`text-gray-900 dark:text-white leading-relaxed font-light ${
-            mobile
-              ? "text-xs xs:text-sm mb-4 xs:mb-5"
-              : "text-xs xs:text-sm sm:text-base mb-4 xs:mb-5 sm:mb-6"
-          }`}
-        >
+
+        <p className="max-w-xl text-sm font-light leading-relaxed text-gray-700 sm:text-base dark:text-gray-300">
           {project.description}
         </p>
 
-        <div
-          className={`space-y-2 xs:space-y-2.5 ${
-            mobile ? "mb-6 xs:mb-8" : "sm:space-y-3 mb-6 xs:mb-8"
-          }`}
-        >
-          {project.metrics.map((metric, metricIndex) => (
-            <div
-              key={metricIndex}
-              className="flex items-start gap-2 xs:gap-2.5"
+        <div className="mt-6 flex flex-wrap gap-1.5 sm:mt-8 sm:gap-2">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="border border-black/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-gray-700 transition-colors hover:border-orange-500/50 hover:text-orange-500 dark:border-white/15 dark:text-gray-300 dark:hover:border-orange-400/50 dark:hover:text-orange-400"
             >
-              <div className="mt-1">
-                <svg
-                  className={`text-green-500 ${
-                    mobile
-                      ? "w-3.5 h-3.5 xs:w-4 xs:h-4"
-                      : "w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5"
-                  }`}
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <span
-                className={`text-gray-700 dark:text-gray-300 font-light ${
-                  mobile
-                    ? "text-[11px] xs:text-xs"
-                    : "text-[11px] xs:text-xs sm:text-sm lg:text-base"
-                }`}
-              >
-                {metric}
-              </span>
-            </div>
+              {tag}
+            </span>
           ))}
         </div>
       </div>
 
-      <div>
-        <div
-          className={`flex flex-wrap gap-1.5 xs:gap-2 ${
-            mobile ? "mb-4 xs:mb-5" : "mb-4 xs:mb-5 sm:mb-6"
-          }`}
-        >
-          {project.tags.map((tag, tagIndex) => (
-            <div
-              key={tagIndex}
-              className="glass rounded-lg px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 flex items-center gap-1 xs:gap-1.5 hover:bg-white/10 transition-colors"
-            >
-              <span className="text-[10px] xs:text-xs sm:text-sm font-light text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                {tag}
-              </span>
-            </div>
+      <div className="mt-8 flex items-end justify-between gap-4 border-t border-black/10 pt-5 sm:mt-10 dark:border-white/10">
+        <div className="space-y-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-gray-600 dark:text-gray-400">
+          {footerMeta.map((item) => (
+            <p key={item}>{item}</p>
           ))}
         </div>
 
-        <div className="flex gap-3 xs:gap-4">
+        <div className="flex shrink-0 items-center gap-3">
           {hasExternalDemo && (
             <a
-              href={project.demo}
+              href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={`glass-liquid rounded-xl flex items-center gap-2 hover:bg-white/20 transition-all group ${
-                mobile
-                  ? "px-4 xs:px-5 py-2 xs:py-2.5"
-                  : "px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3"
-              }`}
+              aria-label="GitHub"
+              className="inline-flex h-9 w-9 cursor-pointer items-center justify-center border border-black/15 text-gray-800 transition hover:border-orange-500/60 hover:text-orange-500 dark:border-white/15 dark:text-white dark:hover:border-orange-400/60 dark:hover:text-orange-400"
             >
-              <span
-                className={`font-light text-gray-800 dark:text-white ${
-                  mobile
-                    ? "text-xs xs:text-sm"
-                    : "text-xs xs:text-sm sm:text-base"
-                }`}
-              >
-                {viewCaseStudyLabel}
-              </span>
-              <ExternalLink
-                className={`text-gray-800 dark:text-white group-hover:translate-x-1 transition-transform ${
-                  mobile
-                    ? "w-3.5 h-3.5 xs:w-4 xs:h-4"
-                    : "w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5"
-                }`}
-              />
+              <Github className="h-4 w-4" />
             </a>
           )}
+
           <a
-            href={project.github}
+            href={primaryHref}
             target="_blank"
             rel="noopener noreferrer"
-            className={`glass-liquid rounded-xl hover:bg-white/20 transition-all hover:scale-110 ${
-              mobile ? "p-2 xs:p-2.5" : "p-2 xs:p-2.5 sm:p-3"
-            }`}
-            aria-label="GitHub"
+            className="group inline-flex cursor-pointer items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-gray-800 transition hover:text-orange-500 sm:text-xs dark:text-white dark:hover:text-orange-400"
           >
-            <Github
-              className={`text-gray-800 dark:text-white ${
-                mobile
-                  ? "w-4 h-4 xs:w-5 xs:h-5"
-                  : "w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6"
-              }`}
-            />
+            {primaryLabel}
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
         </div>
       </div>
@@ -272,13 +217,16 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       viewport={{ once: true }}
       className="relative"
     >
-      <div className="glass-liquid rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-        <div className="hidden lg:grid lg:grid-cols-2 min-h-[500px]">
+      <div className="glass-liquid overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-2xl sm:rounded-3xl">
+        <div className="hidden min-h-[540px] lg:grid lg:grid-cols-[1.1fr_0.9fr]">
           <TextContent
             project={project}
+            index={index}
+            viewProjectLabel={t.projects.viewProject}
             viewCaseStudyLabel={t.projects.viewCaseStudy}
           />
-          <div className="relative flex flex-col items-center justify-center overflow-hidden pb-0">
+
+          <div className="relative flex flex-col items-center justify-center overflow-hidden border-l border-black/10 pb-0 dark:border-white/10">
             <ImageCarousel
               images={images}
               activeImageIndex={activeImageIndex}
@@ -293,10 +241,13 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         <div className="lg:hidden">
           <TextContent
             project={project}
+            index={index}
+            viewProjectLabel={t.projects.viewProject}
             viewCaseStudyLabel={t.projects.viewCaseStudy}
             mobile
           />
-          <div className="relative overflow-hidden bg-linear-to-b from-transparent to-black/5 dark:to-white/5 py-8 xs:py-10 sm:py-12 flex flex-col items-center justify-center min-h-[350px] xs:min-h-[400px] sm:min-h-[450px]">
+
+          <div className="relative flex min-h-[350px] flex-col items-center justify-center overflow-hidden border-t border-black/10 bg-linear-to-b from-transparent to-black/5 py-8 xs:min-h-[400px] xs:py-10 sm:min-h-[450px] sm:py-12 dark:border-white/10 dark:to-white/5">
             <ImageCarousel
               images={images}
               activeImageIndex={activeImageIndex}

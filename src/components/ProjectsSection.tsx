@@ -22,7 +22,10 @@ export default function ProjectsSection() {
       description: translatedData?.description || "",
       company: translatedData?.company || "",
       year: translatedData?.year || "",
-      metrics: translatedData?.metrics || [],
+      category: translatedData?.category || "",
+      status: translatedData?.status || "",
+      team: translatedData?.team || "",
+      scope: translatedData?.scope || "",
     };
   });
 
