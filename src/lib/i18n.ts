@@ -6,7 +6,6 @@ export interface ProjectItem {
   year: string;
   description: string;
   category: string;
-  status: string;
   team: string;
   scope: string;
 }
@@ -211,11 +210,10 @@ export const translations: Record<Language, Translations> = {
         {
           title: "knowball",
           company: "Oracle",
-          year: "2025 – Presente",
+          year: "2025 – 2026",
           description:
             "Desenvolvi uma plataforma fullstack para gerenciar campeonatos, partidas e denúncias nas categorias de base do futebol brasileiro e combater a manipulação de resultados, com API REST segura em JWT documentada no Swagger, frontend Angular e assistente virtual com Spring AI.",
-          category: "Fullstack / IA / Backend",
-          status: "Em andamento",
+          category: "Fullstack / IA",
           team: "",
           scope: "API REST / Segurança / Spring AI",
         },
@@ -226,7 +224,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Provisionei uma aplicação containerizada na AWS como infraestrutura como código, tornando o ambiente reproduzível dentro do Free Tier, com AWS CDK, ECS Fargate, RDS MySQL e ALB organizados em stacks independentes.",
           category: "Cloud / DevOps / IaC",
-          status: "Concluído",
           team: "",
           scope: "AWS CDK / ECS Fargate / RDS",
         },
@@ -237,7 +234,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Construí uma plataforma de microsserviços para grupos de apostas esportivas entre amigos, com acesso centralizado e seguro, usando Spring Boot, Eureka, API Gateway e OAuth 2.0 com JWT, e validei a arquitetura com testes de carga no Grafana k6.",
           category: "Microsserviços / Backend",
-          status: "Em andamento",
           team: "",
           scope: "Gateway / Segurança / Observabilidade",
         },
@@ -248,7 +244,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desenvolvi uma API que aproxima profissionais com deficiência de vagas compatíveis, com correspondência precisa entre perfil e vaga e proteção contra acesso não autorizado ao processo de recrutamento e a dados sensíveis.",
           category: "Backend / Impacto social",
-          status: "Concluído",
           team: "",
           scope: "API / Segurança / Recrutamento",
         },
@@ -259,7 +254,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Criei um agente conversacional full stack sobre a Copa do Mundo 2026 que responde com contexto e gera previsões estruturadas, usando Spring Boot, Vaadin e Spring AI com RAG, Tool Calling e memória por sessão.",
           category: "IA / Fullstack",
-          status: "Concluído",
           team: "",
           scope: "RAG / Tool Calling / Streaming",
         },
@@ -270,7 +264,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desenvolvi uma plataforma full stack para explorar exercícios e gerenciar favoritos, com autenticação JWT e integração à API Ninjas, usando Spring Boot no backend e Angular com Signals e Tailwind CSS no frontend.",
           category: "Fullstack / Web",
-          status: "Concluído",
           team: "",
           scope: "Backend / Frontend / Integração",
         },
@@ -281,7 +274,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Construí uma plataforma de recomendação de restaurantes em microsserviços que gera sugestões narrativas por IA, usando Spring Cloud (Eureka, LoadBalancer e Retry com backoff exponencial), RabbitMQ para mensageria assíncrona e Spring AI com Groq.",
           category: "Microsserviços / IA",
-          status: "Concluído",
           team: "",
           scope: "Eureka / RabbitMQ / Spring AI",
         },
@@ -292,7 +284,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desenvolvi uma plataforma que recomenda jogos a partir de dados reais de uma API externa e de critérios objetivos de avaliação, com Angular, TypeScript e Tailwind CSS no frontend e Spring Boot no backend.",
           category: "Fullstack / Dados",
-          status: "Concluído",
           team: "",
           scope: "Frontend / Backend / API externa",
         },
@@ -303,7 +294,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desenvolvi uma API RESTful para o setor financeiro digital que executa depósitos, saques e transferências via PIX entre contas, com arquitetura REST padronizada para facilitar escalabilidade e integração de serviços.",
           category: "Backend / Fintech",
-          status: "Concluído",
           team: "",
           scope: "API REST / PIX / Contas",
         },
@@ -314,7 +304,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Implementei uma plataforma web de impacto social que apoia o acesso à água potável em comunidades em crise hídrica, coletando dados por integração com APIs em Java para mitigar riscos de calor extremo e colapso hídrico.",
           category: "Web / Impacto social",
-          status: "Concluído",
           team: "",
           scope: "Integração de APIs / Java",
         },
@@ -325,7 +314,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desenvolvi um site responsivo que otimiza a gestão e automatiza rotinas operacionais em estações de trens e metrôs de São Paulo, com gestão centralizada da infraestrutura de transporte público.",
           category: "Web / Operações",
-          status: "Concluído",
           team: "",
           scope: "Frontend responsivo / Automação",
         },
@@ -458,7 +446,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I built a full-stack platform to manage championships, matches and reports in Brazilian youth football and fight result manipulation, with a secure JWT REST API documented in Swagger, an Angular frontend and a Spring AI virtual assistant.",
           category: "Fullstack / AI / Backend",
-          status: "In progress",
           team: "",
           scope: "REST API / Security / Spring AI",
         },
@@ -469,7 +456,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I provisioned a containerized application on AWS as infrastructure as code, making the environment reproducible within the Free Tier, using AWS CDK, ECS Fargate, RDS MySQL and an ALB organized into independent stacks.",
           category: "Cloud / DevOps / IaC",
-          status: "Completed",
           team: "",
           scope: "AWS CDK / ECS Fargate / RDS",
         },
@@ -480,7 +466,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I built a microservices platform for sports betting groups among friends, with centralized and secure access, using Spring Boot, Eureka, an API Gateway and OAuth 2.0 with JWT, and validated the architecture with Grafana k6 load tests.",
           category: "Microservices / Backend",
-          status: "In progress",
           team: "",
           scope: "Gateway / Security / Observability",
         },
@@ -491,7 +476,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I developed an API that connects professionals with disabilities to compatible job openings, with accurate profile-to-job matching and protection against unauthorized access to the recruitment process and sensitive data.",
           category: "Backend / Social impact",
-          status: "Completed",
           team: "",
           scope: "API / Security / Recruitment",
         },
@@ -502,7 +486,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I created a full-stack conversational agent about the 2026 World Cup that answers with context and generates structured predictions, using Spring Boot, Vaadin and Spring AI with RAG, Tool Calling and session memory.",
           category: "AI / Fullstack",
-          status: "Completed",
           team: "",
           scope: "RAG / Tool Calling / Streaming",
         },
@@ -513,7 +496,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I developed a full-stack platform to explore exercises and manage favorites, with JWT authentication and API Ninjas integration, using Spring Boot on the backend and Angular with Signals and Tailwind CSS on the frontend.",
           category: "Fullstack / Web",
-          status: "Completed",
           team: "",
           scope: "Backend / Frontend / Integration",
         },
@@ -524,7 +506,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I built a restaurant recommendation platform on microservices that generates AI narrative suggestions, using Spring Cloud (Eureka, LoadBalancer and Retry with exponential backoff), RabbitMQ for asynchronous messaging and Spring AI with Groq.",
           category: "Microservices / AI",
-          status: "Completed",
           team: "",
           scope: "Eureka / RabbitMQ / Spring AI",
         },
@@ -535,7 +516,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I developed a platform that recommends games from real data from an external API and objective evaluation criteria, with Angular, TypeScript and Tailwind CSS on the frontend and Spring Boot on the backend.",
           category: "Fullstack / Data",
-          status: "Completed",
           team: "",
           scope: "Frontend / Backend / External API",
         },
@@ -546,7 +526,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I developed a RESTful API for the digital finance sector that handles deposits, withdrawals and PIX transfers between accounts, with a standardized REST architecture that eases scalability and service integration.",
           category: "Backend / Fintech",
-          status: "Completed",
           team: "",
           scope: "REST API / PIX / Accounts",
         },
@@ -557,7 +536,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I implemented a social impact web platform that supports access to drinking water for communities in water crisis, collecting data through Java API integrations to mitigate extreme heat and water collapse risks.",
           category: "Web / Social impact",
-          status: "Completed",
           team: "",
           scope: "API integration / Java",
         },
@@ -568,7 +546,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "I developed a responsive website that optimizes management and automates operational routines at train and subway stations in São Paulo, with centralized management of public transport infrastructure.",
           category: "Web / Operations",
-          status: "Completed",
           team: "",
           scope: "Responsive frontend / Automation",
         },
@@ -701,7 +678,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desarrollé una plataforma full stack para gestionar campeonatos, partidos y denuncias en las categorías juveniles del fútbol brasileño y combatir la manipulación de resultados, con API REST segura con JWT documentada en Swagger, frontend Angular y asistente virtual con Spring AI.",
           category: "Fullstack / IA / Backend",
-          status: "En curso",
           team: "",
           scope: "API REST / Seguridad / Spring AI",
         },
@@ -712,7 +688,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Aprovisioné una aplicación contenerizada en AWS como infraestructura como código, haciendo el entorno reproducible dentro del Free Tier, con AWS CDK, ECS Fargate, RDS MySQL y ALB organizados en stacks independientes.",
           category: "Cloud / DevOps / IaC",
-          status: "Completado",
           team: "",
           scope: "AWS CDK / ECS Fargate / RDS",
         },
@@ -723,7 +698,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Construí una plataforma de microservicios para grupos de apuestas deportivas entre amigos, con acceso centralizado y seguro, usando Spring Boot, Eureka, API Gateway y OAuth 2.0 con JWT, y validé la arquitectura con pruebas de carga en Grafana k6.",
           category: "Microservicios / Backend",
-          status: "En curso",
           team: "",
           scope: "Gateway / Seguridad / Observabilidad",
         },
@@ -734,7 +708,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desarrollé una API que acerca a profesionales con discapacidad a vacantes compatibles, con correspondencia precisa entre perfil y vacante y protección contra el acceso no autorizado al proceso de reclutamiento y a datos sensibles.",
           category: "Backend / Impacto social",
-          status: "Completado",
           team: "",
           scope: "API / Seguridad / Reclutamiento",
         },
@@ -745,7 +718,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Creé un agente conversacional full stack sobre la Copa del Mundo 2026 que responde con contexto y genera predicciones estructuradas, usando Spring Boot, Vaadin y Spring AI con RAG, Tool Calling y memoria por sesión.",
           category: "IA / Fullstack",
-          status: "Completado",
           team: "",
           scope: "RAG / Tool Calling / Streaming",
         },
@@ -756,7 +728,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desarrollé una plataforma full stack para explorar ejercicios y gestionar favoritos, con autenticación JWT e integración con API Ninjas, usando Spring Boot en el backend y Angular con Signals y Tailwind CSS en el frontend.",
           category: "Fullstack / Web",
-          status: "Completado",
           team: "",
           scope: "Backend / Frontend / Integración",
         },
@@ -767,7 +738,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Construí una plataforma de recomendación de restaurantes en microservicios que genera sugerencias narrativas con IA, usando Spring Cloud (Eureka, LoadBalancer y Retry con backoff exponencial), RabbitMQ para mensajería asíncrona y Spring AI con Groq.",
           category: "Microservicios / IA",
-          status: "Completado",
           team: "",
           scope: "Eureka / RabbitMQ / Spring AI",
         },
@@ -778,7 +748,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desarrollé una plataforma que recomienda juegos a partir de datos reales de una API externa y de criterios objetivos de evaluación, con Angular, TypeScript y Tailwind CSS en el frontend y Spring Boot en el backend.",
           category: "Fullstack / Datos",
-          status: "Completado",
           team: "",
           scope: "Frontend / Backend / API externa",
         },
@@ -789,7 +758,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desarrollé una API RESTful para el sector financiero digital que ejecuta depósitos, retiros y transferencias PIX entre cuentas, con arquitectura REST estandarizada para facilitar la escalabilidad y la integración de servicios.",
           category: "Backend / Fintech",
-          status: "Completado",
           team: "",
           scope: "API REST / PIX / Cuentas",
         },
@@ -800,7 +768,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Implementé una plataforma web de impacto social que apoya el acceso a agua potable en comunidades en crisis hídrica, recopilando datos mediante integración con APIs en Java para mitigar riesgos de calor extremo y colapso hídrico.",
           category: "Web / Impacto social",
-          status: "Completado",
           team: "",
           scope: "Integración de APIs / Java",
         },
@@ -811,7 +778,6 @@ export const translations: Record<Language, Translations> = {
           description:
             "Desarrollé un sitio web responsivo que optimiza la gestión y automatiza rutinas operacionales en estaciones de trenes y metro de São Paulo, con gestión centralizada de la infraestructura de transporte público.",
           category: "Web / Operaciones",
-          status: "Completado",
           team: "",
           scope: "Frontend responsivo / Automatización",
         },

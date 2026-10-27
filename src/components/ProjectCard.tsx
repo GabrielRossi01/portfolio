@@ -13,7 +13,6 @@ interface ProjectData {
   company: string;
   year: string;
   category: string;
-  status: string;
   team: string;
   scope: string;
   tags: string[];
@@ -117,7 +116,6 @@ function TextContent({
   const primaryHref = hasExternalDemo ? project.demo! : project.github;
   const primaryLabel = hasExternalDemo ? viewCaseStudyLabel : viewProjectLabel;
   const number = String(index + 1).padStart(3, "0");
-  const meta = [project.company, project.year].filter(Boolean).join(" · ");
   const footerMeta = [project.team, project.scope].filter(Boolean);
 
   return (
@@ -127,31 +125,35 @@ function TextContent({
       }`}
     >
       <div>
-        <div className="mb-10 flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.18em] text-gray-600 sm:mb-14 dark:text-gray-400">
-          <span>
-            {number}
-            {meta && <span className="ml-3">{meta}</span>}
+        <div className="mb-10 flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.18em] sm:mb-14">
+          <span className="flex items-center gap-3">
+            <span className="text-gray-500 dark:text-gray-500">{number}</span>
+
+            {project.company && (
+              <span className="font-medium text-gray-800 dark:text-gray-200">
+                {project.company}
+              </span>
+            )}
           </span>
 
-          {project.status && (
-            <span className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-              {project.status}
+          {project.year && (
+            <span className="text-gray-700 dark:text-gray-400">
+              {project.year}
             </span>
           )}
         </div>
 
         {project.category && (
-          <p className="mb-2 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-orange-500 sm:text-xs dark:text-orange-400">
+          <p className="mb-2 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-orange-600 sm:text-xs dark:text-orange-400">
             {project.category}
           </p>
         )}
 
-        <h3 className="mb-4 wrap-break-word text-3xl font-medium uppercase leading-none tracking-tight text-gray-800 xs:text-4xl sm:mb-5 sm:text-5xl lg:text-6xl dark:text-white">
+        <h3 className="mb-4 wrap-break-words text-3xl font-medium uppercase leading-none tracking-tight text-gray-800 xs:text-4xl sm:mb-5 sm:text-5xl lg:text-6xl dark:text-white">
           {project.title}
         </h3>
 
-        <p className="max-w-xl text-sm font-light leading-relaxed text-gray-700 sm:text-base dark:text-gray-300">
+        <p className="max-w-xl text-sm font-light leading-relaxed text-gray-800 sm:text-base dark:text-gray-300">
           {project.description}
         </p>
 
@@ -159,7 +161,7 @@ function TextContent({
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="border border-black/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-gray-700 transition-colors hover:border-orange-500/50 hover:text-orange-500 dark:border-white/15 dark:text-gray-300 dark:hover:border-orange-400/50 dark:hover:text-orange-400"
+              className="rounded-md border border-black/15 bg-black/4 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-gray-800 transition-colors hover:border-orange-500/60 hover:bg-orange-500/10 hover:text-orange-600 dark:border-white/15 dark:bg-white/4 dark:font-normal dark:text-gray-300 dark:hover:border-orange-400/50 dark:hover:bg-orange-400/10 dark:hover:text-orange-400"
             >
               {tag}
             </span>
@@ -167,8 +169,8 @@ function TextContent({
         </div>
       </div>
 
-      <div className="mt-8 flex items-end justify-between gap-4 border-t border-black/10 pt-5 sm:mt-10 dark:border-white/10">
-        <div className="space-y-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-gray-600 dark:text-gray-400">
+      <div className="mt-8 flex items-end justify-between gap-4 border-t border-black/15 pt-5 sm:mt-10 dark:border-white/10">
+        <div className="space-y-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-gray-700 dark:text-gray-400">
           {footerMeta.map((item) => (
             <p key={item}>{item}</p>
           ))}
@@ -181,7 +183,7 @@ function TextContent({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="inline-flex h-9 w-9 cursor-pointer items-center justify-center border border-black/15 text-gray-800 transition hover:border-orange-500/60 hover:text-orange-500 dark:border-white/15 dark:text-white dark:hover:border-orange-400/60 dark:hover:text-orange-400"
+              className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-black/20 text-gray-800 transition hover:border-orange-500/60 hover:text-orange-600 dark:border-white/15 dark:text-white dark:hover:border-orange-400/60 dark:hover:text-orange-400"
             >
               <Github className="h-4 w-4" />
             </a>
@@ -191,7 +193,7 @@ function TextContent({
             href={primaryHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex cursor-pointer items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-gray-800 transition hover:text-orange-500 sm:text-xs dark:text-white dark:hover:text-orange-400"
+            className="group inline-flex cursor-pointer items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-gray-800 transition hover:text-orange-600 sm:text-xs dark:text-white dark:hover:text-orange-400"
           >
             {primaryLabel}
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

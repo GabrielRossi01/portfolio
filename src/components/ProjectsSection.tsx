@@ -23,7 +23,6 @@ export default function ProjectsSection() {
       company: translatedData?.company || "",
       year: translatedData?.year || "",
       category: translatedData?.category || "",
-      status: translatedData?.status || "",
       team: translatedData?.team || "",
       scope: translatedData?.scope || "",
     };
