@@ -122,6 +122,10 @@ export interface Translations {
     rights: string;
     quickLinks: string;
     socialLinks: string;
+    mainLabel: string;
+    contactLabel: string;
+    signature: string;
+    backToTop: string;
   };
 }
 
@@ -364,6 +368,11 @@ export const translations: Record<Language, Translations> = {
       rights: "Todos os direitos reservados.",
       quickLinks: "Links Rápidos",
       socialLinks: "Redes Sociais",
+
+      mainLabel: "Principal",
+      contactLabel: "Contato",
+      signature: "Feito com atenção aos detalhes e vontade de criar.",
+      backToTop: "Voltar ao topo",
     },
   },
   en: {
@@ -604,6 +613,11 @@ export const translations: Record<Language, Translations> = {
       rights: "All rights reserved.",
       quickLinks: "Quick Links",
       socialLinks: "Social Links",
+
+      mainLabel: "Main",
+      contactLabel: "Contact",
+      signature: "Made with attention to detail and a drive to create.",
+      backToTop: "Back to top",
     },
   },
   es: {
@@ -844,6 +858,11 @@ export const translations: Record<Language, Translations> = {
       rights: "Todos los derechos reservados.",
       quickLinks: "Enlaces Rápidos",
       socialLinks: "Redes Sociales",
+
+      mainLabel: "Principal",
+      contactLabel: "Contacto",
+      signature: "Hecho con atención al detalle y ganas de crear.",
+      backToTop: "Volver arriba",
     },
   },
 };
