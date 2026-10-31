@@ -17,7 +17,7 @@ const Earth3D = () => {
   const pointerInteracting = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
   const phiRef = useRef(0);
-  const globeRef = useRef<{ destroy: () => void } | null>(null);
+  const globeRef = useRef<{ destroy: () => void; toggle: (shouldRender: boolean) => void } | null>(null);
   const rafRef = useRef<number | null>(null);
   const renderSizeRef = useRef(0);
 
@@ -76,44 +76,62 @@ const Earth3D = () => {
 
     const initialSize = renderSizeRef.current || 320;
 
-    globeRef.current = createGlobe(canvas, {
-      devicePixelRatio: pixelRatio,
-      width: initialSize,
-      height: initialSize,
-      phi: 0,
-      theta: 0.3,
-      dark: 1,
-      diffuse: 1.2,
-      mapSamples: 8000,
-      mapBrightness: 6,
-      baseColor: [0.08, 0.08, 0.08],
-      markerColor: [1, 0.5, 0],
-      glowColor: [1, 1, 1],
-      markers: [
-        {
-          location: [-23.5505, -46.6333],
-          size: 0.1,
+    const createGlobeNow = () => {
+      globeRef.current = createGlobe(canvas, {
+        devicePixelRatio: pixelRatio,
+        width: initialSize,
+        height: initialSize,
+        phi: 0,
+        theta: 0.3,
+        dark: 1,
+        diffuse: 1.2,
+        mapSamples: 6000,
+        mapBrightness: 6,
+        baseColor: [0.08, 0.08, 0.08],
+        markerColor: [1, 0.5, 0],
+        glowColor: [1, 1, 1],
+        markers: [
+          {
+            location: [-23.5505, -46.6333],
+            size: 0.1,
+          },
+        ],
+        onRender: (state) => {
+          if (!pointerInteracting.current) {
+            phiRef.current += 0.005;
+          }
+
+          const currentSize = renderSizeRef.current || initialSize;
+
+          state.phi = phiRef.current + pointerInteractionMovement.current;
+
+          state.width = currentSize;
+          state.height = currentSize;
         },
-      ],
-      onRender: (state) => {
-        if (!pointerInteracting.current) {
-          phiRef.current += 0.005;
+      });
+
+      rafRef.current = requestAnimationFrame(() => {
+        canvas.style.opacity = "1";
+      });
+    };
+
+    // O globo só nasce quando chega perto da tela e só desenha enquanto
+    // está visível: fora dela o laço de WebGL fica parado.
+    let created = false;
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !created) {
+          created = true;
+          createGlobeNow();
         }
-
-        const currentSize = renderSizeRef.current || initialSize;
-
-        state.phi = phiRef.current + pointerInteractionMovement.current;
-
-        state.width = currentSize;
-        state.height = currentSize;
+        globeRef.current?.toggle(entry.isIntersecting);
       },
-    });
-
-    rafRef.current = requestAnimationFrame(() => {
-      canvas.style.opacity = "1";
-    });
+      { rootMargin: "200px 0px" },
+    );
+    visibilityObserver.observe(container);
 
     return () => {
+      visibilityObserver.disconnect();
       resizeObserver.disconnect();
 
       if (globeRef.current) {
@@ -182,7 +200,6 @@ const Earth3D = () => {
             contain: "layout paint size style",
             opacity: 0,
             transition: "opacity 1s ease",
-            transform: "translateZ(0)",
             borderRadius: "9999px",
           }}
         />
@@ -207,12 +224,7 @@ const Earth3D = () => {
             {remoteText[language]}
           </span>
 
-          <span
-            className="text-2xl font-bold leading-none tracking-tight text-gray-900 dark:text-white"
-            style={{
-              fontFamily: "Instrument Serif, serif",
-            }}
-          >
+          <span className="font-serif text-2xl leading-none tracking-tight text-gray-900 dark:text-white">
             SÃO PAULO
           </span>
         </div>

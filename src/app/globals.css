@@ -1,14 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@100..800&display=swap');
 @import "tailwindcss";
-@tailwind utilities;
+@import "lenis/dist/lenis.css";
 
 @custom-variant dark (&:is(.dark *));
+
+/* Projetos empilhados: só onde há largura e altura para o cartão grudar inteiro. */
+@custom-variant stack (@media (min-width: 1024px) and (min-height: 700px));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: 'Sora', sans-serif;
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -98,122 +100,127 @@
   }
   
   body {
-    @apply bg-background text-foreground overflow-x-hidden;
-    font-family: 'Sora';
+    @apply bg-background text-foreground overflow-x-hidden font-sans;
     font-optical-sizing: auto;
-    font-weight: 100; 
-    font-style: normal;
+    /* 100 deixava o texto corrido fino demais para ler; 300 mantém o ar leve. */
+    font-weight: 300;
     background: linear-gradient(to bottom, #000000, #0a0a0a, #111111);
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
-  
 
   html.light body {
     background: linear-gradient(to bottom, #ffffff, #fafafa, #f5f5f5);
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Sem Lenis (quem pede menos movimento) a âncora para abaixo do menu fixo. */
+    scroll-padding-top: 6rem;
   }
 
-  @media (max-width: 768px) {
-    html {
-      scroll-behavior: auto;
-    }
+  /* O lenis.css fica fora de @layer e venceria qualquer utilitário. */
+  html.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
   }
 
-  .glass {
+  /*
+   * Superfícies. Os cartões ficam sobre um fundo quase liso, onde o
+   * backdrop-filter não aparece mas custa caro a cada quadro de rolagem.
+   * Por isso só o que flutua sobre o conteúdo (menu) usa .glass-nav com blur.
+   */
+  .glass,
+  .glass-liquid {
     background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 
-      0 8px 32px 0 rgba(0, 0, 0, 0.37),
-      inset 0 1px 1px 0 rgba(255, 255, 255, 0.05);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
   }
 
-  html.light .glass {
+  html.light .glass,
+  html.light .glass-liquid {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0 1px 2px 0 rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .glass-nav {
+    background: rgba(20, 20, 20, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.25);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+  }
+
+  html.light .glass-nav {
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 
-      0 8px 32px 0 rgba(0, 0, 0, 0.1),
-      inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.06);
   }
 
-  .glass-strong {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 
-      0 8px 32px 0 rgba(0, 0, 0, 0.5),
-      inset 0 2px 4px 0 rgba(255, 255, 255, 0.08);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-  }
-
-  html.light .glass-strong {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 
-      0 8px 32px 0 rgba(0, 0, 0, 0.15),
-      inset 0 2px 4px 0 rgba(255, 255, 255, 0.9);
-  }
-
-  .glass-bubble {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 
-      0 4px 16px 0 rgba(0, 0, 0, 0.3),
-      inset 0 1px 2px 0 rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-  }
-
-  html.light .glass-bubble {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    box-shadow: 
-      0 4px 16px 0 rgba(0, 0, 0, 0.1),
-      inset 0 1px 2px 0 rgba(255, 255, 255, 1);
-  }
-
-  .glass-liquid {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.012) 0%, rgba(255, 255, 255, 0.008) 100%);
-    backdrop-filter: blur(40px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 
-      0 8px 32px 0 rgba(0, 0, 0, 0.25),
-      inset 0 1px 1px 0 rgba(255, 255, 255, 0.06);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-  }
-
-  html.light .glass-liquid {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 
-      0 8px 32px 0 rgba(0, 0, 0, 0.08),
-      inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
-  }
-
-  @keyframes scroll-x {
+  /* Entrada do hero em CSS: pinta com o HTML, sem esperar a hidratação. */
+  @keyframes hero-in {
     from {
-      transform: translateX(0);
-      will-change: transform;
+      /* 0.01 e não 0: o Chrome não conta elemento invisível como LCP. */
+      opacity: 0.01;
+      transform: translateY(18px);
     }
     to {
-      transform: translateX(-33.333%);
+      opacity: 1;
+      transform: none;
     }
   }
 
-  @keyframes stars-move {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
+  .hero-in {
+    animation: hero-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  
-  /* Reduce motion preferences */
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .fade-in {
+    animation: fade-in 1.2s ease-out both;
+  }
+
+  /* Faixa infinita: duas cópias iguais, anda metade e recomeça. */
+  @keyframes marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .marquee-track {
+    animation: marquee var(--marquee-duration, 40s) linear infinite;
+  }
+
+  .marquee-track[data-paused="true"] {
+    animation-play-state: paused;
+  }
+
+  .marquee-track[data-direction="reverse"] {
+    animation-direction: reverse;
+  }
+
+  /* Menos movimento: a faixa vira uma lista parada e a cópia some. */
   @media (prefers-reduced-motion: reduce) {
-    * {
+    .marquee-track {
+      animation: none;
+      width: auto;
+      flex-wrap: wrap;
+    }
+
+    .marquee-copy {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -226,7 +233,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-serif);
   font-size: 125%;
   font-weight: 400;
   font-style: normal;

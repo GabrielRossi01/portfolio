@@ -7,6 +7,9 @@ import Image from "next/image";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Language } from "@/lib/i18n";
+import { lockScroll } from "@/lib/smooth-scroll";
+
+const SECTION_IDS = ["home", "about", "projects", "contact"];
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
@@ -33,32 +36,29 @@ export default function Navbar() {
     { code: "es", label: "ES", flag: "ES", fullName: "Español" },
   ];
 
+  // Seção ativa: a que cruza a faixa logo abaixo do menu. Observer em vez de
+  // medir todas as seções a cada evento de rolagem.
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = navLinks.map((link) => link.href.replace("#", ""));
-      const current = sections.find((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      if (current) setActiveSection(current);
-    };
+    const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      (el): el is HTMLElement => el !== null,
+    );
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [navLinks]);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-100px 0px -60% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    lockScroll(mobileMenuOpen);
+    return () => lockScroll(false);
   }, [mobileMenuOpen]);
 
   const handleLinkClick = () => {
@@ -80,7 +80,7 @@ export default function Navbar() {
                 src="/GR.svg"
                 alt="Gabriel Rossi Logo"
                 fill
-                className={`object-contain transition-all duration-300 ${theme === "light" ? "invert" : ""}`}
+                className="object-contain invert dark:invert-0"
                 priority
               />
             </div>
@@ -94,7 +94,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block"
       >
-        <div className="glass-liquid rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-1.5 sm:gap-2">
+        <div className="glass-nav rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-1.5 sm:gap-2">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -126,8 +126,8 @@ export default function Navbar() {
       >
         <button
           onClick={toggleTheme}
-          className="glass-liquid rounded-full p-2.5 sm:p-3 hover:bg-white/10 transition-all duration-300 hover:scale-110 cursor-pointer"
-          aria-label="Toggle theme"
+          className="glass-nav rounded-full p-2.5 sm:p-3 hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+          aria-label={theme === "dark" ? t.theme.light : t.theme.dark}
         >
           <motion.div
             initial={false}
@@ -145,21 +145,17 @@ export default function Navbar() {
         <div className="relative">
           <button
             onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-            className="glass-liquid rounded-full pl-2.5 pr-3 sm:pl-3 sm:pr-3.5 py-2 sm:py-2.5 hover:bg-white/10 transition-all duration-300 flex items-center gap-1.5 cursor-pointer"
-            aria-label="Change language"
+            className="glass-nav rounded-full pl-2.5 pr-3 sm:pl-3 sm:pr-3.5 py-2 sm:py-2.5 hover:bg-white/10 transition-all duration-300 flex items-center gap-1.5 cursor-pointer"
             aria-expanded={languageDropdownOpen}
           >
             <Globe
-              className={`w-4 h-4 sm:w-[18px] sm:h-[18px] ${
-                theme === "dark" ? "text-white" : "text-gray-900"
-              }`}
+              className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-gray-900 dark:text-white"
             />
 
             <span
-              className={`text-xs sm:text-sm font-semibold uppercase ${
-                theme === "dark" ? "text-white" : "text-gray-900"
-              }`}
+              className="text-xs sm:text-sm font-semibold uppercase text-gray-900 dark:text-white"
             >
+              <span className="sr-only">Language: </span>
               {languages.find((l) => l.code === language)?.label}
             </span>
             <motion.div
@@ -167,9 +163,7 @@ export default function Navbar() {
               transition={{ duration: 0.2 }}
             >
               <ChevronDown
-                className={`w-3.5 h-3.5 ${
-                  theme === "dark" ? "text-white/70" : "text-gray-700"
-                }`}
+                className="w-3.5 h-3.5 text-gray-700 dark:text-white/70"
               />
             </motion.div>
           </button>
@@ -213,17 +207,13 @@ export default function Navbar() {
                     }`}
                   >
                     <span
-                      className={`w-6 text-[10px] font-bold tracking-wide ${
-                        theme === "dark" ? "text-white/70" : "text-gray-600"
-                      }`}
+                      className="w-6 text-[10px] font-bold tracking-wide text-gray-600 dark:text-white/70"
                     >
                       {lang.flag}
                     </span>
 
                     <span
-                      className={`flex-1 ${
-                        theme === "dark" ? "text-white" : "text-gray-900"
-                      } ${language === lang.code ? "font-semibold" : "font-normal"}`}
+                      className={`flex-1 text-gray-900 dark:text-white ${language === lang.code ? "font-semibold" : "font-normal"}`}
                     >
                       {lang.fullName}
                     </span>
@@ -252,9 +242,7 @@ export default function Navbar() {
                   src="/GR.svg"
                   alt="Gabriel Rossi Logo"
                   fill
-                  className={`object-contain transition-all duration-300 ${
-                    theme === "light" ? "invert" : ""
-                  }`}
+                  className="object-contain invert dark:invert-0"
                   priority
                 />
               </div>
@@ -263,8 +251,9 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="glass-liquid rounded-full p-3 xs:p-3.5 sm:p-4 shadow-lg hover:bg-black/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 text-gray-700 dark:text-white shrink-0 cursor-pointer"
-            aria-label="Toggle menu"
+            className="glass-nav rounded-full p-3 xs:p-3.5 sm:p-4 hover:bg-black/10 dark:hover:bg-white/10 transition-colors duration-300 text-gray-700 dark:text-white shrink-0 cursor-pointer"
+            aria-label="Menu"
+            aria-expanded={mobileMenuOpen}
           >
             <motion.div
               initial={false}
@@ -298,7 +287,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="absolute top-20 xs:top-24 sm:top-28 left-3 xs:left-4 sm:left-5 right-3 xs:right-4 sm:right-5 glass-liquid rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
+              className="absolute top-20 xs:top-24 sm:top-28 left-3 xs:left-4 sm:left-5 right-3 xs:right-4 sm:right-5 glass-nav rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-4 xs:p-5 sm:p-6">
@@ -364,17 +353,13 @@ export default function Navbar() {
                       }`}
                     >
                       <span
-                        className={`text-[10px] font-bold ${
-                          theme === "dark" ? "text-white/70" : "text-gray-600"
-                        }`}
+                        className="text-[10px] font-bold text-gray-600 dark:text-white/70"
                       >
                         {lang.flag}
                       </span>
 
                       <span
-                        className={`text-xs xs:text-sm font-semibold ${
-                          theme === "dark" ? "text-white" : "text-gray-900"
-                        }`}
+                        className="text-xs xs:text-sm font-semibold text-gray-900 dark:text-white"
                       >
                         {lang.label}
                       </span>

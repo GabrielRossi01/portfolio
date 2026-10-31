@@ -1,159 +1,97 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { memo, useMemo } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import type { Language } from "@/lib/i18n";
 
-type LanguageCode = "pt-BR" | "en" | "es";
+const KEYWORDS: Record<Language, string[]> = {
+  "pt-BR": [
+    "INTERFACES",
+    "PERFORMANCE",
+    "ACESSÍVEL",
+    "RESPONSIVO",
+    "INTERATIVO",
+    "ESCALÁVEL",
+    "CONFIÁVEL",
+  ],
+  en: [
+    "INTERFACES",
+    "PERFORMANCE",
+    "ACCESSIBLE",
+    "RESPONSIVE",
+    "INTERACTIVE",
+    "SCALABLE",
+    "RELIABLE",
+  ],
+  es: [
+    "INTERFACES",
+    "RENDIMIENTO",
+    "ACCESIBLE",
+    "RESPONSIVO",
+    "INTERACTIVO",
+    "ESCALABLE",
+    "CONFIABLE",
+  ],
+};
 
-interface BannerItemProps {
-  keyword: string;
+function KeywordList({ keywords, copy = false }: { keywords: string[]; copy?: boolean }) {
+  return (
+    <ul
+      className={`flex shrink-0 items-center gap-6 pr-6 sm:gap-10 sm:pr-10 ${copy ? "marquee-copy" : ""}`}
+    >
+      {keywords.map((keyword) => (
+        <li key={keyword} className="flex items-center gap-6 sm:gap-10">
+          <span className="font-serif text-base uppercase tracking-wide text-gray-900 sm:text-lg md:text-xl dark:text-white">
+            {keyword}
+          </span>
+          <span aria-hidden="true" className="text-orange-500">
+            ✦
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
-const BannerItem = memo(function BannerItem({ keyword }: BannerItemProps) {
-  return (
-    <div className="flex shrink-0 items-center gap-2 sm:gap-3 md:gap-4">
-      <span
-        className="text-xs font-bold uppercase tracking-wide text-gray-900 dark:text-white sm:text-sm md:text-base lg:text-lg"
-        style={{
-          fontFamily: "'Instrument Serif', serif",
-        }}
-      >
-        {keyword}
-      </span>
-
-      <span
-        className="text-sm text-gray-900 dark:text-white sm:text-base md:text-lg"
-        style={{
-          fontFamily: "'Instrument Serif', serif",
-        }}
-        aria-hidden="true"
-      >
-        +
-      </span>
-    </div>
-  );
-});
-
-BannerItem.displayName = "BannerItem";
-
+/**
+ * Faixa infinita em CSS puro: anda só no compositor (sem JS por quadro) e
+ * pausa quando sai da tela. Duas cópias iguais. É decorativa: leitor de tela pula.
+ */
 export default memo(function ScrollingBanner() {
   const { language } = useLanguage();
-  const shouldReduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
-  const keywordsByLanguage = useMemo<Record<LanguageCode, string[]>>(
-    () => ({
-      "pt-BR": [
-        "DINÂMICO",
-        "ESCALÁVEL",
-        "INTERATIVO",
-        "SEGURO",
-        "CONFIÁVEL",
-        "ENVOLVENTE",
-        "ACESSÍVEL",
-      ],
-      en: [
-        "DYNAMIC",
-        "SCALABLE",
-        "INTERACTIVE",
-        "SECURE",
-        "RELIABLE",
-        "ENGAGING",
-        "ACCESSIBLE",
-      ],
-      es: [
-        "DINÁMICO",
-        "ESCALABLE",
-        "INTERACTIVO",
-        "SEGURO",
-        "CONFIABLE",
-        "ATRACTIVO",
-        "ACCESIBLE",
-      ],
-    }),
-    [],
-  );
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
 
-  const currentLanguage =
-    language in keywordsByLanguage ? (language as LanguageCode) : "pt-BR";
+    const observer = new IntersectionObserver(([entry]) =>
+      setVisible(entry.isIntersecting),
+    );
+    observer.observe(section);
 
-  const keywords = keywordsByLanguage[currentLanguage];
+    return () => observer.disconnect();
+  }, []);
 
-  const duplicatedKeywords = useMemo(
-    () => [...keywords, ...keywords, ...keywords],
-    [keywords],
-  );
-
-  const animation = shouldReduceMotion
-    ? { x: "0%" }
-    : { x: ["0%", "-33.333%"] };
-
-  const reverseAnimation = shouldReduceMotion
-    ? { x: "0%" }
-    : { x: ["-33.333%", "0%"] };
+  const keywords = KEYWORDS[language] ?? KEYWORDS["pt-BR"];
 
   return (
-    <section
-      aria-label="Tecnologias e características"
-      className="relative w-full overflow-hidden py-5 sm:py-8 md:py-10 lg:py-12"
+    <div
+      ref={sectionRef}
+      aria-hidden="true"
+      className="relative w-full overflow-hidden py-8 sm:py-12"
     >
-      <div className="relative overflow-hidden">
-        <div className="glass-liquid w-full overflow-hidden py-2.5 sm:py-3 md:py-3.5">
-          <motion.div
-            className="flex w-max min-w-max items-center gap-4 whitespace-nowrap sm:gap-6 md:gap-8 lg:gap-10"
-            animate={animation}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : {
-                    duration: 28,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    ease: "linear",
-                  }
-            }
-            style={{
-              willChange: shouldReduceMotion ? "auto" : "transform",
-            }}
-          >
-            {duplicatedKeywords.map((keyword, index) => (
-              <BannerItem
-                key={`forward-${keyword}-${index}`}
-                keyword={keyword}
-              />
-            ))}
-          </motion.div>
+      <div className="border-y border-black/10 py-4 dark:border-white/10">
+        <div
+          className="marquee-track flex w-max"
+          data-paused={!visible}
+          style={{ ["--marquee-duration" as string]: "36s" }}
+        >
+          <KeywordList keywords={keywords} />
+          <KeywordList keywords={keywords} copy />
         </div>
       </div>
-
-      <div className="relative mt-3 overflow-hidden sm:mt-5">
-        <div className="glass-liquid w-full overflow-hidden py-2.5 sm:py-3 md:py-3.5">
-          <motion.div
-            className="flex w-max min-w-max items-center gap-4 whitespace-nowrap sm:gap-6 md:gap-8 lg:gap-10"
-            animate={reverseAnimation}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : {
-                    duration: 32,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    ease: "linear",
-                  }
-            }
-            style={{
-              willChange: shouldReduceMotion ? "auto" : "transform",
-            }}
-          >
-            {duplicatedKeywords.map((keyword, index) => (
-              <BannerItem
-                key={`reverse-${keyword}-${index}`}
-                keyword={keyword}
-              />
-            ))}
-          </motion.div>
-        </div>
-      </div>
-    </section>
+    </div>
   );
 });

@@ -10,10 +10,157 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Earth3D from "./Earth3D";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useTheme } from "@/contexts/ThemeContext";
+
+interface Tech {
+  name: string;
+  icon: string;
+  /** Logo preto: no tema escuro some no fundo, então inverte. */
+  invertOnDark?: boolean;
+}
+
+// Front-end primeiro: é o foco do portfólio.
+const FRONTEND_TECH: Tech[] = [
+  { name: "React", icon: "/react-original.svg" },
+  { name: "Next.js", icon: "/nextjs-original.svg", invertOnDark: true },
+  { name: "TypeScript", icon: "/typescript-original.svg" },
+  { name: "JavaScript", icon: "/javascript-original.svg" },
+  { name: "Angular", icon: "/angular-svgrepo-com.svg" },
+  { name: "Tailwind CSS", icon: "/tailwindcss-icon-svgrepo-com.svg" },
+  { name: "Expo Router", icon: "/expo-router.svg", invertOnDark: true },
+];
+
+const BACKEND_TECH: Tech[] = [
+  { name: "Java", icon: "/java-svgrepo-com.svg" },
+  { name: "Spring Boot", icon: "/spring-original-wordmark.svg" },
+  { name: "Python", icon: "/python-original.svg" },
+  { name: "C#", icon: "/csharp-original.svg" },
+  { name: "PostgreSQL", icon: "/postgresql-logo-svgrepo-com.svg" },
+  { name: "MySQL", icon: "/mysql-svgrepo-com.svg" },
+  { name: "MongoDB", icon: "/mongodb-svgrepo-com.svg" },
+  { name: "Redis", icon: "/redis-logo-svgrepo-com.svg" },
+  { name: "Docker", icon: "/docker-svgrepo-com.svg" },
+];
+
+const TOOLS_TECH: Tech[] = [
+  { name: "Git", icon: "/git.svg" },
+  { name: "GitHub", icon: "/github.svg", invertOnDark: true },
+  { name: "Figma", icon: "/figma-original.svg" },
+  { name: "Vercel", icon: "/vercel-fill-svgrepo-com.svg", invertOnDark: true },
+  { name: "AWS", icon: "/aws-svgrepo-com.svg" },
+  { name: "Azure", icon: "/azure-original-wordmark.svg" },
+  { name: "OCI", icon: "/oracle-svgrepo-com.svg" },
+  { name: "Railway", icon: "/railway-logo.svg", invertOnDark: true },
+  { name: "Linux", icon: "/linux.webp" },
+  { name: "Postman", icon: "/postman-icon-svgrepo-com.svg" },
+  { name: "Insomnia", icon: "/insomnia-svgrepo-com.svg" },
+  { name: "Trello", icon: "/trello-svgrepo-com.svg" },
+  { name: "VS Code", icon: "/vscode-original.svg" },
+  { name: "Visual Studio", icon: "/visualstudio-plain.svg" },
+  { name: "IntelliJ IDEA", icon: "/intellij-idea-svgrepo-com.svg" },
+  { name: "NPM", icon: "/npm-svgrepo-com.svg" },
+];
+
+function TechChip({ tech }: { tech: Tech }) {
+  return (
+    <li className="glass flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 xs:gap-2 xs:px-3 xs:py-2 sm:px-3.5">
+      <Image
+        src={tech.icon}
+        alt=""
+        width={24}
+        height={24}
+        className={`h-4 w-4 object-contain xs:h-5 xs:w-5 sm:h-6 sm:w-6 ${tech.invertOnDark ? "dark:invert" : ""}`}
+      />
+      <span className="whitespace-nowrap text-[10px] font-medium text-gray-900 xs:text-xs sm:text-sm dark:text-gray-300">
+        {tech.name}
+      </span>
+    </li>
+  );
+}
+
+/**
+ * Carrossel infinito em CSS: anda no compositor, sem JS por quadro (antes era
+ * o framer-motion animando `x` a 60 fps, para sempre, mesmo fora da tela).
+ * Duas cópias iguais; a segunda é decorativa e some para quem pede menos movimento.
+ */
+function TechMarquee({
+  label,
+  items,
+  duration,
+  reverse = false,
+  paused,
+}: {
+  label: string;
+  items: Tech[];
+  duration: string;
+  reverse?: boolean;
+  paused: boolean;
+}) {
+  const listClass = "flex shrink-0 gap-2 pr-2 xs:gap-2.5 xs:pr-2.5 sm:gap-3 sm:pr-3";
+
+  return (
+    <div>
+      <h4 className="mb-2 text-center text-xs font-medium text-gray-900 xs:mb-2.5 sm:mb-3 sm:text-sm dark:text-gray-400">
+        {label}
+      </h4>
+      <div className="overflow-hidden">
+        <div
+          className="marquee-track flex w-max"
+          data-paused={paused}
+          data-direction={reverse ? "reverse" : undefined}
+          style={{ ["--marquee-duration" as string]: duration }}
+        >
+          <ul className={listClass}>
+            {items.map((tech) => (
+              <TechChip key={tech.name} tech={tech} />
+            ))}
+          </ul>
+          <ul aria-hidden="true" className={`marquee-copy ${listClass}`}>
+            {items.map((tech) => (
+              <TechChip key={tech.name} tech={tech} />
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TechMarquees({
+  labels,
+}: {
+  labels: { frontend: string; backend: string; tools: string };
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  // Fora da tela os três carrosséis param.
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(([entry]) =>
+      setVisible(entry.isIntersecting),
+    );
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="space-y-4 xs:space-y-5 sm:space-y-6">
+      <TechMarquee label={labels.frontend} items={FRONTEND_TECH} duration="30s" paused={!visible} />
+      <TechMarquee label={labels.backend} items={BACKEND_TECH} duration="30s" reverse paused={!visible} />
+      <TechMarquee label={labels.tools} items={TOOLS_TECH} duration="35s" paused={!visible} />
+    </div>
+  );
+}
+
+const TEAM_AVATARS = [12, 8, 47, 32].map(
+  (id) => `https://i.pravatar.cc/150?img=${id}`,
+);
 
 function HighlightedText({
   text,
@@ -50,7 +197,7 @@ function HighlightedText({
   );
 }
 
-const FIAP_NEXT_PHOTOS = ["/next-1.png", "/next-2.png", "/next-3.png"];
+const FIAP_NEXT_PHOTOS = ["/next-1.webp", "/next-2.webp", "/next-3.webp"];
 
 const FAN_POSITIONS = [
   { x: "0%", rotate: 0, scale: 1, zIndex: 30, opacity: 1 },
@@ -126,55 +273,6 @@ function FiapNextFan({
 
 export default function AboutSection() {
   const { t } = useLanguage();
-  const { theme } = useTheme();
-
-  const frontendTech = [
-    { name: "React", icon: "/react-original.svg" },
-    { name: "Next.js", icon: "/nextjs-original.svg" },
-    { name: "Angular", icon: "/angular-svgrepo-com.svg" },
-    { name: "Tailwind CSS", icon: "/tailwindcss-icon-svgrepo-com.svg" },
-    { name: "TypeScript", icon: "/typescript-original.svg" },
-    { name: "Expo Router", icon: "/expo-router.svg" },
-  ];
-
-  const backendTech = [
-    { name: "Python", icon: "/python-original.svg" },
-    { name: "Java", icon: "/java-svgrepo-com.svg" },
-    { name: "Spring Boot", icon: "/spring-original-wordmark.svg" },
-    { name: "C#", icon: "/csharp-original.svg" },
-    { name: "MySQL", icon: "/mysql-svgrepo-com.svg" },
-    { name: "PostgreSQL", icon: "/postgresql-logo-svgrepo-com.svg" },
-    { name: "MongoDB", icon: "/mongodb-svgrepo-com.svg" },
-    { name: "Redis", icon: "/redis-logo-svgrepo-com.svg" },
-    { name: "Docker", icon: "/docker-svgrepo-com.svg" },
-  ];
-
-  const toolsTech = [
-    { name: "Git", icon: "/git.svg" },
-    { name: "GitHub", icon: "/github.svg" },
-    { name: "Figma", icon: "/figma-original.svg" },
-    { name: "Vercel", icon: "/vercel-fill-svgrepo-com.svg" },
-    { name: "Railway", icon: "/railway-logo.svg" },
-    { name: "Postman", icon: "/postman-icon-svgrepo-com.svg" },
-    { name: "Insomnia", icon: "/insomnia-svgrepo-com.svg" },
-    { name: "Trello", icon: "/trello-svgrepo-com.svg" },
-    { name: "VS Code", icon: "/vscode-original.svg" },
-    { name: "Visual Studio", icon: "/visualstudio-plain.svg" },
-    { name: "IntelliJ IDEA", icon: "/intellij-idea-svgrepo-com.svg" },
-    { name: "NPM", icon: "/npm-svgrepo-com.svg" },
-    { name: "AWS", icon: "/aws-svgrepo-com.svg" },
-    { name: "Azure", icon: "/azure-original-wordmark.svg" },
-    { name: "OCI", icon: "/oracle-svgrepo-com.svg" },
-    { name: "Linux", icon: "/linux-original.svg" },
-  ];
-
-  const duplicatedFrontend = [
-    ...frontendTech,
-    ...frontendTech,
-    ...frontendTech,
-  ];
-  const duplicatedBackend = [...backendTech, ...backendTech, ...backendTech];
-  const duplicatedTools = [...toolsTech, ...toolsTech, ...toolsTech];
 
   return (
     <section
@@ -182,6 +280,8 @@ export default function AboutSection() {
       className="py-8 sm:py-12 md:py-16 lg:py-24 px-2 xs:px-3 sm:px-4"
     >
       <div className="max-w-7xl mx-auto">
+        <h2 className="sr-only">{t.about.title}</h2>
+
         {/* Sobre mim */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -264,7 +364,7 @@ export default function AboutSection() {
               className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 h-full"
             >
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
-                <Users className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-purple-400" />
+                <Users className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-orange-500" />
                 <span className="text-xs text-gray-900 dark:text-white uppercase tracking-wider font-medium">
                   {t.about.collaboration}
                 </span>
@@ -273,51 +373,24 @@ export default function AboutSection() {
                 {t.about.collaborationTitle}
               </h3>
               <div className="flex items-center justify-center mt-4 xs:mt-5 sm:mt-6 md:mt-16">
-                <div className="flex items-center justify-center -space-x-3">
-                  <motion.img
-                    src="https://i.pravatar.cc/150?img=12"
-                    alt="Team member 1"
-                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    viewport={{ once: true }}
-                  />
-
-                  <motion.img
-                    src="https://i.pravatar.cc/150?img=8"
-                    alt="Team member 2"
-                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    viewport={{ once: true }}
-                  />
-
-                  <motion.img
-                    src="https://i.pravatar.cc/150?img=47"
-                    alt="Team member 3"
-                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    viewport={{ once: true }}
-                  />
-
-                  <motion.img
-                    src="https://i.pravatar.cc/150?img=32"
-                    alt="Team member 4"
-                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    viewport={{ once: true }}
-                  />
-                </div>
+                {/* next/image: WebP no tamanho exibido e cache longo, em vez dos JPEG de 150px direto do pravatar. */}
+                <ul className="flex items-center justify-center -space-x-3">
+                  {TEAM_AVATARS.map((src) => (
+                    <li
+                      key={src}
+                      className="relative transition-transform duration-200 ease-out hover:z-10 hover:-translate-y-1 hover:scale-110"
+                    >
+                      <Image
+                        src={src}
+                        alt=""
+                        width={72}
+                        height={72}
+                        sizes="72px"
+                        className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
+                      />
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
 
@@ -329,7 +402,7 @@ export default function AboutSection() {
               className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 flex h-full flex-col"
             >
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
-                <Clock className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-blue-400" />
+                <Clock className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-orange-500" />
                 <span className="text-xs text-gray-900 dark:text-white uppercase tracking-wider font-medium">
                   {t.about.timezone}
                 </span>
@@ -367,127 +440,7 @@ export default function AboutSection() {
                 {t.about.passionate}
               </h3>
 
-              <div className="space-y-4 xs:space-y-5 sm:space-y-6">
-                <div>
-                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    Frontend
-                  </h4>
-                  <div className="relative overflow-hidden flex justify-start">
-                    <motion.div
-                      className="flex gap-2 xs:gap-2.5 sm:gap-3"
-                      animate={{ x: ["0%", "-33.333%"] }}
-                      transition={{
-                        x: {
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          duration: 30,
-                          ease: "linear",
-                        },
-                      }}
-                    >
-                      {duplicatedFrontend.map((tech, index) => (
-                        <div
-                          key={`frontend-${index}`}
-                          className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
-                        >
-                          <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
-                            <Image
-                              src={tech.icon}
-                              alt={`${tech.name} logo`}
-                              fill
-                              className="object-contain"
-                              sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
-                            />
-                          </div>
-                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    Backend & Database
-                  </h4>
-                  <div className="relative overflow-hidden flex justify-start">
-                    <motion.div
-                      className="flex gap-2 xs:gap-2.5 sm:gap-3"
-                      animate={{ x: ["-33.333%", "0%"] }}
-                      transition={{
-                        x: {
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          duration: 30,
-                          ease: "linear",
-                        },
-                      }}
-                    >
-                      {duplicatedBackend.map((tech, index) => (
-                        <div
-                          key={`backend-${index}`}
-                          className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
-                        >
-                          <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
-                            <Image
-                              src={tech.icon}
-                              alt={`${tech.name} logo`}
-                              fill
-                              className="object-contain"
-                              sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
-                            />
-                          </div>
-                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    Tools & Cloud Services
-                  </h4>
-                  <div className="relative overflow-hidden flex justify-start">
-                    <motion.div
-                      className="flex gap-2 xs:gap-2.5 sm:gap-3"
-                      animate={{ x: ["0%", "-33.333%"] }}
-                      transition={{
-                        x: {
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          duration: 35,
-                          ease: "linear",
-                        },
-                      }}
-                    >
-                      {duplicatedTools.map((tech, index) => (
-                        <div
-                          key={`tools-${index}`}
-                          className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
-                        >
-                          <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
-                            <Image
-                              src={tech.icon}
-                              alt={`${tech.name} logo`}
-                              fill
-                              className="object-contain"
-                              sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
-                            />
-                          </div>
-                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </div>
-                </div>
-              </div>
+              <TechMarquees labels={t.techArsenal} />
             </motion.div>
 
             <motion.div
@@ -501,13 +454,10 @@ export default function AboutSection() {
                 href="https://github.com/GabrielRossi01"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-lg p-3 xs:p-4 sm:p-5 md:p-6 hover:bg-white/10 transition-all group"
+                className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-lg p-3 xs:p-4 sm:p-5 md:p-6 hover:bg-black/3 dark:hover:bg-white/5 transition-colors group"
               >
                 <div className="flex items-center gap-2 xs:gap-3 sm:gap-4">
-                  <div
-                    className="p-2 xs:p-2.5 sm:p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all hover:scale-110"
-                    aria-label="GitHub"
-                  >
+                  <div className="p-2 xs:p-2.5 sm:p-3 rounded-full border border-black/10 dark:border-white/20">
                     <Github className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 text-gray-700 dark:text-white" />
                   </div>
                   <div>
@@ -525,13 +475,10 @@ export default function AboutSection() {
                 href="https://www.linkedin.com/in/gabriel-oliveira-rossi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-lg p-3 xs:p-4 sm:p-5 md:p-6 hover:bg-white/10 transition-all group"
+                className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-lg p-3 xs:p-4 sm:p-5 md:p-6 hover:bg-black/3 dark:hover:bg-white/5 transition-colors group"
               >
                 <div className="flex items-center gap-2 xs:gap-3 sm:gap-4">
-                  <div
-                    className="p-2 xs:p-2.5 sm:p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all hover:scale-110"
-                    aria-label="LinkedIn"
-                  >
+                  <div className="p-2 xs:p-2.5 sm:p-3 rounded-full border border-black/10 dark:border-white/20">
                     <Linkedin className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 text-gray-700 dark:text-white" />
                   </div>
                   <div>
@@ -554,58 +501,19 @@ export default function AboutSection() {
               className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 text-center"
             >
               <h3
-                className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-2 xs:mb-3 sm:mb-4"
-                style={{ fontFamily: "'Instrument Serif', serif" }}
+                className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-3 sm:mb-4"
+                
               >
                 {t.about.workTogether}
               </h3>
 
-              <motion.a
+              <a
                 href="mailto:rossi17006@gmail.com"
-                className="group relative inline-block w-auto"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="mt-2 inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-black/15 px-6 text-sm font-medium text-gray-900 transition hover:border-black/30 hover:bg-black/5 active:scale-[0.98] sm:text-base dark:border-white/20 dark:text-white dark:hover:border-white/40 dark:hover:bg-white/5"
               >
-                <div className="relative">
-                  <div
-                    className="absolute inset-0 rounded-full"
-                    style={{
-                      background:
-                        theme === "dark"
-                          ? "linear-gradient(to bottom, rgba(60, 60, 60, 0.4), rgba(30, 30, 30, 0.6))"
-                          : "linear-gradient(to bottom, rgba(200, 200, 200, 0.4), rgba(150, 150, 150, 0.5))",
-                      transform: "translateY(4px)",
-                    }}
-                  />
-
-                  <div
-                    className="relative mt-2 xs:mt-2.5 sm:mt-3 px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 rounded-full flex items-center justify-center gap-1.5 xs:gap-2 font-light text-xs xs:text-sm sm:text-base transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1"
-                    style={{
-                      background:
-                        theme === "dark"
-                          ? "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0))"
-                          : "linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(245, 245, 240, 0.9))",
-                      backdropFilter: "blur(20px)",
-                      WebkitBackdropFilter: "blur(20px)",
-                      border:
-                        theme === "dark"
-                          ? "1px solid rgba(255, 255, 255, 0)"
-                          : "1px solid rgba(0, 0, 0, 0.08)",
-                      boxShadow:
-                        theme === "dark"
-                          ? "inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3)"
-                          : "inset 0 1px 2px rgba(255, 255, 255, 1), inset 0 -1px 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1)",
-                      color:
-                        theme === "dark"
-                          ? "rgba(255, 255, 255, 0.9)"
-                          : "rgba(40, 40, 40, 0.9)",
-                    }}
-                  >
-                    <Mail className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-4 sm:h-4" />
-                    <span>{t.about.sendEmail}</span>
-                  </div>
-                </div>
-              </motion.a>
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                <span>{t.about.sendEmail}</span>
+              </a>
             </motion.div>
 
             <motion.div
@@ -617,7 +525,7 @@ export default function AboutSection() {
             >
               <div
                 className="absolute inset-0 opacity-30 dark:opacity-20 pointer-events-none bg-right bg-no-repeat mt-22 sm:mt-35 "
-                style={{ backgroundImage: "url('/snippet.png')" }}
+                style={{ backgroundImage: "url('/snippet.webp')" }}
               />
               <div className="relative z-10 h-full flex flex-col justify-between">
                 <div className="space-y-2 xs:space-y-3 sm:space-y-4">

@@ -5,7 +5,7 @@ import { ArrowUpRight, MailCheck, Send, X, XCircle } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const SERIF = { fontFamily: "'Instrument Serif', serif" };
+const SERIF = { fontFamily: "var(--font-serif)" };
 
 const inputClasses =
   "w-full border-0 border-b border-black/30 bg-transparent px-0 py-3 text-xl font-light text-gray-900 outline-none transition-colors placeholder:text-gray-500 focus:border-orange-500 sm:py-4 sm:text-2xl dark:border-white/30 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-orange-400";
