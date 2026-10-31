@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { scrollToElement } from "@/lib/smooth-scroll";
 
 const linkClasses =
   "group inline-flex min-h-11 w-fit items-center gap-1.5 text-sm font-medium text-gray-800 transition-colors hover:text-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-500 sm:text-base dark:text-gray-200 dark:hover:text-orange-400";
@@ -19,7 +20,7 @@ export default function Footer() {
   const contactLinks = [
     {
       name: "LinkedIn",
-      href: "https://www.linkedin.com/in/gabriel-oliveira-rossi-155baa324/",
+      href: "https://www.linkedin.com/in/gabriel-oliveira-rossi/",
       external: true,
     },
     {
@@ -35,10 +36,8 @@ export default function Footer() {
   ];
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    const home = document.getElementById("home");
+    if (home) scrollToElement(home, 0);
   };
 
   return (

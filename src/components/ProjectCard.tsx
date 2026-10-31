@@ -1,278 +1,134 @@
-"use client";
-
-import { useState } from "react";
-import { motion } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
 import Image from "next/image";
-import { useLanguage } from "@/contexts/LanguageContext";
 
-interface ProjectData {
+export interface Project {
   id: number;
   title: string;
   description: string;
+  summary: string;
   company: string;
   year: string;
   category: string;
-  team: string;
-  scope: string;
   tags: string[];
-  mockup: string;
-  images: string[];
+  image: string;
   mockupType: "phone" | "desktop";
+  featured: boolean;
   github: string;
   demo?: string;
 }
 
 interface ProjectCardProps {
-  project: ProjectData;
-  index: number;
+  project: Project;
+  /** "01", "02"... posição entre os destaques. */
+  number: string;
+  viewCodeLabel: string;
+  viewDemoLabel: string;
+  headingRef?: (el: HTMLHeadingElement | null) => void;
 }
 
-interface ImageCarouselProps {
-  images: string[];
-  activeImageIndex: number;
-  setActiveImageIndex: (i: number) => void;
-  effectiveMockupType: "phone" | "desktop";
-  title: string;
-  index: number;
-  mobile?: boolean;
-}
+const MAX_TAGS = 6;
 
-function ImageCarousel({
-  images,
-  activeImageIndex,
-  setActiveImageIndex,
-  effectiveMockupType,
-  title,
-  index,
-  mobile = false,
-}: ImageCarouselProps) {
-  return (
-    <>
-      <div
-        className={`relative ${
-          effectiveMockupType === "phone"
-            ? mobile
-              ? "w-[200px] h-[400px] xs:w-[240px] xs:h-[480px] sm:w-[280px] sm:h-[560px]"
-              : "w-[280px] h-[560px] xl:w-[320px] xl:h-[640px]"
-            : mobile
-              ? "w-[320px] h-60 xs:w-[380px] xs:h-[285px] sm:w-[440px] sm:h-[330px]"
-              : "w-[520px] h-[390px] xl:w-[600px] xl:h-[450px]"
-        } ${
-          !mobile
-            ? effectiveMockupType === "phone"
-              ? "translate-y-[50%] hover:translate-y-0"
-              : "translate-y-[30%] hover:translate-y-0"
-            : ""
-        } transition-transform duration-500 ease-out`}
-      >
-        <Image
-          src={images[activeImageIndex]}
-          alt={`${title} screenshot ${activeImageIndex + 1}`}
-          fill
-          className="object-contain drop-shadow-2xl transition-opacity duration-300"
-          priority={index < 2}
-        />
-      </div>
-
-      {images.length > 1 && (
-        <div
-          className={`flex gap-2 z-10 ${mobile ? "mt-4" : "absolute bottom-4"}`}
-        >
-          {images.map((_, imgIdx) => (
-            <button
-              key={imgIdx}
-              onClick={() => setActiveImageIndex(imgIdx)}
-              aria-label={`Ver imagem ${imgIdx + 1}`}
-              className={`w-2 h-2 cursor-pointer rounded-full transition-all duration-200 ${
-                activeImageIndex === imgIdx
-                  ? "bg-orange-400 scale-125"
-                  : "bg-white/40 hover:bg-white/70"
-              }`}
-            />
-          ))}
-        </div>
-      )}
-    </>
-  );
-}
-
-interface TextContentProps {
-  project: ProjectData;
-  index: number;
-  viewProjectLabel: string;
-  viewCaseStudyLabel: string;
-  mobile?: boolean;
-}
-
-function TextContent({
+export default function ProjectCard({
   project,
-  index,
-  viewProjectLabel,
-  viewCaseStudyLabel,
-  mobile = false,
-}: TextContentProps) {
-  const hasExternalDemo = project.demo && project.demo !== project.github;
-  const primaryHref = hasExternalDemo ? project.demo! : project.github;
-  const primaryLabel = hasExternalDemo ? viewCaseStudyLabel : viewProjectLabel;
-  const number = String(index + 1).padStart(3, "0");
-  const footerMeta = [project.team, project.scope].filter(Boolean);
+  number,
+  viewCodeLabel,
+  viewDemoLabel,
+  headingRef,
+}: ProjectCardProps) {
+  const visibleTags = project.tags.slice(0, MAX_TAGS);
+  const hiddenTags = project.tags.length - visibleTags.length;
+  const headingId = `project-${project.id}-title`;
 
   return (
-    <div
-      className={`flex flex-col justify-between ${
-        mobile ? "p-5 xs:p-6" : "p-6 sm:p-8 lg:p-10 xl:p-12"
-      }`}
-    >
-      <div>
-        <div className="mb-10 flex items-center justify-between gap-4 font-mono text-[11px] font-medium uppercase tracking-[0.18em] sm:mb-14 sm:text-xs">
+    <div className="grid h-full lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+      <div className="order-2 flex min-w-0 flex-col p-6 sm:p-8 lg:order-1 xl:p-10">
+        <div className="mb-6 flex items-center justify-between gap-4 font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-gray-700 dark:text-gray-300">
           <span className="flex items-center gap-3">
-            <span className="rounded-md border border-black/20 bg-black/4 px-2 py-0.5 text-gray-900 dark:border-white/20 dark:bg-white/6 dark:text-white">
+            <span className="rounded-md border border-black/15 px-2 py-0.5 text-gray-900 dark:border-white/20 dark:text-white">
               {number}
             </span>
-
-            {project.company && (
-              <span className="text-gray-900 dark:text-white">
-                {project.company}
-              </span>
-            )}
+            {project.company && <span>{project.company}</span>}
           </span>
-
-          {project.year && (
-            <span className="text-gray-800 dark:text-gray-200">
-              {project.year}
-            </span>
-          )}
+          {project.year && <span>{project.year}</span>}
         </div>
 
         {project.category && (
-          <p className="mb-2 font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-orange-600 sm:text-xs dark:text-orange-400">
+          <p className="mb-2 font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-orange-600 dark:text-orange-400">
             {project.category}
           </p>
         )}
 
-        <h3 className="mb-4 wrap-break-word text-3xl font-medium uppercase leading-none tracking-tight text-gray-800 xs:text-4xl sm:mb-5 sm:text-5xl lg:text-6xl dark:text-white">
+        <h3
+          id={headingId}
+          ref={headingRef}
+          tabIndex={-1}
+          className="wrap-break-word text-3xl font-medium uppercase leading-none tracking-tight text-gray-900 outline-none sm:text-4xl xl:text-5xl dark:text-white"
+        >
           {project.title}
         </h3>
 
-        <p className="max-w-xl text-sm font-light leading-relaxed text-gray-800 sm:text-base dark:text-gray-300">
+        <p className="mt-4 max-w-xl text-sm font-light leading-relaxed text-gray-700 sm:text-[15px] dark:text-gray-300">
           {project.description}
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-1.5 sm:mt-8 sm:gap-2">
-          {project.tags.map((tag) => (
-            <span
+        <ul className="mt-6 flex flex-wrap gap-1.5">
+          {visibleTags.map((tag) => (
+            <li
               key={tag}
-              className="rounded-md border border-black/15 bg-black/4 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-gray-800 transition-colors hover:border-orange-500/60 hover:bg-orange-500/10 hover:text-orange-600 dark:border-white/15 dark:bg-white/4 dark:font-normal dark:text-gray-300 dark:hover:border-orange-400/50 dark:hover:bg-orange-400/10 dark:hover:text-orange-400"
+              className="rounded-md border border-black/10 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-gray-700 dark:border-white/15 dark:text-gray-300"
             >
               {tag}
-            </span>
+            </li>
           ))}
-        </div>
-      </div>
-
-      <div className="mt-8 flex items-end justify-between gap-4 border-t border-black/15 pt-5 sm:mt-10 dark:border-white/10">
-        <div className="space-y-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-gray-800 sm:text-xs dark:text-gray-200">
-          {footerMeta.map((item, itemIndex) => (
-            <p
-              key={item}
-              className={
-                itemIndex === 0 && footerMeta.length > 1
-                  ? "text-gray-900 dark:text-white"
-                  : ""
-              }
-            >
-              {item}
-            </p>
-          ))}
-        </div>
-
-        <div className="flex shrink-0 items-center gap-3">
-          {hasExternalDemo && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-black/20 text-gray-800 transition hover:border-orange-500/60 hover:text-orange-600 dark:border-white/15 dark:text-white dark:hover:border-orange-400/60 dark:hover:text-orange-400"
-            >
-              <Github className="h-4 w-4" />
-            </a>
+          {hiddenTags > 0 && (
+            <li className="px-1.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              +{hiddenTags}
+            </li>
           )}
+        </ul>
 
+        <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-6">
           <a
-            href={primaryHref}
+            href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex cursor-pointer items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-gray-800 transition hover:text-orange-600 sm:text-xs dark:text-white dark:hover:text-orange-400"
+            className="group inline-flex min-h-11 items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.14em] text-gray-900 transition-colors hover:text-orange-600 dark:text-white dark:hover:text-orange-400"
           >
-            {primaryLabel}
-            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <Github className="h-4 w-4" aria-hidden="true" />
+            {viewCodeLabel}
+            <span className="sr-only">: {project.title}</span>
+            <ArrowUpRight
+              className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </a>
+
+          {project.demo && project.demo !== project.github && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex min-h-11 items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.14em] text-gray-900 transition-colors hover:text-orange-600 dark:text-white dark:hover:text-orange-400"
+            >
+              {viewDemoLabel}
+              <span className="sr-only">: {project.title}</span>
+              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+          )}
         </div>
+      </div>
+
+      <div className="relative order-1 aspect-16/11 overflow-hidden border-b border-black/10 bg-linear-to-b from-black/2 to-black/6 lg:order-2 lg:aspect-auto lg:border-b-0 lg:border-l dark:border-white/10 dark:from-white/2 dark:to-white/5">
+        <Image
+          src={project.image}
+          alt={`${project.title}: tela do projeto`}
+          fill
+          sizes="(min-width: 1024px) 40vw, (min-width: 640px) 70vw, 86vw"
+          className={`object-contain drop-shadow-2xl ${
+            project.mockupType === "phone" ? "p-6 lg:p-10" : "p-5 sm:p-8"
+          }`}
+        />
       </div>
     </div>
-  );
-}
-
-export default function ProjectCard({ project, index }: ProjectCardProps) {
-  const { t } = useLanguage();
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  const effectiveMockupType = index === 0 ? "desktop" : project.mockupType;
-  const images = project.images?.length ? project.images : [project.mockup];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      viewport={{ once: true }}
-      className="relative"
-    >
-      <div className="glass-liquid overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-2xl sm:rounded-3xl">
-        <div className="hidden min-h-[540px] lg:grid lg:grid-cols-[1.1fr_0.9fr]">
-          <TextContent
-            project={project}
-            index={index}
-            viewProjectLabel={t.projects.viewProject}
-            viewCaseStudyLabel={t.projects.viewCaseStudy}
-          />
-
-          <div className="relative flex flex-col items-center justify-center overflow-hidden border-l border-black/10 pb-0 dark:border-white/10">
-            <ImageCarousel
-              images={images}
-              activeImageIndex={activeImageIndex}
-              setActiveImageIndex={setActiveImageIndex}
-              effectiveMockupType={effectiveMockupType}
-              title={project.title}
-              index={index}
-            />
-          </div>
-        </div>
-
-        <div className="lg:hidden">
-          <TextContent
-            project={project}
-            index={index}
-            viewProjectLabel={t.projects.viewProject}
-            viewCaseStudyLabel={t.projects.viewCaseStudy}
-            mobile
-          />
-
-          <div className="relative flex min-h-[350px] flex-col items-center justify-center overflow-hidden border-t border-black/10 bg-linear-to-b from-transparent to-black/5 py-8 xs:min-h-[400px] xs:py-10 sm:min-h-[450px] sm:py-12 dark:border-white/10 dark:to-white/5">
-            <ImageCarousel
-              images={images}
-              activeImageIndex={activeImageIndex}
-              setActiveImageIndex={setActiveImageIndex}
-              effectiveMockupType={effectiveMockupType}
-              title={project.title}
-              index={index}
-              mobile
-            />
-          </div>
-        </div>
-      </div>
-    </motion.div>
   );
 }

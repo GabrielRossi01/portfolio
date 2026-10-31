@@ -5,6 +5,8 @@ export interface ProjectItem {
   company: string;
   year: string;
   description: string;
+  /** Uma linha, usada na lista de "Outros projetos". */
+  summary: string;
   category: string;
   team: string;
   scope: string;
@@ -26,7 +28,9 @@ export interface Translations {
     name: string;
     connector: string;
     title: string;
+    eyebrow: string;
     ctaContact: string;
+    ctaProjects: string;
     ctaCV: string;
   };
 
@@ -109,6 +113,11 @@ export interface Translations {
     viewProject: string;
     viewDemo: string;
     viewCaseStudy: string;
+    viewCode: string;
+    otherTitle: string;
+    previous: string;
+    next: string;
+    goTo: string;
     items: ProjectItem[];
   };
 
@@ -140,12 +149,14 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       headlineStart: "Transformo ideias ambiciosas em",
-      headlineEnd: "produtos digitais de alta performance",
+      headlineEnd: "experiências digitais de alta performance",
       greeting: "Olá, eu sou o",
       name: "Gabriel Rossi",
       connector: ", um",
-      title: "Desenvolvedor Back-End",
+      title: "Desenvolvedor Full Stack com foco em Front-end",
+      eyebrow: "Full Stack · Front-end",
       ctaContact: "Entre em Contato",
+      ctaProjects: "Ver projetos",
       ctaCV: "Baixar CV",
     },
     theme: {
@@ -161,8 +172,9 @@ export const translations: Record<Language, Translations> = {
     },
     aboutIntro: {
       eyebrow: "Sobre mim",
-      text: "Sou desenvolvedor de software formado em Análise e Desenvolvimento de Sistemas pela FIAP e tenho certificado Cambridge B2 First (FCE). Fora do código, participo de eventos e comunidades tech.",
+      text: "Sou desenvolvedor full stack com foco em front-end, formado em Análise e Desenvolvimento de Sistemas pela FIAP e com certificado Cambridge B2 First (FCE). Construo interfaces em React, Next.js e Angular sobre APIs em Java e Spring Boot. Fora do código, participo de eventos e comunidades tech.",
       highlightedWords: [
+        "foco em front-end",
         "Análise e Desenvolvimento de Sistemas",
         "FIAP",
         "Cambridge B2 First (FCE)",
@@ -201,7 +213,7 @@ export const translations: Record<Language, Translations> = {
         "Foco no cliente, promovendo comunicação transparente",
       timezone: "Do Brasil para o mundo",
       timezoneTitle: "Localizado no Brasil, disponível para colaboração global",
-      passionate: "Fascinado por tecnologias de ponta",
+      passionate: "A stack que uso no dia a dia",
       github: "Contribuindo com projetos no GitHub",
       githubDesc: "Código aberto e colaboração",
       linkedin: "Compartilhando insights no LinkedIn",
@@ -213,13 +225,19 @@ export const translations: Record<Language, Translations> = {
     },
     projects: {
       title: "Projetos em destaque",
-      subtitle: "Alguns dos meus trabalhos recentes",
+      subtitle: "Interfaces e produtos full stack que construí recentemente.",
       viewProject: "Ver Projeto",
       viewDemo: "Ver Demo",
       viewCaseStudy: "Ver Estudo de Caso",
+      viewCode: "Ver código",
+      otherTitle: "Outros projetos",
+      previous: "Projeto anterior",
+      next: "Próximo projeto",
+      goTo: "Ir para o projeto",
       items: [
         {
           title: "knowball",
+          summary: "Plataforma full stack contra a manipulação de resultados no futebol de base, finalista no FIAP NEXT.",
           company: "Oracle",
           year: "2025 – 2026",
           description:
@@ -230,6 +248,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "orion-infra-aws",
+          summary: "Infraestrutura como código na AWS com CDK, ECS Fargate e RDS, reproduzível no Free Tier.",
           company: "",
           year: "2026",
           description:
@@ -240,6 +259,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "whobetter",
+          summary: "Microsserviços para grupos de apostas entre amigos, com gateway, OAuth 2.0 e testes de carga.",
           company: "",
           year: "2026",
           description:
@@ -250,6 +270,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "acessly-api",
+          summary: "API que conecta profissionais com deficiência a vagas compatíveis, com dados protegidos.",
           company: "",
           year: "2025",
           description:
@@ -260,6 +281,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "world-cup-2026-ai-assistant",
+          summary: "Agente conversacional sobre a Copa de 2026 com RAG, Tool Calling e interface em Vaadin.",
           company: "",
           year: "2026",
           description:
@@ -270,6 +292,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "workout-tracker",
+          summary: "Exercícios e favoritos com login JWT: Angular com Signals e Tailwind sobre Spring Boot.",
           company: "",
           year: "2026",
           description:
@@ -280,6 +303,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "custom-restaurant",
+          summary: "Recomendação de restaurantes por IA em microsserviços, com RabbitMQ e Spring Cloud.",
           company: "",
           year: "2026",
           description:
@@ -290,6 +314,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "gamefinder",
+          summary: "Recomenda jogos com dados reais da API RAWG: Angular e Tailwind sobre Spring Boot.",
           company: "",
           year: "2026",
           description:
@@ -300,6 +325,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "digitalbank",
+          summary: "API REST de banco digital com depósitos, saques e transferências via PIX.",
           company: "",
           year: "2025",
           description:
@@ -310,6 +336,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "pluvia+",
+          summary: "Plataforma web de impacto social sobre acesso à água potável em comunidades em crise hídrica.",
           company: "",
           year: "2025",
           description:
@@ -320,6 +347,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "smarttrack",
+          summary: "Site responsivo para a gestão de estações de trem e metrô de São Paulo.",
           company: "CCR",
           year: "2024 - 2025",
           description:
@@ -385,12 +413,14 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       headlineStart: "I transform ambitious ideas into",
-      headlineEnd: "high-performing digital products",
+      headlineEnd: "high-performing digital experiences",
       greeting: "Hello, I'm",
       name: "Gabriel Rossi",
       connector: ", a",
-      title: "Back-End Developer",
+      title: "Full Stack Developer focused on Front-end",
+      eyebrow: "Full Stack · Front-end",
       ctaContact: "Get in Touch",
+      ctaProjects: "View projects",
       ctaCV: "Download CV",
     },
     theme: {
@@ -406,8 +436,9 @@ export const translations: Record<Language, Translations> = {
     },
     aboutIntro: {
       eyebrow: "About me",
-      text: "I’m a software developer with a degree in Systems Analysis and Development from FIAP and a Cambridge B2 First (FCE) certification. Outside of code, I take part in tech events and communities.",
+      text: "I’m a full stack developer focused on front-end, with a degree in Systems Analysis and Development from FIAP and a Cambridge B2 First (FCE) certification. I build interfaces in React, Next.js and Angular on top of Java and Spring Boot APIs. Outside of code, I take part in tech events and communities.",
       highlightedWords: [
+        "focused on front-end",
         "Systems Analysis and Development",
         "FIAP",
         "Cambridge B2 First (FCE)",
@@ -445,7 +476,7 @@ export const translations: Record<Language, Translations> = {
         "Focus on the customer, promoting transparent communication.",
       timezone: "From Brazil to the world",
       timezoneTitle: "Located in Brazil, available for global collaboration",
-      passionate: "Fascinated by cutting-edge technologies",
+      passionate: "The stack I use every day",
       github: "Contributing to projects on GitHub",
       githubDesc: "Open source and collaboration",
       linkedin: "Sharing insights on LinkedIn",
@@ -457,13 +488,19 @@ export const translations: Record<Language, Translations> = {
     },
     projects: {
       title: "Featured projects",
-      subtitle: "Some of my recent work",
+      subtitle: "Interfaces and full stack products I’ve built recently.",
       viewProject: "View Project",
       viewDemo: "View Demo",
       viewCaseStudy: "View Case Study",
+      viewCode: "View code",
+      otherTitle: "Other projects",
+      previous: "Previous project",
+      next: "Next project",
+      goTo: "Go to project",
       items: [
         {
           title: "knowball",
+          summary: "Full stack platform against match-fixing in youth football, FIAP NEXT finalist.",
           company: "Oracle",
           year: "2025 – 2026",
           description:
@@ -474,6 +511,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "orion-infra-aws",
+          summary: "Infrastructure as code on AWS with CDK, ECS Fargate and RDS, reproducible on the Free Tier.",
           company: "",
           year: "2026",
           description:
@@ -484,6 +522,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "whobetter",
+          summary: "Microservices for betting groups among friends, with a gateway, OAuth 2.0 and load tests.",
           company: "",
           year: "2026",
           description:
@@ -494,6 +533,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "acessly-api",
+          summary: "API that matches professionals with disabilities to compatible jobs, with protected data.",
           company: "",
           year: "2025",
           description:
@@ -504,6 +544,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "world-cup-2026-ai-assistant",
+          summary: "Conversational agent about the 2026 World Cup with RAG, Tool Calling and a Vaadin UI.",
           company: "",
           year: "2026",
           description:
@@ -514,6 +555,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "workout-tracker",
+          summary: "Exercises and favorites with JWT login: Angular with Signals and Tailwind on Spring Boot.",
           company: "",
           year: "2026",
           description:
@@ -524,6 +566,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "custom-restaurant",
+          summary: "AI restaurant recommendations on microservices, with RabbitMQ and Spring Cloud.",
           company: "",
           year: "2026",
           description:
@@ -534,6 +577,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "gamefinder",
+          summary: "Recommends games from real RAWG API data: Angular and Tailwind on Spring Boot.",
           company: "",
           year: "2026",
           description:
@@ -544,6 +588,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "digitalbank",
+          summary: "Digital banking REST API with deposits, withdrawals and PIX transfers.",
           company: "",
           year: "2025",
           description:
@@ -554,6 +599,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "pluvia+",
+          summary: "Social impact web platform on access to drinking water in communities facing water crises.",
           company: "",
           year: "2025",
           description:
@@ -564,6 +610,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "smarttrack",
+          summary: "Responsive site for managing São Paulo train and subway stations.",
           company: "CCR",
           year: "2024 - 2025",
           description:
@@ -630,12 +677,14 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       headlineStart: "Transformo ideas ambiciosas en",
-      headlineEnd: "productos digitales de alto rendimiento",
+      headlineEnd: "experiencias digitales de alto rendimiento",
       greeting: "Hola, soy",
       name: "Gabriel Rossi",
       connector: ", un",
-      title: "Desarrollador Back-End",
+      title: "Desarrollador Full Stack enfocado en Front-end",
+      eyebrow: "Full Stack · Front-end",
       ctaContact: "Contactar",
+      ctaProjects: "Ver proyectos",
       ctaCV: "Descargar CV",
     },
     theme: {
@@ -651,8 +700,9 @@ export const translations: Record<Language, Translations> = {
     },
     aboutIntro: {
       eyebrow: "Sobre mí",
-      text: "Soy desarrollador de software graduado en Análisis y Desarrollo de Sistemas por FIAP y certificado Cambridge B2 First (FCE). Fuera del código, participo en eventos y comunidades tecnológicas.",
+      text: "Soy desarrollador full stack enfocado en front-end, graduado en Análisis y Desarrollo de Sistemas por FIAP y certificado Cambridge B2 First (FCE). Construyo interfaces en React, Next.js y Angular sobre APIs en Java y Spring Boot. Fuera del código, participo en eventos y comunidades tecnológicas.",
       highlightedWords: [
+        "enfocado en front-end",
         "Análisis y Desarrollo de Sistemas",
         "FIAP",
         "Cambridge B2 First (FCE)",
@@ -690,7 +740,7 @@ export const translations: Record<Language, Translations> = {
         "Centrarse en el cliente, promoviendo una comunicación transparente.",
       timezone: "De Brasil para el mundo",
       timezoneTitle: "Situado en Brasil, disponible para colaboración global",
-      passionate: "Fascinado por las tecnologías de vanguardia",
+      passionate: "El stack que uso a diario",
       github: "Contribuyendo a proyectos en GitHub",
       githubDesc: "Código abierto y colaboración",
       linkedin: "Compartiendo ideas en LinkedIn",
@@ -702,13 +752,19 @@ export const translations: Record<Language, Translations> = {
     },
     projects: {
       title: "Proyectos destacados",
-      subtitle: "Algunos de mis trabajos recientes",
+      subtitle: "Interfaces y productos full stack que construí recientemente.",
       viewProject: "Ver Proyecto",
       viewDemo: "Ver Demo",
       viewCaseStudy: "Ver Caso de Estudio",
+      viewCode: "Ver código",
+      otherTitle: "Otros proyectos",
+      previous: "Proyecto anterior",
+      next: "Siguiente proyecto",
+      goTo: "Ir al proyecto",
       items: [
         {
           title: "knowball",
+          summary: "Plataforma full stack contra la manipulación de resultados en el fútbol juvenil, finalista en FIAP NEXT.",
           company: "Oracle",
           year: "2025 – 2026",
           description:
@@ -719,6 +775,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "orion-infra-aws",
+          summary: "Infraestructura como código en AWS con CDK, ECS Fargate y RDS, reproducible en el Free Tier.",
           company: "",
           year: "2026",
           description:
@@ -729,6 +786,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "whobetter",
+          summary: "Microservicios para grupos de apuestas entre amigos, con gateway, OAuth 2.0 y pruebas de carga.",
           company: "",
           year: "2026",
           description:
@@ -739,6 +797,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "acessly-api",
+          summary: "API que conecta a profesionales con discapacidad con vacantes compatibles, con datos protegidos.",
           company: "",
           year: "2025",
           description:
@@ -749,6 +808,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "world-cup-2026-ai-assistant",
+          summary: "Agente conversacional sobre el Mundial 2026 con RAG, Tool Calling e interfaz en Vaadin.",
           company: "",
           year: "2026",
           description:
@@ -759,6 +819,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "workout-tracker",
+          summary: "Ejercicios y favoritos con login JWT: Angular con Signals y Tailwind sobre Spring Boot.",
           company: "",
           year: "2026",
           description:
@@ -769,6 +830,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "custom-restaurant",
+          summary: "Recomendaciones de restaurantes con IA en microservicios, con RabbitMQ y Spring Cloud.",
           company: "",
           year: "2026",
           description:
@@ -779,6 +841,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "gamefinder",
+          summary: "Recomienda juegos con datos reales de la API RAWG: Angular y Tailwind sobre Spring Boot.",
           company: "",
           year: "2026",
           description:
@@ -789,6 +852,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "digitalbank",
+          summary: "API REST de banca digital con depósitos, retiros y transferencias vía PIX.",
           company: "",
           year: "2025",
           description:
@@ -799,6 +863,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "pluvia+",
+          summary: "Plataforma web de impacto social sobre el acceso al agua potable en comunidades en crisis hídrica.",
           company: "",
           year: "2025",
           description:
@@ -809,6 +874,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           title: "smarttrack",
+          summary: "Sitio responsivo para la gestión de estaciones de tren y metro de São Paulo.",
           company: "CCR",
           year: "2024 - 2025",
           description:

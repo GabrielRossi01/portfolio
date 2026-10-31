@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from 'next/dynamic';
+import { MotionConfig } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import LunarHorizonCSS from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
@@ -18,14 +19,18 @@ const Footer = dynamic(() => import('@/components/Footer'), {
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <Navbar />
-      <LunarHorizonCSS />
-      <AboutSection />
-      <ProjectsSection />
-      <ScrollingBanner />
-      <ContactSection />
-      <Footer />
-    </main>
+    // reducedMotion="user": quem pede menos movimento no sistema recebe as
+    // entradas sem deslocamento (o framer não segue o CSS sozinho).
+    <MotionConfig reducedMotion="user">
+      <main className="min-h-screen">
+        <Navbar />
+        <LunarHorizonCSS />
+        <AboutSection />
+        <ProjectsSection />
+        <ScrollingBanner />
+        <ContactSection />
+        <Footer />
+      </main>
+    </MotionConfig>
   );
 }

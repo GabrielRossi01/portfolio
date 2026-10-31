@@ -1,61 +1,68 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Mail } from "lucide-react";
-import { Suspense, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowDownRight, Mail } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useTheme } from "@/contexts/ThemeContext";
-import OrbitalSphere3D from "@/components/OrbitalSphere3D";
+
+const HeroSphere = dynamic(() => import("@/components/HeroSphere"), {
+  ssr: false,
+});
+
+const DESKTOP_QUERY = "(min-width: 768px)";
 
 export default function OrangePlanetHero() {
   const { t } = useLanguage();
-  const { theme } = useTheme();
+  const reduceMotion = useReducedMotion() ?? false;
 
   const sectionRef = useRef<HTMLElement>(null);
+  const [showSphere, setShowSphere] = useState(false);
+  const [heroInView, setHeroInView] = useState(true);
 
-  const [reduceMotion, setReduceMotion] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    }
-
-    return false;
-  });
-
-  const [showSphere, setShowSphere] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(min-width: 768px)").matches;
-    }
-
-    return false;
-  });
-
+  // A esfera só existe no desktop e só carrega quando a página fica ociosa:
+  // o three.js (~250 KB) não disputa banda nem CPU com a primeira pintura.
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const query = window.matchMedia(DESKTOP_QUERY);
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-    const handleMotionChange = (event: MediaQueryListEvent) => {
-      setReduceMotion(event.matches);
+    const update = () => {
+      if (!query.matches) {
+        setShowSphere(false);
+        return;
+      }
+
+      if ("requestIdleCallback" in window) {
+        idleId = window.requestIdleCallback(() => setShowSphere(true), {
+          timeout: 2000,
+        });
+      } else {
+        timeoutId = setTimeout(() => setShowSphere(true), 600);
+      }
     };
 
-    mediaQuery.addEventListener("change", handleMotionChange);
+    update();
+    query.addEventListener("change", update);
 
     return () => {
-      mediaQuery.removeEventListener("change", handleMotionChange);
+      query.removeEventListener("change", update);
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
     };
   }, []);
 
+  // Fora da tela o canvas para de desenhar.
   useEffect(() => {
-    const sphereQuery = window.matchMedia("(min-width: 768px)");
+    const section = sectionRef.current;
+    if (!section) return;
 
-    const handleSphereQueryChange = (event: MediaQueryListEvent) => {
-      setShowSphere(event.matches);
-    };
+    const observer = new IntersectionObserver(([entry]) =>
+      setHeroInView(entry.isIntersecting),
+    );
+    observer.observe(section);
 
-    sphereQuery.addEventListener("change", handleSphereQueryChange);
-
-    return () => {
-      sphereQuery.removeEventListener("change", handleSphereQueryChange);
-    };
+    return () => observer.disconnect();
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -63,48 +70,29 @@ export default function OrangePlanetHero() {
     offset: ["start start", "end start"],
   });
 
-  const contentOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.6],
-    [1, 0.5, 0],
-  );
-
-  const contentY = useTransform(scrollYProgress, [0, 0.4], ["0%", "20%"]);
-
-  const sphereY = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    ["0%", "6%", "12%"],
-  );
-
-  const sphereScale = useTransform(scrollYProgress, [0, 1], [1, 0.98]);
-
-  const isDark = theme === "dark";
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.6], ["0%", "12%"]);
+  const sphereY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
 
   return (
     <section
       ref={sectionRef}
       id="home"
-      className="relative flex min-h-screen w-full items-center overflow-hidden"
-      style={{
-        background: isDark
-          ? "#000000"
-          : "linear-gradient(to bottom, #ffffff 0%, #fafafa 100%)",
-      }}
+      className="relative flex min-h-svh w-full items-center overflow-hidden bg-linear-to-b from-white to-neutral-50 dark:from-black dark:to-black"
     >
       <div
-        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 opacity-60 dark:opacity-100"
         style={{
-          background: isDark
-            ? "radial-gradient(circle at 75% 52%, rgba(255, 94, 27, 0.08), transparent 32%)"
-            : "radial-gradient(circle at 75% 52%, rgba(255, 94, 27, 0.05), transparent 32%)",
+          background:
+            "radial-gradient(circle at 75% 52%, rgba(255, 94, 27, 0.08), transparent 32%)",
         }}
       />
 
       {showSphere && (
         <motion.div
           className="
-            pointer-events-auto
+            fade-in
             absolute
             top-1/2
             z-0
@@ -112,148 +100,78 @@ export default function OrangePlanetHero() {
             h-[clamp(300px,34vw,540px)]
             w-[clamp(300px,34vw,540px)]
             -translate-y-1/2
-            cursor-grab
             md:block
             md:left-[58%]
             lg:left-[60%]
             xl:left-[61%]
             2xl:left-[62%]
           "
-          style={{
-            y: reduceMotion ? 0 : sphereY,
-            scale: reduceMotion ? 1 : sphereScale,
-          }}
+          style={{ y: reduceMotion ? 0 : sphereY }}
           aria-hidden="true"
         >
-          <Canvas
-            className="cursor-grab active:cursor-grabbing"
-            camera={{
-              position: [0, 0, 4.8],
-              fov: 42,
-            }}
-            dpr={[1, 1.5]}
-            gl={{
-              antialias: true,
-              alpha: true,
-              powerPreference: "high-performance",
-            }}
-            frameloop={reduceMotion ? "demand" : "always"}
-          >
-            <Suspense fallback={null}>
-              <OrbitalSphere3D />
-            </Suspense>
-          </Canvas>
+          <HeroSphere active={heroInView} reduceMotion={reduceMotion} />
         </motion.div>
       )}
 
       <motion.div
-        className="
-          relative
-          z-10
-          flex
-          min-h-screen
-          w-full
-          items-center
-          px-5
-          py-20
-          sm:px-8
-          sm:py-32
-          lg:px-12
-          xl:px-20
-        "
-        style={{
-          opacity: contentOpacity,
-          y: contentY,
-        }}
+        className="relative z-10 flex min-h-svh w-full items-center px-5 py-24 sm:px-8 sm:py-32 lg:px-12 xl:px-20"
+        style={reduceMotion ? undefined : { opacity: contentOpacity, y: contentY }}
       >
         <div className="mx-auto w-full max-w-7xl">
           <div className="max-w-2xl text-center md:max-w-[48%] md:text-left">
+            <p className="hero-in mb-5 inline-flex items-center gap-2 rounded-full border border-black/10 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-gray-700 dark:border-white/15 dark:text-gray-300">
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+              {t.hero.eyebrow}
+            </p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 35 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-5 max-w-2xl px-0 text-center leading-[1.08] sm:mb-6 md:text-left"
+            <h1
+              className="hero-in mb-5 max-w-2xl text-center leading-[1.08] sm:mb-6 md:text-left"
               style={{
-                fontSize: "clamp(1.85rem, 4vw, 4rem)",
+                fontSize: "clamp(1.95rem, 4vw, 4rem)",
                 letterSpacing: "-0.035em",
+                animationDelay: "60ms",
               }}
             >
-              <span
-                className="font-light"
-                style={{
-                  color: isDark ? "#ffffff" : "#1a1a1a",
-                  textShadow: isDark
-                    ? "0 4px 28px rgba(0, 0, 0, 0.7)"
-                    : "0 4px 20px rgba(0, 0, 0, 0.08)",
-                }}
-              >
+              <span className="font-light text-[#1a1a1a] dark:text-white">
                 {t.hero.headlineStart}{" "}
               </span>
 
-              <span
-                className="gradient-orange-accent"
-                style={{
-                  fontFamily: "'Instrument Serif', serif",
-                  fontStyle: "italic",
-                }}
-              >
+              <span className="gradient-orange-accent italic">
                 {t.hero.headlineEnd}
               </span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.55 }}
-              className="mb-7 max-w-lg px-0 text-center font-light sm:mb-8 md:text-left"
+            <p
+              className="hero-in mx-auto mb-8 max-w-lg font-light text-gray-700 md:mx-0 dark:text-gray-300"
               style={{
-                fontSize: "clamp(0.88rem, 1.05vw, 1.05rem)",
-                color: isDark
-                  ? "rgba(255, 255, 255, 0.84)"
-                  : "rgba(30, 30, 30, 0.82)",
+                fontSize: "clamp(0.95rem, 1.1vw, 1.1rem)",
+                animationDelay: "160ms",
               }}
             >
-              {t.hero.greeting} {t.hero.name}
+              {t.hero.greeting} <strong className="font-medium text-gray-900 dark:text-white">{t.hero.name}</strong>
               {t.hero.connector} {t.hero.title}
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center md:justify-start"
+            <div
+              className="hero-in flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center md:justify-start"
+              style={{ animationDelay: "260ms" }}
             >
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="group relative w-full cursor-pointer overflow-hidden rounded-full sm:w-auto"
+              <a
+                href="#projects"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gray-900 px-7 text-sm font-medium text-white transition hover:bg-gray-700 active:scale-[0.98] sm:text-base dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
               >
-                <div
-                  className="flex min-h-11 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-200 group-hover:translate-y-0.5 group-active:translate-y-1 sm:px-7 sm:py-3.5 sm:text-base"
-                  style={{
-                    background: isDark
-                      ? "rgba(255, 255, 255, 0.1)"
-                      : "rgba(0, 0, 0, 0.045)",
-                    border: isDark
-                      ? "1px solid rgba(255, 255, 255, 0.16)"
-                      : "1px solid rgba(0, 0, 0, 0.09)",
-                    boxShadow: isDark
-                      ? "inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 8px 24px rgba(0, 0, 0, 0.24)"
-                      : "inset 0 1px 1px rgba(255, 255, 255, 0.7), 0 8px 24px rgba(0, 0, 0, 0.08)",
-                    backdropFilter: "blur(20px)",
-                    WebkitBackdropFilter: "blur(20px)",
-                    color: isDark
-                      ? "rgba(255, 255, 255, 0.92)"
-                      : "rgba(30, 30, 30, 0.9)",
-                  }}
-                >
-                  <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
-                  <span>{t.hero.ctaContact}</span>
-                </div>
-              </motion.a>
-            </motion.div>
+                {t.hero.ctaProjects}
+                <ArrowDownRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+
+              <a
+                href="#contact"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-black/15 px-7 text-sm font-medium text-gray-900 transition hover:border-black/30 hover:bg-black/5 active:scale-[0.98] sm:text-base dark:border-white/20 dark:text-white dark:hover:border-white/40 dark:hover:bg-white/5"
+              >
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                {t.hero.ctaContact}
+              </a>
+            </div>
           </div>
         </div>
       </motion.div>

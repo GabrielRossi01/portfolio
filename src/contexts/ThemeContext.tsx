@@ -13,24 +13,18 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>('dark');
-  const [mounted, setMounted] = useState(false);
 
+  // O script no <head> já aplicou a classe antes da pintura; aqui só se lê.
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as Theme | null;
-    if (stored) {
-      setTheme(stored);
-      document.documentElement.classList.toggle('dark', stored === 'dark');
-      document.documentElement.classList.toggle('light', stored === 'light');
-    } else {
-      document.documentElement.classList.add('dark');
-    }
-    setMounted(true);
+    if (document.documentElement.classList.contains('light')) setTheme('light');
   }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
+    try {
+      localStorage.setItem('theme', newTheme);
+    } catch {}
     document.documentElement.classList.remove('dark', 'light');
     document.documentElement.classList.add(newTheme);
   };

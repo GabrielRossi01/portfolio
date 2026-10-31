@@ -1,24 +1,59 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const LIMITS = { name: 120, email: 200, message: 5000 };
+
+// O que o visitante digita entra no HTML do e-mail: sem escapar, dá para
+// injetar links e marcação no e-mail que chega para o Gabriel.
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message } = await request.json();
+    const body = await request.json().catch(() => null);
+    const rawName = typeof body?.name === 'string' ? body.name.trim() : '';
+    const rawEmail = typeof body?.email === 'string' ? body.email.trim() : '';
+    const rawMessage = typeof body?.message === 'string' ? body.message.trim() : '';
 
-    if (!name || !email || !message) {
+    if (!rawName || !rawEmail || !rawMessage) {
       return NextResponse.json(
         { error: 'Name, email and message are required' },
         { status: 400 }
       );
     }
 
+    if (
+      rawName.length > LIMITS.name ||
+      rawEmail.length > LIMITS.email ||
+      rawMessage.length > LIMITS.message ||
+      !EMAIL_PATTERN.test(rawEmail)
+    ) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    }
+
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error('RESEND_API_KEY is not set');
+      return NextResponse.json({ error: 'Email service unavailable' }, { status: 503 });
+    }
+
+    // Criado por requisição: sem a chave no ambiente o build não quebra mais.
+    const resend = new Resend(apiKey);
+    const name = escapeHtml(rawName);
+    const email = escapeHtml(rawEmail);
+    const message = escapeHtml(rawMessage);
+
     const { data, error } = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: ['rossi17006@gmail.com'],
-      replyTo: email,
-      subject: `New contact from ${name}`,
+      replyTo: rawEmail,
+      subject: `New contact from ${rawName.replace(/[\r\n]+/g, ' ')}`,
       html: `
         <!DOCTYPE html>
         <html>
