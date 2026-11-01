@@ -1,10 +1,8 @@
-// Gera o SVG do painel a partir de conteudo.json (textos) e dados-github.json
-// (números). Nenhum número é escrito à mão aqui: tudo vem de `dados`.
 import { largura, quebrar, esc } from './texto.mjs';
 
 export const W = 880;
 const PAD = 40;
-const COL2 = 480; // início da coluna da direita nas seções de baixo
+const COL2 = 480;
 
 export const TEMAS = {
   escuro: {
@@ -18,7 +16,7 @@ export const TEMAS = {
 };
 
 const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-// caracteres sempre incluídos na fonte, para o cache não mudar todo dia com os números
+
 export const FIXOS_GEIST = '0123456789.,/:–— ' + MESES.join('') + 'atualizdoemdsplcçãõ';
 export const FIXOS_MONO = '0123456789.,/: ' + MESES.join('') + 'atualizdoem';
 
@@ -26,7 +24,6 @@ const nf = new Intl.NumberFormat('pt-BR');
 const ddmm = (iso) =>
   new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', timeZone: 'America/Sao_Paulo' }).format(new Date(iso));
 
-// ---------- dados derivados ----------
 const nivel = (n) => (n <= 0 ? 0 : n <= 3 ? 1 : n <= 9 ? 2 : n <= 24 ? 3 : 4);
 const diaUTC = (s) => new Date(`${s}T00:00:00Z`);
 const somaDias = (d, n) => new Date(d.getTime() + n * 864e5);
@@ -38,7 +35,7 @@ export function derivar(dados) {
   for (const [, n] of dias) {
     if (n > 0) { ativos++; seq++; maior = Math.max(maior, seq); } else seq = 0;
   }
-  // grade dos últimos 6 meses = 26 semanas, colunas começando no domingo
+
   const mapa = new Map(dias);
   const ultimo = diaUTC(dias.at(-1)[0]);
   const inicio = somaDias(ultimo, -ultimo.getUTCDay() - 25 * 7);
@@ -55,7 +52,6 @@ export function derivar(dados) {
   return { ativos, maiorSequencia: maior, grade, total6m };
 }
 
-// ---------- peças ----------
 const T = (x, y, txt, { tam = 14, peso = 400, cor, mono = false, ancora, esp, id } = {}) =>
   `<text${id ? ` id="${id}"` : ''} x="${x}" y="${y}" font-size="${tam}"${peso !== 400 ? ` font-weight="${peso}"` : ''}${
     mono ? ' font-family="Geist Mono, ui-monospace, monospace"' : ''
@@ -63,13 +59,11 @@ const T = (x, y, txt, { tam = 14, peso = 400, cor, mono = false, ancora, esp, id
 
 const rotulo = (x, y, txt, t) => T(x, y, txt.toUpperCase(), { tam: 11, mono: true, cor: t.fraco, esp: 1.2 });
 
-// setas desenhadas (a fonte não tem os glifos ↗ e →)
 const setaDiag = (x, y, s, cor) =>
   `<path d="M${x} ${y}L${x + s} ${y - s}M${x + s * 0.35} ${y - s}H${x + s}V${y - s * 0.65}" stroke="${cor}" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
 const setaDir = (x, y, s, cor) =>
   `<path d="M${x} ${y}H${x + s}M${x + s - 4} ${y - 4}L${x + s} ${y}L${x + s - 4} ${y + 4}" stroke="${cor}" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
 
-// ---------- render ----------
 export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) {
   const t = TEMAS[tema];
   const der = derivar(dados);
@@ -79,7 +73,6 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   const push = (s) => out.push(s);
   const tx = (x, y, s, o = {}) => (usa(s, o.mono), T(x, y, s, { cor: t.texto, ...o }));
 
-  // ===== topo, esquerda =====
   const larguraEsq = 400;
   push(`<g class="a a1">`);
   push(tx(PAD, 76, k.nome, { tam: 30, peso: 600, esp: -0.6, id: 'nome' }));
@@ -92,7 +85,6 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   push(tx(PAD + 16, yC, k.construindo, { tam: 13, mono: true, cor: t.suave, id: 'construindo' }));
   push(`</g>`);
 
-  // ===== topo, direita: mapa de contribuições =====
   const cel = 10, gap = 3, passo = cel + gap;
   const gx = W - PAD - (26 * passo - gap), gy = 70;
   const op = [0, 0.3, 0.52, 0.76, 1];
@@ -113,7 +105,7 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   const totalTxt = nf.format(dados.contribuicoes.total);
   push(tx(gx, yTot, totalTxt, { tam: 13, mono: true, peso: 400, cor: t.acentoTexto, id: 'total' }));
   push(tx(gx + largura(totalTxt, 13, { mono: true }) + 8, yTot, 'contribuições em 12 meses', { tam: 13, cor: t.suave }));
-  // legenda só com os 5 níveis (0 · 1–3 · 4–9 · 10–24 · 25+), alinhada à direita do mapa
+
   const xq = W - PAD - (5 * 12 - 3);
   for (let i = 0; i < 5; i++) {
     const fill = i === 0 ? `fill="${t.celula}"` : `fill="${t.acento}" fill-opacity="${op[i]}"`;
@@ -121,7 +113,6 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   }
   push(`</g>`);
 
-  // ===== seção 2: o que eu faço / em números =====
   const y2 = Math.max(yC, yTot) + 30;
   push(`<line x1="${PAD}" y1="${y2}" x2="${W - PAD}" y2="${y2}" stroke="${t.linha}"/>`);
   push(`<g class="a a3">`);
@@ -147,7 +138,6 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   });
   push(`</g>`);
 
-  // ===== seção 3: projeto em destaque / stack + chamada =====
   const y3 = y2 + 186;
   push(`<line x1="${PAD}" y1="${y3}" x2="${W - PAD}" y2="${y3}" stroke="${t.linha}"/>`);
   push(`<g class="a a4">`);
@@ -178,7 +168,6 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   }
   push(`</g>`);
 
-  // chamada para a landing: alinhada à base da miniatura
   const yCta = Math.max(my + mh, yp + 25 + 48); // nunca encosta nas pílulas
   push(`<g class="a a5">`);
   push(tx(COL2, yCta - 22, k.chamada.titulo, { tam: 14, cor: t.texto, id: 'ctaTitulo' }));
@@ -186,7 +175,6 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   push(setaDir(COL2 + largura(k.chamada.texto, 14, { peso: 600 }) + 8, yCta - 7, 14, t.acentoTexto));
   push(`</g>`);
 
-  // ===== rodapé =====
   const yR = yCta + 34;
   const H = yR + 34;
   push(`<line x1="${PAD}" y1="${yR}" x2="${W - PAD}" y2="${yR}" stroke="${t.linha}"/>`);

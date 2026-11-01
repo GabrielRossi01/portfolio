@@ -1,7 +1,3 @@
-// Fonte embutida: só os caracteres usados, via Google Fonts (parâmetro text=).
-// O resultado (CSS com woff2 em base64) fica em painel/fontes-cache.json,
-// commitado. Só vai à rede quando o conjunto de caracteres muda; se a rede
-// falhar, usa o que estiver no cache (mesmo que cubra menos caracteres).
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
