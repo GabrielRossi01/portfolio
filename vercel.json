@@ -1,0 +1,9 @@
+{
+  "headers": [
+    {
+      "source": "/readme/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+    }
+  ],
+  "crons": [{ "path": "/api/atualizar-painel", "schedule": "0 9 * * *" }]
+}
