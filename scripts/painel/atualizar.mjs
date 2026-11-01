@@ -1,8 +1,3 @@
-#!/usr/bin/env node
-// Roda no "prebuild" da landing. Sem dependências.
-//  1. lê o GitHub (se houver GITHUB_TOKEN_LEITURA) e grava painel/dados-github.json
-//  2. gera public/readme/painel-escuro.svg e painel-claro.svg
-// Qualquer falha de rede mantém o JSON/SVG anteriores (commitados) e o build segue.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,7 +7,7 @@ import { render, FIXOS_GEIST, FIXOS_MONO } from './svg.mjs';
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const arq = (...p) => join(raiz, ...p);
-const PASTA_PUBLICA = process.env.PAINEL_PASTA_PUBLICA ?? 'public'; // "static" no SvelteKit, etc.
+const PASTA_PUBLICA = process.env.PAINEL_PASTA_PUBLICA ?? 'public';
 const lerJson = (p) => JSON.parse(readFileSync(p, 'utf8'));
 
 async function principal() {
@@ -20,7 +15,6 @@ async function principal() {
   const conteudo = lerJson(arq('painel', 'conteudo.json'));
   const caminhoDados = process.env.PAINEL_DADOS ?? arq('painel', 'dados-github.json');
 
-  // 1. dados
   const token = process.env.GITHUB_TOKEN_LEITURA;
   if (args.has('--sem-rede')) console.log('[painel] --sem-rede: usando o JSON existente');
   else if (!token) console.warn('[painel] GITHUB_TOKEN_LEITURA ausente: mantendo dados anteriores');
@@ -43,7 +37,6 @@ async function principal() {
     return;
   }
 
-  // 2. imagem do projeto (webp pequeno, commitado)
   let miniatura;
   if (conteudo.projeto.miniatura) {
     const buf = readFileSync(arq(conteudo.projeto.miniatura));
@@ -51,7 +44,6 @@ async function principal() {
     miniatura = buf.toString('base64');
   }
 
-  // 3. caracteres usados (os dois temas têm o mesmo texto) → fonte só com eles
   const { textos } = render({ conteudo, dados, tema: 'escuro' });
   const juntar = (set, fixos) => [...new Set([...set, ...fixos])].sort().join('');
   const pedidos = [
@@ -67,7 +59,6 @@ async function principal() {
     console.warn(`[painel] sem fonte embutida (${e.message}): o SVG cai na fonte do sistema`);
   }
 
-  // 4. SVG
   const destino = arq(PASTA_PUBLICA, 'readme');
   mkdirSync(destino, { recursive: true });
   for (const tema of ['escuro', 'claro']) {
@@ -78,6 +69,5 @@ async function principal() {
 }
 
 principal().catch((e) => {
-  // nunca derruba o build da landing
   console.warn(`[painel] erro inesperado, SVG anterior mantido: ${e.stack ?? e}`);
 });

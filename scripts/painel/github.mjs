@@ -1,5 +1,3 @@
-// Leitura dos dados do GitHub. Só o necessário vai para o JSON (contagens),
-// nunca o token nem cabeçalhos.
 const API = 'https://api.github.com';
 
 function cabecalhos(token) {

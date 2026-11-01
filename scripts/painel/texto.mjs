@@ -1,7 +1,3 @@
-// Estimativa de largura de texto sem medidor (Node não tem canvas).
-// larguras.json: avanço de cada caractere em "em", tirado da própria Geist
-// nos pesos usados. Caractere fora da tabela usa a média — por isso o
-// render de conferência (verificar.py) mede de verdade no Chromium.
 import { readFileSync } from 'node:fs';
 
 const tabela = JSON.parse(readFileSync(new URL('./larguras.json', import.meta.url), 'utf8'));
@@ -17,8 +13,6 @@ export function largura(texto, tamanho, { peso = 400, mono = false, espacamento 
   return em * tamanho + espacamento * Math.max(0, [...texto].length - 1);
 }
 
-// Quebra por palavras. Devolve linhas; se passar de maxLinhas, corta com reticências
-// e avisa no log (o build não quebra por isso, mas o aviso aparece).
 export function quebrar(texto, larguraMax, tamanho, opcoes = {}, maxLinhas = Infinity) {
   const palavras = texto.split(/\s+/).filter(Boolean);
   const linhas = [];
