@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { memo, useMemo } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -16,7 +15,7 @@ const BannerItem = memo(function BannerItem({ keyword }: BannerItemProps) {
       <span
         className="text-xs font-bold uppercase tracking-wide text-gray-900 dark:text-white sm:text-sm md:text-base lg:text-lg"
         style={{
-          fontFamily: "'Instrument Serif', serif",
+          fontFamily: "var(--font-instrument-serif), serif",
         }}
       >
         {keyword}
@@ -25,7 +24,7 @@ const BannerItem = memo(function BannerItem({ keyword }: BannerItemProps) {
       <span
         className="text-sm text-gray-900 dark:text-white sm:text-base md:text-lg"
         style={{
-          fontFamily: "'Instrument Serif', serif",
+          fontFamily: "var(--font-instrument-serif), serif",
         }}
         aria-hidden="true"
       >
@@ -39,7 +38,6 @@ BannerItem.displayName = "BannerItem";
 
 export default memo(function ScrollingBanner() {
   const { language } = useLanguage();
-  const shouldReduceMotion = useReducedMotion();
 
   const keywordsByLanguage = useMemo<Record<LanguageCode, string[]>>(
     () => ({
@@ -84,14 +82,6 @@ export default memo(function ScrollingBanner() {
     [keywords],
   );
 
-  const animation = shouldReduceMotion
-    ? { x: "0%" }
-    : { x: ["0%", "-33.333%"] };
-
-  const reverseAnimation = shouldReduceMotion
-    ? { x: "0%" }
-    : { x: ["-33.333%", "0%"] };
-
   return (
     <section
       aria-label="Tecnologias e características"
@@ -99,22 +89,9 @@ export default memo(function ScrollingBanner() {
     >
       <div className="relative overflow-hidden">
         <div className="glass-liquid w-full overflow-hidden py-2.5 sm:py-3 md:py-3.5">
-          <motion.div
-            className="flex w-max min-w-max items-center gap-4 whitespace-nowrap sm:gap-6 md:gap-8 lg:gap-10"
-            animate={animation}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : {
-                    duration: 28,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    ease: "linear",
-                  }
-            }
-            style={{
-              willChange: shouldReduceMotion ? "auto" : "transform",
-            }}
+          <div
+            className="marquee flex w-max min-w-max items-center gap-4 whitespace-nowrap sm:gap-6 md:gap-8 lg:gap-10"
+            style={{ "--marquee-duration": "28s" } as React.CSSProperties}
           >
             {duplicatedKeywords.map((keyword, index) => (
               <BannerItem
@@ -122,28 +99,15 @@ export default memo(function ScrollingBanner() {
                 keyword={keyword}
               />
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
 
       <div className="relative mt-3 overflow-hidden sm:mt-5">
         <div className="glass-liquid w-full overflow-hidden py-2.5 sm:py-3 md:py-3.5">
-          <motion.div
-            className="flex w-max min-w-max items-center gap-4 whitespace-nowrap sm:gap-6 md:gap-8 lg:gap-10"
-            animate={reverseAnimation}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : {
-                    duration: 32,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    ease: "linear",
-                  }
-            }
-            style={{
-              willChange: shouldReduceMotion ? "auto" : "transform",
-            }}
+          <div
+            className="marquee marquee-reverse flex w-max min-w-max items-center gap-4 whitespace-nowrap sm:gap-6 md:gap-8 lg:gap-10"
+            style={{ "--marquee-duration": "32s" } as React.CSSProperties}
           >
             {duplicatedKeywords.map((keyword, index) => (
               <BannerItem
@@ -151,7 +115,7 @@ export default memo(function ScrollingBanner() {
                 keyword={keyword}
               />
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

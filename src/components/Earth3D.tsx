@@ -210,7 +210,7 @@ const Earth3D = () => {
           <span
             className="text-2xl font-bold leading-none tracking-tight text-gray-900 dark:text-white"
             style={{
-              fontFamily: "Instrument Serif, serif",
+              fontFamily: "var(--font-instrument-serif), serif",
             }}
           >
             SÃO PAULO
