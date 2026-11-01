@@ -109,6 +109,8 @@ export interface Translations {
     viewProject: string;
     viewDemo: string;
     viewCaseStudy: string;
+    othersTitle: string;
+    othersSwipeHint: string;
     items: ProjectItem[];
   };
 
@@ -217,6 +219,8 @@ export const translations: Record<Language, Translations> = {
       viewProject: "Ver Projeto",
       viewDemo: "Ver Demo",
       viewCaseStudy: "Ver Estudo de Caso",
+      othersTitle: "Outros projetos",
+      othersSwipeHint: "Arraste para ver mais",
       items: [
         {
           title: "knowball",
@@ -461,6 +465,8 @@ export const translations: Record<Language, Translations> = {
       viewProject: "View Project",
       viewDemo: "View Demo",
       viewCaseStudy: "View Case Study",
+      othersTitle: "Other projects",
+      othersSwipeHint: "Swipe to see more",
       items: [
         {
           title: "knowball",
@@ -706,6 +712,8 @@ export const translations: Record<Language, Translations> = {
       viewProject: "Ver Proyecto",
       viewDemo: "Ver Demo",
       viewCaseStudy: "Ver Caso de Estudio",
+      othersTitle: "Otros proyectos",
+      othersSwipeHint: "Desliza para ver más",
       items: [
         {
           title: "knowball",

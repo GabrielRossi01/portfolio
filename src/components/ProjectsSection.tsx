@@ -1,17 +1,15 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { STATIC_PROJECTS_DATA } from "@/lib/projectsData";
+import { STATIC_PROJECTS_DATA, type Project } from "@/lib/projectsData";
 import ProjectCard from "@/components/ProjectCard";
+import ProjectTile from "@/components/ProjectTile";
 
 export default function ProjectsSection() {
   const { t } = useLanguage();
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
-  const projects = STATIC_PROJECTS_DATA.map((staticData) => {
+  const projects: Project[] = STATIC_PROJECTS_DATA.map((staticData) => {
     const translatedData = t.projects.items.find(
       (item) => item.title === staticData.title,
     );
@@ -28,32 +26,9 @@ export default function ProjectsSection() {
     };
   });
 
-  const goToPreviousProject = () => {
-    setActiveProjectIndex((currentIndex) =>
-      currentIndex === 0 ? projects.length - 1 : currentIndex - 1,
-    );
-  };
-
-  const goToNextProject = () => {
-    setActiveProjectIndex((currentIndex) =>
-      currentIndex === projects.length - 1 ? 0 : currentIndex + 1,
-    );
-  };
-
-  const handleDragEnd = (
-    _: MouseEvent | TouchEvent | PointerEvent,
-    info: { offset: { x: number } },
-  ) => {
-    const swipeThreshold = 70;
-
-    if (info.offset.x <= -swipeThreshold) {
-      goToNextProject();
-    }
-
-    if (info.offset.x >= swipeThreshold) {
-      goToPreviousProject();
-    }
-  };
+  const featured = projects.filter((project) => project.featured);
+  const others = projects.filter((project) => !project.featured);
+  const [mainProject, ...secondaryProjects] = featured;
 
   return (
     <section
@@ -66,7 +41,7 @@ export default function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-8 text-center xs:mb-12 sm:mb-16 md:mb-20"
+          className="mb-8 text-center xs:mb-12 sm:mb-16"
         >
           <h2 className="mb-2 bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-xl font-light text-transparent xs:text-2xl sm:mb-3 sm:text-4xl md:mb-4 md:text-5xl dark:from-white dark:to-gray-400">
             {t.projects.title.split(" ").slice(0, -1).join(" ")}{" "}
@@ -80,79 +55,66 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
 
-        <div className="lg:hidden">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={projects[activeProjectIndex].id}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.16}
-              onDragEnd={handleDragEnd}
-              initial={{ opacity: 0, x: 32 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -32 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="cursor-grab active:cursor-grabbing"
-            >
-              <ProjectCard
-                project={projects[activeProjectIndex]}
-                index={activeProjectIndex}
-              />
-            </motion.div>
-          </AnimatePresence>
+        {/* destaques: o principal em largura total e os demais lado a lado */}
+        <div className="space-y-5 sm:space-y-6">
+          {mainProject && (
+            <ProjectCard project={mainProject} index={0} variant="large" />
+          )}
 
-          <div className="mt-5 flex items-center justify-between gap-4 xs:mt-6">
-            <button
-              type="button"
-              onClick={goToPreviousProject}
-              aria-label="Projeto anterior"
-              className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/70 text-gray-800 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_8px_22px_rgba(0,0,0,0.08)] backdrop-blur-xl transition hover:bg-white active:scale-[0.96] dark:border-white/15 dark:bg-white/9 dark:text-white dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_8px_22px_rgba(0,0,0,0.25)] dark:hover:bg-white/15"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-
-            <div
-              className="flex items-center gap-2"
-              aria-label="Navegação de projetos"
-            >
-              {projects.map((project, index) => (
-                <button
+          {secondaryProjects.length > 0 && (
+            <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
+              {secondaryProjects.map((project, index) => (
+                <ProjectCard
                   key={project.id}
-                  type="button"
-                  onClick={() => setActiveProjectIndex(index)}
-                  aria-label={`Ver projeto ${index + 1}`}
-                  aria-current={
-                    index === activeProjectIndex ? "true" : undefined
-                  }
-                  className={`h-2 cursor-pointer rounded-full transition-all duration-300 ${
-                    index === activeProjectIndex
-                      ? "w-6 bg-orange-500"
-                      : "w-2 bg-gray-400/50 dark:bg-white/30"
-                  }`}
+                  project={project}
+                  index={index + 1}
+                  variant="compact"
                 />
               ))}
             </div>
-
-            <button
-              type="button"
-              onClick={goToNextProject}
-              aria-label="Próximo projeto"
-              className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/70 text-gray-800 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_8px_22px_rgba(0,0,0,0.08)] backdrop-blur-xl transition hover:bg-white active:scale-[0.96] dark:border-white/15 dark:bg-white/9 dark:text-white dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_8px_22px_rgba(0,0,0,0.25)] dark:hover:bg-white/15"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-
-          <p className="mt-3 text-center text-xs font-light text-gray-600 dark:text-gray-400">
-            {activeProjectIndex + 1} / {projects.length}
-          </p>
+          )}
         </div>
 
-        <div className="hidden space-y-6 xs:space-y-8 sm:space-y-10 lg:block lg:space-y-12">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
-          ))}
-        </div>
+        {others.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-60px" }}
+            className="mt-14 sm:mt-20"
+          >
+            <div className="mb-5 flex items-end justify-between gap-4 border-b border-black/10 pb-4 sm:mb-8 dark:border-white/10">
+              <h3 className="text-lg font-light text-gray-900 xs:text-xl sm:text-2xl md:text-3xl dark:text-white">
+                {t.projects.othersTitle}{" "}
+                <span className="font-mono text-xs text-gray-600 sm:text-sm dark:text-gray-400">
+                  ({others.length})
+                </span>
+              </h3>
+
+              <p
+                aria-hidden="true"
+                className="font-mono text-[10px] uppercase tracking-[0.18em] text-gray-600 sm:hidden dark:text-gray-400"
+              >
+                {t.projects.othersSwipeHint} →
+              </p>
+            </div>
+
+            {/* mobile: fileira com scroll horizontal; a partir de sm: grade */}
+            <ul className="-mx-3 flex snap-x snap-mandatory scroll-px-3 gap-4 overflow-x-auto px-3 pb-4 [scrollbar-width:none] xs:-mx-4 xs:scroll-px-4 xs:px-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden">
+              {others.map((project, index) => (
+                <li
+                  key={project.id}
+                  className="w-[78%] shrink-0 snap-start xs:w-[68%] sm:w-auto"
+                >
+                  <ProjectTile
+                    project={project}
+                    index={featured.length + index}
+                  />
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
       </div>
     </section>
   );

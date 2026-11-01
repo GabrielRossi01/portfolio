@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { scrollToTarget } from "@/lib/smoothScroll";
 
 const linkClasses =
   "group inline-flex min-h-11 w-fit items-center gap-1.5 text-sm font-medium text-gray-800 transition-colors hover:text-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-500 sm:text-base dark:text-gray-200 dark:hover:text-orange-400";
@@ -35,10 +36,7 @@ export default function Footer() {
   ];
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    scrollToTarget(0);
   };
 
   return (
@@ -124,7 +122,7 @@ export default function Footer() {
           <button
             type="button"
             onClick={scrollToTop}
-            className="group inline-flex min-h-11 w-fit cursor-pointer items-center gap-2 text-xs font-medium text-gray-700 transition-colors hover:text-orange-600 focus-visible:outline-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-500 sm:text-sm dark:text-gray-300 dark:hover:text-orange-400"
+            className="group inline-flex min-h-11 w-fit cursor-pointer items-center gap-2 text-xs font-medium text-gray-700 transition-colors hover:text-orange-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-500 sm:text-sm dark:text-gray-300 dark:hover:text-orange-400"
           >
             {t.footer.backToTop}
 

@@ -7,6 +7,9 @@ import Image from "next/image";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Language } from "@/lib/i18n";
+import { pauseSmoothScroll, scrollToTarget } from "@/lib/smoothScroll";
+
+const SECTION_IDS = ["home", "about", "projects", "contact"];
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
@@ -34,24 +37,31 @@ export default function Navbar() {
   ];
 
   useEffect(() => {
+    let frame = 0;
+
+    // no máximo uma leitura de layout por frame
     const handleScroll = () => {
-      const sections = navLinks.map((link) => link.href.replace("#", ""));
-      const current = sections.find((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const current = SECTION_IDS.find((section) => {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            return rect.top <= 100 && rect.bottom >= 100;
+          }
+          return false;
+        });
+        if (current) setActiveSection(current);
       });
-      if (current) setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(frame);
     };
-  }, [navLinks]);
+  }, []);
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -59,10 +69,16 @@ export default function Navbar() {
     } else {
       document.body.style.overflow = "unset";
     }
+    pauseSmoothScroll(mobileMenuOpen);
   }, [mobileMenuOpen]);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    event.preventDefault();
     setMobileMenuOpen(false);
+    scrollToTarget(href);
   };
 
   return (
@@ -307,7 +323,7 @@ export default function Navbar() {
                     <motion.a
                       key={link.href}
                       href={link.href}
-                      onClick={handleLinkClick}
+                      onClick={(event) => handleLinkClick(event, link.href)}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}

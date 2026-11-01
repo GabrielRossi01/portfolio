@@ -4,15 +4,28 @@ export interface StaticProjectData {
   mockup: string;
   images: string[];
   mockupType: "phone" | "desktop";
+  // em destaque no topo da seção; os demais vão para "Outros projetos"
+  featured?: boolean;
   tags: string[];
   github: string;
   demo?: string;
+}
+
+// projeto já combinado com os textos traduzidos (i18n.ts)
+export interface Project extends StaticProjectData {
+  description: string;
+  company: string;
+  year: string;
+  category: string;
+  team: string;
+  scope: string;
 }
 
 export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
   {
     id: 0,
     title: "knowball",
+    featured: true,
     mockup: "/apple-imac-knowball.png",
     images: ["/apple-imac-knowball.png"],
     mockupType: "desktop",
@@ -37,6 +50,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
   {
     id: 1,
     title: "orion-infra-aws",
+    featured: true,
     mockup: "/apple-imac-infra-aws.png",
     images: ["/apple-imac-infra-aws.png"],
     mockupType: "desktop",
@@ -56,6 +70,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
   {
     id: 2,
     title: "whobetter",
+    featured: true,
     mockup: "/apple-imac-whobetter.png",
     images: ["/apple-imac-whobetter.png"],
     mockupType: "desktop",

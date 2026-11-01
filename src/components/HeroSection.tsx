@@ -1,12 +1,16 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail } from "lucide-react";
-import { Suspense, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
-import OrbitalSphere3D from "@/components/OrbitalSphere3D";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+
+const HeroSphere = dynamic(() => import("@/components/HeroSphere"), {
+  ssr: false,
+});
 
 export default function OrangePlanetHero() {
   const { t } = useLanguage();
@@ -14,49 +18,26 @@ export default function OrangePlanetHero() {
 
   const sectionRef = useRef<HTMLElement>(null);
 
-  const [reduceMotion, setReduceMotion] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    }
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
-    return false;
-  });
-
-  const [showSphere, setShowSphere] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(min-width: 768px)").matches;
-    }
-
-    return false;
-  });
+  // A esfera (Three.js) só entra depois que a página fica ociosa,
+  // para não disputar a thread principal com o primeiro paint.
+  const [idle, setIdle] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(() => setIdle(true), {
+        timeout: 2500,
+      });
+      return () => window.cancelIdleCallback(id);
+    }
 
-    const handleMotionChange = (event: MediaQueryListEvent) => {
-      setReduceMotion(event.matches);
-    };
-
-    mediaQuery.addEventListener("change", handleMotionChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleMotionChange);
-    };
+    const id = setTimeout(() => setIdle(true), 1200);
+    return () => clearTimeout(id);
   }, []);
 
-  useEffect(() => {
-    const sphereQuery = window.matchMedia("(min-width: 768px)");
-
-    const handleSphereQueryChange = (event: MediaQueryListEvent) => {
-      setShowSphere(event.matches);
-    };
-
-    sphereQuery.addEventListener("change", handleSphereQueryChange);
-
-    return () => {
-      sphereQuery.removeEventListener("change", handleSphereQueryChange);
-    };
-  }, []);
+  const showSphere = isDesktop && idle;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -125,24 +106,7 @@ export default function OrangePlanetHero() {
           }}
           aria-hidden="true"
         >
-          <Canvas
-            className="cursor-grab active:cursor-grabbing"
-            camera={{
-              position: [0, 0, 4.8],
-              fov: 42,
-            }}
-            dpr={[1, 1.5]}
-            gl={{
-              antialias: true,
-              alpha: true,
-              powerPreference: "high-performance",
-            }}
-            frameloop={reduceMotion ? "demand" : "always"}
-          >
-            <Suspense fallback={null}>
-              <OrbitalSphere3D />
-            </Suspense>
-          </Canvas>
+          <HeroSphere reduceMotion={reduceMotion} />
         </motion.div>
       )}
 
@@ -169,10 +133,11 @@ export default function OrangePlanetHero() {
         <div className="mx-auto w-full max-w-7xl">
           <div className="max-w-2xl text-center md:max-w-[48%] md:text-left">
 
+            {/* sem opacity inicial: o h1 é o LCP e precisa aparecer no primeiro paint */}
             <motion.h1
-              initial={{ opacity: 0, y: 35 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              initial={{ y: 24 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               className="mb-5 max-w-2xl px-0 text-center leading-[1.08] sm:mb-6 md:text-left"
               style={{
                 fontSize: "clamp(1.85rem, 4vw, 4rem)",
@@ -194,7 +159,7 @@ export default function OrangePlanetHero() {
               <span
                 className="gradient-orange-accent"
                 style={{
-                  fontFamily: "'Instrument Serif', serif",
+                  fontFamily: "var(--font-instrument-serif), serif",
                   fontStyle: "italic",
                 }}
               >
@@ -203,9 +168,9 @@ export default function OrangePlanetHero() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.55 }}
+              initial={{ y: 15 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               className="mb-7 max-w-lg px-0 text-center font-light sm:mb-8 md:text-left"
               style={{
                 fontSize: "clamp(0.88rem, 1.05vw, 1.05rem)",

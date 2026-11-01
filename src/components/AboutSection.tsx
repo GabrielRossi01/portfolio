@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import {
   Clock,
   Github,
@@ -9,11 +9,68 @@ import {
   Trophy,
   Users,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useState } from "react";
-import Earth3D from "./Earth3D";
+import { useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
+
+const Earth3D = dynamic(() => import("./Earth3D"), { ssr: false });
+
+function LazyEarth() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { margin: "200px 0px" });
+
+  return (
+    <div ref={ref} className="h-full w-full">
+      {inView && <Earth3D />}
+    </div>
+  );
+}
+
+function TechMarquee({
+  items,
+  group,
+  duration,
+  reverse = false,
+}: {
+  items: { name: string; icon: string }[];
+  group: string;
+  duration: number;
+  reverse?: boolean;
+}) {
+  const repeated = [...items, ...items, ...items];
+
+  return (
+    <div className="relative overflow-hidden flex justify-start">
+      <div
+        className={`marquee flex gap-2 xs:gap-2.5 sm:gap-3 ${reverse ? "marquee-reverse" : ""}`}
+        style={{ "--marquee-duration": `${duration}s` } as React.CSSProperties}
+      >
+        {repeated.map((tech, index) => (
+          <div
+            key={`${group}-${index}`}
+            aria-hidden={index >= items.length ? true : undefined}
+            className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
+          >
+            <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
+              <Image
+                src={tech.icon}
+                alt={index < items.length ? `${tech.name} logo` : ""}
+                fill
+                className="object-contain"
+                sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
+              />
+            </div>
+            <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
+              {tech.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function HighlightedText({
   text,
@@ -168,19 +225,12 @@ export default function AboutSection() {
     { name: "Linux", icon: "/linux-original.svg" },
   ];
 
-  const duplicatedFrontend = [
-    ...frontendTech,
-    ...frontendTech,
-    ...frontendTech,
-  ];
-  const duplicatedBackend = [...backendTech, ...backendTech, ...backendTech];
-  const duplicatedTools = [...toolsTech, ...toolsTech, ...toolsTech];
-
   return (
     <section
       id="about"
       className="py-8 sm:py-12 md:py-16 lg:py-24 px-2 xs:px-3 sm:px-4"
     >
+      <h2 className="sr-only">{t.about.title}</h2>
       <div className="max-w-7xl mx-auto">
         {/* Sobre mim */}
         <motion.div
@@ -276,6 +326,10 @@ export default function AboutSection() {
                 <div className="flex items-center justify-center -space-x-3">
                   <motion.img
                     src="https://i.pravatar.cc/150?img=12"
+                    loading="lazy"
+                    decoding="async"
+                    width={72}
+                    height={72}
                     alt="Team member 1"
                     className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -287,6 +341,10 @@ export default function AboutSection() {
 
                   <motion.img
                     src="https://i.pravatar.cc/150?img=8"
+                    loading="lazy"
+                    decoding="async"
+                    width={72}
+                    height={72}
                     alt="Team member 2"
                     className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -298,6 +356,10 @@ export default function AboutSection() {
 
                   <motion.img
                     src="https://i.pravatar.cc/150?img=47"
+                    loading="lazy"
+                    decoding="async"
+                    width={72}
+                    height={72}
                     alt="Team member 3"
                     className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -309,6 +371,10 @@ export default function AboutSection() {
 
                   <motion.img
                     src="https://i.pravatar.cc/150?img=32"
+                    loading="lazy"
+                    decoding="async"
+                    width={72}
+                    height={72}
                     alt="Team member 4"
                     className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -349,7 +415,7 @@ export default function AboutSection() {
 
               <div className="flex min-h-[200px] flex-1 items-center justify-center overflow-visible xs:min-h-[250px] sm:min-h-[350px] md:min-h-[450px]">
                 <div className="relative mx-auto aspect-square w-full max-w-[500px] overflow-visible">
-                  <Earth3D />
+                  <LazyEarth />
                 </div>
               </div>
             </motion.div>
@@ -372,120 +438,21 @@ export default function AboutSection() {
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Frontend
                   </h4>
-                  <div className="relative overflow-hidden flex justify-start">
-                    <motion.div
-                      className="flex gap-2 xs:gap-2.5 sm:gap-3"
-                      animate={{ x: ["0%", "-33.333%"] }}
-                      transition={{
-                        x: {
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          duration: 30,
-                          ease: "linear",
-                        },
-                      }}
-                    >
-                      {duplicatedFrontend.map((tech, index) => (
-                        <div
-                          key={`frontend-${index}`}
-                          className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
-                        >
-                          <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
-                            <Image
-                              src={tech.icon}
-                              alt={`${tech.name} logo`}
-                              fill
-                              className="object-contain"
-                              sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
-                            />
-                          </div>
-                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </div>
+                  <TechMarquee items={frontendTech} group="frontend" duration={30} />
                 </div>
 
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Backend & Database
                   </h4>
-                  <div className="relative overflow-hidden flex justify-start">
-                    <motion.div
-                      className="flex gap-2 xs:gap-2.5 sm:gap-3"
-                      animate={{ x: ["-33.333%", "0%"] }}
-                      transition={{
-                        x: {
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          duration: 30,
-                          ease: "linear",
-                        },
-                      }}
-                    >
-                      {duplicatedBackend.map((tech, index) => (
-                        <div
-                          key={`backend-${index}`}
-                          className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
-                        >
-                          <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
-                            <Image
-                              src={tech.icon}
-                              alt={`${tech.name} logo`}
-                              fill
-                              className="object-contain"
-                              sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
-                            />
-                          </div>
-                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </div>
+                  <TechMarquee items={backendTech} group="backend" duration={30} reverse />
                 </div>
 
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Tools & Cloud Services
                   </h4>
-                  <div className="relative overflow-hidden flex justify-start">
-                    <motion.div
-                      className="flex gap-2 xs:gap-2.5 sm:gap-3"
-                      animate={{ x: ["0%", "-33.333%"] }}
-                      transition={{
-                        x: {
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          duration: 35,
-                          ease: "linear",
-                        },
-                      }}
-                    >
-                      {duplicatedTools.map((tech, index) => (
-                        <div
-                          key={`tools-${index}`}
-                          className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
-                        >
-                          <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
-                            <Image
-                              src={tech.icon}
-                              alt={`${tech.name} logo`}
-                              fill
-                              className="object-contain"
-                              sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
-                            />
-                          </div>
-                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </div>
+                  <TechMarquee items={toolsTech} group="tools" duration={35} />
                 </div>
               </div>
             </motion.div>
@@ -555,7 +522,7 @@ export default function AboutSection() {
             >
               <h3
                 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-2 xs:mb-3 sm:mb-4"
-                style={{ fontFamily: "'Instrument Serif', serif" }}
+                style={{ fontFamily: "var(--font-instrument-serif), serif" }}
               >
                 {t.about.workTogether}
               </h3>
