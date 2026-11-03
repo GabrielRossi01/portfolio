@@ -47,7 +47,7 @@ async function principal() {
   const { textos } = render({ conteudo, dados, tema: 'escuro' });
   const juntar = (set, fixos) => [...new Set([...set, ...fixos])].sort().join('');
   const pedidos = [
-    { familia: 'Geist', pesos: '400..600', texto: juntar(textos.geist, FIXOS_GEIST) },
+    { familia: 'Montserrat', pesos: '400..600', texto: juntar(textos.geist, FIXOS_GEIST) },
     { familia: 'Geist Mono', pesos: '400', texto: juntar(textos.mono, FIXOS_MONO) },
   ];
   if (args.has('--listar-texto')) { console.log(JSON.stringify(pedidos)); return; }

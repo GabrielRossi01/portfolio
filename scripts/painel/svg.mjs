@@ -197,7 +197,7 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
 <desc id="desc">${esc(desc)}</desc>
 <style>${css}</style>
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="12" fill="${t.fundo}" stroke="${t.linha}"/>
-<g font-family="Geist, ui-sans-serif, system-ui, sans-serif">
+<g font-family="Montserrat, ui-sans-serif, system-ui, sans-serif">
 ${out.join('\n')}
 </g>
 </svg>

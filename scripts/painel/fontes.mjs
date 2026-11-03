@@ -1,7 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
-// User-Agent de navegador moderno: sem ele o Google devolve TTF em vez de woff2.
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 
 export const chaveFonte = (familia, pesos, texto) =>
@@ -20,7 +19,6 @@ async function baixar(familia, pesos, texto) {
     const b64 = Buffer.from(await f.arrayBuffer()).toString('base64');
     css = css.replace(u, `data:font/woff2;base64,${b64}`);
   }
-  // sem comentários e com espaços enxutos; o resto do @font-face fica como veio
   return css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
 }
 

@@ -60,7 +60,6 @@ export async function lerGithub(usuario, token) {
     contribuicoes: {
       total: cal.totalContributions,
       privadasNaoVisiveis: col.restrictedContributionsCount,
-      // achatado em dias; a semana (coluna) é recalculada no render
       dias: cal.weeks.flatMap((w) => w.contributionDays.map((d) => [d.date, d.contributionCount])),
     },
   };
