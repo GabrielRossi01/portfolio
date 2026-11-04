@@ -9,6 +9,9 @@ import ScrollingBanner from '@/components/ScrollingBanner';
 const ProjectsSection = dynamic(() => import('@/components/ProjectsSection'), {
   loading: () => <div className="h-screen bg-background" />,
 });
+const GithubActivity = dynamic(() => import('@/components/GithubActivity'), {
+  loading: () => <div className="h-screen bg-background" />,
+});
 const ContactSection = dynamic(() => import('@/components/ContactSection'), {
   loading: () => <div className="h-screen bg-background" />,
 });
@@ -24,6 +27,7 @@ export default function Home() {
       <AboutSection />
       <ProjectsSection />
       <ScrollingBanner />
+      <GithubActivity />
       <ContactSection />
       <Footer />
     </main>

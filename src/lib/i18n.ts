@@ -79,6 +79,32 @@ export interface Translations {
     sendEmail: string;
   };
 
+  githubActivity: {
+    titleLastYear: string;
+    titleYear: string;
+    lastYear: string;
+    filterLabel: string;
+    viewProfile: string;
+    rangeTo: string;
+    less: string;
+    more: string;
+    contribution: string;
+    contributions: string;
+    weekOf: string;
+    weeklyTitle: string;
+    totalLabel: string;
+    currentStreak: string;
+    longestStreak: string;
+    day: string;
+    days: string;
+    averageShort: string;
+    weeklyNote: string;
+    bestWeek: string;
+    loading: string;
+    error: string;
+    retry: string;
+  };
+
   contactPanel: {
     eyebrow: string;
     heading: string;
@@ -335,6 +361,32 @@ export const translations: Record<Language, Translations> = {
       ],
     },
 
+    githubActivity: {
+      titleLastYear: "contribuições no último ano",
+      titleYear: "contribuições em {year}",
+      lastYear: "Último ano",
+      filterLabel: "Filtrar contribuições por ano",
+      viewProfile: "Ver perfil",
+      rangeTo: "a",
+      less: "Menos",
+      more: "Mais",
+      contribution: "contribuição",
+      contributions: "contribuições",
+      weekOf: "Semana de",
+      weeklyTitle: "Entregando toda semana",
+      totalLabel: "Contribuições no período",
+      currentStreak: "Sequência atual",
+      longestStreak: "Maior sequência",
+      day: "dia",
+      days: "dias",
+      averageShort: "média",
+      weeklyNote: "Contribuições por semana. A linha tracejada é a média semanal.",
+      bestWeek: "Melhor semana",
+      loading: "Carregando atividade do GitHub...",
+      error: "Não foi possível carregar as contribuições agora.",
+      retry: "Tentar novamente",
+    },
+
     contactPanel: {
       eyebrow: "Vamos conversar",
       heading: "Conte-me sobre sua ideia.",
@@ -579,6 +631,32 @@ export const translations: Record<Language, Translations> = {
           scope: "Responsive frontend / Automation",
         },
       ],
+    },
+
+    githubActivity: {
+      titleLastYear: "contributions in the last year",
+      titleYear: "contributions in {year}",
+      lastYear: "Last year",
+      filterLabel: "Filter contributions by year",
+      viewProfile: "View profile",
+      rangeTo: "to",
+      less: "Less",
+      more: "More",
+      contribution: "contribution",
+      contributions: "contributions",
+      weekOf: "Week of",
+      weeklyTitle: "Shipping every week",
+      totalLabel: "Contributions in this period",
+      currentStreak: "Current streak",
+      longestStreak: "Longest streak",
+      day: "day",
+      days: "days",
+      averageShort: "avg",
+      weeklyNote: "Contributions per week. The dashed line is the weekly average.",
+      bestWeek: "Best week",
+      loading: "Loading GitHub activity...",
+      error: "Contributions couldn't be loaded right now.",
+      retry: "Try again",
     },
 
     contactPanel: {
@@ -826,6 +904,32 @@ export const translations: Record<Language, Translations> = {
           scope: "Frontend responsivo / Automatización",
         },
       ],
+    },
+
+    githubActivity: {
+      titleLastYear: "contribuciones en el último año",
+      titleYear: "contribuciones en {year}",
+      lastYear: "Último año",
+      filterLabel: "Filtrar contribuciones por año",
+      viewProfile: "Ver perfil",
+      rangeTo: "a",
+      less: "Menos",
+      more: "Más",
+      contribution: "contribución",
+      contributions: "contribuciones",
+      weekOf: "Semana del",
+      weeklyTitle: "Entregando cada semana",
+      totalLabel: "Contribuciones en el período",
+      currentStreak: "Racha actual",
+      longestStreak: "Racha más larga",
+      day: "día",
+      days: "días",
+      averageShort: "media",
+      weeklyNote: "Contribuciones por semana. La línea discontinua es la media semanal.",
+      bestWeek: "Mejor semana",
+      loading: "Cargando actividad de GitHub...",
+      error: "No se pudieron cargar las contribuciones ahora.",
+      retry: "Reintentar",
     },
 
     contactPanel: {
