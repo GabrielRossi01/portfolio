@@ -136,11 +136,10 @@ function FiapNextBadge({
     setActive((current) => (current - 1 + total) % total);
 
   return (
-    <div className="relative mx-auto mt-10 w-full max-w-[19rem] lg:mt-0">
-      {/* A fita sobe até ser cortada pela borda do card. */}
+    <div className="relative mx-auto mt-10 w-full max-w-76 lg:mt-0">
       <div
         aria-hidden="true"
-        className="absolute bottom-full left-1/2 h-10 w-6 -translate-x-1/2 translate-y-3 lg:h-[100vh]"
+        className="absolute bottom-full left-1/2 h-10 w-6 -translate-x-1/2 translate-y-3 lg:h-screen"
         style={{
           background:
             "repeating-linear-gradient(135deg, #e11d6b 0 6px, #f4518f 6px 12px)",
@@ -275,7 +274,7 @@ function AchievementTimeline({
           >
             <span
               aria-hidden="true"
-              className={`absolute left-[6px] top-1 bottom-0 w-px md:left-0 md:right-0 md:top-[6px] md:bottom-auto md:h-px md:w-auto ${
+              className={`absolute left-1.5 top-1 bottom-0 w-px md:left-0 md:right-0 md:top-1.5 md:bottom-auto md:h-px md:w-auto ${
                 isLast
                   ? "hidden bg-black/10 md:block dark:bg-white/10"
                   : "bg-orange-500"
@@ -404,7 +403,10 @@ export default function AboutSection() {
           <div className="grid items-center gap-8 p-4 xs:p-5 sm:p-6 md:p-8 lg:grid-cols-2 lg:gap-12">
             <div>
               <div className="mb-3 flex items-center gap-2 xs:mb-4">
-                <Trophy className="h-4 w-4 text-orange-500" aria-hidden="true" />
+                <Trophy
+                  className="h-4 w-4 text-orange-500"
+                  aria-hidden="true"
+                />
 
                 <span className="text-sm font-light text-gray-600 dark:text-gray-400">
                   {t.aboutAchievement.eyebrow}
@@ -591,14 +593,23 @@ export default function AboutSection() {
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Frontend
                   </h4>
-                  <TechMarquee items={frontendTech} group="frontend" duration={30} />
+                  <TechMarquee
+                    items={frontendTech}
+                    group="frontend"
+                    duration={30}
+                  />
                 </div>
 
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
                     Backend & Database
                   </h4>
-                  <TechMarquee items={backendTech} group="backend" duration={30} reverse />
+                  <TechMarquee
+                    items={backendTech}
+                    group="backend"
+                    duration={30}
+                    reverse
+                  />
                 </div>
 
                 <div>

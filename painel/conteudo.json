@@ -14,7 +14,7 @@
     "nome": "Knowball",
     "descricao": "Futebol de base: campeonatos, partidas e denúncias, com API REST segura e assistente de IA.",
     "linkTexto": "knowball-oracle/knowball-api",
-    "miniatura": "painel/projeto.webp"
+    "miniatura": "painel/knowball.webp"
   },
   "stack": ["Java", "Spring Boot", "AWS", "AI", "Next.js", "Angular", "TypeScript"],
   "chamada": {
