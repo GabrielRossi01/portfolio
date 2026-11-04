@@ -53,8 +53,14 @@ export interface Translations {
     eyebrow: string;
     title: string;
     description: string;
-    details: string;
-    highlightedWords: string[];
+    highlight: string;
+    cta: string;
+    badgeStatus: string;
+    badgeRank: string;
+    badgeEventLabel: string;
+    badgeChallengeLabel: string;
+    timelineLabel: string;
+    timeline: { title: string; text: string }[];
     photoAlts: string[];
     previous: string;
     next: string;
@@ -200,17 +206,20 @@ export const translations: Record<Language, Translations> = {
 
     aboutAchievement: {
       eyebrow: "Conquista",
-      title: "Finalistas no FIAP NEXT 2026",
+      title: "Entre os três melhores do FIAP NEXT 2026, o festival de inovação da FIAP",
       description:
-        "Projeto premiado entre os três melhores do FIAP NEXT 2026, o festival de inovação da instituição, desenvolvido em equipe para solucionar um desafio oficial da Oracle.",
-      details:
-        "Eu e minha equipe desenvolvemos o Knowball como solução para um case da Oracle, combatendo a manipulação de resultados nas categorias de base do futebol brasileiro masculino.",
-      highlightedWords: [
-        "três melhores",
-        "FIAP NEXT 2026",
-        "Oracle",
-        "Knowball",
-        "manipulação de resultados",
+        "Respondemos a um desafio oficial da Oracle com o Knowball, uma plataforma que combate a manipulação de resultados nas categorias de base do futebol masculino brasileiro.",
+      highlight: "Knowball",
+      cta: "Ver Knowball",
+      badgeStatus: "Finalista",
+      badgeRank: "Top 3",
+      badgeEventLabel: "Evento",
+      badgeChallengeLabel: "Desafio",
+      timelineLabel: "Marcos da conquista",
+      timeline: [
+        { title: "O desafio", text: "Case oficial da Oracle: a manipulação de resultados nas categorias de base do futebol masculino brasileiro." },
+        { title: "O que construímos", text: "O Knowball, projetado e entregue em equipe para detectar e combater o problema." },
+        { title: "O resultado", text: "Entre os três melhores projetos do FIAP NEXT 2026." },
       ],
       photoAlts: [
         "Equipe do Knowball recebendo a premiação do FIAP NEXT 2026",
@@ -472,17 +481,20 @@ export const translations: Record<Language, Translations> = {
     },
     aboutAchievement: {
       eyebrow: "Achievement",
-      title: "FIAP NEXT 2026 finalists",
+      title: "Top three at FIAP NEXT 2026, FIAP's innovation festival",
       description:
-        "Award-winning project ranked among the top three at FIAP NEXT 2026, the institution's innovation festival, built as a team to solve an official Oracle challenge.",
-      details:
-        "My team and I built Knowball as a solution to an Oracle case, fighting match-fixing in the youth categories of Brazilian men's football.",
-      highlightedWords: [
-        "top three",
-        "FIAP NEXT 2026",
-        "Oracle",
-        "Knowball",
-        "match-fixing",
+        "We answered an official Oracle challenge with Knowball, a platform that fights match-fixing in Brazilian men's youth football.",
+      highlight: "Knowball",
+      cta: "View Knowball",
+      badgeStatus: "Finalist",
+      badgeRank: "Top 3",
+      badgeEventLabel: "Event",
+      badgeChallengeLabel: "Challenge",
+      timelineLabel: "Achievement milestones",
+      timeline: [
+        { title: "The challenge", text: "Oracle's official case: match-fixing in the youth categories of Brazilian men's football." },
+        { title: "What we built", text: "Knowball, designed and shipped as a team to detect and fight it." },
+        { title: "The result", text: "Ranked among the top three projects at FIAP NEXT 2026." },
       ],
       photoAlts: [
         "Knowball team receiving the FIAP NEXT 2026 award",
@@ -745,17 +757,20 @@ export const translations: Record<Language, Translations> = {
     },
     aboutAchievement: {
       eyebrow: "Logro",
-      title: "Finalistas en FIAP NEXT 2026",
+      title: "Entre los tres mejores de FIAP NEXT 2026, el festival de innovación de FIAP",
       description:
-        "Proyecto premiado entre los tres mejores de FIAP NEXT 2026, el festival de innovación de la institución, desarrollado en equipo para resolver un desafío oficial de Oracle.",
-      details:
-        "Mi equipo y yo desarrollamos Knowball como solución a un caso de Oracle, combatiendo la manipulación de resultados en las categorías inferiores del fútbol masculino brasileño.",
-      highlightedWords: [
-        "tres mejores",
-        "FIAP NEXT 2026",
-        "Oracle",
-        "Knowball",
-        "manipulación de resultados",
+        "Respondimos a un desafío oficial de Oracle con Knowball, una plataforma que combate la manipulación de resultados en las categorías inferiores del fútbol masculino brasileño.",
+      highlight: "Knowball",
+      cta: "Ver Knowball",
+      badgeStatus: "Finalista",
+      badgeRank: "Top 3",
+      badgeEventLabel: "Evento",
+      badgeChallengeLabel: "Desafío",
+      timelineLabel: "Hitos del logro",
+      timeline: [
+        { title: "El desafío", text: "Caso oficial de Oracle: la manipulación de resultados en las categorías inferiores del fútbol masculino brasileño." },
+        { title: "Lo que construimos", text: "Knowball, diseñado y entregado en equipo para detectarla y combatirla." },
+        { title: "El resultado", text: "Entre los tres mejores proyectos de FIAP NEXT 2026." },
       ],
       photoAlts: [
         "Equipo de Knowball recibiendo el premio de FIAP NEXT 2026",

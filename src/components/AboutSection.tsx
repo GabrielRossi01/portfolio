@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import {
   Clock,
+  ExternalLink,
   Github,
   Linkedin,
   Mail,
@@ -109,20 +110,25 @@ function HighlightedText({
 
 const FIAP_NEXT_PHOTOS = ["/next-1.png", "/next-2.png", "/next-3.png"];
 
-const FAN_POSITIONS = [
-  { x: "0%", rotate: 0, scale: 1, zIndex: 30, opacity: 1 },
-  { x: "24%", rotate: 7, scale: 0.88, zIndex: 20, opacity: 0.95 },
-  { x: "-24%", rotate: -7, scale: 0.88, zIndex: 10, opacity: 0.95 },
-];
+const KNOWBALL_URL = "https://github.com/knowball-oracle/knowball-api";
 
-function FiapNextFan({
+function FiapNextBadge({
   alts,
   goToLabel,
+  status,
+  rank,
+  eventLabel,
+  challengeLabel,
 }: {
   alts: string[];
   goToLabel: string;
+  status: string;
+  rank: string;
+  eventLabel: string;
+  challengeLabel: string;
 }) {
   const [active, setActive] = useState(0);
+  const dragged = useRef(false);
   const total = FIAP_NEXT_PHOTOS.length;
 
   const goNext = () => setActive((current) => (current + 1) % total);
@@ -130,54 +136,180 @@ function FiapNextFan({
     setActive((current) => (current - 1 + total) % total);
 
   return (
-    <div className="w-full">
-      <div className="relative mx-auto aspect-5/4 w-full max-w-md sm:max-w-lg">
-        {FIAP_NEXT_PHOTOS.map((src, index) => {
-          const offset = (index - active + total) % total;
-          const position = FAN_POSITIONS[offset];
-          const isFront = offset === 0;
+    <div className="relative mx-auto mt-10 w-full max-w-[19rem] lg:mt-0">
+      {/* A fita sobe até ser cortada pela borda do card. */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-full left-1/2 h-10 w-6 -translate-x-1/2 translate-y-3 lg:h-[100vh]"
+        style={{
+          background:
+            "repeating-linear-gradient(135deg, #e11d6b 0 6px, #f4518f 6px 12px)",
+        }}
+      />
 
-          return (
-            <div
+      <motion.div
+        initial={{ rotate: -7 }}
+        whileInView={{ rotate: -4 }}
+        whileHover={{ rotate: -2 }}
+        transition={{ type: "spring", stiffness: 120, damping: 12 }}
+        viewport={{ once: true }}
+        className="relative origin-top rounded-2xl border border-black/10 bg-gray-50 p-3 sm:p-4 dark:border-white/10 dark:bg-[#141414]"
+      >
+        <div
+          aria-hidden="true"
+          className="mx-auto mb-3 h-2 w-12 rounded-full border border-black/10 bg-white dark:border-white/10 dark:bg-black"
+        />
+
+        <motion.button
+          type="button"
+          aria-label={`${goToLabel} ${((active + 1) % total) + 1}`}
+          onClick={() => {
+            if (dragged.current) {
+              dragged.current = false;
+              return;
+            }
+            goNext();
+          }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.15}
+          onDragStart={() => {
+            dragged.current = true;
+          }}
+          onDragEnd={(_, info) => {
+            if (info.offset.x <= -50) goNext();
+            if (info.offset.x >= 50) goPrevious();
+          }}
+          className="relative block aspect-5/4 w-full cursor-pointer overflow-hidden rounded-xl"
+        >
+          {FIAP_NEXT_PHOTOS.map((src, index) => (
+            <Image
               key={src}
-              className="pointer-events-none absolute inset-0 flex items-center justify-center"
-              style={{ zIndex: position.zIndex }}
+              src={src}
+              alt={index === active ? (alts[index] ?? "") : ""}
+              fill
+              sizes="(max-width: 640px) 80vw, 288px"
+              draggable={false}
+              className={`object-cover transition-opacity duration-500 ${
+                index === active ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+        </motion.button>
+
+        <div className="mt-3 flex justify-center gap-1">
+          {FIAP_NEXT_PHOTOS.map((src, index) => (
+            <button
+              key={src}
+              type="button"
+              aria-label={`${goToLabel} ${index + 1}`}
+              aria-current={index === active ? "true" : undefined}
+              onClick={() => setActive(index)}
+              className="flex h-6 w-6 cursor-pointer items-center justify-center"
             >
-              <motion.button
-                type="button"
-                aria-label={`${goToLabel} ${index + 1}`}
-                onClick={() => (isFront ? goNext() : setActive(index))}
-                drag={isFront ? "x" : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={(_, info) => {
-                  if (info.offset.x <= -60) goNext();
-                  if (info.offset.x >= 60) goPrevious();
-                }}
-                animate={{
-                  x: position.x,
-                  rotate: position.rotate,
-                  scale: position.scale,
-                  opacity: position.opacity,
-                }}
-                whileHover={isFront ? { scale: 1.02 } : { scale: 0.92 }}
-                transition={{ type: "spring", stiffness: 220, damping: 24 }}
-                className="pointer-events-auto relative aspect-4/3 w-[72%] cursor-pointer overflow-hidden rounded-2xl border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.35)] sm:rounded-3xl"
-              >
-                <Image
-                  src={src}
-                  alt={alts[index] ?? ""}
-                  fill
-                  sizes="(max-width: 768px) 70vw, 380px"
-                  className="object-cover"
-                  draggable={false}
-                />
-              </motion.button>
-            </div>
-          );
-        })}
-      </div>
+              <span
+                className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                  index === active
+                    ? "bg-orange-500"
+                    : "bg-black/20 dark:bg-white/25"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-1 flex items-baseline justify-between gap-3 border-b border-dashed border-black/15 pb-3 dark:border-white/15">
+          <span
+            className="text-3xl text-orange-600 italic sm:text-4xl dark:text-orange-400"
+            style={{ fontFamily: "var(--font-instrument-serif), serif" }}
+          >
+            {status}
+          </span>
+          <span className="text-xs font-light text-gray-600 dark:text-gray-400">
+            {rank}
+          </span>
+        </div>
+
+        <dl className="mt-3 flex justify-between gap-3 text-xs">
+          <div>
+            <dt className="font-light text-gray-600 dark:text-gray-400">
+              {eventLabel}
+            </dt>
+            <dd className="mt-0.5 font-medium text-gray-900 dark:text-white">
+              FIAP NEXT 2026
+            </dd>
+          </div>
+          <div className="text-right">
+            <dt className="font-light text-gray-600 dark:text-gray-400">
+              {challengeLabel}
+            </dt>
+            <dd className="mt-0.5 font-medium text-gray-900 dark:text-white">
+              Oracle
+            </dd>
+          </div>
+        </dl>
+      </motion.div>
     </div>
+  );
+}
+
+function AchievementTimeline({
+  label,
+  steps,
+}: {
+  label: string;
+  steps: { title: string; text: string }[];
+}) {
+  return (
+    <ol
+      aria-label={label}
+      className="grid border-t border-black/10 px-4 py-6 xs:px-5 sm:px-6 md:grid-cols-3 md:px-8 md:py-8 dark:border-white/10"
+    >
+      {steps.map((step, index) => {
+        const isLast = index === steps.length - 1;
+
+        return (
+          <li
+            key={step.title}
+            className={`relative pl-7 md:pl-0 md:pr-6 md:pt-7 ${isLast ? "" : "pb-6 md:pb-0"}`}
+          >
+            <span
+              aria-hidden="true"
+              className={`absolute left-[6px] top-1 bottom-0 w-px md:left-0 md:right-0 md:top-[6px] md:bottom-auto md:h-px md:w-auto ${
+                isLast
+                  ? "hidden bg-black/10 md:block dark:bg-white/10"
+                  : "bg-orange-500"
+              }`}
+            />
+            <span
+              aria-hidden="true"
+              className={`absolute left-0 top-1 h-[13px] w-[13px] rounded-full bg-orange-500 md:top-0 ${
+                isLast ? "ring-4 ring-orange-500/20" : ""
+              }`}
+            />
+
+            <h4
+              className={`text-sm font-medium ${
+                isLast
+                  ? "text-orange-600 dark:text-orange-400"
+                  : "text-gray-900 dark:text-white"
+              }`}
+            >
+              <span
+                className="mr-1.5 font-normal text-gray-500 italic dark:text-gray-400"
+                style={{ fontFamily: "var(--font-instrument-serif), serif" }}
+              >
+                {index + 1}
+              </span>
+              {step.title}
+            </h4>
+            <p className="mt-1 text-sm font-light leading-relaxed text-gray-700 dark:text-gray-400">
+              {step.text}
+            </p>
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 
@@ -262,46 +394,67 @@ export default function AboutSection() {
 
         {/* FIAP NEXT */}
         <motion.div
+          id="fiap-next"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="glass-liquid relative mb-3 overflow-hidden rounded-lg p-4 xs:mb-4 xs:rounded-xl xs:p-5 sm:mb-5 sm:rounded-2xl sm:p-6 md:mb-6 md:p-8 lg:mb-8"
+          className="relative mb-3 overflow-hidden rounded-lg border border-black/10 bg-white xs:mb-4 xs:rounded-xl sm:mb-5 sm:rounded-2xl md:mb-6 lg:mb-8 dark:border-white/10 dark:bg-[#0a0a0a]"
         >
-          <div className="relative z-10 grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="grid items-center gap-8 p-4 xs:p-5 sm:p-6 md:p-8 lg:grid-cols-2 lg:gap-12">
             <div>
-              <div className="mb-3 flex flex-wrap items-center gap-2 xs:mb-4">
-                <Trophy className="h-4 w-4 text-orange-500 sm:h-5 sm:w-5" />
+              <div className="mb-3 flex items-center gap-2 xs:mb-4">
+                <Trophy className="h-4 w-4 text-orange-500" aria-hidden="true" />
 
-                <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-gray-800 xs:text-xs dark:text-white">
+                <span className="text-sm font-light text-gray-600 dark:text-gray-400">
                   {t.aboutAchievement.eyebrow}
                 </span>
               </div>
 
-              <h3 className="mb-4 text-xl font-light leading-tight text-gray-800 xs:text-2xl sm:text-3xl dark:text-white">
+              <h3 className="mb-4 max-w-md text-2xl font-light leading-tight text-gray-900 sm:text-4xl dark:text-white">
                 {t.aboutAchievement.title}
               </h3>
 
-              <p className="text-sm font-light leading-relaxed text-gray-800 sm:text-base dark:text-gray-300">
-                <HighlightedText
-                  text={t.aboutAchievement.description}
-                  highlightedWords={t.aboutAchievement.highlightedWords}
-                />
+              <p className="max-w-md text-sm font-light leading-relaxed text-gray-700 sm:text-base dark:text-gray-300">
+                {t.aboutAchievement.description
+                  .split(t.aboutAchievement.highlight)
+                  .map((part, index) => (
+                    <span key={part}>
+                      {index > 0 && (
+                        <strong className="font-medium text-gray-900 dark:text-white">
+                          {t.aboutAchievement.highlight}
+                        </strong>
+                      )}
+                      {part}
+                    </span>
+                  ))}
               </p>
 
-              <p className="mt-4 text-sm font-light leading-relaxed text-gray-700 sm:text-base dark:text-gray-300">
-                <HighlightedText
-                  text={t.aboutAchievement.details}
-                  highlightedWords={t.aboutAchievement.highlightedWords}
-                />
-              </p>
+              <a
+                href={KNOWBALL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 px-5 py-2 text-sm font-normal text-gray-900 transition-colors hover:bg-black/5 dark:border-white/15 dark:text-white dark:hover:bg-white/10"
+              >
+                <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                {t.aboutAchievement.cta}
+              </a>
             </div>
 
-            <FiapNextFan
+            <FiapNextBadge
               alts={t.aboutAchievement.photoAlts}
               goToLabel={t.aboutAchievement.goToPhoto}
+              status={t.aboutAchievement.badgeStatus}
+              rank={t.aboutAchievement.badgeRank}
+              eventLabel={t.aboutAchievement.badgeEventLabel}
+              challengeLabel={t.aboutAchievement.badgeChallengeLabel}
             />
           </div>
+
+          <AchievementTimeline
+            label={t.aboutAchievement.timelineLabel}
+            steps={t.aboutAchievement.timeline}
+          />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-8">

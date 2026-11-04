@@ -30,7 +30,7 @@ type ActivityData = {
 type Tooltip = { x: number; y: number; title: string; subtitle: string };
 
 const LEVEL_CLASSES = [
-  "bg-black/[0.06] dark:bg-white/[0.06]",
+  "bg-black/6 dark:bg-white/6",
   "bg-orange-200 dark:bg-[#5c3517]",
   "bg-orange-300 dark:bg-[#8a5020]",
   "bg-orange-500 dark:bg-[#c4722b]",
@@ -94,7 +94,6 @@ export default function GithubActivity() {
     return () => controller.abort();
   }, [period, attempt]);
 
-  // No celular o heatmap rola na horizontal: começa pelas semanas mais recentes.
   useLayoutEffect(() => {
     const scroller = heatmapScrollRef.current;
     if (scroller) scroller.scrollLeft = scroller.scrollWidth;
@@ -136,7 +135,6 @@ export default function GithubActivity() {
     let best = weekly[0];
     for (const week of weekly) if (week.count > best.count) best = week;
 
-    // Rótulo no início de cada mês, pulando um mês cortado na primeira semana.
     const months: { index: number; label: string }[] = [];
     let previousMonth = -1;
     weekly.forEach((week, index) => {
@@ -148,7 +146,7 @@ export default function GithubActivity() {
     if (months.length > 1 && months[1].index - months[0].index < 3) {
       months.shift();
     }
-    // Um mês que só começa nas últimas semanas não cabe e vazaria do gráfico.
+
     if (months.at(-1) && weekly.length - months.at(-1)!.index < 3) {
       months.pop();
     }
@@ -167,7 +165,6 @@ export default function GithubActivity() {
       count === 1 ? copy.contribution : copy.contributions
     }`;
 
-  // Um único tooltip por delegação, em vez de um listener por célula do gráfico.
   const handlePointerOver = (event: PointerEvent<HTMLElement>) => {
     const root = rootRef.current;
     const target = (event.target as HTMLElement).closest<HTMLElement>(
@@ -197,7 +194,6 @@ export default function GithubActivity() {
   const dayLabels = [1, 3, 5].map((weekday) => ({
     weekday,
     label: shortLabel(
-      // 7 de janeiro de 2024 é um domingo: somar o índice dá o dia da semana.
       formats.weekday.format(new Date(Date.UTC(2024, 0, 7 + weekday))),
     ),
   }));
@@ -216,7 +212,10 @@ export default function GithubActivity() {
 
   const eyebrow = (
     <p className="flex items-center gap-2 text-sm font-light text-gray-600 dark:text-gray-400">
-      <Github className="h-4 w-4 text-gray-900 dark:text-white" aria-hidden="true" />
+      <Github
+        className="h-4 w-4 text-gray-900 dark:text-white"
+        aria-hidden="true"
+      />
       GitHub
     </p>
   );
@@ -279,8 +278,8 @@ export default function GithubActivity() {
             ) : (
               <div className="mt-4 animate-pulse space-y-6" role="status">
                 <span className="sr-only">{copy.loading}</span>
-                <div className="h-10 w-2/3 rounded-xl bg-black/[0.06] dark:bg-white/[0.06]" />
-                <div className="h-44 rounded-xl bg-black/[0.06] dark:bg-white/[0.06]" />
+                <div className="h-10 w-2/3 rounded-xl bg-black/6 dark:bg-white/6" />
+                <div className="h-44 rounded-xl bg-black/6 dark:bg-white/6" />
               </div>
             )}
           </div>
@@ -288,7 +287,6 @@ export default function GithubActivity() {
 
         {data && view && (
           <>
-            {/* Calendário de contribuições + filtro de anos */}
             <div className={cardClasses}>
               <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
                 <div className="min-w-0 flex-1">
@@ -397,7 +395,10 @@ export default function GithubActivity() {
                       {formats.date.format(parseDate(data.from))} {copy.rangeTo}{" "}
                       {formats.date.format(parseDate(data.to))}
                     </p>
-                    <div className="flex items-center gap-1.5" aria-hidden="true">
+                    <div
+                      className="flex items-center gap-1.5"
+                      aria-hidden="true"
+                    >
                       <span className="mr-1">{copy.less}</span>
                       {LEVEL_CLASSES.map((levelClass) => (
                         <span
@@ -423,7 +424,6 @@ export default function GithubActivity() {
               </div>
             </div>
 
-            {/* Contribuições por semana */}
             <div className={cardClasses}>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -492,7 +492,7 @@ export default function GithubActivity() {
                       >
                         <div
                           data-mark=""
-                          className={`w-full rounded-t-[4px] transition-[height,background-color] duration-500 ${
+                          className={`w-full rounded-t-lg transition-[height,background-color] duration-500 ${
                             isBest
                               ? "bg-linear-to-b from-orange-400 to-orange-600"
                               : "bg-orange-300 group-hover:bg-orange-400 dark:bg-[#7c4a21] dark:group-hover:bg-[#c4722b]"
