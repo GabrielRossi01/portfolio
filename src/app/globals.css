@@ -112,6 +112,11 @@
     background: linear-gradient(to bottom, #ffffff, #fafafa, #f5f5f5);
   }
 
+  ::selection {
+    background-color: #ff6b35;
+    color: #ffffff;
+  }
+
   /* o smooth scroll fica a cargo do Lenis (components/SmoothScroll.tsx) */
   html {
     -webkit-font-smoothing: antialiased;
