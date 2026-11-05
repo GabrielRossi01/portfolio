@@ -197,17 +197,15 @@ export default function ProjectCard({
       className="group glass-liquid flex h-full flex-col overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-2xl sm:rounded-3xl"
     >
       {large ? (
-        // mobile: mockup em cima e texto embaixo; a partir de lg: texto à
-        // esquerda e mockup à direita, subindo no hover
-        <div className="flex w-full flex-col lg:grid lg:min-h-[480px] lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="relative flex items-center justify-center overflow-hidden border-b border-black/10 bg-linear-to-b from-transparent to-black/5 lg:order-last lg:border-b-0 lg:border-l lg:bg-none dark:border-white/10 dark:to-white/5">
-            <div className="relative aspect-16/10 w-full transition-transform duration-500 ease-out lg:aspect-auto lg:h-[390px] lg:w-[520px] lg:translate-y-[30%] lg:group-hover:translate-y-0 xl:h-[450px] xl:w-[600px]">
+        <div className="flex w-full flex-col lg:grid lg:min-h-[480px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+          <div className="relative flex items-center justify-center overflow-hidden border-b border-black/10 p-6 sm:p-10 lg:order-last lg:border-b-0 lg:border-l lg:p-8 xl:p-10 dark:border-white/10">
+            <div className="relative aspect-3786/3158 w-full max-w-[640px] transition-transform duration-500 ease-out group-hover:scale-[1.02]">
               <Image
                 src={project.mockup}
                 alt={alt}
                 fill
-                sizes="(min-width: 1280px) 600px, (min-width: 1024px) 520px, (min-width: 768px) 720px, 92vw"
-                className="object-contain p-5 drop-shadow-2xl sm:p-6 lg:p-0"
+                sizes="(min-width: 1152px) 560px, (min-width: 1024px) 48vw, (min-width: 768px) 640px, 88vw"
+                className="object-contain drop-shadow-2xl"
               />
             </div>
           </div>

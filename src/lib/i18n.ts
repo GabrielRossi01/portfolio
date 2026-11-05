@@ -46,7 +46,10 @@ export interface Translations {
   aboutIntro: {
     eyebrow: string;
     text: string;
-    highlightedWords: string[];
+    // trechos grifados e palavras com cursor colorido; precisam aparecer
+    // exatamente iguais em `text`
+    highlights: string[];
+    cursors: string[];
   };
 
   aboutAchievement: {
@@ -196,12 +199,15 @@ export const translations: Record<Language, Translations> = {
     aboutIntro: {
       eyebrow: "Sobre mim",
       text: "Sou desenvolvedor de software formado em Análise e Desenvolvimento de Sistemas pela FIAP e tenho certificado Cambridge B2 First (FCE). Fora do código, participo de eventos e comunidades tech.",
-      highlightedWords: [
+      highlights: [
+        "desenvolvedor de software",
         "Análise e Desenvolvimento de Sistemas",
         "FIAP",
         "Cambridge B2 First (FCE)",
-        "eventos e comunidades tech",
+        "eventos",
+        "comunidades tech",
       ],
+      cursors: ["formado", "certificado", "código"],
     },
 
     aboutAchievement: {
@@ -472,12 +478,15 @@ export const translations: Record<Language, Translations> = {
     aboutIntro: {
       eyebrow: "About me",
       text: "I’m a software developer with a degree in Systems Analysis and Development from FIAP and a Cambridge B2 First (FCE) certification. Outside of code, I take part in tech events and communities.",
-      highlightedWords: [
+      highlights: [
+        "software developer",
         "Systems Analysis and Development",
         "FIAP",
         "Cambridge B2 First (FCE)",
-        "tech events and communities",
+        "tech events",
+        "communities",
       ],
+      cursors: ["degree", "certification", "code"],
     },
     aboutAchievement: {
       eyebrow: "Achievement",
@@ -748,12 +757,15 @@ export const translations: Record<Language, Translations> = {
     aboutIntro: {
       eyebrow: "Sobre mí",
       text: "Soy desarrollador de software graduado en Análisis y Desarrollo de Sistemas por FIAP y certificado Cambridge B2 First (FCE). Fuera del código, participo en eventos y comunidades tecnológicas.",
-      highlightedWords: [
+      highlights: [
+        "desarrollador de software",
         "Análisis y Desarrollo de Sistemas",
         "FIAP",
         "Cambridge B2 First (FCE)",
-        "eventos y comunidades tecnológicas",
+        "eventos",
+        "comunidades tecnológicas",
       ],
+      cursors: ["graduado", "certificado", "código"],
     },
     aboutAchievement: {
       eyebrow: "Logro",

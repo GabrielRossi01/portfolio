@@ -73,35 +73,80 @@ function TechMarquee({
   );
 }
 
+const CURSOR_COLORS = [
+  "bg-blue-500 dark:bg-blue-400",
+  "bg-pink-500 dark:bg-pink-400",
+  "bg-violet-500 dark:bg-violet-400",
+];
+
+function TypingCursor({ index }: { index: number }) {
+  const color = CURSOR_COLORS[index % CURSOR_COLORS.length];
+
+  return (
+    <span
+      aria-hidden="true"
+      className="relative ml-[0.1em] inline-block h-[1em] w-0 align-baseline"
+    >
+      <span
+        className={`absolute -top-[0.2em] -bottom-[0.2em] left-0 w-[3px] rounded-full ${color}`}
+      >
+        <span
+          className={`absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full ${color}`}
+        />
+      </span>
+    </span>
+  );
+}
+
 function HighlightedText({
   text,
-  highlightedWords,
+  highlights,
+  cursors,
 }: {
   text: string;
-  highlightedWords: string[];
+  highlights: string[];
+  cursors: string[];
 }) {
-  const escapedWords = [...highlightedWords]
-    .sort((a, b) => b.length - a.length)
-    .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-
-  const pattern = new RegExp(`(${escapedWords.join("|")})`, "gi");
+  const pattern = new RegExp(
+    `(${[...highlights, ...cursors]
+      .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+      .join("|")})`,
+    "g",
+  );
 
   return (
     <>
       {text.split(pattern).map((part, index) => {
-        const isHighlighted = highlightedWords.some(
-          (word) => word.toLowerCase() === part.toLowerCase(),
-        );
+        const key = `${part}-${index}`;
 
-        return isHighlighted ? (
-          <span
-            key={`${part}-${index}`}
-            className="mx-1 inline rounded-md bg-orange-500/15 px-2 py-0.5 text-orange-500 ring-1 ring-inset ring-orange-500/20 dark:bg-orange-300/15 dark:text-orange-300 dark:ring-orange-300/20"
-          >
-            {part}
+        if (highlights.includes(part)) {
+          return (
+            <span
+              key={key}
+              className="rounded-md bg-gray-900 px-[0.3em] py-[0.05em] text-white box-decoration-clone dark:bg-white dark:text-gray-900"
+            >
+              {part}
+            </span>
+          );
+        }
+
+        const cursorIndex = cursors.indexOf(part);
+
+        if (cursorIndex === -1) {
+          return <span key={key}>{part}</span>;
+        }
+
+        // última palavra presa ao cursor, para ele nunca cair sozinho na linha
+        const lastSpace = part.lastIndexOf(" ") + 1;
+
+        return (
+          <span key={key}>
+            {part.slice(0, lastSpace)}
+            <span className="whitespace-nowrap">
+              {part.slice(lastSpace)}
+              <TypingCursor index={cursorIndex} />
+            </span>
           </span>
-        ) : (
-          <span key={`${part}-${index}`}>{part}</span>
         );
       })}
     </>
@@ -385,7 +430,8 @@ export default function AboutSection() {
             <p className="text-lg font-light leading-[1.45] tracking-[-0.02em] text-gray-800 xs:text-xl sm:text-2xl md:text-3xl dark:text-white">
               <HighlightedText
                 text={t.aboutIntro.text}
-                highlightedWords={t.aboutIntro.highlightedWords}
+                highlights={t.aboutIntro.highlights}
+                cursors={t.aboutIntro.cursors}
               />
             </p>
           </div>

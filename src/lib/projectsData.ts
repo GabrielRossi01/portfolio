@@ -4,14 +4,12 @@ export interface StaticProjectData {
   mockup: string;
   images: string[];
   mockupType: "phone" | "desktop";
-  // em destaque no topo da seção; os demais vão para "Outros projetos"
   featured?: boolean;
   tags: string[];
   github: string;
   demo?: string;
 }
 
-// projeto já combinado com os textos traduzidos (i18n.ts)
 export interface Project extends StaticProjectData {
   description: string;
   company: string;
@@ -26,8 +24,8 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     id: 0,
     title: "knowball",
     featured: true,
-    mockup: "/apple-imac-knowball.png",
-    images: ["/apple-imac-knowball.png"],
+    mockup: "/apple-imac-knowball-website.png",
+    images: ["/apple-imac-knowball-website.png"],
     mockupType: "desktop",
     tags: [
       "Java",
