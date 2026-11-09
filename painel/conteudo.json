@@ -3,22 +3,25 @@
   "site": "https://rossidev.vercel.app",
   "nome": "Gabriel Rossi",
   "cargo": "Software Developer",
-  "frase": "Transformo ideias ambiciosas em produtos digitais de alta performance.",
-  "construindo": "Construindo Knowball e Nunutri",
+  "frase": "I turn ambitious ideas into high-performance digital products.",
+  "formacao": {
+    "curso": "Systems Analysis and Development",
+    "detalhe": "Graduated · FIAP"
+  },
   "faco": [
-    "APIs REST com Java e Spring Boot",
-    "Front-end em Next.js e Angular",
+    "REST APIs with Java and Spring Boot",
+    "Front-end with Next.js and Angular",
     "Cloud computing"
   ],
   "projeto": {
     "nome": "Knowball",
-    "descricao": "Futebol de base: campeonatos, partidas e denúncias, com API REST segura e assistente de IA.",
+    "descricao": "Grassroots football: tournaments, matches and reports, with a secure REST API and an AI assistant.",
     "linkTexto": "knowball-oracle/knowball-api",
     "miniatura": "painel/knowball.webp"
   },
   "stack": ["Java", "Spring Boot", "AWS", "AI", "Next.js", "Angular", "TypeScript"],
   "chamada": {
-    "titulo": "Portfólio, projetos e contato",
+    "titulo": "Portfolio, projects and contact",
     "texto": "rossidev.vercel.app"
   }
 }
