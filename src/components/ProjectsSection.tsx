@@ -63,14 +63,22 @@ export default function ProjectsSection() {
 
           {secondaryProjects.length > 0 && (
             <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
-              {secondaryProjects.map((project, index) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  index={index + 1}
-                  variant="compact"
-                />
-              ))}
+              {secondaryProjects.map((project, index) => {
+                // número ímpar de cards: o último ocupa a linha inteira
+                const sozinho =
+                  secondaryProjects.length % 2 === 1 &&
+                  index === secondaryProjects.length - 1;
+
+                return (
+                  <div key={project.id} className={sozinho ? "md:col-span-2" : ""}>
+                    <ProjectCard
+                      project={project}
+                      index={index + 1}
+                      variant={sozinho ? "large" : "compact"}
+                    />
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>

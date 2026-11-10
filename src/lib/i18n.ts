@@ -274,6 +274,16 @@ export const translations: Record<Language, Translations> = {
           scope: "API REST / Segurança / Spring AI",
         },
         {
+          title: "bootlift",
+          company: "Open Source",
+          year: "2026",
+          description:
+            "Criei uma GitHub Action open source que mede a prontidão de projetos Java para o Spring Boot 4 por análise estática, sem compilar. No pull request, só as linhas novas podem reprovar o job, então a migração para de piorar, e as correções determinísticas viram sugestões de um clique.",
+          category: "DevOps / CI/CD / Open Source",
+          team: "",
+          scope: "GitHub Actions / Análise estática / Spring Boot 4",
+        },
+        {
           title: "orion-infra-aws",
           company: "",
           year: "2026",
@@ -550,6 +560,16 @@ export const translations: Record<Language, Translations> = {
           category: "Fullstack / AI / Backend",
           team: "",
           scope: "REST API / Security / Spring AI",
+        },
+        {
+          title: "bootlift",
+          company: "Open Source",
+          year: "2026",
+          description:
+            "I built an open source GitHub Action that measures how ready Java projects are for Spring Boot 4 through static analysis, with no compilation. On pull requests only new lines can fail the job, so the migration stops getting worse, and deterministic fixes become one-click suggestions.",
+          category: "DevOps / CI/CD / Open Source",
+          team: "",
+          scope: "GitHub Actions / Static analysis / Spring Boot 4",
         },
         {
           title: "orion-infra-aws",
@@ -829,6 +849,16 @@ export const translations: Record<Language, Translations> = {
           category: "Fullstack / IA / Backend",
           team: "",
           scope: "API REST / Seguridad / Spring AI",
+        },
+        {
+          title: "bootlift",
+          company: "Open Source",
+          year: "2026",
+          description:
+            "Creé una GitHub Action open source que mide qué tan preparados están los proyectos Java para Spring Boot 4 mediante análisis estático, sin compilar. En el pull request solo las líneas nuevas pueden reprobar el job, así la migración deja de empeorar, y las correcciones deterministas se vuelven sugerencias de un clic.",
+          category: "DevOps / CI/CD / Open Source",
+          team: "",
+          scope: "GitHub Actions / Análisis estático / Spring Boot 4",
         },
         {
           title: "orion-infra-aws",

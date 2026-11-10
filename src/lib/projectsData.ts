@@ -47,6 +47,26 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
   },
   {
     id: 1,
+    title: "bootlift",
+    featured: true,
+    mockup: "/apple-imac-bootlift.svg",
+    images: ["/apple-imac-bootlift.svg"],
+    mockupType: "desktop",
+    tags: [
+      "TypeScript",
+      "Node.js",
+      "GitHub Actions",
+      "Spring Boot",
+      "Jest",
+      "Rollup",
+      "ESLint",
+      "CodeQL",
+      "CI/CD",
+    ],
+    github: "https://github.com/GabrielRossi01/bootlift.git",
+  },
+  {
+    id: 2,
     title: "orion-infra-aws",
     featured: true,
     mockup: "/apple-imac-infra-aws.png",
@@ -66,7 +86,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     github: "https://github.com/GabrielRossi01/orion-infra-aws.git",
   },
   {
-    id: 2,
+    id: 3,
     title: "whobetter",
     featured: true,
     mockup: "/apple-imac-whobetter.png",
@@ -92,7 +112,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     github: "https://github.com/GabrielRossi01/whobetter.git",
   },
   {
-    id: 3,
+    id: 4,
     title: "acessly-api",
     mockup: "/apple-imac-acessly-api.png",
     images: ["/apple-imac-acessly-api.png"],
@@ -111,7 +131,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     github: "https://github.com/acessly/acessly-api",
   },
   {
-    id: 4,
+    id: 5,
     title: "world-cup-2026-ai-assistant",
     mockup: "/apple-imac-world-cup.png",
     images: ["/apple-imac-world-cup.png"],
@@ -134,7 +154,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     github: "https://github.com/GabrielRossi01/world-cup.git",
   },
   {
-    id: 5,
+    id: 6,
     title: "workout-tracker",
     mockup: "/apple-imac-workout.png",
     images: ["/apple-imac-workout.png"],
@@ -152,7 +172,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     github: "https://github.com/GabrielRossi01/workout-tracker-web.git",
   },
   {
-    id: 6,
+    id: 7,
     title: "custom-restaurant",
     mockup: "/apple-imac-custom-restaurant.png",
     images: ["/apple-imac-custom-restaurant.png"],
@@ -170,7 +190,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     github: "https://github.com/GabrielRossi01/custom-restaurant.git",
   },
   {
-    id: 7,
+    id: 8,
     title: "gamefinder",
     mockup: "/apple-imac-gamefinder.png",
     images: ["/apple-imac-gamefinder.png"],
@@ -187,7 +207,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     github: "https://github.com/GabrielRossi01/angular-gamefinder.git",
   },
   {
-    id: 8,
+    id: 9,
     title: "digitalbank",
     mockup: "/iphone-mockup-digitalbank.png",
     images: ["/iphone-mockup-digitalbank.png"],
@@ -203,7 +223,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     github: "https://github.com/GabrielRossi01/digitalbank",
   },
   {
-    id: 9,
+    id: 10,
     title: "pluvia+",
     mockup: "/apple-imac-pluvia-plus.png",
     images: ["/apple-imac-pluvia-plus.png"],
@@ -212,7 +232,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
     github: "https://github.com/GabrielRossi01/website-pluvia",
   },
   {
-    id: 10,
+    id: 11,
     title: "smarttrack",
     mockup: "/iphone-mockup-smarttrack.png",
     images: ["/iphone-mockup-smarttrack.png"],
