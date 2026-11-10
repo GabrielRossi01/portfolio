@@ -18,6 +18,7 @@ async function pedir(url, init) {
 const CONSULTA = `
 query ($login: String!, $de: DateTime!, $ate: DateTime!) {
   user(login: $login) {
+    pullRequests { totalCount }
     contributionsCollection(from: $de, to: $ate) {
       restrictedContributionsCount
       contributionCalendar {
@@ -55,6 +56,7 @@ export async function lerGithub(usuario, token) {
       nome: perfil.name,
       repositoriosPublicos: perfil.public_repos,
       seguidores: perfil.followers,
+      pullRequests: gql.data.user.pullRequests?.totalCount ?? null,
       contaCriadaEm: perfil.created_at,
     },
     contribuicoes: {

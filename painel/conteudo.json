@@ -11,17 +11,28 @@
   "faco": [
     "REST APIs with Java and Spring Boot",
     "Front-end with Next.js and Angular",
+    "AI Features",
     "Cloud computing"
   ],
   "projeto": {
     "nome": "Knowball",
     "descricao": "Grassroots football: tournaments, matches and reports, with a secure REST API and an AI assistant.",
     "linkTexto": "knowball-oracle/knowball-api",
+    "url": "https://github.com/knowball-oracle/knowball-api.git",
     "miniatura": "painel/knowball.webp"
   },
   "stack": ["Java", "Spring Boot", "AWS", "AI", "Next.js", "Angular", "TypeScript"],
-  "chamada": {
-    "titulo": "Portfolio, projects and contact",
-    "texto": "rossidev.vercel.app"
+  "comunidade": {
+    "titulo": "Active in the tech community",
+    "texto": "Tech events, meetups and dev communities"
+  },
+  "contato": {
+    "titulo": "Let's connect",
+    "links": [
+      { "rotulo": "Portfolio", "texto": "rossidev.vercel.app", "url": "https://rossidev.vercel.app" },
+      { "rotulo": "GitHub", "texto": "GabrielRossi01", "url": "https://github.com/GabrielRossi01" },
+      { "rotulo": "LinkedIn", "texto": "gabriel-oliveira-rossi", "url": "https://www.linkedin.com/in/gabriel-oliveira-rossi/" },
+      { "rotulo": "Email", "texto": "rossi17006@gmail.com", "url": "mailto:rossi17006@gmail.com" }
+    ]
   }
 }

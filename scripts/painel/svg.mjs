@@ -62,8 +62,6 @@ const rotulo = (x, y, txt, t) => T(x, y, txt.toUpperCase(), { tam: 11, mono: tru
 
 const setaDiag = (x, y, s, cor) =>
   `<path d="M${x} ${y}L${x + s} ${y - s}M${x + s * 0.35} ${y - s}H${x + s}V${y - s * 0.65}" stroke="${cor}" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
-const setaDir = (x, y, s, cor) =>
-  `<path d="M${x} ${y}H${x + s}M${x + s - 4} ${y - 4}L${x + s} ${y}L${x + s - 4} ${y + 4}" stroke="${cor}" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
 
 export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) {
   const t = TEMAS[tema];
@@ -110,15 +108,15 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
     const fill = nv === 0 ? `fill="${t.celula}"` : `fill="${t.acento}" fill-opacity="${op[nv]}"`;
     push(`<rect x="${gx + c * passo}" y="${gy + r * passo}" width="${cel}" height="${cel}" rx="2" ${fill}/>`);
   }
-  const yTot = gy + 7 * passo + 22;
+  const yTot = gy + 7 * passo + 34;
   const totalTxt = nf.format(dados.contribuicoes.total);
-  push(tx(gx, yTot, totalTxt, { tam: 13, mono: true, peso: 400, cor: t.acentoTexto, id: 'total' }));
-  push(tx(gx + largura(totalTxt, 13, { mono: true }) + 8, yTot, 'contributions in the last 12 months', { tam: 13, cor: t.suave }));
+  push(tx(gx, yTot, totalTxt, { tam: 26, peso: 600, esp: -0.6, cor: t.acentoTexto, id: 'total' }));
+  push(tx(gx + largura(totalTxt, 26, { peso: 600 }) + 10, yTot, 'contributions in the last 12 months', { tam: 13, cor: t.suave }));
 
   const xq = W - PAD - (5 * 12 - 3);
   for (let i = 0; i < 5; i++) {
     const fill = i === 0 ? `fill="${t.celula}"` : `fill="${t.acento}" fill-opacity="${op[i]}"`;
-    push(`<rect x="${xq + i * 12}" y="${yTot - 9}" width="9" height="9" rx="2" ${fill}/>`);
+    push(`<rect x="${xq + i * 12}" y="${yTot - 10}" width="9" height="9" rx="2" ${fill}/>`);
   }
   push(`</g>`);
 
@@ -126,34 +124,39 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   push(`<line x1="${PAD}" y1="${y2}" x2="${W - PAD}" y2="${y2}" stroke="${t.linha}"/>`);
   push(`<g class="a a3">`);
   push(rotulo(PAD, y2 + 36, 'What I do', t)); usa('WHAT I DO', true);
-  k.faco.slice(0, 3).forEach((item, i) => {
-    const y = y2 + 78 + i * 38;
+  const facos = k.faco.slice(0, 4);
+  const passoFaco = 36;
+  facos.forEach((item, i) => {
+    const y = y2 + 76 + i * passoFaco;
     push(`<line x1="${PAD}" y1="${y - 5}" x2="${PAD + 10}" y2="${y - 5}" stroke="${t.acento}" stroke-width="1.5"/>`);
     const l = quebrar(item, COL2 - PAD - 60, 15, {}, 1)[0];
     push(tx(PAD + 22, y, l, { tam: 15, id: `faco${i}` }));
   });
 
   push(rotulo(COL2, y2 + 36, 'By the numbers', t)); usa('BY THE NUMBERS', true);
+  // PRs vêm do GraphQL; dados antigos sem esse campo caem em seguidores
+  const prs = dados.perfil.pullRequests;
   const numeros = [
-    [dados.perfil.repositoriosPublicos, 'public repositories'],
-    [dados.perfil.seguidores, 'followers'],
-    [der.ativos, 'days with contributions'],
-    [der.maiorSequencia, 'day streak (record)'],
+    [nf.format(dados.perfil.repositoriosPublicos), 'public repositories'],
+    typeof prs === 'number' ? [`+${nf.format(prs)}`, 'pull requests opened'] : [nf.format(dados.perfil.seguidores), 'followers'],
+    [nf.format(der.ativos), 'days with contributions'],
+    [nf.format(der.maiorSequencia), 'day streak (record)'],
   ];
   const gapCard = 12, cw = (W - PAD - COL2 - gapCard) / 2, ch = 64, cy0 = y2 + 54;
   numeros.forEach(([v, r], i) => {
     const x = COL2 + (i % 2) * (cw + gapCard), y = cy0 + Math.floor(i / 2) * (ch + gapCard);
     push(`<rect x="${x + 0.5}" y="${y + 0.5}" width="${cw - 1}" height="${ch - 1}" rx="8" fill="${t.celula}" fill-opacity="0.55" stroke="${t.linha}"/>`);
-    push(tx(x + 14, y + 29, nf.format(v), { tam: 22, peso: 600, esp: -0.5, id: `num${i}` }));
+    push(tx(x + 14, y + 29, v, { tam: 22, peso: 600, esp: -0.5, id: `num${i}` }));
     push(tx(x + 14, y + 49, r, { tam: 12, cor: t.suave }));
   });
   push(`</g>`);
 
-  const y3 = Math.max(cy0 + 2 * ch + gapCard, y2 + 78 + 2 * 38) + 36;
+  const y3 = Math.max(cy0 + 2 * ch + gapCard, y2 + 76 + (facos.length - 1) * passoFaco + 6) + 36;
   push(`<line x1="${PAD}" y1="${y3}" x2="${W - PAD}" y2="${y3}" stroke="${t.linha}"/>`);
   push(`<g class="a a4">`);
   push(rotulo(PAD, y3 + 36, 'Featured project', t)); usa('FEATURED PROJECT', true);
   const mw = 168, mh = 105, my = y3 + 56;
+  if (k.projeto.url) push(`<a href="${esc(k.projeto.url)}" target="_blank">`);
   if (miniatura) {
     push(`<clipPath id="mini"><rect x="${PAD}" y="${my}" width="${mw}" height="${mh}" rx="6"/></clipPath>`);
     push(`<image href="data:image/webp;base64,${miniatura}" x="${PAD}" y="${my}" width="${mw}" height="${mh}" preserveAspectRatio="xMidYMid slice" clip-path="url(#mini)"/>`);
@@ -167,6 +170,7 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   const lt = k.projeto.linkTexto;
   push(tx(px, my + mh - 2, lt, { tam: 12.5, mono: true, cor: t.acentoTexto, id: 'projLink' }));
   push(setaDiag(px + largura(lt, 12.5, { mono: true }) + 5, my + mh - 3, 7, t.acentoTexto));
+  if (k.projeto.url) push(`</a>`);
 
   push(rotulo(COL2, y3 + 36, 'Everyday stack', t)); usa('EVERYDAY STACK', true);
   let xp = COL2, yp = y3 + 56;
@@ -177,23 +181,53 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
     push(tx(xp + 11, yp + 17, s, { tam: 12, mono: true, cor: t.suave }));
     xp += w + 8;
   }
+
+  // card de comunidade, logo abaixo da stack
+  let yFimSecao = Math.max(my + mh, yp + 25);
+  if (k.comunidade) {
+    const cy = yp + 25 + 16, chc = 56, cwc = W - PAD - COL2;
+    push(`<rect x="${COL2 + 0.5}" y="${cy + 0.5}" width="${cwc - 1}" height="${chc - 1}" rx="8" fill="${t.acento}" fill-opacity="0.07" stroke="${t.acento}" stroke-opacity="0.35"/>`);
+    // ícone de pessoas
+    const ix = COL2 + 24, iy = cy + chc / 2;
+    push(`<g fill="none" stroke="${t.acento}" stroke-width="1.5" stroke-linecap="round">` +
+      `<circle cx="${ix - 4}" cy="${iy - 4}" r="3.2"/><circle cx="${ix + 5}" cy="${iy - 5}" r="2.6"/>` +
+      `<path d="M${ix - 10} ${iy + 8}a6 6 0 0 1 12 0"/><path d="M${ix + 3.5} ${iy + 1.6}a5 5 0 0 1 7 4.6"/></g>`);
+    push(tx(COL2 + 46, cy + 24, k.comunidade.titulo, { tam: 14, peso: 600, id: 'comTitulo' }));
+    push(tx(COL2 + 46, cy + 42, quebrar(k.comunidade.texto, cwc - 60, 12, {}, 1)[0], { tam: 12, cor: t.suave, id: 'comTexto' }));
+    yFimSecao = Math.max(yFimSecao, cy + chc);
+  }
   push(`</g>`);
 
-  const yCta = Math.max(my + mh, yp + 25 + 48); // nunca encosta nas pílulas
-  push(`<g class="a a5">`);
-  push(tx(COL2, yCta - 22, k.chamada.titulo, { tam: 14, cor: t.texto, id: 'ctaTitulo' }));
-  push(tx(COL2, yCta - 2, k.chamada.texto, { tam: 14, peso: 600, cor: t.acentoTexto, id: 'ctaLink' }));
-  push(setaDir(COL2 + largura(k.chamada.texto, 14, { peso: 600 }) + 8, yCta - 7, 14, t.acentoTexto));
-  push(`</g>`);
+  // card de contato, no fim do painel
+  let yR = yFimSecao + 36;
+  if (k.contato?.links?.length) {
+    const cy = yFimSecao + 36, chc = 92, cwc = W - 2 * PAD, ip = 22;
+    push(`<g class="a a5">`);
+    push(`<rect x="${PAD + 0.5}" y="${cy + 0.5}" width="${cwc - 1}" height="${chc - 1}" rx="10" fill="${t.celula}" fill-opacity="0.55" stroke="${t.linha}"/>`);
+    push(rotulo(PAD + ip, cy + 30, k.contato.titulo, t)); usa(k.contato.titulo.toUpperCase(), true);
+    const links = k.contato.links.slice(0, 4);
+    const larg = links.map((l) => Math.max(largura(l.texto, 13.5, { peso: 600 }) + 20, largura(l.rotulo, 11, { mono: true })));
+    const sobra = cwc - 2 * ip - larg.reduce((a, b) => a + b, 0);
+    const gapL = links.length > 1 ? Math.max(16, sobra / (links.length - 1)) : 0;
+    let lx = PAD + ip;
+    links.forEach((l, i) => {
+      push(`<a href="${esc(l.url)}" target="_blank">`);
+      push(tx(lx, cy + 56, l.rotulo, { tam: 11, mono: true, cor: t.fraco }));
+      push(tx(lx, cy + 76, l.texto, { tam: 13.5, peso: 600, cor: t.acentoTexto, id: `contato${i}` }));
+      push(setaDiag(lx + largura(l.texto, 13.5, { peso: 600 }) + 6, cy + 75, 6, t.acentoTexto));
+      push(`</a>`);
+      lx += larg[i] + gapL;
+    });
+    push(`</g>`);
+    yR = cy + chc;
+  }
 
-  const yR = yCta + 38;
-  const H = yR + 36;
-  push(`<line x1="${PAD}" y1="${yR}" x2="${W - PAD}" y2="${yR}" stroke="${t.linha}"/>`);
+  const H = yR + 40;
   const quando = dados.exemplo ? 'sample data — do not publish' : `updated on ${ddmm(dados.lidoEm)}`;
-  push(tx(PAD, yR + 22, quando, { tam: 11, mono: true, cor: dados.exemplo ? t.acentoTexto : t.fraco, id: 'atualizado' }));
-  push(tx(W - PAD, yR + 22, `github.com/${dados.usuario}`, { tam: 11, mono: true, cor: t.fraco, ancora: 'end' }));
+  push(tx(PAD, yR + 26, quando, { tam: 11, mono: true, cor: dados.exemplo ? t.acentoTexto : t.fraco, id: 'atualizado' }));
+  push(tx(W - PAD, yR + 26, `github.com/${dados.usuario}`, { tam: 11, mono: true, cor: t.fraco, ancora: 'end' }));
 
-  const desc = `${k.nome} — ${k.cargo}.${k.formacao ? ` ${k.formacao.curso} — ${k.formacao.detalhe}.` : ''} ${nf.format(dados.contribuicoes.total)} GitHub contributions in the last 12 months, ${dados.perfil.repositoriosPublicos} public repositories. Featured project: ${k.projeto.nome}.`;
+  const desc = `${k.nome} — ${k.cargo}.${k.formacao ? ` ${k.formacao.curso} — ${k.formacao.detalhe}.` : ''} ${nf.format(dados.contribuicoes.total)} GitHub contributions in the last 12 months, ${dados.perfil.repositoriosPublicos} public repositories${typeof prs === 'number' ? `, ${nf.format(prs)} pull requests opened` : ''}. Featured project: ${k.projeto.nome}.${k.comunidade ? ` ${k.comunidade.titulo}.` : ''}`;
 
   const css = `${cssFontes}
 .a{animation:surgir .7s cubic-bezier(.2,.7,.2,1) both}
