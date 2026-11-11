@@ -15,6 +15,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
+import BranchGraph3D from "./BranchGraph3D";
 
 const Earth3D = dynamic(() => import("./Earth3D"), { ssr: false });
 
@@ -512,79 +513,19 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="glass-liquid rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 h-full"
+              className="glass-liquid relative overflow-hidden rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 h-full flex flex-col"
             >
-              <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
+              <div className="relative flex items-center gap-2 xs:gap-2.5 sm:gap-3 mb-2 xs:mb-3 sm:mb-4">
                 <Users className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-purple-400" />
                 <span className="text-xs text-gray-900 dark:text-white uppercase tracking-wider font-medium">
                   {t.about.collaboration}
                 </span>
               </div>
-              <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl font-light text-gray-900 dark:text-white mb-3 xs:mb-3 sm:mb-4">
+              <h3 className="relative text-lg xs:text-xl sm:text-2xl md:text-2xl font-light text-gray-900 dark:text-white mb-1">
                 {t.about.collaborationTitle}
               </h3>
-              <div className="flex items-center justify-center mt-4 xs:mt-5 sm:mt-6 md:mt-16">
-                <div className="flex items-center justify-center -space-x-3">
-                  <motion.img
-                    src="https://i.pravatar.cc/150?img=12"
-                    loading="lazy"
-                    decoding="async"
-                    width={72}
-                    height={72}
-                    alt="Team member 1"
-                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    viewport={{ once: true }}
-                  />
-
-                  <motion.img
-                    src="https://i.pravatar.cc/150?img=8"
-                    loading="lazy"
-                    decoding="async"
-                    width={72}
-                    height={72}
-                    alt="Team member 2"
-                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    viewport={{ once: true }}
-                  />
-
-                  <motion.img
-                    src="https://i.pravatar.cc/150?img=47"
-                    loading="lazy"
-                    decoding="async"
-                    width={72}
-                    height={72}
-                    alt="Team member 3"
-                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    viewport={{ once: true }}
-                  />
-
-                  <motion.img
-                    src="https://i.pravatar.cc/150?img=32"
-                    loading="lazy"
-                    decoding="async"
-                    width={72}
-                    height={72}
-                    alt="Team member 4"
-                    className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full object-cover shadow-lg"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    viewport={{ once: true }}
-                  />
-                </div>
+              <div className="relative -mx-4 xs:-mx-5 sm:-mx-6 md:-mx-8 -mb-4 xs:-mb-5 sm:-mb-6 md:-mb-8 flex-1 min-h-[220px] xs:min-h-[240px] sm:min-h-[260px]">
+                <BranchGraph3D />
               </div>
             </motion.div>
 
