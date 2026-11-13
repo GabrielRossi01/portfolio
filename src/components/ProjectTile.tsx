@@ -55,7 +55,7 @@ export default function ProjectTile({
           {project.title}
         </h4>
 
-        <p className="mt-2 line-clamp-2 text-xs font-light leading-relaxed text-gray-700 sm:text-sm dark:text-gray-300">
+        <p className="mt-2 text-xs font-light leading-relaxed text-gray-700 sm:text-sm dark:text-gray-300">
           {project.description}
         </p>
 

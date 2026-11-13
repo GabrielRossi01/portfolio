@@ -2,11 +2,13 @@
 
 import { motion, useInView } from "framer-motion";
 import {
+  ArrowUpRight,
   Clock,
   ExternalLink,
   Github,
   Linkedin,
   Mail,
+  ShieldCheck,
   Trophy,
   Users,
 } from "lucide-react";
@@ -157,6 +159,9 @@ function HighlightedText({
 const FIAP_NEXT_PHOTOS = ["/next-1.png", "/next-2.png", "/next-3.png"];
 
 const KNOWBALL_URL = "https://github.com/knowball-oracle/knowball-api";
+
+const AWS_CREDLY_URL =
+  "https://www.credly.com/badges/5613977a-cad2-4ebf-a923-b255b54fa5dc/linked_in_profile";
 
 function FiapNextBadge({
   alts,
@@ -750,6 +755,72 @@ export default function AboutSection() {
             </motion.div>
           </div>
         </div>
+
+        {/* Certificação AWS */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-3 rounded-lg border border-black/10 bg-white p-4 xs:mt-4 xs:rounded-xl xs:p-5 sm:mt-5 sm:rounded-2xl sm:p-6 md:mt-6 md:p-8 lg:mt-8 dark:border-white/10 dark:bg-[#0a0a0a]"
+        >
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
+            <div className="relative h-24 w-24 shrink-0 sm:h-28 sm:w-28">
+              <Image
+                src="/aws-cloud-practitioner.png"
+                alt={t.aboutCertification.badgeAlt}
+                fill
+                sizes="112px"
+                className="object-contain"
+              />
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <div className="mb-1.5 flex items-center gap-1.5">
+                <ShieldCheck
+                  className="h-3.5 w-3.5 text-blue-500 dark:text-blue-400"
+                  aria-hidden="true"
+                />
+                <span className="text-[10px] font-medium uppercase tracking-wider text-gray-900 xs:text-xs dark:text-white">
+                  {t.aboutCertification.eyebrow}
+                </span>
+              </div>
+
+              <h3 className="text-xl font-medium leading-tight text-gray-900 xs:text-2xl sm:text-3xl dark:text-white">
+                AWS Certified Cloud Practitioner
+              </h3>
+
+              <p className="mt-1 text-sm font-light text-gray-600 dark:text-gray-400">
+                {t.aboutCertification.issuer}
+              </p>
+
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {[
+                  t.aboutCertification.issued,
+                  t.aboutCertification.validity,
+                  t.aboutCertification.verified,
+                ].map((tag) => (
+                  <li
+                    key={tag}
+                    className="rounded-full border border-black/10 px-3 py-1 text-xs font-light text-gray-800 dark:border-white/15 dark:text-gray-200"
+                  >
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a
+              href={AWS_CREDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-1.5 self-start rounded-lg bg-black/5 px-4 py-2 text-sm font-normal text-gray-900 transition-colors hover:bg-black/10 sm:self-center dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+            >
+              {t.aboutCertification.cta}
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

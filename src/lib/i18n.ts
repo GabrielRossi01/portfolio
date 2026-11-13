@@ -70,6 +70,16 @@ export interface Translations {
     goToPhoto: string;
   };
 
+  aboutCertification: {
+    eyebrow: string;
+    issuer: string;
+    issued: string;
+    validity: string;
+    verified: string;
+    cta: string;
+    badgeAlt: string;
+  };
+
   about: {
     title: string;
     subtitle: string;
@@ -235,6 +245,15 @@ export const translations: Record<Language, Translations> = {
       previous: "Foto anterior",
       next: "Próxima foto",
       goToPhoto: "Ver foto",
+    },
+    aboutCertification: {
+      eyebrow: "Nova certificação",
+      issuer: "Amazon Web Services · Exame CLF-C02",
+      issued: "Emitido em novembro de 2026",
+      validity: "Válido por 3 anos",
+      verified: "Verificado na Credly",
+      cta: "Ver na Credly",
+      badgeAlt: "Badge AWS Certified Cloud Practitioner",
     },
     about: {
       title: "Sobre Mim",
@@ -524,6 +543,15 @@ export const translations: Record<Language, Translations> = {
       next: "Next photo",
       goToPhoto: "View photo",
     },
+    aboutCertification: {
+      eyebrow: "New certification",
+      issuer: "Amazon Web Services · Exam CLF-C02",
+      issued: "Issued November 2026",
+      validity: "Valid for 3 years",
+      verified: "Verified on Credly",
+      cta: "View on Credly",
+      badgeAlt: "AWS Certified Cloud Practitioner badge",
+    },
     about: {
       title: "About Me",
       subtitle: "Developer passionate about creating scalable solutions",
@@ -812,6 +840,15 @@ export const translations: Record<Language, Translations> = {
       previous: "Foto anterior",
       next: "Siguiente foto",
       goToPhoto: "Ver foto",
+    },
+    aboutCertification: {
+      eyebrow: "Nueva certificación",
+      issuer: "Amazon Web Services · Examen CLF-C02",
+      issued: "Emitido en noviembre de 2026",
+      validity: "Válido por 3 años",
+      verified: "Verificado en Credly",
+      cta: "Ver en Credly",
+      badgeAlt: "Insignia AWS Certified Cloud Practitioner",
     },
     about: {
       title: "Sobre Mí",
