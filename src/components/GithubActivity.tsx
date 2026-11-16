@@ -245,9 +245,31 @@ export default function GithubActivity() {
   return (
     <section
       id="github-activity"
-      aria-label="GitHub"
+      aria-labelledby="github-activity-title"
       className="px-3 py-12 xs:px-4 sm:py-16 lg:px-6 lg:py-24"
     >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="mx-auto mb-8 max-w-6xl text-center xs:mb-12 sm:mb-16"
+      >
+        <h2
+          id="github-activity-title"
+          className="mb-2 bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-xl font-light text-transparent xs:text-2xl sm:mb-3 sm:text-4xl md:mb-4 md:text-5xl dark:from-white dark:to-gray-400"
+        >
+          {copy.sectionTitle.split(" ").slice(0, -1).join(" ")}{" "}
+          <span className="gradient-orange-accent">
+            {copy.sectionTitle.split(" ").pop()}
+          </span>
+        </h2>
+
+        <p className="text-xs font-light text-gray-700 xs:text-sm sm:text-base md:text-lg lg:text-xl dark:text-gray-300">
+          {copy.sectionSubtitle}
+        </p>
+      </motion.div>
+
       <motion.div
         ref={rootRef}
         initial={{ opacity: 0, y: 24 }}
@@ -293,7 +315,7 @@ export default function GithubActivity() {
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       {eyebrow}
-                      <h2
+                      <h3
                         aria-live="polite"
                         className="mt-2 text-2xl font-light tracking-tight text-gray-900 sm:text-4xl dark:text-white"
                       >
@@ -306,7 +328,7 @@ export default function GithubActivity() {
                         {period === LAST_YEAR
                           ? copy.titleLastYear
                           : copy.titleYear.replace("{year}", period)}
-                      </h2>
+                      </h3>
                     </div>
                     {profileLink}
                   </div>
@@ -428,9 +450,9 @@ export default function GithubActivity() {
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   {eyebrow}
-                  <h2 className="mt-2 text-2xl font-light tracking-tight text-gray-900 sm:text-4xl dark:text-white">
+                  <h3 className="mt-2 text-2xl font-light tracking-tight text-gray-900 sm:text-4xl dark:text-white">
                     {copy.weeklyTitle}
-                  </h2>
+                  </h3>
                 </div>
                 {profileLink}
               </div>

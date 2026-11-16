@@ -88,6 +88,12 @@ export interface Translations {
     timezone: string;
     timezoneTitle: string;
     passionate: string;
+    techGroups: {
+      frontend: string;
+      backend: string;
+      tools: string;
+      ai: string;
+    };
     github: string;
     githubDesc: string;
     linkedin: string;
@@ -99,6 +105,8 @@ export interface Translations {
   };
 
   githubActivity: {
+    sectionTitle: string;
+    sectionSubtitle: string;
     titleLastYear: string;
     titleYear: string;
     lastYear: string;
@@ -264,6 +272,12 @@ export const translations: Record<Language, Translations> = {
       timezone: "Do Brasil para o mundo",
       timezoneTitle: "Localizado no Brasil, disponível para colaboração global",
       passionate: "Fascinado por tecnologias de ponta",
+      techGroups: {
+        frontend: "Frontend",
+        backend: "Backend & Banco de Dados",
+        tools: "Ferramentas & Serviços de Nuvem",
+        ai: "IA",
+      },
       github: "Contribuindo com projetos no GitHub",
       githubDesc: "Código aberto e colaboração",
       linkedin: "Compartilhando insights no LinkedIn",
@@ -406,6 +420,8 @@ export const translations: Record<Language, Translations> = {
     },
 
     githubActivity: {
+      sectionTitle: "Atividade no GitHub",
+      sectionSubtitle: "Minhas contribuições e o ritmo de código ao longo do tempo",
       titleLastYear: "contribuições no último ano",
       titleYear: "contribuições em {year}",
       lastYear: "Último ano",
@@ -561,6 +577,12 @@ export const translations: Record<Language, Translations> = {
       timezone: "From Brazil to the world",
       timezoneTitle: "Located in Brazil, available for global collaboration",
       passionate: "Fascinated by cutting-edge technologies",
+      techGroups: {
+        frontend: "Frontend",
+        backend: "Backend & Database",
+        tools: "Tools & Cloud Services",
+        ai: "AI",
+      },
       github: "Contributing to projects on GitHub",
       githubDesc: "Open source and collaboration",
       linkedin: "Sharing insights on LinkedIn",
@@ -703,6 +725,8 @@ export const translations: Record<Language, Translations> = {
     },
 
     githubActivity: {
+      sectionTitle: "GitHub Activity",
+      sectionSubtitle: "My contributions and coding rhythm over time",
       titleLastYear: "contributions in the last year",
       titleYear: "contributions in {year}",
       lastYear: "Last year",
@@ -859,6 +883,12 @@ export const translations: Record<Language, Translations> = {
       timezone: "De Brasil para el mundo",
       timezoneTitle: "Situado en Brasil, disponible para colaboración global",
       passionate: "Fascinado por las tecnologías de vanguardia",
+      techGroups: {
+        frontend: "Frontend",
+        backend: "Backend & Bases de Datos",
+        tools: "Herramientas & Servicios en la Nube",
+        ai: "IA",
+      },
       github: "Contribuyendo a proyectos en GitHub",
       githubDesc: "Código abierto y colaboración",
       linkedin: "Compartiendo ideas en LinkedIn",
@@ -1001,6 +1031,8 @@ export const translations: Record<Language, Translations> = {
     },
 
     githubActivity: {
+      sectionTitle: "Actividad en GitHub",
+      sectionSubtitle: "Mis contribuciones y el ritmo de código a lo largo del tiempo",
       titleLastYear: "contribuciones en el último año",
       titleYear: "contribuciones en {year}",
       lastYear: "Último año",

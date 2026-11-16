@@ -32,18 +32,30 @@ function LazyEarth() {
   );
 }
 
+// invertOnDark: logos monocromáticos pretos, que somem no fundo escuro
+// iconDark: versão própria para o tema escuro, quando inverter estragaria as cores
+type TechItem = {
+  name: string;
+  icon: string;
+  iconDark?: string;
+  invertOnDark?: boolean;
+};
+
+// segundos por item: o tempo de cada fileira cresce com a quantidade de itens,
+// assim todas rolam na mesma velocidade
+const MARQUEE_SECONDS_PER_ITEM = 5;
+
 function TechMarquee({
   items,
   group,
-  duration,
   reverse = false,
 }: {
-  items: { name: string; icon: string }[];
+  items: TechItem[];
   group: string;
-  duration: number;
   reverse?: boolean;
 }) {
   const repeated = [...items, ...items, ...items];
+  const duration = items.length * MARQUEE_SECONDS_PER_ITEM;
 
   return (
     <div className="relative overflow-hidden flex justify-start">
@@ -62,9 +74,19 @@ function TechMarquee({
                 src={tech.icon}
                 alt={index < items.length ? `${tech.name} logo` : ""}
                 fill
-                className="object-contain"
+                className={`object-contain ${tech.invertOnDark ? "dark:invert" : ""} ${tech.iconDark ? "dark:hidden" : ""}`}
                 sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
               />
+              {tech.iconDark && (
+                <Image
+                  src={tech.iconDark}
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  className="hidden object-contain dark:block"
+                  sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
+                />
+              )}
             </div>
             <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
               {tech.name}
@@ -367,16 +389,16 @@ export default function AboutSection() {
   const { t } = useLanguage();
   const { theme } = useTheme();
 
-  const frontendTech = [
+  const frontendTech: TechItem[] = [
     { name: "React", icon: "/react-original.svg" },
-    { name: "Next.js", icon: "/nextjs-original.svg" },
+    { name: "Next.js", icon: "/nextjs-original.svg", invertOnDark: true },
     { name: "Angular", icon: "/angular-svgrepo-com.svg" },
     { name: "Tailwind CSS", icon: "/tailwindcss-icon-svgrepo-com.svg" },
     { name: "TypeScript", icon: "/typescript-original.svg" },
-    { name: "Expo Router", icon: "/expo-router.svg" },
+    { name: "Expo Router", icon: "/expo-router.svg", invertOnDark: true },
   ];
 
-  const backendTech = [
+  const backendTech: TechItem[] = [
     { name: "Python", icon: "/python-original.svg" },
     { name: "Java", icon: "/java-svgrepo-com.svg" },
     { name: "Spring Boot", icon: "/spring-original-wordmark.svg" },
@@ -388,12 +410,12 @@ export default function AboutSection() {
     { name: "Docker", icon: "/docker-svgrepo-com.svg" },
   ];
 
-  const toolsTech = [
+  const toolsTech: TechItem[] = [
     { name: "Git", icon: "/git.svg" },
-    { name: "GitHub", icon: "/github.svg" },
+    { name: "GitHub", icon: "/github.svg", invertOnDark: true },
     { name: "Figma", icon: "/figma-original.svg" },
-    { name: "Vercel", icon: "/vercel-fill-svgrepo-com.svg" },
-    { name: "Railway", icon: "/railway-logo.svg" },
+    { name: "Vercel", icon: "/vercel-fill-svgrepo-com.svg", invertOnDark: true },
+    { name: "Railway", icon: "/railway-logo.svg", invertOnDark: true },
     { name: "Postman", icon: "/postman-icon-svgrepo-com.svg" },
     { name: "Insomnia", icon: "/insomnia-svgrepo-com.svg" },
     { name: "Trello", icon: "/trello-svgrepo-com.svg" },
@@ -401,10 +423,19 @@ export default function AboutSection() {
     { name: "Visual Studio", icon: "/visualstudio-plain.svg" },
     { name: "IntelliJ IDEA", icon: "/intellij-idea-svgrepo-com.svg" },
     { name: "NPM", icon: "/npm-svgrepo-com.svg" },
-    { name: "AWS", icon: "/aws-svgrepo-com.svg" },
+    { name: "AWS", icon: "/aws-svgrepo-com.svg", iconDark: "/aws-dark.svg" },
     { name: "Azure", icon: "/azure-original-wordmark.svg" },
     { name: "OCI", icon: "/oracle-svgrepo-com.svg" },
     { name: "Linux", icon: "/linux-original.svg" },
+  ];
+
+  const aiTech: TechItem[] = [
+    { name: "Claude", icon: "/claude.svg" },
+    { name: "ChatGPT", icon: "/chatgpt.svg", invertOnDark: true },
+    { name: "Gemini", icon: "/gemini.svg" },
+    { name: "RAG", icon: "/rag.svg" },
+    { name: "MCP", icon: "/mcp.svg" },
+    { name: "Agent Skills", icon: "/agent-skills.svg" },
   ];
 
   return (
@@ -583,32 +614,30 @@ export default function AboutSection() {
               <div className="space-y-4 xs:space-y-5 sm:space-y-6">
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    Frontend
+                    {t.about.techGroups.frontend}
                   </h4>
-                  <TechMarquee
-                    items={frontendTech}
-                    group="frontend"
-                    duration={30}
-                  />
+                  <TechMarquee items={frontendTech} group="frontend" />
                 </div>
 
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    Backend & Database
+                    {t.about.techGroups.backend}
                   </h4>
-                  <TechMarquee
-                    items={backendTech}
-                    group="backend"
-                    duration={30}
-                    reverse
-                  />
+                  <TechMarquee items={backendTech} group="backend" reverse />
                 </div>
 
                 <div>
                   <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    Tools & Cloud Services
+                    {t.about.techGroups.tools}
                   </h4>
-                  <TechMarquee items={toolsTech} group="tools" duration={35} />
+                  <TechMarquee items={toolsTech} group="tools" />
+                </div>
+
+                <div>
+                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
+                    {t.about.techGroups.ai}
+                  </h4>
+                  <TechMarquee items={aiTech} group="ai" reverse />
                 </div>
               </div>
             </motion.div>
