@@ -592,7 +592,7 @@ export default function AboutSection() {
               </div>
 
               <div className="flex min-h-[200px] flex-1 items-center justify-center overflow-visible xs:min-h-[250px] sm:min-h-[350px] md:min-h-[450px]">
-                <div className="relative mx-auto aspect-square w-full max-w-[500px] overflow-visible">
+                <div className="relative mx-auto aspect-square w-full max-w-[560px] overflow-visible">
                   <LazyEarth />
                 </div>
               </div>
