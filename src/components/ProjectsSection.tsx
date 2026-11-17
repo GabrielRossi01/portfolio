@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { STATIC_PROJECTS_DATA, type Project } from "@/lib/projectsData";
-import ProjectCard from "@/components/ProjectCard";
+import FeaturedStack from "@/components/FeaturedStack";
 import ProjectTile from "@/components/ProjectTile";
 
 export default function ProjectsSection() {
@@ -23,12 +23,14 @@ export default function ProjectsSection() {
       category: translatedData?.category || "",
       team: translatedData?.team || "",
       scope: translatedData?.scope || "",
+      badge: translatedData?.badge,
+      role: translatedData?.role,
+      highlights: translatedData?.highlights,
     };
   });
 
   const featured = projects.filter((project) => project.featured);
   const others = projects.filter((project) => !project.featured);
-  const [mainProject, ...secondaryProjects] = featured;
 
   return (
     <section
@@ -55,33 +57,8 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
 
-        {/* destaques: o principal em largura total e os demais lado a lado */}
-        <div className="space-y-5 sm:space-y-6">
-          {mainProject && (
-            <ProjectCard project={mainProject} index={0} variant="large" />
-          )}
-
-          {secondaryProjects.length > 0 && (
-            <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
-              {secondaryProjects.map((project, index) => {
-                // número ímpar de cards: o último ocupa a linha inteira
-                const sozinho =
-                  secondaryProjects.length % 2 === 1 &&
-                  index === secondaryProjects.length - 1;
-
-                return (
-                  <div key={project.id} className={sozinho ? "md:col-span-2" : ""}>
-                    <ProjectCard
-                      project={project}
-                      index={index + 1}
-                      variant={sozinho ? "large" : "compact"}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+        {/* destaques em pilha: cada card sobe por cima do anterior */}
+        <FeaturedStack projects={featured} />
 
         {others.length > 0 && (
           <motion.div

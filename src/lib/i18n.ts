@@ -8,6 +8,9 @@ export interface ProjectItem {
   category: string;
   team: string;
   scope: string;
+  badge?: string;
+  role?: string;
+  highlights?: string[];
 }
 
 export interface Translations {
@@ -164,6 +167,7 @@ export interface Translations {
     viewCaseStudy: string;
     othersTitle: string;
     othersSwipeHint: string;
+    myRole: string;
     items: ProjectItem[];
   };
 
@@ -295,6 +299,7 @@ export const translations: Record<Language, Translations> = {
       viewCaseStudy: "Ver Estudo de Caso",
       othersTitle: "Outros projetos",
       othersSwipeHint: "Arraste para ver mais",
+      myRole: "Meu papel.",
       items: [
         {
           title: "knowball",
@@ -305,6 +310,7 @@ export const translations: Record<Language, Translations> = {
           category: "Fullstack / IA",
           team: "",
           scope: "API REST / Segurança / Spring AI",
+          badge: "Top 3 · FIAP NEXT 2026",
         },
         {
           title: "bootlift",
@@ -315,6 +321,11 @@ export const translations: Record<Language, Translations> = {
           category: "DevOps / CI/CD / Open Source",
           team: "",
           scope: "GitHub Actions / Análise estática / Spring Boot 4",
+          badge: "Publicado no GitHub Marketplace",
+          highlights: [
+            "Publicada no GitHub Actions Marketplace, com um repositório de demonstração open source.",
+            "Landing page do produto com playground interativo, em inglês e português.",
+          ],
         },
         {
           title: "orion-infra-aws",
@@ -600,6 +611,7 @@ export const translations: Record<Language, Translations> = {
       viewCaseStudy: "View Case Study",
       othersTitle: "Other projects",
       othersSwipeHint: "Swipe to see more",
+      myRole: "My role.",
       items: [
         {
           title: "knowball",
@@ -610,6 +622,7 @@ export const translations: Record<Language, Translations> = {
           category: "Fullstack / AI / Backend",
           team: "",
           scope: "REST API / Security / Spring AI",
+          badge: "Top 3 · FIAP NEXT 2026",
         },
         {
           title: "bootlift",
@@ -620,6 +633,11 @@ export const translations: Record<Language, Translations> = {
           category: "DevOps / CI/CD / Open Source",
           team: "",
           scope: "GitHub Actions / Static analysis / Spring Boot 4",
+          badge: "Live on GitHub Marketplace",
+          highlights: [
+            "Published on the GitHub Actions Marketplace, with an open-source demo repository.",
+            "Product landing page with an interactive playground, in English and Portuguese.",
+          ],
         },
         {
           title: "orion-infra-aws",
@@ -906,6 +924,7 @@ export const translations: Record<Language, Translations> = {
       viewCaseStudy: "Ver Caso de Estudio",
       othersTitle: "Otros proyectos",
       othersSwipeHint: "Desliza para ver más",
+      myRole: "Mi rol.",
       items: [
         {
           title: "knowball",
@@ -916,6 +935,7 @@ export const translations: Record<Language, Translations> = {
           category: "Fullstack / IA / Backend",
           team: "",
           scope: "API REST / Seguridad / Spring AI",
+          badge: "Top 3 · FIAP NEXT 2026",
         },
         {
           title: "bootlift",
@@ -926,6 +946,11 @@ export const translations: Record<Language, Translations> = {
           category: "DevOps / CI/CD / Open Source",
           team: "",
           scope: "GitHub Actions / Análisis estático / Spring Boot 4",
+          badge: "Publicado en GitHub Marketplace",
+          highlights: [
+            "Publicada en el GitHub Actions Marketplace, con un repositorio de demostración open source.",
+            "Landing page del producto con un playground interactivo, en inglés y portugués.",
+          ],
         },
         {
           title: "orion-infra-aws",

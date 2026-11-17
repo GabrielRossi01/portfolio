@@ -1,3 +1,24 @@
+// área da tela dentro da imagem de mockup (em pixels da imagem), para recortar só a tela
+export interface ScreenCrop {
+  iw: number;
+  ih: number;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+const IMAC_PNG_SCREEN: ScreenCrop = { iw: 3786, ih: 3158, x: 150, y: 186, w: 3484, h: 1966 };
+const IMAC_SVG_SCREEN: ScreenCrop = { iw: 1580, ih: 1102, x: 147, y: 102, w: 1286, h: 724 };
+
+export interface ProjectVideo {
+  /** o navegador usa o primeiro formato que suportar: webm (menor) e depois mp4 */
+  webm?: string;
+  mp4: string;
+  /** imagem mostrada enquanto o vídeo carrega */
+  poster?: string;
+}
+
 export interface StaticProjectData {
   id: number;
   title: string;
@@ -8,6 +29,12 @@ export interface StaticProjectData {
   tags: string[];
   github: string;
   demo?: string;
+  // destaques: janela de navegador
+  /** vídeo em /public (16:10), mostrado na janela; sem ele, aparece a tela do mockup */
+  video?: ProjectVideo;
+  /** endereço exibido na barra da janela; padrão: demo ou repositório */
+  previewUrl?: string;
+  screen?: ScreenCrop;
 }
 
 export interface Project extends StaticProjectData {
@@ -17,6 +44,9 @@ export interface Project extends StaticProjectData {
   category: string;
   team: string;
   scope: string;
+  badge?: string;
+  role?: string;
+  highlights?: string[];
 }
 
 export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
@@ -44,6 +74,13 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "Vercel",
     ],
     github: "https://github.com/knowball-oracle/knowball-api",
+    previewUrl: "knowball-web-henna.vercel.app/auth/login",
+    screen: IMAC_PNG_SCREEN,
+    video: {
+      webm: "/videos/knowball/knowball.webm",
+      mp4: "/videos/knowball/knowball.mp4",
+      poster: "/videos/knowball/poster.jpg",
+    },
   },
   {
     id: 1,
@@ -64,11 +101,17 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "CI/CD",
     ],
     github: "https://github.com/GabrielRossi01/bootlift.git",
+    previewUrl: "bootlift-site.vercel.app",
+    screen: IMAC_SVG_SCREEN,
+    video: {
+      webm: "/videos/bootlift/bootlift.webm",
+      mp4: "/videos/bootlift/bootlift.mp4",
+      poster: "/videos/bootlift/poster.jpg",
+    },
   },
   {
     id: 2,
     title: "orion-infra-aws",
-    featured: true,
     mockup: "/apple-imac-infra-aws.png",
     images: ["/apple-imac-infra-aws.png"],
     mockupType: "desktop",
@@ -84,11 +127,11 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "Application Auto Scaling",
     ],
     github: "https://github.com/GabrielRossi01/orion-infra-aws.git",
+    screen: IMAC_PNG_SCREEN,
   },
   {
     id: 3,
     title: "whobetter",
-    featured: true,
     mockup: "/apple-imac-whobetter.png",
     images: ["/apple-imac-whobetter.png"],
     mockupType: "desktop",
@@ -110,6 +153,7 @@ export const STATIC_PROJECTS_DATA: StaticProjectData[] = [
       "Mockito",
     ],
     github: "https://github.com/GabrielRossi01/whobetter.git",
+    screen: IMAC_PNG_SCREEN,
   },
   {
     id: 4,
