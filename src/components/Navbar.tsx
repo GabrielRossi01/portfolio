@@ -9,7 +9,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Language } from "@/lib/i18n";
 import { pauseSmoothScroll, scrollToTarget } from "@/lib/smoothScroll";
 
-const SECTION_IDS = ["home", "about", "projects", "contact"];
+const SECTION_IDS = ["home", "about", "projects", "github-activity", "contact"];
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
@@ -22,6 +22,7 @@ export default function Navbar() {
     { name: t.nav.home, href: "#home" },
     { name: t.nav.about, href: "#about" },
     { name: t.nav.projects, href: "#projects" },
+    { name: t.nav.contributions, href: "#github-activity" },
     { name: t.nav.contact, href: "#contact" },
   ];
 
@@ -87,7 +88,7 @@ export default function Navbar() {
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-2 sm:top-3 left-4 sm:left-6 z-50 hidden md:block"
+        className="fixed top-2 sm:top-3 left-4 sm:left-6 z-50 hidden lg:block"
       >
         <a href="#home" className="block group">
           <div className="p-2 sm:p-2.5">
@@ -108,14 +109,14 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block"
+        className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 hidden lg:block"
       >
         <div className="glass-liquid rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-1.5 sm:gap-2">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className={`relative px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors duration-300 rounded-full ${
+              className={`relative whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors duration-300 rounded-full ${
                 activeSection === link.href.replace("#", "")
                   ? "text-gray-900 dark:text-white"
                   : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-transparent"
@@ -138,7 +139,7 @@ export default function Navbar() {
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-4 sm:top-6 right-4 sm:right-6 z-50 hidden md:flex items-center gap-2"
+        className="fixed top-4 sm:top-6 right-4 sm:right-6 z-50 hidden lg:flex items-center gap-2"
       >
         <button
           onClick={toggleTheme}
@@ -258,7 +259,7 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 md:hidden"
+        className="fixed top-0 left-0 right-0 z-50 lg:hidden"
       >
         <div className="mx-3 xs:mx-4 sm:mx-5 mt-4 xs:mt-5 sm:mt-6 flex items-center justify-between">
           <a href="#home" className="shrink-0">
@@ -304,7 +305,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 md:hidden"
+            className="fixed inset-0 z-40 lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
           >
             <div className="absolute inset-0 bg-black/60 backdrop-blur-xl" />

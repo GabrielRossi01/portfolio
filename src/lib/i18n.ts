@@ -19,6 +19,7 @@ export interface Translations {
     skills: string;
     about: string;
     projects: string;
+    contributions: string;
     contact: string;
   };
 
@@ -195,6 +196,7 @@ export const translations: Record<Language, Translations> = {
       skills: "Habilidades",
       about: "Sobre",
       projects: "Projetos",
+      contributions: "Contribuições",
       contact: "Contato",
     },
     hero: {
@@ -508,6 +510,7 @@ export const translations: Record<Language, Translations> = {
       skills: "Skills",
       about: "About",
       projects: "Projects",
+      contributions: "Contributions",
       contact: "Contact",
     },
     hero: {
@@ -821,6 +824,7 @@ export const translations: Record<Language, Translations> = {
       skills: "Habilidades",
       about: "Acerca",
       projects: "Proyectos",
+      contributions: "Contribuciones",
       contact: "Contacto",
     },
     hero: {
