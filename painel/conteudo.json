@@ -8,19 +8,32 @@
     "curso": "Systems Analysis and Development",
     "detalhe": "Graduated · FIAP"
   },
+  "certificacao": {
+    "nome": "AWS Certified Cloud Practitioner",
+    "detalhe": "Amazon Web Services · 2026"
+  },
   "faco": [
     "REST APIs with Java and Spring Boot",
     "Front-end with Next.js and Angular",
     "AI Features",
     "Cloud computing"
   ],
-  "projeto": {
-    "nome": "Knowball",
-    "descricao": "Grassroots football: tournaments, matches and reports, with a secure REST API and an AI assistant.",
-    "linkTexto": "knowball-oracle/knowball-api",
-    "url": "https://github.com/knowball-oracle/knowball-api.git",
-    "miniatura": "painel/knowball.webp"
-  },
+  "projetos": [
+    {
+      "nome": "Knowball",
+      "descricao": "Grassroots football: tournaments, matches and reports, with a secure REST API and an AI assistant.",
+      "linkTexto": "knowball-oracle/knowball-api",
+      "url": "https://github.com/knowball-oracle/knowball-api.git",
+      "miniatura": "painel/knowball.webp"
+    },
+    {
+      "nome": "Bootlift",
+      "descricao": "Open-source GitHub Action that checks Spring Boot 4 readiness on every pull request.",
+      "linkTexto": "GabrielRossi01/bootlift",
+      "url": "https://github.com/GabrielRossi01/bootlift",
+      "miniatura": "painel/bootlift.webp"
+    }
+  ],
   "stack": ["Java", "Spring Boot", "AWS", "AI", "Next.js", "Angular", "TypeScript"],
   "comunidade": {
     "titulo": "Active in the tech community",

@@ -63,8 +63,12 @@ const rotulo = (x, y, txt, t) => T(x, y, txt.toUpperCase(), { tam: 11, mono: tru
 const setaDiag = (x, y, s, cor) =>
   `<path d="M${x} ${y}L${x + s} ${y - s}M${x + s * 0.35} ${y - s}H${x + s}V${y - s * 0.65}" stroke="${cor}" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
 
-export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) {
+// aceita "projetos" (lista) ou o formato antigo "projeto" (um só)
+export const listaProjetos = (k) => k.projetos ?? (k.projeto ? [k.projeto] : []);
+
+export function render({ conteudo: k, dados, tema, cssFontes = '', miniaturas = [] }) {
   const t = TEMAS[tema];
+  const projetos = listaProjetos(k);
   const der = derivar(dados);
   const textos = { geist: new Set(), mono: new Set() }; // caracteres usados, para pedir a fonte
   const usa = (s, mono) => [...s].forEach((c) => textos[mono ? 'mono' : 'geist'].add(c));
@@ -89,6 +93,17 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
     push(tx(PAD + 22, yC, curso, { tam: 14, peso: 600, id: 'formacaoCurso' }));
     yC += 20;
     push(tx(PAD + 22, yC, k.formacao.detalhe, { tam: 12, mono: true, cor: t.suave, id: 'formacaoDetalhe' }));
+  }
+  if (k.certificacao) {
+    yC += 30;
+    // escudo com check (certificação)
+    const cx = PAD + 7, cy = yC - 6;
+    push(`<path d="M${cx} ${cy - 6.5}L${cx + 5.5} ${cy - 4.3}V${cy + 0.2}Q${cx + 5.5} ${cy + 4.6} ${cx} ${cy + 6.5}Q${cx - 5.5} ${cy + 4.6} ${cx - 5.5} ${cy + 0.2}V${cy - 4.3}Z" fill="${t.acento}"/>`);
+    push(`<path d="M${cx - 2.4} ${cy}L${cx - 0.6} ${cy + 1.8}L${cx + 2.6} ${cy - 1.6}" fill="none" stroke="${t.fundo}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>`);
+    const nomeCert = quebrar(k.certificacao.nome, larguraEsq - 22, 14, { peso: 600 }, 1)[0];
+    push(tx(PAD + 22, yC, nomeCert, { tam: 14, peso: 600, id: 'certNome' }));
+    yC += 20;
+    push(tx(PAD + 22, yC, k.certificacao.detalhe, { tam: 12, mono: true, cor: t.suave, id: 'certDetalhe' }));
   }
   push(`</g>`);
 
@@ -154,23 +169,33 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   const y3 = Math.max(cy0 + 2 * ch + gapCard, y2 + 76 + (facos.length - 1) * passoFaco + 6) + 36;
   push(`<line x1="${PAD}" y1="${y3}" x2="${W - PAD}" y2="${y3}" stroke="${t.linha}"/>`);
   push(`<g class="a a4">`);
-  push(rotulo(PAD, y3 + 36, 'Featured project', t)); usa('FEATURED PROJECT', true);
-  const mw = 168, mh = 105, my = y3 + 56;
-  if (k.projeto.url) push(`<a href="${esc(k.projeto.url)}" target="_blank">`);
-  if (miniatura) {
-    push(`<clipPath id="mini"><rect x="${PAD}" y="${my}" width="${mw}" height="${mh}" rx="6"/></clipPath>`);
-    push(`<image href="data:image/webp;base64,${miniatura}" x="${PAD}" y="${my}" width="${mw}" height="${mh}" preserveAspectRatio="xMidYMid slice" clip-path="url(#mini)"/>`);
-  }
-  push(`<rect x="${PAD + 0.5}" y="${my + 0.5}" width="${mw - 1}" height="${mh - 1}" rx="6" fill="none" stroke="${t.linha}"/>`);
-  const px = PAD + mw + 20, pw = COL2 - px - 22;
-  push(tx(px, my + 16, k.projeto.nome, { tam: 18, peso: 600, esp: -0.3, id: 'projNome' }));
-  quebrar(k.projeto.descricao, pw, 13.5, {}, 3).forEach((l, i) =>
-    push(tx(px, my + 42 + i * 20, l, { tam: 13.5, cor: t.suave, id: `projDesc${i}` }))
-  );
-  const lt = k.projeto.linkTexto;
-  push(tx(px, my + mh - 2, lt, { tam: 12.5, mono: true, cor: t.acentoTexto, id: 'projLink' }));
-  push(setaDiag(px + largura(lt, 12.5, { mono: true }) + 5, my + mh - 3, 7, t.acentoTexto));
-  if (k.projeto.url) push(`</a>`);
+  const tituloProj = projetos.length > 1 ? 'Featured projects' : 'Featured project';
+  push(rotulo(PAD, y3 + 36, tituloProj, t)); usa(tituloProj.toUpperCase(), true);
+  // projetos empilhados na coluna da esquerda, um abaixo do outro
+  const mw = 168, mh = 105, gapProj = 28;
+  let my = y3 + 56;
+  projetos.forEach((p, n) => {
+    if (n > 0) {
+      my += mh + gapProj;
+      push(`<line x1="${PAD}" y1="${my - gapProj / 2}" x2="${COL2 - 22}" y2="${my - gapProj / 2}" stroke="${t.linha}" stroke-dasharray="3 4"/>`);
+    }
+    if (p.url) push(`<a href="${esc(p.url)}" target="_blank">`);
+    const mini = miniaturas[n];
+    if (mini) {
+      push(`<clipPath id="mini${n}"><rect x="${PAD}" y="${my}" width="${mw}" height="${mh}" rx="6"/></clipPath>`);
+      push(`<image href="data:image/webp;base64,${mini}" x="${PAD}" y="${my}" width="${mw}" height="${mh}" preserveAspectRatio="xMidYMid slice" clip-path="url(#mini${n})"/>`);
+    }
+    push(`<rect x="${PAD + 0.5}" y="${my + 0.5}" width="${mw - 1}" height="${mh - 1}" rx="6" fill="none" stroke="${t.linha}"/>`);
+    const px = PAD + mw + 20, pw = COL2 - px - 22;
+    push(tx(px, my + 16, p.nome, { tam: 18, peso: 600, esp: -0.3, id: `projNome${n}` }));
+    quebrar(p.descricao, pw, 13.5, {}, 3).forEach((l, i) =>
+      push(tx(px, my + 42 + i * 20, l, { tam: 13.5, cor: t.suave, id: `projDesc${n}_${i}` }))
+    );
+    const lt = p.linkTexto;
+    push(tx(px, my + mh - 2, lt, { tam: 12.5, mono: true, cor: t.acentoTexto, id: `projLink${n}` }));
+    push(setaDiag(px + largura(lt, 12.5, { mono: true }) + 5, my + mh - 3, 7, t.acentoTexto));
+    if (p.url) push(`</a>`);
+  });
 
   push(rotulo(COL2, y3 + 36, 'Everyday stack', t)); usa('EVERYDAY STACK', true);
   let xp = COL2, yp = y3 + 56;
@@ -227,7 +252,7 @@ export function render({ conteudo: k, dados, tema, cssFontes = '', miniatura }) 
   push(tx(PAD, yR + 26, quando, { tam: 11, mono: true, cor: dados.exemplo ? t.acentoTexto : t.fraco, id: 'atualizado' }));
   push(tx(W - PAD, yR + 26, `github.com/${dados.usuario}`, { tam: 11, mono: true, cor: t.fraco, ancora: 'end' }));
 
-  const desc = `${k.nome} — ${k.cargo}.${k.formacao ? ` ${k.formacao.curso} — ${k.formacao.detalhe}.` : ''} ${nf.format(dados.contribuicoes.total)} GitHub contributions in the last 12 months, ${dados.perfil.repositoriosPublicos} public repositories${typeof prs === 'number' ? `, ${nf.format(prs)} pull requests opened` : ''}. Featured project: ${k.projeto.nome}.${k.comunidade ? ` ${k.comunidade.titulo}.` : ''}`;
+  const desc = `${k.nome} — ${k.cargo}.${k.formacao ? ` ${k.formacao.curso} — ${k.formacao.detalhe}.` : ''} ${nf.format(dados.contribuicoes.total)} GitHub contributions in the last 12 months, ${dados.perfil.repositoriosPublicos} public repositories${typeof prs === 'number' ? `, ${nf.format(prs)} pull requests opened` : ''}. ${k.certificacao ? `${k.certificacao.nome}. ` : ''}Featured ${projetos.length > 1 ? 'projects' : 'project'}: ${projetos.map((p) => p.nome).join(', ')}.${k.comunidade ? ` ${k.comunidade.titulo}.` : ''}`;
 
   const css = `${cssFontes}
 .a{animation:surgir .7s cubic-bezier(.2,.7,.2,1) both}

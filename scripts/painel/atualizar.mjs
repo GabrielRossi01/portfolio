@@ -3,7 +3,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lerGithub } from './github.mjs';
 import { fontesEmbutidas } from './fontes.mjs';
-import { render, FIXOS_GEIST, FIXOS_MONO } from './svg.mjs';
+import { render, listaProjetos, FIXOS_GEIST, FIXOS_MONO } from './svg.mjs';
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const arq = (...p) => join(raiz, ...p);
@@ -37,12 +37,13 @@ async function principal() {
     return;
   }
 
-  let miniatura;
-  if (conteudo.projeto.miniatura) {
-    const buf = readFileSync(arq(conteudo.projeto.miniatura));
-    if (buf.length > 20_000) console.warn(`[painel] miniatura com ${Math.round(buf.length / 1024)} KB — o ideal é ~15 KB`);
-    miniatura = buf.toString('base64');
-  }
+  // uma miniatura por projeto em destaque (na mesma ordem)
+  const miniaturas = listaProjetos(conteudo).map((p) => {
+    if (!p.miniatura) return undefined;
+    const buf = readFileSync(arq(p.miniatura));
+    if (buf.length > 20_000) console.warn(`[painel] miniatura ${p.miniatura} com ${Math.round(buf.length / 1024)} KB — o ideal é ~15 KB`);
+    return buf.toString('base64');
+  });
 
   const { textos } = render({ conteudo, dados, tema: 'escuro' });
   const juntar = (set, fixos) => [...new Set([...set, ...fixos])].sort().join('');
@@ -62,7 +63,7 @@ async function principal() {
   const destino = arq(PASTA_PUBLICA, 'readme');
   mkdirSync(destino, { recursive: true });
   for (const tema of ['escuro', 'claro']) {
-    const { svg } = render({ conteudo, dados, tema, cssFontes, miniatura });
+    const { svg } = render({ conteudo, dados, tema, cssFontes, miniaturas });
     writeFileSync(join(destino, `painel-${tema}.svg`), svg);
     console.log(`[painel] ${PASTA_PUBLICA}/readme/painel-${tema}.svg (${Math.round(svg.length / 1024)} KB)`);
   }

@@ -13,11 +13,14 @@ O portfólio (rossidev.vercel.app) gera e serve o painel do README do perfil:
 2. Grava esses dados em `painel/dados-github.json`.
 3. Gera os dois SVG em `public/readme/`. Cada SVG já traz embutidos:
    - a fonte, com só os caracteres usados;
-   - a miniatura do projeto.
+   - as miniaturas dos projetos em destaque.
 4. Uma vez por dia, o Vercel Cron chama `/api/atualizar-painel`. Essa rota dispara o Deploy Hook, e o novo deploy refaz o passo 1.
 5. Se o token faltar ou o GitHub falhar, o build **não quebra**: usa o JSON e os SVG anteriores.
 
-Os textos ficam em `painel/conteudo.json` e a miniatura em `painel/projeto.webp`, com no máximo 15 KB. Os números sempre saem do GitHub.
+Os textos ficam em `painel/conteudo.json`. Os números sempre saem do GitHub.
+
+- **Projetos em destaque:** a lista `projetos`, desenhada na ordem do arquivo, um abaixo do outro. Cada um aponta para a sua miniatura em `painel/` (`.webp`, de preferência 336×210 e até 15 KB). O formato antigo, com um único `projeto`, continua funcionando.
+- **Certificação:** o bloco opcional `certificacao` (`nome` e `detalhe`) aparece logo abaixo da formação.
 
 ## Passo a passo (uma vez)
 
@@ -25,7 +28,7 @@ Os textos ficam em `painel/conteudo.json` e a miniatura em `painel/projeto.webp`
 
 Copie estes arquivos:
 - `scripts/painel/` inteiro;
-- `painel/conteudo.json`, `painel/projeto.webp` e `painel/fontes-cache.json`;
+- `painel/conteudo.json`, as miniaturas `painel/*.webp` e `painel/fontes-cache.json`;
 - `app/api/atualizar-painel/route.ts`;
 - `vercel.json`. Se o portfólio já tiver um, junte as chaves `headers` e `crons`.
 
