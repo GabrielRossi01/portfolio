@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X, Sun, Moon, Globe, ChevronDown, Check } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -15,6 +15,8 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+  const navigatingRef = useRef(false);
+  const navigationId = useRef(0);
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
 
@@ -38,29 +40,69 @@ export default function Navbar() {
   ];
 
   useEffect(() => {
-    let frame = 0;
+    // Seção ativa = a que cruza a linha a 100px do topo. Uma faixa de 1px no
+    // IntersectionObserver evita ler o layout a cada evento de scroll.
+    // Algumas seções são carregadas com dynamic(), então observamos de novo
+    // quando o DOM muda.
+    let io: IntersectionObserver | null = null;
+    const observed = new Set<Element>();
 
-    // no máximo uma leitura de layout por frame
-    const handleScroll = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
-        frame = 0;
-        const current = SECTION_IDS.find((section) => {
-          const element = document.getElementById(section);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            return rect.top <= 100 && rect.bottom >= 100;
-          }
-          return false;
-        });
-        if (current) setActiveSection(current);
+    const observeSections = () => {
+      SECTION_IDS.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && io && !observed.has(el)) {
+          io.observe(el);
+          observed.add(el);
+        }
       });
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    const createObserver = () => {
+      io?.disconnect();
+      observed.clear();
+      const bottom = Math.max(0, window.innerHeight - 101);
+      io = new IntersectionObserver(
+        (entries) => {
+          if (navigatingRef.current) return;
+          const hit = entries.find((entry) => entry.isIntersecting);
+          if (hit) setActiveSection(hit.target.id);
+        },
+        { rootMargin: `-100px 0px -${bottom}px 0px` },
+      );
+      observeSections();
+    };
+
+    createObserver();
+
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(createObserver, 200);
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+
+    // se o usuário assumir o scroll no meio do caminho, o observer volta a mandar
+    const release = () => {
+      navigatingRef.current = false;
+    };
+    window.addEventListener("wheel", release, { passive: true });
+    window.addEventListener("touchstart", release, { passive: true });
+    window.addEventListener("keydown", release);
+
+    const mo = new MutationObserver(() => {
+      if (observed.size < SECTION_IDS.length) observeSections();
+      else mo.disconnect();
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      cancelAnimationFrame(frame);
+      io?.disconnect();
+      mo.disconnect();
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("wheel", release);
+      window.removeEventListener("touchstart", release);
+      window.removeEventListener("keydown", release);
     };
   }, []);
 
@@ -73,34 +115,62 @@ export default function Navbar() {
     pauseSmoothScroll(mobileMenuOpen);
   }, [mobileMenuOpen]);
 
+  // Durante a rolagem disparada por um clique, o indicador vai direto para o
+  // destino e o observer não o arrasta por cada seção do caminho (isso gerava
+  // uma animação de layout por seção e travava a navegação).
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     href: string,
   ) => {
     event.preventDefault();
-    setMobileMenuOpen(false);
-    scrollToTarget(href);
+    const id = href.replace("#", "");
+    const navId = ++navigationId.current;
+    navigatingRef.current = true;
+    setActiveSection(id);
+
+    const finish = () => {
+      if (navigationId.current !== navId) return;
+      navigatingRef.current = false;
+    };
+    // rede de segurança caso a rolagem seja interrompida antes do fim
+    setTimeout(finish, 1800);
+
+    if (mobileMenuOpen) {
+      // espera o menu liberar o scroll do body antes de rolar
+      setMobileMenuOpen(false);
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => scrollToTarget(href, finish)),
+      );
+    } else {
+      scrollToTarget(href, finish);
+    }
   };
 
   return (
     <>
+      {/* Desktop: logo, menu e controles numa única linha, centralizados no eixo vertical */}
+      <div className="pointer-events-none fixed inset-x-0 top-6 z-50 hidden h-15 items-center justify-between px-6 lg:flex">
       <motion.div
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-2 sm:top-3 left-4 sm:left-6 z-50 hidden lg:block"
+        className="pointer-events-auto"
       >
-        <a href="#home" className="block group">
-          <div className="p-2 sm:p-2.5">
-            <div className="relative w-8 h-8 sm:w-10 sm:h-10">
-              <Image
-                src="/GR.svg"
-                alt="Gabriel Rossi Logo"
-                fill
-                className={`object-contain transition-all duration-300 ${theme === "light" ? "invert" : ""}`}
-                priority
-              />
-            </div>
+        <a
+          href="#home"
+          onClick={(event) => handleLinkClick(event, "#home")}
+          className="block group p-1"
+          aria-label="Gabriel Rossi"
+        >
+          <div className="relative w-10 h-10">
+            <Image
+              src="/GR.svg"
+              alt="Gabriel Rossi Logo"
+              fill
+              sizes="40px"
+              className={`object-contain transition-[filter] duration-300 ${theme === "light" ? "invert" : ""}`}
+              preload
+            />
           </div>
         </a>
       </motion.div>
@@ -109,13 +179,17 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 hidden lg:block"
+        className="pointer-events-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       >
         <div className="glass-liquid rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-1.5 sm:gap-2">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
+              onClick={(event) => handleLinkClick(event, link.href)}
+              aria-current={
+                activeSection === link.href.replace("#", "") ? "true" : undefined
+              }
               className={`relative whitespace-nowrap px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors duration-300 rounded-full ${
                 activeSection === link.href.replace("#", "")
                   ? "text-gray-900 dark:text-white"
@@ -139,11 +213,11 @@ export default function Navbar() {
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-4 sm:top-6 right-4 sm:right-6 z-50 hidden lg:flex items-center gap-2"
+        className="pointer-events-auto flex items-center gap-2"
       >
         <button
           onClick={toggleTheme}
-          className="glass-liquid rounded-full p-2.5 sm:p-3 hover:bg-white/10 transition-all duration-300 hover:scale-110 cursor-pointer"
+          className="glass-liquid rounded-full p-3 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 cursor-pointer"
           aria-label="Toggle theme"
         >
           <motion.div
@@ -162,7 +236,7 @@ export default function Navbar() {
         <div className="relative">
           <button
             onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-            className="glass-liquid rounded-full pl-2.5 pr-3 sm:pl-3 sm:pr-3.5 py-2 sm:py-2.5 hover:bg-white/10 transition-all duration-300 flex items-center gap-1.5 cursor-pointer"
+            className="glass-liquid rounded-full pl-3 pr-3.5 py-3 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-1.5 cursor-pointer"
             aria-label="Change language"
             aria-expanded={languageDropdownOpen}
           >
@@ -254,6 +328,7 @@ export default function Navbar() {
           </AnimatePresence>
         </div>
       </motion.div>
+      </div>
 
       <motion.div
         initial={{ y: -100, opacity: 0 }}
@@ -272,7 +347,8 @@ export default function Navbar() {
                   className={`object-contain transition-all duration-300 ${
                     theme === "light" ? "invert" : ""
                   }`}
-                  priority
+                  sizes="48px"
+                  preload
                 />
               </div>
             </div>

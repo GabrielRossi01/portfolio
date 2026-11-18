@@ -8,19 +8,47 @@ export function setLenis(instance: Lenis | null) {
   lenis = instance;
 }
 
-export function scrollToTarget(target: string | number) {
+// easeInOutCubic: arranca e assenta com suavidade, sem "tranco" no fim
+const easeInOutCubic = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+// duração proporcional à distância: saltos curtos são rápidos, longos não se
+// arrastam passando por todas as seções
+function durationFor(distance: number) {
+  return Math.min(1.4, 0.55 + Math.abs(distance) / 4500);
+}
+
+function targetTop(target: string | number) {
+  if (typeof target === "number") return target;
+  const el = target.startsWith("#")
+    ? document.getElementById(decodeURIComponent(target.slice(1)))
+    : document.querySelector(target);
+  if (!el) return null;
+  return el.getBoundingClientRect().top + window.scrollY;
+}
+
+export function scrollToTarget(
+  target: string | number,
+  onComplete?: () => void,
+) {
+  const top = targetTop(target);
+  if (top === null) {
+    onComplete?.();
+    return;
+  }
+
   if (lenis) {
     lenis.start();
-    lenis.scrollTo(target, { duration: 1.2 });
+    lenis.scrollTo(top, {
+      duration: durationFor(top - window.scrollY),
+      easing: easeInOutCubic,
+      onComplete: () => onComplete?.(),
+    });
     return;
   }
 
-  if (typeof target === "number") {
-    window.scrollTo({ top: target });
-    return;
-  }
-
-  document.querySelector(target)?.scrollIntoView();
+  window.scrollTo({ top });
+  onComplete?.();
 }
 
 export function pauseSmoothScroll(paused: boolean) {

@@ -1,0 +1,367 @@
+.hero {
+  --bg: var(--background);
+  --fg: var(--foreground);
+  --muted: color-mix(in oklab, var(--foreground) 55%, transparent);
+  --soft: color-mix(in oklab, var(--foreground) 80%, transparent);
+  --accent: #f5822a;
+  --pad-x: clamp(20px, 4vw, 56px);
+  --title-top: clamp(88px, 12svh, 120px);
+
+  position: relative;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sora), system-ui, sans-serif;
+}
+
+:global(.light) .hero {
+  --accent: #e8650f;
+}
+
+.hero a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.title {
+  position: absolute;
+  top: var(--title-top);
+  left: 0;
+  right: 0;
+  z-index: 1;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+  /* Brice Bold (next/font/local); fallback com métricas ajustadas */
+  font-family: var(--hero-display), sans-serif;
+  font-weight: 700;
+  /* --title-size é calculado no componente para ocupar toda a largura útil;
+     o clamp vale só até o JS rodar */
+  font-size: var(--title-size, clamp(44px, 13vw, 240px));
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  font-synthesis: none;
+  color: var(--fg);
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  will-change: translate, opacity;
+}
+.titleText {
+  display: inline-block;
+}
+.titleLine + .titleLine::before {
+  content: " ";
+}
+
+/* Palco do personagem: a altura define tudo, a largura sai da proporção da
+   arte. Centralizado com margin (o translate fica livre para o parallax). */
+.stage {
+  --stage-h: min(88svh, 980px, calc(50vw * 1373 / 1145));
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: var(--stage-h);
+  width: calc(var(--stage-h) * 1145 / 1373);
+  margin-inline: auto;
+  transform-origin: 50% 100%;
+  will-change: translate, scale;
+}
+
+.character {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  animation: rise-art 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.05s backwards;
+}
+.character:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+  border-radius: 24px;
+}
+
+.art,
+.bodyLayer,
+.headLayer {
+  position: absolute;
+  inset: 0;
+}
+.bodyLayer,
+.headLayer {
+  will-change: transform;
+}
+.bodyLayer {
+  transform-origin: 50% 100%;
+}
+.headLayer {
+  transform-origin: 50.2% 64.1%;
+}
+.layer {
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.eye {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.iris {
+  position: absolute;
+  border-radius: 50%;
+  background: #23150e;
+  will-change: transform;
+}
+.iris::after {
+  content: "";
+  position: absolute;
+  left: 60.3%;
+  top: 17.6%;
+  width: 26.5%;
+  height: 26.5%;
+  border-radius: 50%;
+  background: #fff;
+}
+.lid {
+  position: absolute;
+  inset: 0;
+  background: #f3b48a;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 70ms ease-out;
+}
+
+.bottomLeft {
+  position: absolute;
+  left: var(--pad-x);
+  bottom: 48px;
+  z-index: 3;
+  max-width: clamp(240px, 24vw, 360px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fade 0.7s ease-out 0.35s backwards;
+  will-change: translate, opacity;
+}
+.bottomLeft p {
+  margin: 0;
+  font-size: clamp(15px, 1.1vw, 17px);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--soft);
+}
+.accent {
+  font-family: var(--font-instrument-serif), serif;
+  font-style: italic;
+  font-size: 1.12em;
+  background: linear-gradient(135deg, #ff9500, #ff6b35, #ff4500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bottomRight {
+  position: absolute;
+  right: var(--pad-x);
+  bottom: 44px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 18px;
+  animation: fade 0.7s ease-out 0.45s backwards;
+  will-change: translate, opacity;
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+.hero .cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.hero .cta:hover {
+  background: var(--accent);
+  color: #160a02;
+  transform: translateY(-1px);
+}
+.hero .cta:active {
+  transform: translateY(1px) scale(0.98);
+}
+.hero .cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.ctaIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Tablet e celular (mesmo ponto em que a navbar vira menu): coluna em fluxo.
+   Título → texto → personagem ocupando o espaço que sobra até o rodapé, com
+   o botão por cima da base do moletom. Nada de posições fixas chutadas. */
+@media (max-width: 1023px) {
+  .hero {
+    --title-top: calc(96px + env(safe-area-inset-top, 0px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 600px;
+    padding: var(--title-top) var(--pad-x) 0;
+  }
+
+  .title {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    flex: none;
+    width: 100%;
+  }
+
+  .bottomLeft {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    flex: none;
+    max-width: 38ch;
+    margin-top: clamp(14px, 2.6svh, 26px);
+    text-align: center;
+    align-items: center;
+  }
+  .bottomLeft p {
+    font-size: clamp(14.5px, 3.9vw, 17px);
+    line-height: 1.55;
+  }
+
+  .stage {
+    --stage-h: auto;
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 240px;
+    width: calc(100% + var(--pad-x) * 2);
+    height: auto;
+    margin: clamp(4px, 1.5svh, 16px) calc(var(--pad-x) * -1) 0;
+  }
+  /* o personagem encosta no rodapé e usa a altura que sobrou,
+     sem passar de 96% da largura da tela */
+  .character {
+    inset: auto;
+    left: 50%;
+    bottom: 0;
+    height: min(100%, calc(96vw * 1373 / 1145));
+    aspect-ratio: 1145 / 1373;
+    translate: -50% 0;
+  }
+
+  .meta {
+    display: none;
+  }
+  .bottomRight {
+    left: var(--pad-x);
+    right: var(--pad-x);
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    align-items: center;
+  }
+  .hero .cta {
+    min-width: min(100%, 240px);
+    padding: 15px 28px;
+    font-size: 15px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+  }
+}
+
+/* Celular: o título quebra em duas linhas ("I'M" / "GABRIEL") e fica bem
+   maior do que caberia numa linha só */
+@media (max-width: 640px) {
+  .title {
+    white-space: normal;
+  }
+  .titleLine {
+    display: block;
+  }
+  .titleLine + .titleLine::before {
+    content: none;
+  }
+}
+
+@media (max-width: 1023px) and (max-height: 700px) {
+  .hero {
+    --title-top: calc(84px + env(safe-area-inset-top, 0px));
+  }
+  .bottomLeft p {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(24px);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes rise-art {
+  from {
+    transform: translateY(6%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .character,
+  .bottomLeft,
+  .bottomRight {
+    animation: none;
+  }
+  .lid {
+    transition: none;
+  }
+}

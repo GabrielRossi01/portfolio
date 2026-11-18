@@ -17,7 +17,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
-import BranchGraph3D from "./BranchGraph3D";
+import BlueprintPipeline from "./collab/BlueprintPipeline";
 
 const Earth3D = dynamic(() => import("./Earth3D"), { ssr: false });
 
@@ -561,7 +561,12 @@ export default function AboutSection() {
                 {t.about.collaborationTitle}
               </h3>
               <div className="relative -mx-4 xs:-mx-5 sm:-mx-6 md:-mx-8 -mb-4 xs:-mb-5 sm:-mb-6 md:-mb-8 flex-1 min-h-[220px] xs:min-h-[240px] sm:min-h-[260px]">
-                <BranchGraph3D />
+                {/* mesma área da ilustração anterior; o SVG encaixa centralizado
+                    sem distorcer; o próprio SVG já tem margem interna (guias e
+                    marcas de canto), então só há um respiro lateral */}
+                <div className="absolute inset-0 flex items-center justify-center px-2 xs:px-3 sm:px-4 md:px-6">
+                  <BlueprintPipeline labels={t.about.collaborationPipeline} />
+                </div>
               </div>
             </motion.div>
 

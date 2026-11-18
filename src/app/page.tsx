@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
-import LunarHorizonCSS from '@/components/HeroSection';
+import HeroSection from '@/components/hero/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import ScrollingBanner from '@/components/ScrollingBanner';
 
@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
-      <LunarHorizonCSS />
+      <HeroSection />
       <AboutSection />
       <ProjectsSection />
       <ScrollingBanner />

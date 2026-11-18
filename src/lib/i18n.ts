@@ -32,6 +32,10 @@ export interface Translations {
     title: string;
     ctaContact: string;
     ctaCV: string;
+    bigTitle: string;
+    location: string;
+    pokeLabel: string;
+    characterAlt: string;
   };
 
   theme: {
@@ -89,6 +93,15 @@ export interface Translations {
     subtitle: string;
     collaboration: string;
     collaborationTitle: string;
+    collaborationPipeline: {
+      steps: [
+        { title: string; sub: string },
+        { title: string; sub: string },
+        { title: string; sub: string },
+      ];
+      dimension: string;
+      ariaLabel: string;
+    };
     timezone: string;
     timezoneTitle: string;
     passionate: string;
@@ -208,6 +221,10 @@ export const translations: Record<Language, Translations> = {
       title: "Desenvolvedor Fullstack",
       ctaContact: "Entre em Contato",
       ctaCV: "Baixar CV",
+      bigTitle: "SOU GABRIEL",
+      location: "SÃO PAULO · UTC−3",
+      pokeLabel: "Cutucar o personagem do Gabriel",
+      characterAlt: "Personagem 3D ilustrado do Gabriel com moletom laranja",
     },
     theme: {
       light: "Modo Claro",
@@ -275,6 +292,16 @@ export const translations: Record<Language, Translations> = {
       collaboration: "Colaboração",
       collaborationTitle:
         "Foco no cliente, promovendo comunicação transparente",
+      collaborationPipeline: {
+        steps: [
+          { title: "01 · FEEDBACK", sub: "pedido do cliente" },
+          { title: "02 · REVISÃO", sub: "preview compartilhado + QA" },
+          { title: "03 · ENTREGUE", sub: "o cliente vê no ar" },
+        ],
+        dimension: "ATUALIZAÇÕES ASSÍNCRONAS · A CADA ETAPA",
+        ariaLabel:
+          "Planta isométrica de uma esteira: caixas de feedback passam por uma etapa de revisão e saem entregues",
+      },
       timezone: "Do Brasil para o mundo",
       timezoneTitle: "Localizado no Brasil, disponível para colaboração global",
       passionate: "Fascinado por tecnologias de ponta",
@@ -522,6 +549,10 @@ export const translations: Record<Language, Translations> = {
       title: "Fullstack Developer",
       ctaContact: "Get in Touch",
       ctaCV: "Download CV",
+      bigTitle: "I’M GABRIEL",
+      location: "SÃO PAULO · UTC−3",
+      pokeLabel: "Poke Gabriel’s character",
+      characterAlt: "3D illustrated character of Gabriel in an orange hoodie",
     },
     theme: {
       light: "Light Mode",
@@ -588,6 +619,16 @@ export const translations: Record<Language, Translations> = {
       collaboration: "Collaboration",
       collaborationTitle:
         "Focus on the customer, promoting transparent communication.",
+      collaborationPipeline: {
+        steps: [
+          { title: "01 · FEEDBACK", sub: "client request in" },
+          { title: "02 · REVIEW", sub: "shared preview + QA" },
+          { title: "03 · SHIPPED", sub: "client sees it live" },
+        ],
+        dimension: "ASYNC UPDATES · EVERY STEP",
+        ariaLabel:
+          "Isometric blueprint of a conveyor: feedback boxes pass a review gate and come out shipped",
+      },
       timezone: "From Brazil to the world",
       timezoneTitle: "Located in Brazil, available for global collaboration",
       passionate: "Fascinated by cutting-edge technologies",
@@ -836,6 +877,10 @@ export const translations: Record<Language, Translations> = {
       title: "Desarrollador Fullstack",
       ctaContact: "Contactar",
       ctaCV: "Descargar CV",
+      bigTitle: "SOY GABRIEL",
+      location: "SÃO PAULO · UTC−3",
+      pokeLabel: "Tocar al personaje de Gabriel",
+      characterAlt: "Personaje 3D ilustrado de Gabriel con sudadera naranja",
     },
     theme: {
       light: "Modo Claro",
@@ -902,6 +947,16 @@ export const translations: Record<Language, Translations> = {
       collaboration: "Colaboración",
       collaborationTitle:
         "Centrarse en el cliente, promoviendo una comunicación transparente.",
+      collaborationPipeline: {
+        steps: [
+          { title: "01 · FEEDBACK", sub: "pedido del cliente" },
+          { title: "02 · REVISIÓN", sub: "vista previa + QA" },
+          { title: "03 · ENTREGADO", sub: "el cliente lo ve en vivo" },
+        ],
+        dimension: "ACTUALIZACIONES ASÍNCRONAS · EN CADA ETAPA",
+        ariaLabel:
+          "Plano isométrico de una cinta: cajas de feedback pasan por una etapa de revisión y salen entregadas",
+      },
       timezone: "De Brasil para el mundo",
       timezoneTitle: "Situado en Brasil, disponible para colaboración global",
       passionate: "Fascinado por las tecnologías de vanguardia",
