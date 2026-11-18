@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
     formats: ['image/avif', 'image/webp'],
+    // 85 para o personagem da hero (traços finos do cabelo); 75 é o padrão
+    qualities: [75, 85],
     remotePatterns: [
       {
         protocol: 'https',

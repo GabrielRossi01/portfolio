@@ -3,7 +3,7 @@
 import { useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import type { Project, ProjectVideo, ScreenCrop } from "@/lib/projectsData";
 
@@ -101,6 +101,26 @@ function PreviewVideo({ video }: { video: ProjectVideo }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
+  // O atributo poster (e o preload do vídeo) baixa a imagem assim que o HTML é
+  // lido, mesmo com o card muito abaixo da dobra. Só entram quando o card
+  // chega perto da tela, para não disputar banda com a primeira pintura.
+  const [near, setNear] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || near) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px 0px" },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [near]);
 
   // toca só enquanto aparece na tela; com movimento reduzido, fica parado no primeiro quadro
   useEffect(() => {
@@ -136,8 +156,8 @@ function PreviewVideo({ video }: { video: ProjectVideo }) {
         muted
         loop
         playsInline
-        preload="metadata"
-        poster={video.poster}
+        preload={near ? "metadata" : "none"}
+        poster={near ? video.poster : undefined}
         aria-hidden="true"
         onTimeUpdate={updateProgress}
         className="absolute inset-0 h-full w-full object-cover"

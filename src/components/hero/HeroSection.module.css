@@ -6,7 +6,11 @@
   --accent: #f5822a;
   --pad-x: clamp(20px, 4vw, 56px);
   --title-top: clamp(88px, 12svh, 120px);
+  /* folga lateral do título (o tamanho dele é calculado sobre 100cqw) */
+  --title-pad: clamp(16px, 3vw, 56px);
 
+  /* container: o título usa unidades cqw (largura da hero) */
+  container-type: inline-size;
   position: relative;
   height: 100svh;
   min-height: 640px;
@@ -39,9 +43,14 @@
   /* Brice Bold (next/font/local); fallback com métricas ajustadas */
   font-family: var(--hero-display), sans-serif;
   font-weight: 700;
-  /* --title-size é calculado no componente para ocupar toda a largura útil;
-     o clamp vale só até o JS rodar */
-  font-size: var(--title-size, clamp(44px, 13vw, 240px));
+  /* Ocupa toda a largura útil: largura ÷ k, onde k é a largura do texto em
+     ems na Brice (vem do componente em --title-k). Só CSS: nada de medir no
+     JS, então o título já nasce do tamanho final (sem reflow nem CLS). */
+  font-size: clamp(
+    40px,
+    calc((100cqw - 2 * var(--title-pad)) / var(--title-k, 7.4)),
+    320px
+  );
   line-height: 0.9;
   letter-spacing: -0.02em;
   font-synthesis: none;
@@ -235,6 +244,8 @@
 @media (max-width: 1023px) {
   .hero {
     --title-top: calc(96px + env(safe-area-inset-top, 0px));
+    /* aqui 100cqw já desconta o padding da hero */
+    --title-pad: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -308,6 +319,12 @@
 @media (max-width: 640px) {
   .title {
     white-space: normal;
+    /* em duas linhas, quem limita é a linha mais larga ("GABRIEL") */
+    font-size: clamp(
+      40px,
+      calc((100cqw - 2 * var(--title-pad)) / var(--title-k-lines, 4.9)),
+      320px
+    );
   }
   .titleLine {
     display: block;

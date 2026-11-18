@@ -3,7 +3,7 @@
 import Image from "next/image";
 import localFont from "next/font/local";
 import { Mail } from "lucide-react";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import styles from "./HeroSection.module.css";
 
@@ -26,12 +26,29 @@ const EYES = [
   { left: 638, top: 517, w: 125, h: 130, cx: 61.9, cy: 64.2 },
 ];
 const IRIS = 68;
+// largura em que o personagem aparece: até 96vw no celular/tablet e no
+// máximo ~820px no desktop (o otimizador escolhe o arquivo certo, já em 2x)
+const CHARACTER_SIZES = "(max-width: 1023px) 96vw, 820px";
 const pct = (v: number, total: number) => `${(v / total) * 100}%`;
 
 const HEAD_X = (6 / ART_W) * 100;
 const HEAD_Y = (6 / ART_H) * 100;
 const IRIS_X = (20 / IRIS) * 100;
 const IRIS_Y = (16 / IRIS) * 100;
+
+// Largura de cada texto do título em ems na Brice Bold (letter-spacing
+// -0.02em), medida no Chrome. Proporção constante: tamanho = largura ÷ k.
+const TITLE_EM: Record<string, number> = {
+  "I’M GABRIEL": 6.7331,
+  "SOU GABRIEL": 7.4061,
+  "SOY GABRIEL": 7.325,
+  "I’M": 1.6431,
+  SOU: 2.3161,
+  SOY: 2.235,
+  GABRIEL: 4.8541,
+};
+// texto novo sem medida: estimativa conservadora (~0.7em por caractere)
+const titleWidthEm = (text: string) => TITLE_EM[text] ?? text.length * 0.7;
 
 const clamp = (v: number) => Math.max(-1, Math.min(1, v));
 const smoothstep = (a: number, b: number, v: number) => {
@@ -53,7 +70,6 @@ export default function HeroSection() {
   const lidRefs = useRef<(HTMLDivElement | null)[]>([]);
   const squish = useRef(0);
   const wakeRef = useRef<() => void>(() => {});
-  const titleTextRef = useRef<HTMLSpanElement>(null);
 
   // "I'M GABRIEL" → ["I'M", "GABRIEL"]: no celular cada parte vira uma linha
   const words = t.hero.bigTitle.split(" ");
@@ -62,46 +78,13 @@ export default function HeroSection() {
       ? [words.slice(0, -1).join(" "), words[words.length - 1]]
       : words;
 
-  // Título "ajustado à largura": o maior tamanho que cabe na tela, seja qual
-  // for o idioma ou a fonte (Brice ou fallback). Mede uma vez e escala.
-  useLayoutEffect(() => {
-    const root = rootRef.current;
-    const text = titleTextRef.current;
-    if (!root || !text) return;
-
-    const measure = () => {
-      const current = parseFloat(getComputedStyle(text).fontSize);
-      const width = text.getBoundingClientRect().width;
-      if (!current || !width) return;
-      const pad = Math.min(56, Math.max(16, window.innerWidth * 0.03));
-      const box = text.parentElement?.clientWidth ?? root.clientWidth;
-      const available = Math.min(root.clientWidth - pad * 2, box);
-      const size = Math.min(320, Math.max(40, (current * available) / width));
-      if (Math.abs(size - current) > 0.5) {
-        root.style.setProperty("--title-size", `${size.toFixed(1)}px`);
-      }
-    };
-
-    let frame = 0;
-    const fit = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(measure);
-    };
-
-    // primeira medida antes do paint, para o título já nascer no tamanho certo
-    measure();
-    const ro = new ResizeObserver(fit);
-    ro.observe(root);
-    // reajusta quando a Brice (ou o fallback) termina de carregar
-    document.fonts?.ready.then(fit);
-    document.fonts?.addEventListener("loadingdone", fit);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      ro.disconnect();
-      document.fonts?.removeEventListener("loadingdone", fit);
-    };
-  }, [t.hero.bigTitle]);
+  // Título "ajustado à largura" só com CSS: o tamanho sai de
+  // (largura útil) ÷ (largura do texto em ems). Sem medir no JS = sem
+  // reflow forçado na hidratação e sem o palco "pular" (CLS).
+  const titleStyle = {
+    "--title-k": titleWidthEm(t.hero.bigTitle),
+    "--title-k-lines": Math.max(...titleLines.map(titleWidthEm)),
+  } as React.CSSProperties;
 
   useEffect(() => {
     const root = rootRef.current;
@@ -279,8 +262,8 @@ export default function HeroSection() {
       id="home"
       className={`${styles.hero} ${display.variable}`}
     >
-      <h1 ref={titleRef} className={styles.title}>
-        <span ref={titleTextRef} className={styles.titleText}>
+      <h1 ref={titleRef} className={styles.title} style={titleStyle}>
+        <span className={styles.titleText}>
           {titleLines.map((line) => (
             <span key={line} className={styles.titleLine}>
               {line}
@@ -303,7 +286,9 @@ export default function HeroSection() {
                 alt=""
                 fill
                 preload
-                unoptimized
+                fetchPriority="high"
+                sizes={CHARACTER_SIZES}
+                quality={85}
                 className={styles.layer}
                 draggable={false}
               />
@@ -314,7 +299,8 @@ export default function HeroSection() {
                   fill
                   preload
                   fetchPriority="high"
-                  unoptimized
+                  sizes={CHARACTER_SIZES}
+                  quality={85}
                   className={styles.layer}
                   draggable={false}
                 />

@@ -17,6 +17,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useHydrated } from "@/hooks/useHydrated";
 import BlueprintPipeline from "./collab/BlueprintPipeline";
 
 const Earth3D = dynamic(() => import("./Earth3D"), { ssr: false });
@@ -203,6 +204,10 @@ function FiapNextBadge({
   const [active, setActive] = useState(0);
   const dragged = useRef(false);
   const total = FIAP_NEXT_PHOTOS.length;
+  // As fotos não vão no HTML inicial: a seção fica colada na dobra e o
+  // navegador as baixaria junto com a hero, disputando banda com o LCP.
+  // Entram quando a seção é hidratada (perto da tela).
+  const hydrated = useHydrated();
 
   const goNext = () => setActive((current) => (current + 1) % total);
   const goPrevious = () =>
@@ -254,7 +259,7 @@ function FiapNextBadge({
           }}
           className="relative block aspect-5/4 w-full cursor-pointer overflow-hidden rounded-xl"
         >
-          {FIAP_NEXT_PHOTOS.map((src, index) => (
+          {hydrated && FIAP_NEXT_PHOTOS.map((src, index) => (
             <Image
               key={src}
               src={src}
@@ -388,6 +393,8 @@ function AchievementTimeline({
 export default function AboutSection() {
   const { t } = useLanguage();
   const { theme } = useTheme();
+  // imagens decorativas entram só depois da hidratação (fora do HTML inicial)
+  const hydrated = useHydrated();
 
   const frontendTech: TechItem[] = [
     { name: "React", icon: "/react-original.svg" },
@@ -774,7 +781,7 @@ export default function AboutSection() {
             >
               <div
                 className="absolute inset-0 opacity-30 dark:opacity-20 pointer-events-none bg-right bg-no-repeat mt-22 sm:mt-35 "
-                style={{ backgroundImage: "url('/snippet.png')" }}
+                style={hydrated ? { backgroundImage: "url('/snippet.png')" } : undefined}
               />
               <div className="relative z-10 h-full flex flex-col justify-between">
                 <div className="space-y-2 xs:space-y-3 sm:space-y-4">

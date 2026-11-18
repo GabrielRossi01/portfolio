@@ -1,35 +1,16 @@
-"use client";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/hero/HeroSection";
+import DeferredSections from "@/components/DeferredSections";
 
-import dynamic from 'next/dynamic';
-import Navbar from '@/components/Navbar';
-import HeroSection from '@/components/hero/HeroSection';
-import AboutSection from '@/components/AboutSection';
-import ScrollingBanner from '@/components/ScrollingBanner';
-
-const ProjectsSection = dynamic(() => import('@/components/ProjectsSection'), {
-  loading: () => <div className="h-screen bg-background" />,
-});
-const GithubActivity = dynamic(() => import('@/components/GithubActivity'), {
-  loading: () => <div className="h-screen bg-background" />,
-});
-const ContactSection = dynamic(() => import('@/components/ContactSection'), {
-  loading: () => <div className="h-screen bg-background" />,
-});
-const Footer = dynamic(() => import('@/components/Footer'), {
-  loading: () => <div className="h-32 bg-background" />,
-});
-
+// Server Component: todo o HTML sai do servidor. Navbar e hero hidratam na
+// hora (são o que aparece primeiro); as seções de baixo só baixam e executam
+// o JS quando chegam perto da tela ou na primeira interação.
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
       <HeroSection />
-      <AboutSection />
-      <ProjectsSection />
-      <ScrollingBanner />
-      <GithubActivity />
-      <ContactSection />
-      <Footer />
+      <DeferredSections />
     </main>
   );
 }

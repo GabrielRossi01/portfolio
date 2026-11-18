@@ -62,7 +62,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${sora.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
+    // "dark" já no HTML: o tema padrão não precisa trocar classe no <html> ao carregar
+    <html lang="pt-BR" className={`dark ${sora.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <ThemeProvider>
           <LanguageProvider>

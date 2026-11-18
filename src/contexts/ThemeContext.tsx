@@ -1,8 +1,17 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  ReactNode,
+} from "react";
+import { hydrateAllSections } from "@/components/LazyHydrate";
 
-type Theme = 'light' | 'dark';
+type Theme = "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
@@ -12,40 +21,49 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as Theme | null;
-    if (stored) {
-      setTheme(stored);
-      document.documentElement.classList.toggle('dark', stored === 'dark');
-      document.documentElement.classList.toggle('light', stored === 'light');
-    } else {
-      document.documentElement.classList.add('dark');
+    let stored: string | null = null;
+    try {
+      stored = localStorage.getItem("theme");
+    } catch {}
+    const initial: Theme = stored === "light" ? "light" : "dark";
+    // o <html> já vem do servidor com "dark"; só mexe na classe se precisar
+    // (trocar classe no <html> recalcula o estilo da página inteira)
+    if (initial !== "dark") {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+      // tema salvo diferente do padrão: hidrata as seções antes da troca
+      hydrateAllSections();
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sincroniza com o localStorage só no navegador
+      setTheme(initial);
     }
-    setMounted(true);
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.remove('dark', 'light');
-    document.documentElement.classList.add(newTheme);
-  };
+  const toggleTheme = useCallback(() => {
+    hydrateAllSections();
+    setTheme((current) => {
+      const next: Theme = current === "dark" ? "light" : "dark";
+      try {
+        localStorage.setItem("theme", next);
+      } catch {}
+      document.documentElement.classList.remove("dark", "light");
+      document.documentElement.classList.add(next);
+      return next;
+    });
+  }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  // valor estável: os consumidores só re-renderizam quando o tema muda
+  const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error('useTheme must be used within ThemeProvider');
+    throw new Error("useTheme must be used within ThemeProvider");
   }
   return context;
 }
