@@ -53,11 +53,12 @@ export interface Translations {
 
   aboutIntro: {
     eyebrow: string;
-    text: string;
-    // trechos grifados e palavras com cursor colorido; precisam aparecer
-    // exatamente iguais em `text`
-    highlights: string[];
-    cursors: string[];
+    location: string;
+    statement: string;
+    // palavra destacada (serifa itálica laranja); precisa aparecer
+    // exatamente igual em `statement`
+    accent: string;
+    facts: { label: string; value: string }[];
   };
 
   aboutAchievement: {
@@ -68,10 +69,11 @@ export interface Translations {
     cta: string;
     badgeStatus: string;
     badgeRank: string;
-    badgeEventLabel: string;
     badgeChallengeLabel: string;
+    badgeProjectLabel: string;
+    badgeResultLabel: string;
     timelineLabel: string;
-    timeline: { title: string; text: string }[];
+    timeline: string[];
     photoAlts: string[];
     previous: string;
     next: string;
@@ -239,34 +241,37 @@ export const translations: Record<Language, Translations> = {
     },
     aboutIntro: {
       eyebrow: "Sobre mim",
-      text: "Sou desenvolvedor de software formado em Análise e Desenvolvimento de Sistemas pela FIAP e tenho certificado Cambridge B2 First (FCE). Fora do código, participo de eventos e comunidades tech.",
-      highlights: [
-        "desenvolvedor de software",
-        "Análise e Desenvolvimento de Sistemas",
-        "FIAP",
-        "Cambridge B2 First (FCE)",
-        "eventos",
-        "comunidades tech",
+      location: "São Paulo, Brasil",
+      statement:
+        "Sou desenvolvedor fullstack e transformo ideias ambiciosas em produtos que as pessoas gostam de usar. Valorizo APIs limpas, front-ends rápidos e uma comunicação clara e honesta com cada cliente.",
+      accent: "gostam",
+      facts: [
+        {
+          label: "Formação",
+          value: "Análise e Desenvolvimento de Sistemas, FIAP",
+        },
+        { label: "Inglês", value: "Cambridge B2 First (FCE)" },
+        { label: "Fora do código", value: "Eventos e comunidades tech" },
       ],
-      cursors: ["formado", "certificado", "código"],
     },
 
     aboutAchievement: {
       eyebrow: "Conquista",
-      title: "Entre os três melhores do FIAP NEXT 2026, o festival de inovação da FIAP",
+      title: "Entre os três melhores projetos do festival de inovação da FIAP.",
       description:
-        "Respondemos a um desafio oficial da Oracle com o Knowball, uma plataforma que combate a manipulação de resultados nas categorias de base do futebol masculino brasileiro.",
+        "Desafio oficial da Oracle: o Knowball combate a manipulação de resultados nas categorias de base do futebol brasileiro.",
       highlight: "Knowball",
       cta: "Ver Knowball",
       badgeStatus: "Finalista",
       badgeRank: "Top 3",
-      badgeEventLabel: "Evento",
       badgeChallengeLabel: "Desafio",
+      badgeProjectLabel: "Projeto",
+      badgeResultLabel: "Resultado",
       timelineLabel: "Marcos da conquista",
       timeline: [
-        { title: "O desafio", text: "Case oficial da Oracle: a manipulação de resultados nas categorias de base do futebol masculino brasileiro." },
-        { title: "O que construímos", text: "O Knowball, projetado e entregue em equipe para detectar e combater o problema." },
-        { title: "O resultado", text: "Entre os três melhores projetos do FIAP NEXT 2026." },
+        "Desafio da Oracle",
+        "Knowball, construído em equipe",
+        "Top 3 no FIAP NEXT 2026",
       ],
       photoAlts: [
         "Equipe do Knowball recebendo a premiação do FIAP NEXT 2026",
@@ -567,33 +572,36 @@ export const translations: Record<Language, Translations> = {
     },
     aboutIntro: {
       eyebrow: "About me",
-      text: "I’m a software developer with a degree in Systems Analysis and Development from FIAP and a Cambridge B2 First (FCE) certification. Outside of code, I take part in tech events and communities.",
-      highlights: [
-        "software developer",
-        "Systems Analysis and Development",
-        "FIAP",
-        "Cambridge B2 First (FCE)",
-        "tech events",
-        "communities",
+      location: "São Paulo, Brazil",
+      statement:
+        "I’m a fullstack developer who turns ambitious ideas into products people enjoy using. I care about clean APIs, fast front-ends and clear, honest communication with every client.",
+      accent: "enjoy",
+      facts: [
+        {
+          label: "Degree",
+          value: "Systems Analysis and Development, FIAP",
+        },
+        { label: "English", value: "Cambridge B2 First (FCE)" },
+        { label: "Off the code", value: "Tech events and communities" },
       ],
-      cursors: ["degree", "certification", "code"],
     },
     aboutAchievement: {
       eyebrow: "Achievement",
-      title: "Top three at FIAP NEXT 2026, FIAP's innovation festival",
+      title: "Among the top three projects at FIAP's innovation festival.",
       description:
-        "We answered an official Oracle challenge with Knowball, a platform that fights match-fixing in Brazilian men's youth football.",
+        "An official Oracle challenge: Knowball fights match-fixing in Brazilian youth football.",
       highlight: "Knowball",
       cta: "View Knowball",
       badgeStatus: "Finalist",
       badgeRank: "Top 3",
-      badgeEventLabel: "Event",
       badgeChallengeLabel: "Challenge",
+      badgeProjectLabel: "Project",
+      badgeResultLabel: "Result",
       timelineLabel: "Achievement milestones",
       timeline: [
-        { title: "The challenge", text: "Oracle's official case: match-fixing in the youth categories of Brazilian men's football." },
-        { title: "What we built", text: "Knowball, designed and shipped as a team to detect and fight it." },
-        { title: "The result", text: "Ranked among the top three projects at FIAP NEXT 2026." },
+        "Oracle challenge",
+        "Knowball, built as a team",
+        "Top 3 at FIAP NEXT 2026",
       ],
       photoAlts: [
         "Knowball team receiving the FIAP NEXT 2026 award",
@@ -895,33 +903,36 @@ export const translations: Record<Language, Translations> = {
     },
     aboutIntro: {
       eyebrow: "Sobre mí",
-      text: "Soy desarrollador de software graduado en Análisis y Desarrollo de Sistemas por FIAP y certificado Cambridge B2 First (FCE). Fuera del código, participo en eventos y comunidades tecnológicas.",
-      highlights: [
-        "desarrollador de software",
-        "Análisis y Desarrollo de Sistemas",
-        "FIAP",
-        "Cambridge B2 First (FCE)",
-        "eventos",
-        "comunidades tecnológicas",
+      location: "São Paulo, Brasil",
+      statement:
+        "Soy desarrollador fullstack y convierto ideas ambiciosas en productos que la gente disfruta usar. Me importan las APIs limpias, los front-ends rápidos y una comunicación clara y honesta con cada cliente.",
+      accent: "disfruta",
+      facts: [
+        {
+          label: "Formación",
+          value: "Análisis y Desarrollo de Sistemas, FIAP",
+        },
+        { label: "Inglés", value: "Cambridge B2 First (FCE)" },
+        { label: "Fuera del código", value: "Eventos y comunidades tecnológicas" },
       ],
-      cursors: ["graduado", "certificado", "código"],
     },
     aboutAchievement: {
       eyebrow: "Logro",
-      title: "Entre los tres mejores de FIAP NEXT 2026, el festival de innovación de FIAP",
+      title: "Entre los tres mejores proyectos del festival de innovación de FIAP.",
       description:
-        "Respondimos a un desafío oficial de Oracle con Knowball, una plataforma que combate la manipulación de resultados en las categorías inferiores del fútbol masculino brasileño.",
+        "Desafío oficial de Oracle: Knowball combate la manipulación de resultados en las categorías inferiores del fútbol brasileño.",
       highlight: "Knowball",
       cta: "Ver Knowball",
       badgeStatus: "Finalista",
       badgeRank: "Top 3",
-      badgeEventLabel: "Evento",
       badgeChallengeLabel: "Desafío",
+      badgeProjectLabel: "Proyecto",
+      badgeResultLabel: "Resultado",
       timelineLabel: "Hitos del logro",
       timeline: [
-        { title: "El desafío", text: "Caso oficial de Oracle: la manipulación de resultados en las categorías inferiores del fútbol masculino brasileño." },
-        { title: "Lo que construimos", text: "Knowball, diseñado y entregado en equipo para detectarla y combatirla." },
-        { title: "El resultado", text: "Entre los tres mejores proyectos de FIAP NEXT 2026." },
+        "Desafío de Oracle",
+        "Knowball, construido en equipo",
+        "Top 3 en FIAP NEXT 2026",
       ],
       photoAlts: [
         "Equipo de Knowball recibiendo el premio de FIAP NEXT 2026",

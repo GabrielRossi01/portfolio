@@ -15,6 +15,7 @@ export default function Footer() {
   const quickLinks = [
     { name: t.nav.projects, href: "#projects" },
     { name: t.nav.about, href: "#about" },
+    { name: t.nav.contributions, href: "#github-activity" },
   ];
 
   const contactLinks = [

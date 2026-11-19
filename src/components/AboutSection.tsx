@@ -4,12 +4,10 @@ import { motion, useInView } from "framer-motion";
 import {
   ArrowUpRight,
   Clock,
-  ExternalLink,
   Github,
   Linkedin,
   Mail,
   ShieldCheck,
-  Trophy,
   Users,
 } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -99,82 +97,21 @@ function TechMarquee({
   );
 }
 
-const CURSOR_COLORS = [
-  "bg-blue-500 dark:bg-blue-400",
-  "bg-pink-500 dark:bg-pink-400",
-  "bg-violet-500 dark:bg-violet-400",
-];
+// fonte mono das etiquetas (o projeto não carrega uma mono própria)
+const MONO_FONT = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
 
-function TypingCursor({ index }: { index: number }) {
-  const color = CURSOR_COLORS[index % CURSOR_COLORS.length];
-
-  return (
-    <span
-      aria-hidden="true"
-      className="relative ml-[0.1em] inline-block h-[1em] w-0 align-baseline"
-    >
-      <span
-        className={`absolute -top-[0.2em] -bottom-[0.2em] left-0 w-[3px] rounded-full ${color}`}
-      >
-        <span
-          className={`absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full ${color}`}
-        />
-      </span>
-    </span>
-  );
-}
-
-function HighlightedText({
-  text,
-  highlights,
-  cursors,
-}: {
-  text: string;
-  highlights: string[];
-  cursors: string[];
-}) {
-  const pattern = new RegExp(
-    `(${[...highlights, ...cursors]
-      .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-      .join("|")})`,
-    "g",
-  );
+// frase com uma palavra em destaque (serifa itálica laranja)
+function AccentText({ text, accent }: { text: string; accent: string }) {
+  const index = accent ? text.indexOf(accent) : -1;
+  if (index === -1) return <>{text}</>;
 
   return (
     <>
-      {text.split(pattern).map((part, index) => {
-        const key = `${part}-${index}`;
-
-        if (highlights.includes(part)) {
-          return (
-            <span
-              key={key}
-              className="rounded-md bg-gray-900 px-[0.3em] py-[0.05em] text-white box-decoration-clone dark:bg-white dark:text-gray-900"
-            >
-              {part}
-            </span>
-          );
-        }
-
-        const cursorIndex = cursors.indexOf(part);
-
-        if (cursorIndex === -1) {
-          return <span key={key}>{part}</span>;
-        }
-
-        // última palavra presa ao cursor, para ele nunca cair sozinho na linha
-        const lastSpace = part.lastIndexOf(" ") + 1;
-
-        return (
-          <span key={key}>
-            {part.slice(0, lastSpace)}
-            <span className="whitespace-nowrap">
-              {part.slice(lastSpace)}
-              <TypingCursor index={cursorIndex} />
-            </span>
-          </span>
-        );
-      })}
+      {text.slice(0, index)}
+      <span className="font-serif text-[1.08em] font-normal italic tracking-normal text-orange-600 dark:text-orange-400">
+        {accent}
+      </span>
+      {text.slice(index + accent.length)}
     </>
   );
 }
@@ -186,20 +123,26 @@ const KNOWBALL_URL = "https://github.com/knowball-oracle/knowball-api";
 const AWS_CREDLY_URL =
   "https://www.credly.com/badges/5613977a-cad2-4ebf-a923-b255b54fa5dc/linked_in_profile";
 
-function FiapNextBadge({
+// larguras das barras do código de barras decorativo do ingresso (fixo, para
+// o HTML do servidor e do navegador baterem)
+const BARCODE = [
+  2, 1, 1, 3, 1, 2, 1, 1, 2, 3, 1, 1, 2, 1, 3, 1, 2, 2, 1, 1, 3, 1, 1, 2, 1, 2,
+  3, 1, 1, 2, 1, 1, 2, 3, 1, 2, 1, 1, 3, 1, 2, 1,
+];
+
+// Ingresso do FIAP NEXT: foto (carrossel) + canhoto destacável com o resultado.
+// Cores do canhoto fixas (papel creme) nos dois temas, como um ingresso real;
+// os recortes da picotagem usam a cor de fundo do card.
+function FiapNextTicket({
   alts,
   goToLabel,
   status,
-  rank,
-  eventLabel,
-  challengeLabel,
+  rows,
 }: {
   alts: string[];
   goToLabel: string;
   status: string;
-  rank: string;
-  eventLabel: string;
-  challengeLabel: string;
+  rows: { label: string; value: string }[];
 }) {
   const [active, setActive] = useState(0);
   const dragged = useRef(false);
@@ -214,175 +157,168 @@ function FiapNextBadge({
     setActive((current) => (current - 1 + total) % total);
 
   return (
-    <div className="relative mx-auto mt-10 w-full max-w-76 lg:mt-0">
-      <div
-        aria-hidden="true"
-        className="absolute bottom-full left-1/2 h-10 w-6 -translate-x-1/2 translate-y-3 lg:h-screen"
-        style={{
-          background:
-            "repeating-linear-gradient(135deg, #e11d6b 0 6px, #f4518f 6px 12px)",
-        }}
-      />
+    <motion.div
+      initial={{ rotate: -6 }}
+      whileInView={{ rotate: -3 }}
+      whileHover={{ rotate: -1 }}
+      transition={{ type: "spring", stiffness: 120, damping: 14 }}
+      viewport={{ once: true }}
+      className="relative mx-auto w-full max-w-[460px] drop-shadow-[0_18px_30px_rgba(0,0,0,0.18)] dark:drop-shadow-[0_18px_30px_rgba(0,0,0,0.55)]"
+    >
+      <div className="grid aspect-[2.05/1] grid-cols-[1.35fr_1fr]">
+        {/* foto */}
+        <div className="relative overflow-hidden rounded-l-xl bg-gray-200 dark:bg-[#1a1a1a]">
+          <motion.button
+            type="button"
+            aria-label={`${goToLabel} ${((active + 1) % total) + 1}`}
+            onClick={() => {
+              if (dragged.current) {
+                dragged.current = false;
+                return;
+              }
+              goNext();
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.15}
+            onDragStart={() => {
+              dragged.current = true;
+            }}
+            onDragEnd={(_, info) => {
+              if (info.offset.x <= -50) goNext();
+              if (info.offset.x >= 50) goPrevious();
+            }}
+            className="absolute inset-0 block cursor-pointer"
+          >
+            {hydrated &&
+              FIAP_NEXT_PHOTOS.map((src, index) => (
+                <Image
+                  key={src}
+                  src={src}
+                  alt={index === active ? (alts[index] ?? "") : ""}
+                  fill
+                  sizes="(max-width: 640px) 55vw, 270px"
+                  draggable={false}
+                  className={`object-cover transition-opacity duration-500 ${
+                    index === active ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
+          </motion.button>
 
-      <motion.div
-        initial={{ rotate: -7 }}
-        whileInView={{ rotate: -4 }}
-        whileHover={{ rotate: -2 }}
-        transition={{ type: "spring", stiffness: 120, damping: 12 }}
-        viewport={{ once: true }}
-        className="relative origin-top rounded-2xl border border-black/10 bg-gray-50 p-3 sm:p-4 dark:border-white/10 dark:bg-[#141414]"
-      >
-        <div
-          aria-hidden="true"
-          className="mx-auto mb-3 h-2 w-12 rounded-full border border-black/10 bg-white dark:border-white/10 dark:bg-black"
-        />
-
-        <motion.button
-          type="button"
-          aria-label={`${goToLabel} ${((active + 1) % total) + 1}`}
-          onClick={() => {
-            if (dragged.current) {
-              dragged.current = false;
-              return;
-            }
-            goNext();
-          }}
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.15}
-          onDragStart={() => {
-            dragged.current = true;
-          }}
-          onDragEnd={(_, info) => {
-            if (info.offset.x <= -50) goNext();
-            if (info.offset.x >= 50) goPrevious();
-          }}
-          className="relative block aspect-5/4 w-full cursor-pointer overflow-hidden rounded-xl"
-        >
-          {hydrated && FIAP_NEXT_PHOTOS.map((src, index) => (
-            <Image
-              key={src}
-              src={src}
-              alt={index === active ? (alts[index] ?? "") : ""}
-              fill
-              sizes="(max-width: 640px) 80vw, 288px"
-              draggable={false}
-              className={`object-cover transition-opacity duration-500 ${
-                index === active ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          ))}
-        </motion.button>
-
-        <div className="mt-3 flex justify-center gap-1">
-          {FIAP_NEXT_PHOTOS.map((src, index) => (
-            <button
-              key={src}
-              type="button"
-              aria-label={`${goToLabel} ${index + 1}`}
-              aria-current={index === active ? "true" : undefined}
-              onClick={() => setActive(index)}
-              className="flex h-6 w-6 cursor-pointer items-center justify-center"
-            >
-              <span
-                className={`h-1.5 w-1.5 rounded-full transition-colors ${
-                  index === active
-                    ? "bg-orange-500"
-                    : "bg-black/20 dark:bg-white/25"
-                }`}
-              />
-            </button>
-          ))}
+          <div className="absolute bottom-1.5 left-1/2 flex -translate-x-1/2 gap-0.5">
+            {FIAP_NEXT_PHOTOS.map((src, index) => (
+              <button
+                key={src}
+                type="button"
+                aria-label={`${goToLabel} ${index + 1}`}
+                aria-current={index === active ? "true" : undefined}
+                onClick={() => setActive(index)}
+                className="flex h-5 w-5 cursor-pointer items-center justify-center"
+              >
+                <span
+                  className={`h-1.5 rounded-full shadow-sm transition-all ${
+                    index === active ? "w-3.5 bg-white" : "w-1.5 bg-white/55"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-1 flex items-baseline justify-between gap-3 border-b border-dashed border-black/15 pb-3 dark:border-white/15">
+        {/* canhoto */}
+        <div className="relative flex flex-col rounded-r-xl border-l-2 border-dashed border-black/20 bg-[#f4f1ea] px-3 py-3 text-gray-900 sm:px-4 sm:py-4">
+          {/* recortes da picotagem (cor do fundo do card) */}
           <span
-            className="text-3xl text-orange-600 italic sm:text-4xl dark:text-orange-400"
-            style={{ fontFamily: "var(--font-instrument-serif), serif" }}
+            aria-hidden="true"
+            className="absolute -left-2 -top-2 h-4 w-4 rounded-full bg-white dark:bg-[#0a0a0a]"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-white dark:bg-[#0a0a0a]"
+          />
+
+          <span
+            className="text-[8px] uppercase tracking-[0.2em] text-gray-500 sm:text-[9px]"
+            style={{ fontFamily: MONO_FONT }}
           >
+            FIAP NEXT · 2026
+          </span>
+          <span className="mt-0.5 font-serif text-[1.65rem] italic leading-none text-orange-600 sm:text-[2rem]">
             {status}
           </span>
-          <span className="text-xs font-light text-gray-600 dark:text-gray-400">
-            {rank}
-          </span>
-        </div>
 
-        <dl className="mt-3 flex justify-between gap-3 text-xs">
-          <div>
-            <dt className="font-light text-gray-600 dark:text-gray-400">
-              {eventLabel}
-            </dt>
-            <dd className="mt-0.5 font-medium text-gray-900 dark:text-white">
-              FIAP NEXT 2026
-            </dd>
+          <dl className="mt-2 flex flex-col text-[10px] sm:mt-3 sm:text-[11px]">
+            {rows.map((row) => (
+              <div
+                key={row.label}
+                className="flex items-baseline justify-between gap-2 border-t border-black/10 py-[3px] sm:py-1"
+              >
+                <dt className="font-medium text-[#57534e]">{row.label}</dt>
+                <dd className="font-semibold text-gray-900">{row.value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <div
+            aria-hidden="true"
+            className="mt-auto flex h-4 items-stretch gap-[1.5px] overflow-hidden sm:h-5"
+          >
+            {BARCODE.map((width, index) => (
+              <span
+                key={index}
+                className="shrink-0 bg-gray-900"
+                style={{ width: `${width}px` }}
+              />
+            ))}
           </div>
-          <div className="text-right">
-            <dt className="font-light text-gray-600 dark:text-gray-400">
-              {challengeLabel}
-            </dt>
-            <dd className="mt-0.5 font-medium text-gray-900 dark:text-white">
-              Oracle
-            </dd>
-          </div>
-        </dl>
-      </motion.div>
-    </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
+// marcos da conquista em uma linha: 01 · 02 · 03 (o último em destaque)
 function AchievementTimeline({
   label,
   steps,
 }: {
   label: string;
-  steps: { title: string; text: string }[];
+  steps: string[];
 }) {
   return (
     <ol
       aria-label={label}
-      className="grid border-t border-black/10 px-4 py-6 xs:px-5 sm:px-6 md:grid-cols-3 md:px-8 md:py-8 dark:border-white/10"
+      className="flex flex-col gap-2 border-t border-black/10 px-5 py-5 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:px-8 lg:px-10 dark:border-white/10"
     >
       {steps.map((step, index) => {
         const isLast = index === steps.length - 1;
 
         return (
-          <li
-            key={step.title}
-            className={`relative pl-7 md:pl-0 md:pr-6 md:pt-7 ${isLast ? "" : "pb-6 md:pb-0"}`}
-          >
+          <li key={step} className="flex items-center gap-4">
+            {index > 0 && (
+              <span
+                aria-hidden="true"
+                className="hidden text-gray-300 sm:inline dark:text-gray-700"
+              >
+                ·
+              </span>
+            )}
             <span
-              aria-hidden="true"
-              className={`absolute left-1.5 top-1 bottom-0 w-px md:left-0 md:right-0 md:top-1.5 md:bottom-auto md:h-px md:w-auto ${
+              className={
                 isLast
-                  ? "hidden bg-black/10 md:block dark:bg-white/10"
-                  : "bg-orange-500"
-              }`}
-            />
-            <span
-              aria-hidden="true"
-              className={`absolute left-0 top-1 h-[13px] w-[13px] rounded-full bg-orange-500 md:top-0 ${
-                isLast ? "ring-4 ring-orange-500/20" : ""
-              }`}
-            />
-
-            <h4
-              className={`text-sm font-medium ${
-                isLast
-                  ? "text-orange-600 dark:text-orange-400"
-                  : "text-gray-900 dark:text-white"
-              }`}
+                  ? "font-medium text-orange-600 dark:text-orange-400"
+                  : "font-normal text-gray-800 dark:text-gray-200"
+              }
             >
               <span
-                className="mr-1.5 font-normal text-gray-500 italic dark:text-gray-400"
-                style={{ fontFamily: "var(--font-instrument-serif), serif" }}
+                className={`mr-2 text-xs ${isLast ? "" : "text-gray-400 dark:text-gray-500"}`}
+                style={{ fontFamily: MONO_FONT }}
               >
-                {index + 1}
+                {String(index + 1).padStart(2, "0")}
               </span>
-              {step.title}
-            </h4>
-            <p className="mt-1 text-sm font-light leading-relaxed text-gray-700 dark:text-gray-400">
-              {step.text}
-            </p>
+              {step}
+            </span>
           </li>
         );
       })}
@@ -460,24 +396,50 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="glass-liquid relative mb-3 overflow-hidden rounded-lg p-4 xs:mb-4 xs:rounded-xl xs:p-5 sm:mb-5 sm:rounded-2xl sm:p-6 md:mb-6 md:p-8 lg:mb-8"
         >
-          <div className="relative z-10 mx-auto max-w-4xl text-center">
-            <div className="mb-3 flex items-center justify-center gap-2 xs:mb-4">
-              <span className="h-px w-6 bg-gray-800 sm:w-8 dark:bg-white" />
-
-              <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-gray-800 xs:text-[10px] dark:text-white">
-                {t.aboutIntro.eyebrow}
+          {/* Duas colunas: quem (esquerda) e o que faço (direita) + fatos */}
+          <div className="relative z-10 grid gap-8 sm:gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,2.6fr)] md:items-center md:gap-12 lg:gap-16 md:py-4 lg:py-8">
+            <div className="flex flex-col gap-1.5">
+              <span
+                className="mb-2 text-[10px] uppercase tracking-[0.22em] text-gray-500 sm:mb-3 sm:text-[11px] dark:text-gray-400"
+                style={{ fontFamily: MONO_FONT }}
+              >
+                ( {t.aboutIntro.eyebrow} )
               </span>
-
-              <span className="h-px w-6 bg-gray-800 sm:w-8 dark:bg-white" />
+              <span className="text-base font-semibold text-gray-900 sm:text-lg dark:text-white">
+                {t.hero.name}
+              </span>
+              <span
+                className="text-[11px] text-gray-500 sm:text-xs dark:text-gray-400"
+                style={{ fontFamily: MONO_FONT }}
+              >
+                {t.aboutIntro.location}
+              </span>
             </div>
 
-            <p className="text-lg font-light leading-[1.45] tracking-[-0.02em] text-gray-800 xs:text-xl sm:text-2xl md:text-3xl dark:text-white">
-              <HighlightedText
-                text={t.aboutIntro.text}
-                highlights={t.aboutIntro.highlights}
-                cursors={t.aboutIntro.cursors}
-              />
-            </p>
+            <div>
+              <p className="text-2xl font-medium leading-[1.3] tracking-[-0.02em] text-gray-900 xs:text-[1.7rem] sm:text-3xl lg:text-[2.6rem] lg:leading-[1.22] dark:text-white">
+                <AccentText
+                  text={t.aboutIntro.statement}
+                  accent={t.aboutIntro.accent}
+                />
+              </p>
+
+              <dl className="mt-8 grid gap-5 border-t border-black/10 pt-5 sm:mt-10 sm:grid-cols-3 sm:gap-6 sm:pt-6 dark:border-white/10">
+                {t.aboutIntro.facts.map((fact) => (
+                  <div key={fact.label}>
+                    <dt
+                      className="mb-1.5 text-[10px] uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400"
+                      style={{ fontFamily: MONO_FONT }}
+                    >
+                      {fact.label}
+                    </dt>
+                    <dd className="text-sm font-medium leading-snug text-gray-900 sm:text-[15px] dark:text-gray-100">
+                      {fact.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
         </motion.div>
 
@@ -490,28 +452,34 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="relative mb-3 overflow-hidden rounded-lg border border-black/10 bg-white xs:mb-4 xs:rounded-xl sm:mb-5 sm:rounded-2xl md:mb-6 lg:mb-8 dark:border-white/10 dark:bg-[#0a0a0a]"
         >
-          <div className="grid items-center gap-8 p-4 xs:p-5 sm:p-6 md:p-8 lg:grid-cols-2 lg:gap-12">
+          {/* desktop: Top 3 | texto | ingresso; tablet: Top 3 + texto, ingresso
+              embaixo; celular: tudo empilhado */}
+          <div className="grid items-center gap-8 p-5 sm:p-8 md:grid-cols-[auto_minmax(0,1fr)] md:gap-10 lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1.15fr)] lg:p-10">
+            <div className="md:pr-2">
+              <span
+                className="block text-[10px] uppercase tracking-[0.22em] text-gray-500 dark:text-gray-400"
+                style={{ fontFamily: MONO_FONT }}
+              >
+                {t.aboutAchievement.eyebrow}
+              </span>
+              <span className="mt-1 block font-serif text-7xl italic leading-[0.9] tracking-tight whitespace-nowrap text-orange-600 sm:text-8xl lg:text-[7rem] dark:text-orange-400">
+                {t.aboutAchievement.badgeRank}
+              </span>
+              <span className="mt-2 block text-xs font-medium uppercase tracking-[0.12em] text-gray-700 dark:text-gray-300">
+                FIAP NEXT 2026
+              </span>
+            </div>
+
             <div>
-              <div className="mb-3 flex items-center gap-2 xs:mb-4">
-                <Trophy
-                  className="h-4 w-4 text-orange-500"
-                  aria-hidden="true"
-                />
-
-                <span className="text-sm font-light text-gray-600 dark:text-gray-400">
-                  {t.aboutAchievement.eyebrow}
-                </span>
-              </div>
-
-              <h3 className="mb-4 max-w-md text-2xl font-light leading-tight text-gray-900 sm:text-4xl dark:text-white">
+              <h3 className="text-2xl font-medium leading-snug tracking-[-0.01em] text-gray-900 sm:text-[1.7rem] dark:text-white">
                 {t.aboutAchievement.title}
               </h3>
 
-              <p className="max-w-md text-sm font-light leading-relaxed text-gray-700 sm:text-base dark:text-gray-300">
+              <p className="mt-3 max-w-md text-sm font-normal leading-relaxed text-gray-700 sm:text-[15px] dark:text-gray-300">
                 {t.aboutAchievement.description
                   .split(t.aboutAchievement.highlight)
                   .map((part, index) => (
-                    <span key={part}>
+                    <span key={`${part}-${index}`}>
                       {index > 0 && (
                         <strong className="font-medium text-gray-900 dark:text-white">
                           {t.aboutAchievement.highlight}
@@ -526,21 +494,30 @@ export default function AboutSection() {
                 href={KNOWBALL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 px-5 py-2 text-sm font-normal text-gray-900 transition-colors hover:bg-black/5 dark:border-white/15 dark:text-white dark:hover:bg-white/10"
+                className="group mt-4 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-orange-600 transition-colors hover:text-orange-500 dark:text-orange-400 dark:hover:text-orange-300"
               >
-                <ExternalLink className="h-4 w-4" aria-hidden="true" />
                 {t.aboutAchievement.cta}
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                >
+                  →
+                </span>
               </a>
             </div>
 
-            <FiapNextBadge
-              alts={t.aboutAchievement.photoAlts}
-              goToLabel={t.aboutAchievement.goToPhoto}
-              status={t.aboutAchievement.badgeStatus}
-              rank={t.aboutAchievement.badgeRank}
-              eventLabel={t.aboutAchievement.badgeEventLabel}
-              challengeLabel={t.aboutAchievement.badgeChallengeLabel}
-            />
+            <div className="md:col-span-2 lg:col-span-1">
+              <FiapNextTicket
+                alts={t.aboutAchievement.photoAlts}
+                goToLabel={t.aboutAchievement.goToPhoto}
+                status={t.aboutAchievement.badgeStatus}
+                rows={[
+                  { label: t.aboutAchievement.badgeChallengeLabel, value: "Oracle" },
+                  { label: t.aboutAchievement.badgeProjectLabel, value: "Knowball" },
+                  { label: t.aboutAchievement.badgeResultLabel, value: t.aboutAchievement.badgeRank },
+                ]}
+              />
+            </div>
           </div>
 
           <AchievementTimeline

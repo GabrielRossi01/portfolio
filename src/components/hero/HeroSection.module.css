@@ -297,20 +297,10 @@
     translate: -50% 0;
   }
 
-  .meta {
-    display: none;
-  }
+  /* no celular/tablet não há botão de contato nem os metadados: o
+     personagem ocupa a base da hero sozinho */
   .bottomRight {
-    left: var(--pad-x);
-    right: var(--pad-x);
-    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-    align-items: center;
-  }
-  .hero .cta {
-    min-width: min(100%, 240px);
-    padding: 15px 28px;
-    font-size: 15px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    display: none;
   }
 }
 
