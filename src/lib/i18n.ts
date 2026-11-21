@@ -80,14 +80,14 @@ export interface Translations {
     goToPhoto: string;
   };
 
+  // mesma ordem de CERTIFICATIONS em AboutSection (AWS, Oracle)
   aboutCertification: {
-    eyebrow: string;
-    issuer: string;
-    issued: string;
-    validity: string;
-    verified: string;
-    cta: string;
-    badgeAlt: string;
+    items: {
+      eyebrow: string;
+      issuer: string;
+      tags: string[];
+      badgeAlt: string;
+    }[];
   };
 
   about: {
@@ -283,13 +283,20 @@ export const translations: Record<Language, Translations> = {
       goToPhoto: "Ver foto",
     },
     aboutCertification: {
-      eyebrow: "Nova certificação",
-      issuer: "Amazon Web Services · Exame CLF-C02",
-      issued: "Emitido em novembro de 2026",
-      validity: "Válido por 3 anos",
-      verified: "Verificado na Credly",
-      cta: "Ver na Credly",
-      badgeAlt: "Badge AWS Certified Cloud Practitioner",
+      items: [
+        {
+          eyebrow: "Nova certificação",
+          issuer: "Amazon Web Services · Exame CLF-C02",
+          tags: ["Emitido em novembro de 2026", "Válido por 3 anos", "Verificado na Credly"],
+          badgeAlt: "Badge AWS Certified Cloud Practitioner",
+        },
+        {
+          eyebrow: "Certificação",
+          issuer: "Oracle · Certified Professional",
+          tags: ["Emitido em outubro de 2025", "Válido até outubro de 2027"],
+          badgeAlt: "Badge Oracle Cloud Infrastructure Generative AI Professional",
+        },
+      ],
     },
     about: {
       title: "Sobre Mim",
@@ -613,13 +620,20 @@ export const translations: Record<Language, Translations> = {
       goToPhoto: "View photo",
     },
     aboutCertification: {
-      eyebrow: "New certification",
-      issuer: "Amazon Web Services · Exam CLF-C02",
-      issued: "Issued November 2026",
-      validity: "Valid for 3 years",
-      verified: "Verified on Credly",
-      cta: "View on Credly",
-      badgeAlt: "AWS Certified Cloud Practitioner badge",
+      items: [
+        {
+          eyebrow: "New certification",
+          issuer: "Amazon Web Services · Exam CLF-C02",
+          tags: ["Issued November 2026", "Valid for 3 years", "Verified on Credly"],
+          badgeAlt: "AWS Certified Cloud Practitioner badge",
+        },
+        {
+          eyebrow: "Certification",
+          issuer: "Oracle · Certified Professional",
+          tags: ["Issued Oct 2025", "Expires Oct 2027"],
+          badgeAlt: "Oracle Cloud Infrastructure Generative AI Professional badge",
+        },
+      ],
     },
     about: {
       title: "About Me",
@@ -944,13 +958,20 @@ export const translations: Record<Language, Translations> = {
       goToPhoto: "Ver foto",
     },
     aboutCertification: {
-      eyebrow: "Nueva certificación",
-      issuer: "Amazon Web Services · Examen CLF-C02",
-      issued: "Emitido en noviembre de 2026",
-      validity: "Válido por 3 años",
-      verified: "Verificado en Credly",
-      cta: "Ver en Credly",
-      badgeAlt: "Insignia AWS Certified Cloud Practitioner",
+      items: [
+        {
+          eyebrow: "Nueva certificación",
+          issuer: "Amazon Web Services · Examen CLF-C02",
+          tags: ["Emitido en noviembre de 2026", "Válido por 3 años", "Verificado en Credly"],
+          badgeAlt: "Insignia AWS Certified Cloud Practitioner",
+        },
+        {
+          eyebrow: "Certificación",
+          issuer: "Oracle · Certified Professional",
+          tags: ["Emitido en octubre de 2025", "Válido hasta octubre de 2027"],
+          badgeAlt: "Insignia Oracle Cloud Infrastructure Generative AI Professional",
+        },
+      ],
     },
     about: {
       title: "Sobre Mí",
