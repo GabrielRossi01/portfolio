@@ -6,6 +6,7 @@ import { LanguageProvider } from '@/contexts/LanguageContext';
 import SmoothScroll from '@/components/SmoothScroll';
 import type { Metadata, Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const sora = Sora({
   subsets: ['latin'],
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <SmoothScroll />
             {children}
             <Analytics />
+            <SpeedInsights />
           </LanguageProvider>
         </ThemeProvider>
       </body>
