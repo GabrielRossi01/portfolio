@@ -113,6 +113,15 @@ export interface Translations {
       tools: string;
       ai: string;
     };
+    // rótulos curtos dos botões de filtro das tecnologias
+    techFilter: {
+      label: string;
+      all: string;
+      frontend: string;
+      backend: string;
+      tools: string;
+      ai: string;
+    };
     github: string;
     githubDesc: string;
     linkedin: string;
@@ -321,6 +330,14 @@ export const translations: Record<Language, Translations> = {
         frontend: "Frontend",
         backend: "Backend & Banco de Dados",
         tools: "Ferramentas & Serviços de Nuvem",
+        ai: "IA",
+      },
+      techFilter: {
+        label: "Filtrar tecnologias",
+        all: "Todas",
+        frontend: "Frontend",
+        backend: "Backend e Banco de Dados",
+        tools: "Ferramentas e Nuvem",
         ai: "IA",
       },
       github: "Contribuindo com projetos no GitHub",
@@ -660,6 +677,14 @@ export const translations: Record<Language, Translations> = {
         tools: "Tools & Cloud Services",
         ai: "AI",
       },
+      techFilter: {
+        label: "Filter technologies",
+        all: "All",
+        frontend: "Frontend",
+        backend: "Backend and Database",
+        tools: "Tools and Cloud",
+        ai: "AI",
+      },
       github: "Contributing to projects on GitHub",
       githubDesc: "Open source and collaboration",
       linkedin: "Sharing insights on LinkedIn",
@@ -996,6 +1021,14 @@ export const translations: Record<Language, Translations> = {
         frontend: "Frontend",
         backend: "Backend & Bases de Datos",
         tools: "Herramientas & Servicios en la Nube",
+        ai: "IA",
+      },
+      techFilter: {
+        label: "Filtrar tecnologías",
+        all: "Todas",
+        frontend: "Frontend",
+        backend: "Backend y Bases de Datos",
+        tools: "Herramientas y Nube",
         ai: "IA",
       },
       github: "Contribuyendo a proyectos en GitHub",

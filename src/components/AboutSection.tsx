@@ -32,25 +32,144 @@ function LazyEarth() {
 
 // invertOnDark: logos monocromáticos pretos, que somem no fundo escuro
 // iconDark: versão própria para o tema escuro, quando inverter estragaria as cores
+// wide: logotipo horizontal, que ficaria minúsculo numa caixa quadrada
 type TechItem = {
   name: string;
   icon: string;
   iconDark?: string;
   invertOnDark?: boolean;
+  wide?: boolean;
 };
+
+type TechGroupId = "frontend" | "backend" | "tools" | "ai";
+
+const TECH_GROUPS: { id: TechGroupId; items: TechItem[] }[] = [
+  {
+    id: "frontend",
+    items: [
+      { name: "React", icon: "/react-original.svg" },
+      { name: "Next.js", icon: "/nextjs-original.svg", invertOnDark: true },
+      { name: "Angular", icon: "/angular-svgrepo-com.svg" },
+      { name: "Tailwind CSS", icon: "/tailwindcss-icon-svgrepo-com.svg" },
+      { name: "TypeScript", icon: "/typescript-original.svg" },
+      { name: "Expo Router", icon: "/expo-router.svg", invertOnDark: true },
+    ],
+  },
+  {
+    id: "backend",
+    items: [
+      { name: "Python", icon: "/python-original.svg" },
+      { name: "Java", icon: "/java-svgrepo-com.svg" },
+      { name: "Spring Boot", icon: "/spring-original-wordmark.svg" },
+      { name: "C#", icon: "/csharp-original.svg" },
+      { name: "Go", icon: "/go-original-wordmark.svg", wide: true },
+      { name: "MySQL", icon: "/mysql-svgrepo-com.svg" },
+      { name: "PostgreSQL", icon: "/postgresql-logo-svgrepo-com.svg" },
+      { name: "Supabase", icon: "/supabase-original.svg" },
+      { name: "MongoDB", icon: "/mongodb-svgrepo-com.svg" },
+      { name: "Redis", icon: "/redis-logo-svgrepo-com.svg" },
+      { name: "Docker", icon: "/docker-svgrepo-com.svg" },
+    ],
+  },
+  {
+    id: "tools",
+    items: [
+      { name: "Git", icon: "/git.svg" },
+      { name: "GitHub", icon: "/github.svg", invertOnDark: true },
+      { name: "Figma", icon: "/figma-original.svg" },
+      { name: "Vercel", icon: "/vercel-fill-svgrepo-com.svg", invertOnDark: true },
+      { name: "Railway", icon: "/railway-logo.svg", invertOnDark: true },
+      { name: "Postman", icon: "/postman-icon-svgrepo-com.svg" },
+      { name: "Insomnia", icon: "/insomnia-svgrepo-com.svg" },
+      { name: "Trello", icon: "/trello-svgrepo-com.svg" },
+      { name: "VS Code", icon: "/vscode-original.svg" },
+      { name: "Visual Studio", icon: "/visualstudio-plain.svg" },
+      { name: "IntelliJ IDEA", icon: "/intellij-idea-svgrepo-com.svg" },
+      { name: "Eclipse", icon: "/eclipse-original.svg" },
+      { name: "NPM", icon: "/npm-svgrepo-com.svg" },
+      { name: "AWS", icon: "/aws-svgrepo-com.svg", iconDark: "/aws-dark.svg" },
+      { name: "Azure", icon: "/azure-original-wordmark.svg" },
+      { name: "OCI", icon: "/oracle-svgrepo-com.svg" },
+      { name: "Linux", icon: "/linux-original.svg" },
+    ],
+  },
+  {
+    id: "ai",
+    items: [
+      { name: "Claude", icon: "/claude.svg" },
+      { name: "ChatGPT", icon: "/chatgpt.svg", invertOnDark: true },
+      { name: "Gemini", icon: "/gemini.svg" },
+      { name: "RAG", icon: "/rag.svg" },
+      { name: "MCP", icon: "/mcp.svg" },
+      { name: "Agent Skills", icon: "/agent-skills.svg" },
+    ],
+  },
+];
 
 // segundos por item: o tempo de cada fileira cresce com a quantidade de itens,
 // assim todas rolam na mesma velocidade
 const MARQUEE_SECONDS_PER_ITEM = 5;
 
+const TECH_GROUP_TITLE =
+  "text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center";
+
+const TECH_ICON_SIZES = "(max-width: 640px) 32px, 40px";
+
+function TechBadge({
+  tech,
+  as: Tag = "div",
+  duplicate = false,
+}: {
+  tech: TechItem;
+  as?: "div" | "li";
+  /** cópia usada só para o carrossel dar a volta; escondida de leitores de tela */
+  duplicate?: boolean;
+}) {
+  return (
+    <Tag
+      aria-hidden={duplicate ? true : undefined}
+      className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
+    >
+      <div
+        className={`relative h-4 xs:h-5 sm:h-6 flex items-center justify-center ${
+          tech.wide ? "w-7 xs:w-9 sm:w-10" : "w-4 xs:w-5 sm:w-6"
+        }`}
+      >
+        <Image
+          src={tech.icon}
+          alt={duplicate ? "" : `${tech.name} logo`}
+          fill
+          className={`object-contain ${tech.invertOnDark ? "dark:invert" : ""} ${tech.iconDark ? "dark:hidden" : ""}`}
+          sizes={TECH_ICON_SIZES}
+        />
+        {tech.iconDark && (
+          <Image
+            src={tech.iconDark}
+            alt=""
+            aria-hidden="true"
+            fill
+            className="hidden object-contain dark:block"
+            sizes={TECH_ICON_SIZES}
+          />
+        )}
+      </div>
+      <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
+        {tech.name}
+      </span>
+    </Tag>
+  );
+}
+
 function TechMarquee({
   items,
   group,
   reverse = false,
+  paused = false,
 }: {
   items: TechItem[];
   group: string;
   reverse?: boolean;
+  paused?: boolean;
 }) {
   const repeated = [...items, ...items, ...items];
   const duration = items.length * MARQUEE_SECONDS_PER_ITEM;
@@ -59,40 +178,96 @@ function TechMarquee({
     <div className="relative overflow-hidden flex justify-start">
       <div
         className={`marquee flex gap-2 xs:gap-2.5 sm:gap-3 ${reverse ? "marquee-reverse" : ""}`}
-        style={{ "--marquee-duration": `${duration}s` } as React.CSSProperties}
+        style={
+          {
+            "--marquee-duration": `${duration}s`,
+            animationPlayState: paused ? "paused" : undefined,
+          } as React.CSSProperties
+        }
       >
         {repeated.map((tech, index) => (
-          <div
+          <TechBadge
             key={`${group}-${index}`}
-            aria-hidden={index >= items.length ? true : undefined}
-            className="glass rounded-lg px-2.5 xs:px-3 sm:px-3.5 py-1.5 xs:py-2 flex items-center gap-1.5 xs:gap-2 min-w-fit hover:bg-white/10 transition-colors shrink-0"
-          >
-            <div className="relative w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center">
-              <Image
-                src={tech.icon}
-                alt={index < items.length ? `${tech.name} logo` : ""}
-                fill
-                className={`object-contain ${tech.invertOnDark ? "dark:invert" : ""} ${tech.iconDark ? "dark:hidden" : ""}`}
-                sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
-              />
-              {tech.iconDark && (
-                <Image
-                  src={tech.iconDark}
-                  alt=""
-                  aria-hidden="true"
-                  fill
-                  className="hidden object-contain dark:block"
-                  sizes="(max-width: 640px) 16px, (max-width: 768px) 20px, 24px"
-                />
-              )}
-            </div>
-            <span className="text-[10px] xs:text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
-              {tech.name}
-            </span>
-          </div>
+            tech={tech}
+            duplicate={index >= items.length}
+          />
         ))}
       </div>
     </div>
+  );
+}
+
+// Carrossel de tecnologias com filtro. "Todas" = carrossel rodando; uma
+// categoria = todas as tecnologias dela paradas. As duas visões ocupam a mesma
+// célula do grid (o carrossel fica invisível e pausado, guardando a altura),
+// então o card não pula ao trocar de filtro.
+function TechShowcase() {
+  const { t } = useLanguage();
+  const [filter, setFilter] = useState<TechGroupId | "all">("all");
+
+  const active = TECH_GROUPS.find((group) => group.id === filter);
+  const options = ["all", ...TECH_GROUPS.map((group) => group.id)] as const;
+
+  return (
+    <>
+      <div
+        role="group"
+        aria-label={t.about.techFilter.label}
+        className="mb-4 flex flex-wrap justify-center gap-1.5 xs:mb-5 sm:mb-6 sm:gap-2"
+      >
+        {options.map((option) => (
+          <button
+            key={option}
+            type="button"
+            aria-pressed={filter === option}
+            onClick={() => setFilter(option)}
+            className={`min-h-9 cursor-pointer rounded-full border px-3 py-1.5 text-[11px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 xs:text-xs sm:px-3.5 ${
+              filter === option
+                ? "border-gray-900 bg-gray-900 text-white dark:border-white dark:bg-white dark:text-gray-900"
+                : "border-black/15 text-gray-800 hover:bg-black/5 dark:border-white/15 dark:text-gray-200 dark:hover:bg-white/10"
+            }`}
+          >
+            {t.about.techFilter[option]}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-[minmax(0,1fr)]">
+        <div
+          inert={Boolean(active)}
+          className={`col-start-1 row-start-1 space-y-4 xs:space-y-5 sm:space-y-6 ${active ? "invisible" : ""}`}
+        >
+          {TECH_GROUPS.map((group, index) => (
+            <div key={group.id}>
+              <h4 className={TECH_GROUP_TITLE}>{t.about.techGroups[group.id]}</h4>
+              <TechMarquee
+                items={group.items}
+                group={group.id}
+                reverse={index % 2 === 1}
+                paused={Boolean(active)}
+              />
+            </div>
+          ))}
+        </div>
+
+        {active && (
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.25 }}
+            className="col-start-1 row-start-1 self-start"
+          >
+            <h4 className={TECH_GROUP_TITLE}>{t.about.techGroups[active.id]}</h4>
+            <ul className="flex flex-wrap justify-center gap-2 xs:gap-2.5 sm:gap-3">
+              {active.items.map((tech) => (
+                <TechBadge key={tech.name} as="li" tech={tech} />
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </div>
+    </>
   );
 }
 
@@ -343,55 +518,6 @@ export default function AboutSection() {
   // imagens decorativas entram só depois da hidratação (fora do HTML inicial)
   const hydrated = useHydrated();
 
-  const frontendTech: TechItem[] = [
-    { name: "React", icon: "/react-original.svg" },
-    { name: "Next.js", icon: "/nextjs-original.svg", invertOnDark: true },
-    { name: "Angular", icon: "/angular-svgrepo-com.svg" },
-    { name: "Tailwind CSS", icon: "/tailwindcss-icon-svgrepo-com.svg" },
-    { name: "TypeScript", icon: "/typescript-original.svg" },
-    { name: "Expo Router", icon: "/expo-router.svg", invertOnDark: true },
-  ];
-
-  const backendTech: TechItem[] = [
-    { name: "Python", icon: "/python-original.svg" },
-    { name: "Java", icon: "/java-svgrepo-com.svg" },
-    { name: "Spring Boot", icon: "/spring-original-wordmark.svg" },
-    { name: "C#", icon: "/csharp-original.svg" },
-    { name: "MySQL", icon: "/mysql-svgrepo-com.svg" },
-    { name: "PostgreSQL", icon: "/postgresql-logo-svgrepo-com.svg" },
-    { name: "MongoDB", icon: "/mongodb-svgrepo-com.svg" },
-    { name: "Redis", icon: "/redis-logo-svgrepo-com.svg" },
-    { name: "Docker", icon: "/docker-svgrepo-com.svg" },
-  ];
-
-  const toolsTech: TechItem[] = [
-    { name: "Git", icon: "/git.svg" },
-    { name: "GitHub", icon: "/github.svg", invertOnDark: true },
-    { name: "Figma", icon: "/figma-original.svg" },
-    { name: "Vercel", icon: "/vercel-fill-svgrepo-com.svg", invertOnDark: true },
-    { name: "Railway", icon: "/railway-logo.svg", invertOnDark: true },
-    { name: "Postman", icon: "/postman-icon-svgrepo-com.svg" },
-    { name: "Insomnia", icon: "/insomnia-svgrepo-com.svg" },
-    { name: "Trello", icon: "/trello-svgrepo-com.svg" },
-    { name: "VS Code", icon: "/vscode-original.svg" },
-    { name: "Visual Studio", icon: "/visualstudio-plain.svg" },
-    { name: "IntelliJ IDEA", icon: "/intellij-idea-svgrepo-com.svg" },
-    { name: "NPM", icon: "/npm-svgrepo-com.svg" },
-    { name: "AWS", icon: "/aws-svgrepo-com.svg", iconDark: "/aws-dark.svg" },
-    { name: "Azure", icon: "/azure-original-wordmark.svg" },
-    { name: "OCI", icon: "/oracle-svgrepo-com.svg" },
-    { name: "Linux", icon: "/linux-original.svg" },
-  ];
-
-  const aiTech: TechItem[] = [
-    { name: "Claude", icon: "/claude.svg" },
-    { name: "ChatGPT", icon: "/chatgpt.svg", invertOnDark: true },
-    { name: "Gemini", icon: "/gemini.svg" },
-    { name: "RAG", icon: "/rag.svg" },
-    { name: "MCP", icon: "/mcp.svg" },
-    { name: "Agent Skills", icon: "/agent-skills.svg" },
-  ];
-
   return (
     <section
       id="about"
@@ -611,35 +737,7 @@ export default function AboutSection() {
                 {t.about.passionate}
               </h3>
 
-              <div className="space-y-4 xs:space-y-5 sm:space-y-6">
-                <div>
-                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    {t.about.techGroups.frontend}
-                  </h4>
-                  <TechMarquee items={frontendTech} group="frontend" />
-                </div>
-
-                <div>
-                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    {t.about.techGroups.backend}
-                  </h4>
-                  <TechMarquee items={backendTech} group="backend" reverse />
-                </div>
-
-                <div>
-                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    {t.about.techGroups.tools}
-                  </h4>
-                  <TechMarquee items={toolsTech} group="tools" />
-                </div>
-
-                <div>
-                  <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-400 mb-2 xs:mb-2.5 sm:mb-3 text-center">
-                    {t.about.techGroups.ai}
-                  </h4>
-                  <TechMarquee items={aiTech} group="ai" reverse />
-                </div>
-              </div>
+              <TechShowcase />
             </motion.div>
 
             <motion.div
